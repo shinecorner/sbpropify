@@ -22,7 +22,7 @@ use Jenssegers\Agent\Agent;
 class AuthController extends Controller
 {
     /**
-     * @SWG\Pinboard(
+     * @SWG\Post(
      *      path="/auth/signup",
      *      summary="User signup",
      *      tags={"Auth"},
@@ -80,7 +80,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @SWG\Pinboard(
+     * @SWG\Post(
      *      path="/auth/login",
      *      summary="User login",
      *      tags={"Auth"},
@@ -233,7 +233,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @SWG\Pinboard(
+     * @SWG\Post(
      *      path="/auth/autologin",
      *      summary="User autologin",
      *      tags={"Auth"},

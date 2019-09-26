@@ -39,13 +39,13 @@ use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
 /**
- * Class PostController
+ * Class PinboardAPIController
  * @package App\Http\Controllers\API
  */
 class PinboardAPIController extends AppBaseController
 {
     /** @var  PinboardRepository */
-    private $postRepository;
+    private $pinboardRepository;
     /**
      * @var PinboardTransformer
      */
@@ -57,20 +57,20 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * PinboardAPIController constructor.
-     * @param PinboardRepository $postRepo
+     * @param PinboardRepository $pinboardRepo
      * @param PinboardTransformer $pt
      * @param UserTransformer $ut
      */
-    public function __construct(PinboardRepository $postRepo, PinboardTransformer $pt, UserTransformer $ut)
+    public function __construct(PinboardRepository $pinboardRepo, PinboardTransformer $pt, UserTransformer $ut)
     {
-        $this->postRepository = $postRepo;
+        $this->pinboardRepository = $pinboardRepo;
         $this->transformer = $pt;
         $this->uTransformer = $ut;
     }
 
     /**
      * @SWG\Get(
-     *      path="/posts",
+     *      path="/pinboards",
      *      summary="Get a listing of the Pinboards.",
      *      tags={"Listing"},
      *      description="Get all Pinboards",
@@ -87,7 +87,7 @@ class PinboardAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/Post")
+     *                  @SWG\Items(ref="#/definitions/Pinboard")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -103,19 +103,19 @@ class PinboardAPIController extends AppBaseController
      */
     public function index(ListRequest $request)
     {
-        $this->postRepository->pushCriteria(new LimitOffsetCriteria($request));
-        $this->postRepository->pushCriteria(new FeedCriteria($request));
-        $this->postRepository->pushCriteria(new FilterByStatusCriteria($request));
-        $this->postRepository->pushCriteria(new FilterByTypeCriteria($request));
-        $this->postRepository->pushCriteria(new FilterByLocationCriteria($request));
-        $this->postRepository->pushCriteria(new FilterByUserCriteria($request));
-        $this->postRepository->pushCriteria(new FilterByQuarterCriteria($request));
-        $this->postRepository->pushCriteria(new FilterByBuildingCriteria($request));
-        $this->postRepository->pushCriteria(new FilterByPinnedCriteria($request));
-        $this->postRepository->pushCriteria(new FilterByTenantCriteria($request));
+        $this->pinboardRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->pinboardRepository->pushCriteria(new FeedCriteria($request));
+        $this->pinboardRepository->pushCriteria(new FilterByStatusCriteria($request));
+        $this->pinboardRepository->pushCriteria(new FilterByTypeCriteria($request));
+        $this->pinboardRepository->pushCriteria(new FilterByLocationCriteria($request));
+        $this->pinboardRepository->pushCriteria(new FilterByUserCriteria($request));
+        $this->pinboardRepository->pushCriteria(new FilterByQuarterCriteria($request));
+        $this->pinboardRepository->pushCriteria(new FilterByBuildingCriteria($request));
+        $this->pinboardRepository->pushCriteria(new FilterByPinnedCriteria($request));
+        $this->pinboardRepository->pushCriteria(new FilterByTenantCriteria($request));
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $posts = $this->postRepository->with([
+        $pinboards = $this->pinboardRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -126,26 +126,26 @@ class PinboardAPIController extends AppBaseController
             'buildings.media',
             'providers',
         ])->withCount('views')->paginate($perPage);
-        $posts->getCollection()->loadCount('allComments');
+        $pinboards->getCollection()->loadCount('allComments');
 
 
-        $out = $this->transformer->transformPaginator($posts);
+        $out = $this->transformer->transformPaginator($pinboards);
         return $this->sendResponse($out, 'Pinboards retrieved successfully');
     }
 
     /**
      * @SWG\Post(
-     *      path="/posts",
-     *      summary="Store a newly created Post in storage",
+     *      path="/pinboards",
+     *      summary="Store a newly created Pinboard in storage",
      *      tags={"Listing"},
-     *      description="Store Post",
+     *      description="Store Pinboard",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="Post that should be stored",
+     *          description="Pinboard that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Post")
+     *          @SWG\Schema(ref="#/definitions/Pinboard")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -158,7 +158,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -200,8 +200,8 @@ class PinboardAPIController extends AppBaseController
             }
         }
 
-        $post = $this->postRepository->create($input);
-        $post->load([
+        $pinboard = $this->pinboardRepository->create($input);
+        $pinboard->load([
             'media',
             'user.tenant',
             'likesCounter',
@@ -214,21 +214,21 @@ class PinboardAPIController extends AppBaseController
             'providers',
             'views',
         ])->loadCount('allComments');
-        $data = $this->transformer->transform($post);
+        $data = $this->transformer->transform($pinboard);
 
-        return $this->sendResponse($data, __('models.post.saved'));
+        return $this->sendResponse($data, __('models.pinboard.saved'));
     }
 
     /**
      * @SWG\Get(
-     *      path="/posts/{id}",
-     *      summary="Display the specified Post",
+     *      path="/pinboards/{id}",
+     *      summary="Display the specified Pinboard",
      *      tags={"Listing"},
-     *      description="Get Post",
+     *      description="Get Pinboard",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Post",
+     *          description="id of Pinboard",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -244,7 +244,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -260,8 +260,8 @@ class PinboardAPIController extends AppBaseController
      */
     public function show($id, ShowRequest $request)
     {
-        /** @var Pinboard $post */
-        $post = $this->postRepository->with([
+        /** @var Pinboard $pinboard */
+        $pinboard = $this->pinboardRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -275,45 +275,45 @@ class PinboardAPIController extends AppBaseController
             'views',
         ])->withCount(['allComments', 'views'])->findWithoutFail($id);
 
-        if (empty($post)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+        if (empty($pinboard)) {
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
-        $post->likers = $post->collectLikers();
-        $this->fixPostViews($post);
-        if ($post->pinned) {
-            $post->load('pinned_email_receptionists');
+        $pinboard->likers = $pinboard->collectLikers();
+        $this->fixPinboardViews($pinboard);
+        if ($pinboard->pinned) {
+            $pinboard->load('pinned_email_receptionists');
         }
-        $data = $this->transformer->transform($post);
-        return $this->sendResponse($data, 'Post retrieved successfully');
+        $data = $this->transformer->transform($pinboard);
+        return $this->sendResponse($data, 'Pinboard retrieved successfully');
     }
 
     /**
-     * @param $post
+     * @param $pinboard
      */
-    protected function fixPostViews($post)
+    protected function fixPinboardViews($pinboard)
     {
         $tenantId = Auth::user()->tenant->id ?? null;
         if ($tenantId) {
-            $postView = $post->views->where('tenant_id', $tenantId)->first();
-            if (empty($postView)) {
-                $postView = $post->views()->create(['tenant_id' => Auth::user()->tenant->id, 'views' => 1]);
-                $post->views->push($postView);
+            $pinboardView = $pinboard->views->where('tenant_id', $tenantId)->first();
+            if (empty($pinboardView)) {
+                $pinboardView = $pinboard->views()->create(['tenant_id' => Auth::user()->tenant->id, 'views' => 1]);
+                $pinboard->views->push($pinboardView);
             } else {
-                $postView->update(['views' => $postView->views + 1]);
+                $pinboardView->update(['views' => $pinboardView->views + 1]);
             }
         }
     }
 
     /**
      * @SWG\Put(
-     *      path="/posts/{id}",
-     *      summary="Update the specified Post in storage",
+     *      path="/pinboards/{id}",
+     *      summary="Update the specified Pinboard in storage",
      *      tags={"Listing"},
-     *      description="Update Post",
+     *      description="Update Pinboard",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Post",
+     *          description="id of Pinboard",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -321,9 +321,9 @@ class PinboardAPIController extends AppBaseController
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="Post that should be updated",
+     *          description="Pinboard that should be updated",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Post")
+     *          @SWG\Schema(ref="#/definitions/Pinboard")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -336,7 +336,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -362,15 +362,15 @@ class PinboardAPIController extends AppBaseController
 
         $status = $request->get('status');
 
-        /** @var Pinboard $post */
-        $post = $this->postRepository->findWithoutFail($id);
+        /** @var Pinboard $pinboard */
+        $pinboard = $this->pinboardRepository->findWithoutFail($id);
 
-        if (empty($post)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+        if (empty($pinboard)) {
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
-        $this->postRepository->updateExisting($post, $input);
-        $post = $this->postRepository->with([
+        $this->pinboardRepository->updateExisting($pinboard, $input);
+        $pinboard = $this->pinboardRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -383,21 +383,21 @@ class PinboardAPIController extends AppBaseController
             'providers',
             'views',
         ])->withCount('allComments')->findWithoutFail($id);
-        $post->status = $status;
-        $data = $this->transformer->transform($post);
-        return $this->sendResponse($data, __('models.post.saved'));
+        $pinboard->status = $status;
+        $data = $this->transformer->transform($pinboard);
+        return $this->sendResponse($data, __('models.pinboard.saved'));
     }
 
     /**
      * @SWG\Delete(
-     *      path="/posts/{id}",
-     *      summary="Remove the specified Post from storage",
+     *      path="/pinboards/{id}",
+     *      summary="Remove the specified Pinboard from storage",
      *      tags={"Listing"},
-     *      description="Delete Post",
+     *      description="Delete Pinboard",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Post",
+     *          description="id of Pinboard",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -430,16 +430,16 @@ class PinboardAPIController extends AppBaseController
      */
     public function destroy($id, DeleteRequest $request)
     {
-        /** @var Pinboard $post */
-        $post = $this->postRepository->findWithoutFail($id);
+        /** @var Pinboard $pinboard */
+        $pinboard = $this->pinboardRepository->findWithoutFail($id);
 
-        if (empty($post)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+        if (empty($pinboard)) {
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
-        $post->delete();
+        $pinboard->delete();
 
-        return $this->sendResponse($id, __('models.post.deleted'));
+        return $this->sendResponse($id, __('models.pinboard.deleted'));
     }
 
     /**
@@ -452,21 +452,21 @@ class PinboardAPIController extends AppBaseController
             Pinboard::destroy($ids);
         }
         catch (\Exception $e) {
-            return $this->sendError(__('models.post.errors.deleted') . $e->getMessage());
+            return $this->sendError(__('models.pinboard.errors.deleted') . $e->getMessage());
         }
-        return $this->sendResponse($ids, __('models.post.deleted'));
+        return $this->sendResponse($ids, __('models.pinboard.deleted'));
     }
 
     /**
      * @SWG\Post(
-     *      path="/posts/{id}/publish",
-     *      summary="Publish a post",
+     *      path="/pinboards/{id}/publish",
+     *      summary="Publish a pinboard",
      *      tags={"Listing"},
-     *      description="Publish a post",
+     *      description="Publish a pinboard",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Post",
+     *          description="id of Pinboard",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -476,9 +476,9 @@ class PinboardAPIController extends AppBaseController
      *          in="body",
      *          type="integer",
      *          format="int32",
-     *          description="The new status of the post",
+     *          description="The new status of the pinboard",
      *          required=true,
-     *          @SWG\Schema(ref="#/definitions/Post")
+     *          @SWG\Schema(ref="#/definitions/Pinboard")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -491,7 +491,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -509,26 +509,26 @@ class PinboardAPIController extends AppBaseController
     public function publish($id, PublishRequest $request)
     {
         $newStatus = $request->get('status');
-        $post = $this->postRepository->findWithoutFail($id);
-        if (empty($post)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+        $pinboard = $this->pinboardRepository->findWithoutFail($id);
+        if (empty($pinboard)) {
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
-        $post = $this->postRepository->setStatusExisting($post, $newStatus, Carbon::now());
+        $pinboard = $this->pinboardRepository->setStatusExisting($pinboard, $newStatus, Carbon::now());
 
-        return $this->sendResponse($post, __('general.status_changed'));
+        return $this->sendResponse($pinboard, __('general.status_changed'));
     }
 
     /**
      * @SWG\Post(
-     *      path="/posts/{id}/like",
-     *      summary="Like a post",
+     *      path="/pinboards/{id}/like",
+     *      summary="Like a pinboard",
      *      tags={"Listing"},
-     *      description="Like a post",
+     *      description="Like a pinboard",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Post",
+     *          description="id of Pinboard",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -561,34 +561,34 @@ class PinboardAPIController extends AppBaseController
      */
     public function like($id, LikeRequest $r)
     {
-        $post = $this->postRepository->findWithoutFail($id);
-        if (empty($post)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+        $pinboard = $this->pinboardRepository->findWithoutFail($id);
+        if (empty($pinboard)) {
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
         $u = \Auth::user();
-        $u->like($post);
+        $u->like($pinboard);
 
         // if logged in user is tenant and
-        // author of post is tenant and
-        // author of post is different than liker
-        if ($u->tenant && $post->user->tenant && $u->id != $post->user_id) {
-            $post->user->notify(new PinboardLiked($post, $u->tenant));
+        // author of pinboard is tenant and
+        // author of pinboard is different than liker
+        if ($u->tenant && $pinboard->user->tenant && $u->id != $pinboard->user_id) {
+            $pinboard->user->notify(new PinboardLiked($pinboard, $u->tenant));
         }
         return $this->sendResponse($this->uTransformer->transform($u),
-        __('models.post.liked'));
+        __('models.pinboard.liked'));
     }
 
     /**
      * @SWG\Post(
-     *      path="/posts/{id}/unlike",
-     *      summary="Unlike a post",
+     *      path="/pinboards/{id}/unlike",
+     *      summary="Unlike a pinboard",
      *      tags={"Listing"},
-     *      description="Unlike a post",
+     *      description="Unlike a pinboard",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Post",
+     *          description="id of Pinboard",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -605,7 +605,7 @@ class PinboardAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="integer",
-     *                  description="count of likes for the post"
+     *                  description="count of likes for the pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -621,23 +621,23 @@ class PinboardAPIController extends AppBaseController
      */
     public function unlike($id, LikeRequest $r)
     {
-        $post = $this->postRepository->findWithoutFail($id);
-        if (empty($post)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+        $pinboard = $this->pinboardRepository->findWithoutFail($id);
+        if (empty($pinboard)) {
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
         $u = \Auth::user();
-        $u->unlike($post);
+        $u->unlike($pinboard);
         return $this->sendResponse($this->uTransformer->transform($u),
-        __('models.post.unliked'));
+        __('models.pinboard.unliked'));
     }
 
     /**
      * @SWG\Post(
-     *      path="/posts/{id}/buildings/{bid}",
-     *      summary="Assign the provided building to the post",
+     *      path="/pinboards/{id}/buildings/{bid}",
+     *      summary="Assign the provided building to the pinboard",
      *      tags={"Listing"},
-     *      description="Assign the provided building to the post",
+     *      description="Assign the provided building to the pinboard",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -650,7 +650,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -668,17 +668,17 @@ class PinboardAPIController extends AppBaseController
      */
     public function assignBuilding(int $id, int $bid, BuildingRepository $bRepo, AssignRequest $r)
     {
-        $p = $this->postRepository->findWithoutFail($id);
+        $p = $this->pinboardRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
         $b = $bRepo->findWithoutFail($bid);
         if (empty($b)) {
-            return $this->sendError(__('models.post.errors.building_not_found'));
+            return $this->sendError(__('models.pinboard.errors.building_not_found'));
         }
 
         $p->buildings()->sync($b, false);
-        $p = $this->postRepository->with([
+        $p = $this->pinboardRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -697,10 +697,10 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="/posts/{id}/buildings/{bid}",
-     *      summary="Unassign the provided building to the post",
+     *      path="/pinboards/{id}/buildings/{bid}",
+     *      summary="Unassign the provided building to the pinboard",
      *      tags={"Listing"},
-     *      description="Unassign the provided building to the post",
+     *      description="Unassign the provided building to the pinboard",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -713,7 +713,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -730,17 +730,17 @@ class PinboardAPIController extends AppBaseController
      */
     public function unassignBuilding(int $id, int $bid, BuildingRepository $bRepo, UnAssignRequest $r)
     {
-        $p = $this->postRepository->findWithoutFail($id);
+        $p = $this->pinboardRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
         $b = $bRepo->findWithoutFail($bid);
         if (empty($b)) {
-            return $this->sendError(__('models.post.errors.building_not_found'));
+            return $this->sendError(__('models.pinboard.errors.building_not_found'));
         }
 
         $p->buildings()->detach($b);
-        $p = $this->postRepository->with([
+        $p = $this->pinboardRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -759,10 +759,10 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="/posts/{id}/quarters/{did}",
-     *      summary="Assign the provided quarter to the post",
+     *      path="/pinboards/{id}/quarters/{did}",
+     *      summary="Assign the provided quarter to the pinboard",
      *      tags={"Listing"},
-     *      description="Assign the provided quarter to the post",
+     *      description="Assign the provided quarter to the pinboard",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -775,7 +775,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -793,17 +793,17 @@ class PinboardAPIController extends AppBaseController
      */
     public function assignQuarter(int $id, int $qid, QuarterRepository $qRepo, AssignRequest $r)
     {
-        $p = $this->postRepository->findWithoutFail($id);
+        $p = $this->pinboardRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
         $d = $qRepo->findWithoutFail($qid);
         if (empty($d)) {
-            return $this->sendError(__('models.post.errors.quarter_not_found'));
+            return $this->sendError(__('models.pinboard.errors.quarter_not_found'));
         }
 
         $p->quarters()->sync($d, false);
-        $p = $this->postRepository->with([
+        $p = $this->pinboardRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -822,10 +822,10 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="/posts/{id}/quarters/{did}",
-     *      summary="Unassign the provided quarter to the post",
+     *      path="/pinboards/{id}/quarters/{did}",
+     *      summary="Unassign the provided quarter to the pinboard",
      *      tags={"Listing"},
-     *      description="Unassign the provided quarter to the post",
+     *      description="Unassign the provided quarter to the pinboard",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -838,7 +838,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -856,17 +856,17 @@ class PinboardAPIController extends AppBaseController
      */
     public function unassignQuarter(int $id, int $qid, QuarterRepository $qRepo, UnAssignRequest $r)
     {
-        $p = $this->postRepository->findWithoutFail($id);
+        $p = $this->pinboardRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
         $d = $qRepo->findWithoutFail($qid);
         if (empty($d)) {
-            return $this->sendError(__('models.post.errors.building_not_found'));
+            return $this->sendError(__('models.pinboard.errors.building_not_found'));
         }
 
         $p->quarters()->detach($d);
-        $p = $this->postRepository->with([
+        $p = $this->pinboardRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -885,10 +885,10 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="/posts/{id}/locations",
-     *      summary="Get a listing of the post locations.",
+     *      path="/pinboards/{id}/locations",
+     *      summary="Get a listing of the pinboard locations.",
      *      tags={"Listing"},
-     *      description="Get a listing of the post locations.",
+     *      description="Get a listing of the pinboard locations.",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -902,7 +902,7 @@ class PinboardAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/Post")
+     *                  @SWG\Items(ref="#/definitions/Pinboard")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -919,22 +919,22 @@ class PinboardAPIController extends AppBaseController
      */
     public function getLocations(int $id, ViewRequest $request)
     {
-        $p = $this->postRepository->findWithoutFail($id);
+        $p = $this->pinboardRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $locations = $this->postRepository->locations($p)->paginate($perPage);
+        $locations = $this->pinboardRepository->locations($p)->paginate($perPage);
         return $this->sendResponse($locations, 'Locations retrieved successfully');
     }
 
     /**
      * @SWG\Post(
-     *      path="/posts/{id}/providers/{pid}",
-     *      summary="Assign the provided service provider to the post",
+     *      path="/pinboards/{id}/providers/{pid}",
+     *      summary="Assign the provided service provider to the pinboard",
      *      tags={"Listing"},
-     *      description="Assign the provided service provider to the post",
+     *      description="Assign the provided service provider to the pinboard",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -947,7 +947,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -965,17 +965,17 @@ class PinboardAPIController extends AppBaseController
      */
     public function assignProvider(int $id, int $pid, ServiceProviderRepository $pRepo, AssignRequest $r)
     {
-        $p = $this->postRepository->findWithoutFail($id);
+        $p = $this->pinboardRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
         $provider = $pRepo->findWithoutFail($pid);
         if (empty($provider)) {
-            return $this->sendError(__('models.post.errors.provider_not_found'));
+            return $this->sendError(__('models.pinboard.errors.provider_not_found'));
         }
 
         $p->providers()->sync($provider, false);
-        $p = $this->postRepository->with([
+        $p = $this->pinboardRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -995,10 +995,10 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="/posts/{id}/providers/{pid}",
-     *      summary="Unassign the provided service provider to the post",
+     *      path="/pinboards/{id}/providers/{pid}",
+     *      summary="Unassign the provided service provider to the pinboard",
      *      tags={"Listing"},
-     *      description="Unassign the provided service provider to the post",
+     *      description="Unassign the provided service provider to the pinboard",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -1011,7 +1011,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -1029,17 +1029,17 @@ class PinboardAPIController extends AppBaseController
      */
     public function unassignProvider(int $id, int $pid, ServiceProviderRepository $pRepo, UnAssignRequest $r)
     {
-        $p = $this->postRepository->findWithoutFail($id);
+        $p = $this->pinboardRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
         $provider = $pRepo->findWithoutFail($pid);
         if (empty($provider)) {
-            return $this->sendError(__('models.post.errors.provider_not_found'));
+            return $this->sendError(__('models.pinboard.errors.provider_not_found'));
         }
 
         $p->providers()->detach($provider);
-        $p = $this->postRepository->with([
+        $p = $this->pinboardRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -1058,10 +1058,10 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Put(
-     *      path="/posts/{id}/views",
-     *      summary="Increment the view count of the post",
+     *      path="/pinboards/{id}/views",
+     *      summary="Increment the view count of the pinboard",
      *      tags={"Listing"},
-     *      description="Increment the view count of the post",
+     *      description="Increment the view count of the pinboard",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -1074,7 +1074,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -1089,9 +1089,9 @@ class PinboardAPIController extends AppBaseController
      */
     public function incrementViews(int $id)
     {
-        $p = $this->postRepository->findWithoutFail($id);
+        $p = $this->pinboardRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
         $p->incrementViews(\Auth::id());
@@ -1100,10 +1100,10 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="/posts/{id}/views",
-     *      summary="List the view count of the post",
+     *      path="/pinboards/{id}/views",
+     *      summary="List the view count of the pinboard",
      *      tags={"Listing"},
-     *      description="List the view count of the post",
+     *      description="List the view count of the pinboard",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -1133,9 +1133,9 @@ class PinboardAPIController extends AppBaseController
      */
     public function indexViews(int $id, PinboardViewTransformer $pvt, ListViewsRequest $req)
     {
-        $p = $this->postRepository->findWithoutFail($id);
+        $p = $this->pinboardRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
         $perPage = $req->get('per_page', env('APP_PAGINATE', 10));

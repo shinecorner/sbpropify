@@ -100,7 +100,7 @@ class UnitAPIController extends AppBaseController
     }
 
     /**
-     * @SWG\Pinboard(
+     * @SWG\Post(
      *      path="/units",
      *      summary="Store a newly created Unit in storage",
      *      tags={"Unit"},
@@ -267,6 +267,7 @@ class UnitAPIController extends AppBaseController
      * @param UpdateRequest $request
      * @param PinboardRepository $pr
      * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update($id, UpdateRequest $request, PinboardRepository $pr)
@@ -281,7 +282,7 @@ class UnitAPIController extends AppBaseController
         if (empty($unit)) {
             return $this->sendError(__('models.unit.errors.not_found'));
         }
-        $shouldPost = isset($input['tenant_id']) &&
+        $shouldPinboard = isset($input['tenant_id']) &&
             (!$unit->tenant || ($unit->tenant && $unit->tenant->id != $input['tenant_id']));
 
         try {
@@ -300,7 +301,7 @@ class UnitAPIController extends AppBaseController
         }
 
         $unit->load('building', 'tenants.user');
-        if ($shouldPost) {
+        if ($shouldPinboard) {
             $pr->newTenantPinboard($unit->tenant);
         }
 
