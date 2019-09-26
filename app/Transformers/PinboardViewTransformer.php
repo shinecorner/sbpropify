@@ -5,16 +5,16 @@ namespace App\Transformers;
 use App\Models\PinboardView;
 
 /**
- * Class PostViewTransformer.
+ * Class PinboardViewTransformer.
  *
  * @package namespace App\Transformers;
  */
-class PostViewTransformer extends BaseTransformer
+class PinboardViewTransformer extends BaseTransformer
 {
     protected $defaultIncludes = [];
 
     /**
-     * Transform the PinboardView entity.
+     * Transform the PinboardViewTransformer entity.
      *
      * @param \App\Models\PinboardView $model
      *

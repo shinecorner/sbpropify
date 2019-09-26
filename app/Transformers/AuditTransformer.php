@@ -46,7 +46,7 @@ class AuditTransformer extends BaseTransformer
     private function getMessage(Audit $a)
     {
         if ($this->getMorphedModel($a->auditable_type) == Pinboard::class) {
-            return $this->getPostMessage($a);
+            return $this->getPinboardMessage($a);
         }
         if ($this->getMorphedModel($a->auditable_type) == Product::class) {
             return $this->getProductMessage($a);
@@ -58,7 +58,7 @@ class AuditTransformer extends BaseTransformer
         return "unkown";
     }
 
-    private function getPostMessage(Audit $a)
+    private function getPinboardMessage(Audit $a)
     {
         if ($a->event == 'created' || $a->event == 'deleted') {
             return $a->event;

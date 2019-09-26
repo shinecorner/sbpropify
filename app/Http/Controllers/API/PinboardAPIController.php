@@ -31,7 +31,7 @@ use App\Repositories\PinboardRepository;
 use App\Repositories\RealEstateRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Transformers\PinboardTransformer;
-use App\Transformers\PostViewTransformer;
+use App\Transformers\PinboardViewTransformer;
 use App\Transformers\UserTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
@@ -1127,11 +1127,11 @@ class PinboardAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param PostViewTransformer $pvt
+     * @param PinboardViewTransformer $pvt
      * @param ListViewsRequest $req
      * @return mixed
      */
-    public function indexViews(int $id, PostViewTransformer $pvt, ListViewsRequest $req)
+    public function indexViews(int $id, PinboardViewTransformer $pvt, ListViewsRequest $req)
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
