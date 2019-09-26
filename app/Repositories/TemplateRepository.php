@@ -17,6 +17,7 @@ use Illuminate\Container\Container as Application;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\Models\Media;
 
 /**
@@ -139,7 +140,7 @@ class TemplateRepository extends BaseRepository
         $tenant = $context['tenant'] ?? null;
 
         if ($tag == 'autologinUrl' && $user) {
-            $linkText = __('See post', [], $language);
+            $linkText = __('See pinboard', [], $language);
             return $this->button($user->autologinUrl, $linkText);
         }
 
@@ -150,7 +151,7 @@ class TemplateRepository extends BaseRepository
         }
 
         if ($tag == 'tenantCredentials' && $tenant) {
-            $linkHref = env('APP_URL') . \Storage::url($tenant->pdfXFileName());
+            $linkHref = env('APP_URL') . Storage::url($tenant->pdfXFileName());
             $linkText = __('Download Credentials', [], $language);
             return $this->button($linkHref, $linkText);
         }
@@ -339,12 +340,12 @@ class TemplateRepository extends BaseRepository
      */
     public function getNewPinboardParsedTemplate(Pinboard $pinboard, User $user): array
     {
-        $template = $this->getByCategoryName('new_post');
+        $template = $this->getByCategoryName('new_pinboard');
 
         $user->redirect = "/admin/pinboards/" . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $pinboard,
+            'pinboard' => $pinboard,
             'subject' => $pinboard->user,
         ];
 
@@ -385,12 +386,12 @@ class TemplateRepository extends BaseRepository
      */
     public function getPinnedPinboardParsedTemplate(Pinboard $pinboard, User $user): array
     {
-        $template = $this->getByCategoryName('pinned_post');
+        $template = $this->getByCategoryName('pinned_pinboard');
 
         $user->redirect = '/news/' . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $pinboard,
+            'pinboard' => $pinboard,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
@@ -399,18 +400,18 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @param User $receiver
      * @return array
      */
-    public function getPinboardParsedTemplate(Pinboard $post, User $receiver): array
+    public function getPinboardParsedTemplate(Pinboard $pinboard, User $receiver): array
     {
-        $template = $this->getByCategoryName('post_published');
+        $template = $this->getByCategoryName('pinboard_published');
 
-	    $receiver->redirect = '/news/' . $post->id;
+	    $receiver->redirect = '/news/' . $pinboard->id;
         $context = [
             'receiver' => $receiver,
-            'post' => $post,
+            'pinboard' => $pinboard,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
@@ -419,18 +420,18 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @param User $receiver
      * @return array
      */
-    public function getPinboardNewTenantInNeighbourParsedTemplate(Pinboard $post, User $receiver): array
+    public function getPinboardNewTenantInNeighbourParsedTemplate(Pinboard $pinboard, User $receiver): array
     {
-        $template = $this->getByCategoryName('post_new_tenant_in_neighbour');
+        $template = $this->getByCategoryName('pinboard_new_tenant_in_neighbour');
 
-        $receiver->redirect = '/news/' . $post->id;
+        $receiver->redirect = '/news/' . $pinboard->id;
         $context = [
             'receiver' => $receiver,
-            'post' => $post,
+            'pinboard' => $pinboard,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
@@ -446,12 +447,12 @@ class TemplateRepository extends BaseRepository
      */
     public function getPinboradCommentedParsedTemplate(Pinboard $pinboard, User $user, Comment $comment): array
     {
-        $template = $this->getByCategoryName('post_commented');
+        $template = $this->getByCategoryName('pinboard_commented');
 
         $pinboard->user->redirect = '/pinboards/' . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $pinboard,
+            'pinboard' => $pinboard,
             'comment' => $comment,
         ];
 
@@ -467,12 +468,12 @@ class TemplateRepository extends BaseRepository
      */
     public function getPinboardLikedParsedTemplate(Pinboard $pinboard, User $user): array
     {
-        $template = $this->getByCategoryName('post_liked');
+        $template = $this->getByCategoryName('pinboard_liked');
 
         $pinboard->user->redirect = '/pinboards/' . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $pinboard,
+            'pinboard' => $pinboard,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
