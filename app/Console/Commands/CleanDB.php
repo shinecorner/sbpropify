@@ -76,6 +76,8 @@ class CleanDB extends Command
     {
         $audits = $this->getMorphTable('auditable_id', 'auditable_type');
         $conversations = $this->getMorphTable('conversationable_id', 'conversationable_type');
+        $comments = $this->getMorphTable('commentable_id', 'commentable_type');
+
         $audits[] = [
             'relation' => (new User())->getTable(),
             'conditions' => [
@@ -86,6 +88,7 @@ class CleanDB extends Command
         $config = [
             'audits' => $audits,
             'conversations' => $conversations,
+            'comments' => $comments,
         ];
 
 
