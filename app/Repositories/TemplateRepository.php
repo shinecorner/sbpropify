@@ -403,7 +403,7 @@ class TemplateRepository extends BaseRepository
      * @param User $receiver
      * @return array
      */
-    public function getPostParsedTemplate(Pinboard $post, User $receiver): array
+    public function getPinboardParsedTemplate(Pinboard $post, User $receiver): array
     {
         $template = $this->getByCategoryName('post_published');
 

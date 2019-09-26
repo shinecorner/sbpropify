@@ -22,15 +22,15 @@ class PinboardPublished extends Notification implements ShouldQueue
     /**
      * @var Pinboard
      */
-    protected $post;
+    protected $pinboard;
 
     /**
      * PinboardPublished constructor.
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      */
-    public function __construct(Pinboard $post)
+    public function __construct(Pinboard $pinboard)
     {
-        $this->post = $post;
+        $this->pinboard = $pinboard;
     }
 
     /**
@@ -57,12 +57,12 @@ class PinboardPublished extends Notification implements ShouldQueue
     {
         $tRepo = new TemplateRepository(app());
         $notifiable->redirect = '/news';
-        $data = $tRepo->getPostParsedTemplate($this->post, $notifiable);
+        $data = $tRepo->getPinboardParsedTemplate($this->pinboard, $notifiable);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
         return (new MailMessage)
-            ->view('mails.postPublished', $data)->subject($data['subject']);
+            ->view('mails.pinboardPublished', $data)->subject($data['subject']);
     }
 
     /**
@@ -74,10 +74,10 @@ class PinboardPublished extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'post_id' => $this->post->id,
-            'post_type' => $this->post->type,
-            'user_name' => $this->post->user->name,
-            'fragment' => Str::limit($this->post->content, 128),
+            'pinboard_id' => $this->pinboard->id,
+            'pinboard_type' => $this->pinboard->type,
+            'user_name' => $this->pinboard->user->name,
+            'fragment' => Str::limit($this->pinboard->content, 128),
         ];
     }
 
