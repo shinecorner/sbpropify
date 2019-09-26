@@ -6,7 +6,7 @@ use App\Criteria\Common\RequestCriteria;
 use App\Criteria\ServiceProviders\FilterByCategoryCriteria;
 use App\Criteria\ServiceProviders\FilterByRelationsCriteria;
 use App\Criteria\ServiceProviders\FilterByLanguageCriteria;
-use App\Criteria\ServiceProviders\FilterByPostCriteria;
+use App\Criteria\ServiceProviders\FilterByPinboardCriteria;
 use App\Criteria\Common\HasRequestCriteria;
 use App\Criteria\ServiceProviders\FilterByStateCriteria;
 use App\Http\Controllers\AppBaseController;
@@ -101,7 +101,7 @@ class ServiceProviderAPIController extends AppBaseController
     {
         $this->serviceProviderRepository->pushCriteria(new RequestCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
-        $this->serviceProviderRepository->pushCriteria(new FilterByPostCriteria($request));
+        $this->serviceProviderRepository->pushCriteria(new FilterByPinboardCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByLanguageCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByCategoryCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByStateCriteria($request));

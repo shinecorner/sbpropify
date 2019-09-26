@@ -9,10 +9,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByPostCriteria
+ * Class FilterByPinboardCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByPostCriteria implements CriteriaInterface
+class FilterByPinboardCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
