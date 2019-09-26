@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 /**
- * Class PostLiked
+ * Class PinboardLiked
  * @package App\Notifications
  */
-class PostLiked extends Notification implements ShouldQueue
+class PinboardLiked extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -30,7 +30,7 @@ class PostLiked extends Notification implements ShouldQueue
     protected $liker;
 
     /**
-     * PostLiked constructor.
+     * PinboardLiked constructor.
      * @param Pinboard $post
      * @param Tenant $liker
      */

@@ -35,7 +35,7 @@ class PinboardCommented extends Notification implements ShouldQueue
     protected $comment;
 
     /**
-     * PostCommented constructor.
+     * PinboardCommented constructor.
      * @param Pinboard $pinboard
      * @param Tenant $commenter
      * @param Comment $comment

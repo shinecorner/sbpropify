@@ -24,7 +24,7 @@ use App\Http\Requests\API\Pinboard\UpdateRequest;
 use App\Http\Requests\API\Pinboard\ListViewsRequest;
 use App\Http\Requests\API\Pinboard\ViewRequest;
 use App\Models\Pinboard;
-use App\Notifications\PostLiked;
+use App\Notifications\PinboardLiked;
 use App\Repositories\BuildingRepository;
 use App\Repositories\QuarterRepository;
 use App\Repositories\PinboardRepository;
@@ -573,7 +573,7 @@ class PinboardAPIController extends AppBaseController
         // author of post is tenant and
         // author of post is different than liker
         if ($u->tenant && $post->user->tenant && $u->id != $post->user_id) {
-            $post->user->notify(new PostLiked($post, $u->tenant));
+            $post->user->notify(new PinboardLiked($post, $u->tenant));
         }
         return $this->sendResponse($this->uTransformer->transform($u),
         __('models.post.liked'));
