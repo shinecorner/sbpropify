@@ -46,10 +46,10 @@ class initDB extends Command
         system('composer dump-autoload');
         $bar->advance();
 
-        // if (Schema::hasTable('oauth_clients')) {
-        //     $this->call('passport:install', ['--force' => true]);
-        //     $bar->advance();
-        // }
+        if (Schema::hasTable('oauth_clients')) {
+            $this->call('passport:install', ['--force' => true]);
+            $bar->advance();
+        }
 
         $this->call('migrate:fresh');
         $bar->advance();
