@@ -423,7 +423,7 @@ class TemplateRepository extends BaseRepository
      * @param User $receiver
      * @return array
      */
-    public function getPostNewTenantInNeighbourParsedTemplate(Pinboard $post, User $receiver): array
+    public function getPinboardNewTenantInNeighbourParsedTemplate(Pinboard $post, User $receiver): array
     {
         $template = $this->getByCategoryName('post_new_tenant_in_neighbour');
 
