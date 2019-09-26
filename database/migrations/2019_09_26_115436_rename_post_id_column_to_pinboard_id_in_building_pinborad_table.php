@@ -13,7 +13,7 @@ class RenamePostIdColumnToPinboardIdInBuildingPinboradTable extends Migration
      */
     public function up()
     {
-        Schema::table('building_pinborad', function (Blueprint $table) {
+        Schema::table('building_pinboard', function (Blueprint $table) {
             $table->renameColumn('post_id', 'pinboard_id');
         });
     }
@@ -25,7 +25,7 @@ class RenamePostIdColumnToPinboardIdInBuildingPinboradTable extends Migration
      */
     public function down()
     {
-        Schema::table('building_pinborad', function (Blueprint $table) {
+        Schema::table('building_pinboard', function (Blueprint $table) {
             $table->renameColumn('pinboard_id', 'post_id');
         });
     }

@@ -13,7 +13,7 @@ class RenameQuarterPostTebleToQuarterPinboradTable extends Migration
      */
     public function up()
     {
-        Schema::rename('quarter_post', 'quarter_pinborad');
+        Schema::rename('quarter_post', 'quarter_pinboard');
     }
 
     /**
@@ -23,6 +23,6 @@ class RenameQuarterPostTebleToQuarterPinboradTable extends Migration
      */
     public function down()
     {
-        Schema::rename('quarter_pinborad', 'quarter_post');
+        Schema::rename('quarter_pinboard', 'quarter_post');
     }
 }

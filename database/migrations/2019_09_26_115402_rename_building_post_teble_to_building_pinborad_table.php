@@ -13,7 +13,7 @@ class RenameBuildingPostTebleToBuildingPinboradTable extends Migration
      */
     public function up()
     {
-        Schema::rename('building_post', 'building_pinborad');
+        Schema::rename('building_post', 'building_pinboard');
     }
 
     /**
@@ -23,6 +23,6 @@ class RenameBuildingPostTebleToBuildingPinboradTable extends Migration
      */
     public function down()
     {
-        Schema::rename('building_pinborad', 'building_post');
+        Schema::rename('building_pinboard', 'building_post');
     }
 }
