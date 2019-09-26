@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\ServiceRequest;
+use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -42,17 +44,25 @@ class CleanDB extends Command
     {
         $config = [
             'audits' => [
-                'relation' => (new ServiceRequest)->getTable(),
-                'relation_table_id' => 'id',
-                'relation_id' => 'auditable_id',
-                'conditions' => [
-                    'auditable_type' => get_morph_type_of(ServiceRequest::class)
+                [
+                    'relation' => (new ServiceRequest)->getTable(),
+                    'relation_id' => 'auditable_id',
+                    'conditions' => [
+                        'auditable_type' => get_morph_type_of(ServiceRequest::class)
+                    ],
+                ],
+                [
+                    'relation' => (new User())->getTable(),
+                    'conditions' => [
+                        'auditable_type' => get_morph_type_of(User::class)
+                    ],
                 ],
             ]
         ];
 
 
         foreach ($config as $table => $data) {
+            dd(Arr::isAssoc($data));
             $query = $this->getQuery($table, $data);
             DB::statement($query);
         }
