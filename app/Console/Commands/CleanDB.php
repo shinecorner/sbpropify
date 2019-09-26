@@ -53,8 +53,15 @@ class CleanDB extends Command
                 ],
                 [
                     'relation' => (new User())->getTable(),
+                    'relation_id' => 'auditable_id',
                     'conditions' => [
                         'auditable_type' => get_morph_type_of(User::class)
+                    ],
+                ],
+                [
+                    'relation' => (new User())->getTable(),
+                    'conditions' => [
+                        'user_type' => get_morph_type_of(User::class)
                     ],
                 ],
             ]
@@ -62,10 +69,18 @@ class CleanDB extends Command
 
 
         foreach ($config as $table => $data) {
-            dd(Arr::isAssoc($data));
-            $query = $this->getQuery($table, $data);
-            DB::statement($query);
+            if (Arr::isAssoc($data)) {
+                $query = $this->getQuery($table, $data);
+                DB::statement($query);
+            } else {
+                foreach ( $data as $_data) {
+                    $query = $this->getQuery($table, $_data);
+                    DB::statement($query);
+                }
+            }
         }
+
+        echo 'final';
 
     }
 
@@ -83,6 +98,8 @@ class CleanDB extends Command
                 $query .= ' and `' . $condition . '` = "' . $value . '"';
             }
         }
+        echo $query . PHP_EOL;
+        echo '-----------------------' . PHP_EOL;
         return $query;
     }
 }
