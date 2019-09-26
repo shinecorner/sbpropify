@@ -41,7 +41,7 @@ class FilterByQuarterCriteria implements CriteriaInterface
         }
 
         $u = \Auth::user();
-        if (!$u->can('list-post') && $u->tenant) {
+        if (!$u->can('list-pinboard') && $u->tenant) {
             $quarter_id = $u->tenant->building->quarter_id;
         }
 

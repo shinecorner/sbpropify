@@ -37,7 +37,7 @@ class FilterByUserCriteria implements CriteriaInterface
     {
         $user_id = $this->request->get('user_id', null);
         if ($user_id) {
-            $model->where('posts.user_id', $user_id);
+            $model->where('pinboards.user_id', $user_id);
         }
 
         return $model;
