@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\ServiceRequest;
 use App\Models\User;
+use App\Models\UserSettings;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -42,29 +43,16 @@ class CleanDB extends Command
      */
     public function handle()
     {
+        $audits = $this->getMorphTable('auditable_id', 'auditable_type');
+        $audits[] = [
+            'relation' => (new User())->getTable(),
+            'conditions' => [
+                'user_type' => get_morph_type_of(User::class)
+            ],
+        ];
+        
         $config = [
-            'audits' => [
-                [
-                    'relation' => (new ServiceRequest)->getTable(),
-                    'relation_id' => 'auditable_id',
-                    'conditions' => [
-                        'auditable_type' => get_morph_type_of(ServiceRequest::class)
-                    ],
-                ],
-                [
-                    'relation' => (new User())->getTable(),
-                    'relation_id' => 'auditable_id',
-                    'conditions' => [
-                        'auditable_type' => get_morph_type_of(User::class)
-                    ],
-                ],
-                [
-                    'relation' => (new User())->getTable(),
-                    'conditions' => [
-                        'user_type' => get_morph_type_of(User::class)
-                    ],
-                ],
-            ]
+            'audits' => $audits
         ];
 
 
@@ -101,5 +89,26 @@ class CleanDB extends Command
         echo $query . PHP_EOL;
         echo '-----------------------' . PHP_EOL;
         return $query;
+    }
+
+    protected function getMorphTable($relatedId, $relatedType)
+    {
+        $classes = [
+            ServiceRequest::class,
+            User::class,
+            UserSettings::class,
+        ];
+        $data = [];
+        foreach ($classes as $class) {
+            $data[] = [
+                'relation' => (new $class)->getTable(),
+                'relation_id' => $relatedId,
+                'conditions' => [
+                    $relatedType => get_morph_type_of($class)
+                ],
+            ];
+        }
+
+        return $data;
     }
 }
