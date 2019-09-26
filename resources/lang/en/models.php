@@ -196,7 +196,8 @@ return [
             'not_found' => 'Tenant rent contract not found',
             'create' => 'Tenant rent contract create error: ',
             'deleted' => 'Tenant rent contract Delete error: ',
-        ]
+        ],
+        'filename' => 'Filename',
     ],
     'building' => [
         'title' => 'Buildings',
