@@ -270,7 +270,7 @@
                                        style="margin: 15px 0 0; width: 100%" v-model="model.service_providers_ids">
                                 <el-option-group
                                     :key="serviceCategory"
-                                    :label="$t(`models.service.${serviceCategory}`)"
+                                    :label="$t(`models.service.category.${$constants.serviceProviders.category[serviceCategory]}`)"
                                     v-for="(services, serviceCategory) in allServices">
                                     <el-option
                                         :key="service.id"
