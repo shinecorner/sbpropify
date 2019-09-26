@@ -461,23 +461,23 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @param User $user
      * @return array
      */
-    public function getPostLikedParsedTemplate(Pinboard $post, User $user): array
+    public function getPinboardLikedParsedTemplate(Pinboard $pinboard, User $user): array
     {
         $template = $this->getByCategoryName('post_liked');
 
-        $post->user->redirect = '/news/' . $post->id;
+        $pinboard->user->redirect = '/pinboards/' . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $post,
+            'post' => $pinboard,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplateData($template, $tags, $post->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $pinboard->user->settings->language);
     }
 
     /**

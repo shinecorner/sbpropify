@@ -23,7 +23,7 @@ class PinboardLiked extends Notification implements ShouldQueue
     /**
      * @var Pinboard
      */
-    protected $post;
+    protected $pinboard;
     /**
      * @var Tenant
      */
@@ -31,12 +31,12 @@ class PinboardLiked extends Notification implements ShouldQueue
 
     /**
      * PinboardLiked constructor.
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @param Tenant $liker
      */
-    public function __construct(Pinboard $post, Tenant $liker)
+    public function __construct(Pinboard $pinboard, Tenant $liker)
     {
-        $this->post = $post;
+        $this->pinboard = $pinboard;
         $this->liker = $liker;
     }
 
@@ -64,12 +64,12 @@ class PinboardLiked extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $data = $tRepo->getPostLikedParsedTemplate($this->post, $this->liker->user);
+        $data = $tRepo->getPinboardLikedParsedTemplate($this->pinboard, $this->liker->user);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
         return (new MailMessage)
-            ->view('mails.postLiked', $data)->subject($data['subject']);
+            ->view('mails.pinboardLiked', $data)->subject($data['subject']);
     }
 
     /**
@@ -81,9 +81,9 @@ class PinboardLiked extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'post_id' => $this->post->id,
+            'pinboard_id' => $this->pinboard->id,
             'tenant' => $this->liker->name,
-            'fragment' => Str::limit($this->post->content, 128),
+            'fragment' => Str::limit($this->pinboard->content, 128),
         ];
     }
 
