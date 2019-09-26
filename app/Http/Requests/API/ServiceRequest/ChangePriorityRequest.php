@@ -3,7 +3,6 @@
 namespace App\Http\Requests\API\ServiceRequest;
 
 use App\Models\ServiceRequest;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\BaseRequest;
 
 class ChangePriorityRequest extends BaseRequest
@@ -15,12 +14,7 @@ class ChangePriorityRequest extends BaseRequest
      */
     public function authorize()
     {
-        $user = Auth::user();
-        if (!$user->can(['edit-request_tenant', 'edit-request_service', 'edit-request'])) {
-            return false;
-        }
-
-        return true;
+        return $this->can('edit-request');
     }
 
     /**

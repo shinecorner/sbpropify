@@ -14,7 +14,7 @@ class ViewRequest extends BaseRequest
     public function authorize()
     {
         return true;
-        return $this->can('list-request');
+        return $this->can('view-request');
     }
 
 }

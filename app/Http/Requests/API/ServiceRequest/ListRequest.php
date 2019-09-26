@@ -2,8 +2,7 @@
 
 namespace App\Http\Requests\API\ServiceRequest;
 
-use App\Models\ServiceRequest;
-use InfyOm\Generator\Request\BaseRequest;
+use App\Http\Requests\BaseRequest;
 
 class ListRequest extends BaseRequest
 {

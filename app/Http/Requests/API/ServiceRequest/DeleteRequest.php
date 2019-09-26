@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\API\ServiceRequest;
 
-use App\Models\ServiceRequest;
-use Illuminate\Support\Facades\Auth;
-use InfyOm\Generator\Request\BaseRequest;
+use App\Http\Requests\BaseRequest;
 
 class DeleteRequest extends BaseRequest
 {

@@ -20,12 +20,7 @@ class CreateRequest extends BaseRequest
      */
     public function authorize()
     {
-        $user = Auth::user();
-        if (!$user->can(['add-request'])) {
-            return false;
-        }
-
-        return true;
+        return $this->can('add-request');
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API\Tag;
 
 use App\Models\Tag;
-use InfyOm\Generator\Request\BaseRequest;
+use App\Http\Requests\BaseRequest;
 
 class ListRequest extends BaseRequest
 {
