@@ -77,6 +77,7 @@ class PermissionsTableSeeder extends Seeder
         ['add-unit', 'Add unit', 'add unit'],
         ['edit-unit', 'Edit unit', 'edit existing unit'],
         ['delete-unit', 'Delete unit', 'delete existing unit'],
+        ['assign-unit', 'Assigned related to unit', 'assigned related to unit'],
         // Property manager
         ['list-property_manager', 'List property manager', 'list property manager'],
         ['view-property_manager', 'View property manager', 'view property manager'],
