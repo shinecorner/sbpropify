@@ -105,7 +105,7 @@
             .logo {
                 margin: 1em auto;
                 img {
-                    width: 192px;
+                    width: 130px;
                 }
             }
             &:before {
