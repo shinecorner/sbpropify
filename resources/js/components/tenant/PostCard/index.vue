@@ -81,6 +81,11 @@
                 idProp: vm => vm.data.id
             })
         ],
+        data () {
+            return {
+                height: null,
+            }
+        },
         props: {
             data: {
                 type: Object,
@@ -89,7 +94,7 @@
             showActions : {
                 type: Boolean,
                 default: true
-            }
+            },
         },
         idState () {
             return {
@@ -127,9 +132,11 @@
 
                 return `${title}. ${first_name} ${last_name}`
             }
+            
         },
         mounted () {
             this.data.height =  this.$refs.container.clientHeight
+
         }
     }
 </script>

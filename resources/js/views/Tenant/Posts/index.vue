@@ -21,7 +21,7 @@
                             <loader v-for="idx in 5" :key="idx" />
                         </template>
                         <template v-slot="{item, index, active}">
-                            <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" page-mode >
+                            <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" page-mode v-if="!loading">
                                 <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'"/>
                                 <post-card :data="item" @edit-post="editPost" @delete-post="deletePost" v-else/>
                             </dynamic-scroller-item>
