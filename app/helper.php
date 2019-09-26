@@ -72,17 +72,15 @@ function update_db_fileds($class, $fields, $replace, $to)
             $value = str_replace($replace, $to, $value);
             $item->{$field} = $value;
             if ($oldValue != $value) {
+                echo 'In filed: ' . $field . ' of ' . $model->getTable() . ': ' . $item->id .   PHP_EOL;
                 if (is_array($oldValue)) {
-                    echo $model->getTable() . ': ' . $item->id . PHP_EOL;
                     foreach ($oldValue as $i => $_val) {
                         echo '[' . $_val  . "] replaced to [" . ($value[$i] ?? '') . ']' . PHP_EOL;
                     }
-                    echo PHP_EOL . '------------------------' .  PHP_EOL;
                 } else {
-                    echo $model->getTable() . ': ' . $item->id . PHP_EOL;
-                    echo '[' . $oldValue  . "] replaced to [" . $value . ']';
-                    echo  '------------------------' .  PHP_EOL;
+                    echo '[' . $oldValue  . "] replaced to [" . $value . ']'. PHP_EOL;
                 }
+                echo  '------------------------' .  PHP_EOL;
                 $item->save();
             }
         }
