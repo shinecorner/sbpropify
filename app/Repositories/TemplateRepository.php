@@ -333,19 +333,19 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @param User $user
      * @return array
      */
-    public function getNewPostParsedTemplate(Pinboard $post, User $user): array
+    public function getNewPinboardParsedTemplate(Pinboard $pinboard, User $user): array
     {
         $template = $this->getByCategoryName('new_post');
 
-        $user->redirect = "/admin/posts/" . $post->id;
+        $user->redirect = "/admin/pinboards/" . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $post,
-            'subject' => $post->user,
+            'post' => $pinboard,
+            'subject' => $pinboard->user,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
@@ -439,25 +439,25 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @param User $user
      * @param Comment $comment
      * @return array
      */
-    public function getPostCommentedParsedTemplate(Pinboard $post, User $user, Comment $comment): array
+    public function getPinboradCommentedParsedTemplate(Pinboard $pinboard, User $user, Comment $comment): array
     {
         $template = $this->getByCategoryName('post_commented');
 
-        $post->user->redirect = '/news/' . $post->id;
+        $pinboard->user->redirect = '/pinboards/' . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $post,
+            'post' => $pinboard,
             'comment' => $comment,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplateData($template, $tags, $post->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $pinboard->user->settings->language);
     }
 
     /**

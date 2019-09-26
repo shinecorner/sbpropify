@@ -14,17 +14,17 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 /**
- * Class PostCommented
+ * Class PinboardCommented
  * @package App\Notifications
  */
-class PostCommented extends Notification implements ShouldQueue
+class PinboardCommented extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
      * @var Pinboard
      */
-    protected $post;
+    protected $pinboard;
     /**
      * @var Tenant
      */
@@ -36,13 +36,13 @@ class PostCommented extends Notification implements ShouldQueue
 
     /**
      * PostCommented constructor.
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @param Tenant $commenter
      * @param Comment $comment
      */
-    public function __construct(Pinboard $post, Tenant $commenter, Comment $comment)
+    public function __construct(Pinboard $pinboard, Tenant $commenter, Comment $comment)
     {
-        $this->post = $post;
+        $this->pinboard = $pinboard;
         $this->commenter = $commenter;
         $this->comment = $comment;
     }
@@ -71,12 +71,12 @@ class PostCommented extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $data = $tRepo->getPostCommentedParsedTemplate($this->post, $this->commenter->user, $this->comment);
+        $data = $tRepo->getPinboradCommentedParsedTemplate($this->pinboard, $this->commenter->user, $this->comment);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
         return (new MailMessage)
-            ->view('mails.postCommented', $data)->subject($data['subject']);
+            ->view('mails.pinboardCommented', $data)->subject($data['subject']);
     }
 
     /**
@@ -88,10 +88,10 @@ class PostCommented extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'post_id' => $this->post->id,
+            'pinboard_id' => $this->pinboard->id,
             'tenant' => $this->commenter->name,
             'comment' => $this->comment->comment,
-            'fragment' => Str::limit($this->post->content, 128),
+            'fragment' => Str::limit($this->pinboard->content, 128),
         ];
     }
 

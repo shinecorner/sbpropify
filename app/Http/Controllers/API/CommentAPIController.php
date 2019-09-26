@@ -12,7 +12,7 @@ use App\Http\Requests\API\Comment\CreateRequest;
 use App\Http\Requests\API\Comment\DeleteRequest;
 use App\Http\Requests\API\Comment\ListRequest;
 use App\Http\Requests\API\Comment\UpdateRequest;
-use App\Notifications\PostCommented;
+use App\Notifications\PinboardCommented;
 use App\Notifications\ProductCommented;
 use App\Repositories\CommentRepository;
 use App\Repositories\PinboardRepository;
@@ -134,7 +134,7 @@ class CommentAPIController extends AppBaseController
         // author of post is different than liker
         $u = \Auth::user();
         if ($u->tenant && $post->user->tenant && $u->id != $post->user_id) {
-            $post->user->notify(new PostCommented($post, $u->tenant, $comment));
+            $post->user->notify(new PinboardCommented($post, $u->tenant, $comment));
         }
         $out = $this->transformer->transform($comment);
         return $this->sendResponse($out, __('general.comment_created'));

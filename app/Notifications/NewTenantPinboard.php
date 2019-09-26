@@ -30,7 +30,7 @@ class NewTenantPinboard extends Notification implements ShouldQueue
     protected $user;
 
     /**
-     * NewTenantPost constructor.
+     * NewTenantPinboard constructor.
      * @param Pinboard $pinboard
      * @param User $user
      */
@@ -60,7 +60,7 @@ class NewTenantPinboard extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $data = $tRepo->getNewPostParsedTemplate($this->pinboard, $this->user);
+        $data = $tRepo->getNewPinboardParsedTemplate($this->pinboard, $this->user);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
