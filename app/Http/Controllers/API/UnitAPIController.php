@@ -14,7 +14,7 @@ use App\Http\Requests\API\Unit\ListRequest;
 use App\Http\Requests\API\Unit\UpdateRequest;
 use App\Http\Requests\API\Unit\ViewRequest;
 use App\Models\Unit;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UnitRepository;
 use App\Transformers\UnitTransformer;
@@ -135,10 +135,10 @@ class UnitAPIController extends AppBaseController
      * )
      *
      * @param CreateRequest $request
-     * @param PostRepository $pr
+     * @param PinboardRepository $pr
      * @return Response
      */
-    public function store(CreateRequest $request, PostRepository $pr)
+    public function store(CreateRequest $request, PinboardRepository $pr)
     {
         $input = $request->all();
         $input['sq_meter'] = $input['sq_meter'] ?? 0;
@@ -265,11 +265,11 @@ class UnitAPIController extends AppBaseController
      *
      * @param $id
      * @param UpdateRequest $request
-     * @param PostRepository $pr
+     * @param PinboardRepository $pr
      * @return mixed
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update($id, UpdateRequest $request, PostRepository $pr)
+    public function update($id, UpdateRequest $request, PinboardRepository $pr)
     {
         $input = $request->all();
         if (isset($input['monthly_rent'])) {

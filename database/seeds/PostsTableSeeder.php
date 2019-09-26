@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Pinboard;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use Illuminate\Database\Seeder;
 
 class PostsTableSeeder extends Seeder

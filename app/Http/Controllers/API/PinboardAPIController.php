@@ -27,7 +27,7 @@ use App\Models\Pinboard;
 use App\Notifications\PostLiked;
 use App\Repositories\BuildingRepository;
 use App\Repositories\QuarterRepository;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use App\Repositories\RealEstateRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Transformers\PostTransformer;
@@ -44,7 +44,7 @@ use InfyOm\Generator\Criteria\LimitOffsetCriteria;
  */
 class PinboardAPIController extends AppBaseController
 {
-    /** @var  PostRepository */
+    /** @var  PinboardRepository */
     private $postRepository;
     /**
      * @var PostTransformer
@@ -57,11 +57,11 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * PinboardAPIController constructor.
-     * @param PostRepository $postRepo
+     * @param PinboardRepository $postRepo
      * @param PostTransformer $pt
      * @param UserTransformer $ut
      */
-    public function __construct(PostRepository $postRepo, PostTransformer $pt, UserTransformer $ut)
+    public function __construct(PinboardRepository $postRepo, PostTransformer $pt, UserTransformer $ut)
     {
         $this->postRepository = $postRepo;
         $this->transformer = $pt;

@@ -17,10 +17,9 @@ use App\Notifications\PostPublished;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 /**
- * Class PostRepository
+ * Class PinboardRepository
  * @package App\Repositories
  * @version February 11, 2019, 6:22 pm UTC
  *
@@ -28,7 +27,7 @@ use Illuminate\Support\Facades\DB;
  * @method Pinboard find($id, $columns = ['*'])
  * @method Pinboard first($columns = ['*'])
 */
-class PostRepository extends BaseRepository
+class PinboardRepository extends BaseRepository
 {
     /**
      * @var array
@@ -117,18 +116,18 @@ class PostRepository extends BaseRepository
         return $model;
     }
 
-    protected function saveNotificationAuditsAndLogs(Pinboard $post, $notificationsData)
+    protected function saveNotificationAuditsAndLogs(Pinboard $pinboard, $notificationsData)
     {
         $pinnedPostPublished = get_morph_type_of(PinnedPostPublished::class);
         $pinnedPostPublishedUsers = $notificationsData[$pinnedPostPublished] ?? collect();
         if ($pinnedPostPublishedUsers->isNotEmpty()) {
-            $post->pinned_email_receptionists()->create([
+            $pinboard->pinned_email_receptionists()->create([
                 'tenant_ids' => $pinnedPostPublishedUsers->pluck('tenant.id'),
                 'failed_tenant_ids' => []
             ]);
         }
 
-        $post->addDataInAudit('notifications', $notificationsData);
+        $pinboard->addDataInAudit('notifications', $notificationsData);
     }
 
 
@@ -141,24 +140,24 @@ class PostRepository extends BaseRepository
      */
     public function setStatus(int $id, $status, $publishedAt)
     {
-        $post = $this->find($id);
-        return $this->setStatusExisting($post, $status, $publishedAt);
+        $pinboard = $this->find($id);
+        return $this->setStatusExisting($pinboard, $status, $publishedAt);
     }
 
     /**
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @param $status
      * @param $publishedAt
      * @return Pinboard|mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function setStatusExisting(Pinboard $post, $status, $publishedAt)
+    public function setStatusExisting(Pinboard $pinboard, $status, $publishedAt)
     {
-        if ($post->status == $status) {
-            return $post;
+        if ($pinboard->status == $status) {
+            return $pinboard;
         }
 
-        return $this->updateExisting($post, ['status' => $status]);
+        return $this->updateExisting($pinboard, ['status' => $status]);
     }
 
     /**
@@ -197,24 +196,24 @@ class PostRepository extends BaseRepository
     }
 
     /**
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @return \Illuminate\Support\Collection
      */
-    public function notify(Pinboard $post)
+    public function notify(Pinboard $pinboard)
     {
-        if (!$post->notify_email) {
+        if (!$pinboard->notify_email) {
             return collect();
         }
 
-        $usersToNotify = $this->getNotifiedTenantUsers($post);
+        $usersToNotify = $this->getNotifiedTenantUsers($pinboard);
 
         $pinnedPostPublished = get_morph_type_of(PinnedPostPublished::class);
-        $postPublished = get_morph_type_of(PostPublished::class);
-        $postNewTenantNeighbor = get_morph_type_of(NewTenantInNeighbour::class);
+        $pinboardPublished = get_morph_type_of(PostPublished::class);
+        $pinboardNewTenantNeighbor = get_morph_type_of(NewTenantInNeighbour::class);
         $notificationsData = collect([
             $pinnedPostPublished => collect(),
-            $postPublished => collect(),
-            $postNewTenantNeighbor => collect(),
+            $pinboardPublished => collect(),
+            $pinboardNewTenantNeighbor => collect(),
         ]);
 
         if ($usersToNotify->isEmpty()) {
@@ -226,20 +225,20 @@ class PostRepository extends BaseRepository
         foreach ($usersToNotify as $u) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
             $u->redirect = '/news';
-            if ($u->settings && $u->settings->admin_notification && $post->pinned) {
+            if ($u->settings && $u->settings->admin_notification && $pinboard->pinned) {
                 $notificationsData[$pinnedPostPublished]->push($u);
-                $u->notify((new PinnedPostPublished($post))
+                $u->notify((new PinnedPostPublished($pinboard))
                     ->delay(now()->addSeconds($delay)));
                 continue;
             }
-            if ($u->settings && $u->settings->news_notification && ! $post->pinned) {
-                if ($post->type == Pinboard::TypePost) {
-                    $notificationsData[$postPublished]->push($u);
-                    $u->notify(new PostPublished($post));
+            if ($u->settings && $u->settings->news_notification && ! $pinboard->pinned) {
+                if ($pinboard->type == Pinboard::TypePost) {
+                    $notificationsData[$pinboardPublished]->push($u);
+                    $u->notify(new PostPublished($pinboard));
                 }
-                if ($post->type == Pinboard::TypeNewNeighbour) {
-                    $notificationsData[$postNewTenantNeighbor]->push($u);
-                    $u->notify((new NewTenantInNeighbour($post))->delay($post->published_at));
+                if ($pinboard->type == Pinboard::TypeNewNeighbour) {
+                    $notificationsData[$pinboardNewTenantNeighbor]->push($u);
+                    $u->notify((new NewTenantInNeighbour($pinboard))->delay($pinboard->published_at));
                 }
             }
         }
@@ -248,29 +247,29 @@ class PostRepository extends BaseRepository
     }
 
     /**
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @return Collection
      */
-    protected function getNotifiedTenantUsers(Pinboard $post)
+    protected function getNotifiedTenantUsers(Pinboard $pinboard)
     {
-        if ($post->visibility == Pinboard::VisibilityAll) {
+        if ($pinboard->visibility == Pinboard::VisibilityAll) {
             return User::whereHas('tenant', function ($q) {
                     $q->whereNull('tenants.deleted_at');
                 })
-                ->where('id', '!=', $post->user_id)
+                ->where('id', '!=', $pinboard->user_id)
                 ->get();
         }
 
         $quarterIds = $buildingIds = [];
-        if ($post->visibility == Pinboard::VisibilityQuarter || $post->pinned) {
-            $quarterIds = $post->quarters()->pluck('id')->toArray();
+        if ($pinboard->visibility == Pinboard::VisibilityQuarter || $pinboard->pinned) {
+            $quarterIds = $pinboard->quarters()->pluck('id')->toArray();
         }
 
-        if ($post->visibility == Pinboard::VisibilityAddress  || $post->pinned) {
-            $buildingIds = $post->buildings()->pluck('id')->toArray();
+        if ($pinboard->visibility == Pinboard::VisibilityAddress  || $pinboard->pinned) {
+            $buildingIds = $pinboard->buildings()->pluck('id')->toArray();
         }
         if (empty($quarterIds) && empty($buildingIds)) {
-            return $post->newCollection();
+            return $pinboard->newCollection();
         }
 
         return User::whereHas('tenant', function ($q) use ($quarterIds, $buildingIds) {
@@ -308,9 +307,9 @@ class PostRepository extends BaseRepository
     }
 
     /**
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      */
-    public function notifyAdminActions(Pinboard $post)
+    public function notifyAdminActions(Pinboard $pinboard)
     {
         if (! Auth::user()->hasRole('super_admin')) {
             return;
@@ -318,10 +317,10 @@ class PostRepository extends BaseRepository
         // @TODO
     }
 
-    public function notifyAdminNewTenantPosts(Pinboard $post)
+    public function notifyAdminNewTenantPosts(Pinboard $pinboard)
     {
         $newTenantPost = get_morph_type_of(NewTenantPost::class);
-        if (empty($post->user->tenant)) {
+        if (empty($pinboard->user->tenant)) {
             return collect([$newTenantPost => collect()]);
         }
 
@@ -330,9 +329,9 @@ class PostRepository extends BaseRepository
         $i = 0;
         foreach ($admins as $admin) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
-            $admin->redirect = '/admin/posts';
+            $admin->redirect = '/admin/pinboards';
 
-            $notif = (new NewTenantPost($post, $admin))->delay(now()->addSeconds($delay));
+            $notif = (new NewTenantPost($pinboard, $admin))->delay(now()->addSeconds($delay));
             $admin->notify($notif);
         }
 
@@ -350,7 +349,7 @@ class PostRepository extends BaseRepository
             return false;
         }
 
-        $post = $this->create([
+        $pinboard = $this->create([
             'visibility' => Pinboard::VisibilityAddress,
             'status' => Pinboard::StatusNew,
             'type' => Pinboard::TypeNewNeighbour,
@@ -366,8 +365,8 @@ class PostRepository extends BaseRepository
             $publishStart = Carbon::now();
         }
 
-        $this->setStatusExisting($post, Pinboard::StatusPublished, $publishStart);
-        return $post;
+        $this->setStatusExisting($pinboard, Pinboard::StatusPublished, $publishStart);
+        return $pinboard;
     }
 
     /**
@@ -381,7 +380,7 @@ class PostRepository extends BaseRepository
             return false;
         }
 
-        $post = $this->create([
+        $pinboard = $this->create([
             'visibility' => Pinboard::VisibilityAddress,
             'status' => Pinboard::StatusNew,
             'type' => Pinboard::TypeNewNeighbour,
@@ -397,8 +396,8 @@ class PostRepository extends BaseRepository
             $publishStart = Carbon::now();
         }
 
-        $this->setStatusExisting($post, Pinboard::StatusPublished, $publishStart);
-        return $post;
+        $this->setStatusExisting($pinboard, Pinboard::StatusPublished, $publishStart);
+        return $pinboard;
     }
 
     /**
@@ -410,11 +409,11 @@ class PostRepository extends BaseRepository
         // Cannot use $p->buildings() and $p->quarters() because of a bug
         // related to different number of columns in union
         $pbs = Building::select(\DB::raw('id, name, "building" as type'))
-            ->join('building_post', 'building_post.building_id', '=', 'id')
-            ->where('building_post.post_id', $p->id);
+            ->join('building_pinboard', 'building_pinboard.building_id', '=', 'id')
+            ->where('building_pinboard.pinboard_id', $p->id);
         $pds = Quarter::select(\DB::raw('id, name, "quarter" as type'))
-            ->join('quarter_post', 'quarter_post.quarter_id', '=', 'id')
-            ->where('quarter_post.post_id', $p->id);
+            ->join('quarter_pinboard', 'quarter_pinboard.quarter_id', '=', 'id')
+            ->where('quarter_pinboard.pinboard_id', $p->id);
 
         return $pbs->union($pds);
     }

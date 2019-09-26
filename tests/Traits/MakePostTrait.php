@@ -2,7 +2,7 @@
 
 use Faker\Factory as Faker;
 use App\Models\Pinboard;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 
 trait MakePostTrait
 {
@@ -14,8 +14,8 @@ trait MakePostTrait
      */
     public function makePost($postFields = [])
     {
-        /** @var PostRepository $postRepo */
-        $postRepo = App::make(PostRepository::class);
+        /** @var PinboardRepository $postRepo */
+        $postRepo = App::make(PinboardRepository::class);
         $theme = $this->fakePostData($postFields);
         return $postRepo->create($theme);
     }

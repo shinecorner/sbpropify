@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Pinboard;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PostRepositoryTest extends TestCase
@@ -9,14 +9,14 @@ class PostRepositoryTest extends TestCase
     use MakePostTrait, ApiTestTrait, DatabaseTransactions;
 
     /**
-     * @var PostRepository
+     * @var PinboardRepository
      */
     protected $postRepo;
 
     public function setUp()
     {
         parent::setUp();
-        $this->postRepo = App::make(PostRepository::class);
+        $this->postRepo = App::make(PinboardRepository::class);
     }
 
     /**

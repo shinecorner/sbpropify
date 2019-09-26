@@ -15,7 +15,7 @@ use App\Http\Requests\API\Comment\UpdateRequest;
 use App\Notifications\PostCommented;
 use App\Notifications\ProductCommented;
 use App\Repositories\CommentRepository;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\RealEstateRepository;
 use App\Repositories\ServiceRequestRepository;
@@ -55,7 +55,7 @@ class CommentAPIController extends AppBaseController
 
     /**
      * CommentAPIController constructor.
-     * @param PostRepository $postRepo
+     * @param PinboardRepository $postRepo
      * @param CommentRepository $commRepo
      * @param ProductRepository $prodRepo
      * @param ServiceRequestRepository $sr
@@ -63,7 +63,7 @@ class CommentAPIController extends AppBaseController
      * @param CommentTransformer $pt
      */
     public function __construct(
-        PostRepository $postRepo,
+        PinboardRepository $postRepo,
         CommentRepository $commRepo,
         ProductRepository $prodRepo,
         ServiceRequestRepository $sr,

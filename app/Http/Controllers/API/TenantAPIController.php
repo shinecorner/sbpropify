@@ -25,7 +25,7 @@ use App\Models\RealEstate;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\TenantCredentials;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use App\Repositories\TemplateRepository;
 use App\Repositories\RentContractRepository;
 use App\Repositories\TenantRepository;
@@ -255,11 +255,11 @@ class TenantAPIController extends AppBaseController
      * )
      *
      * @param CreateRequest $request
-     * @param PostRepository $pr
+     * @param PinboardRepository $pr
      * @return mixed
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function store(CreateRequest $request, PostRepository $pr)
+    public function store(CreateRequest $request, PinboardRepository $pr)
     {
         $input = (new TenantTransformer)->transformRequest($request->all());
         //@TODO This action already done in  TenantTransformer delete it
@@ -465,12 +465,12 @@ class TenantAPIController extends AppBaseController
      *
      * @param $id
      * @param UpdateRequest $request
-     * @param PostRepository $pr
+     * @param PinboardRepository $pr
      * @return mixed
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update($id, UpdateRequest $request, PostRepository $pr)
+    public function update($id, UpdateRequest $request, PinboardRepository $pr)
     {
         $input = (new TenantTransformer)->transformRequest($request->all());
         /** @var Tenant $tenant */

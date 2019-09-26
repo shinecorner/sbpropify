@@ -18,7 +18,7 @@ use App\Http\Requests\API\Media\TenantUploadRequest;
 use App\Models\Building;
 use App\Repositories\AddressRepository;
 use App\Repositories\BuildingRepository;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ServiceRequestRepository;
 use App\Repositories\RentContractRepository;
@@ -39,7 +39,7 @@ class MediaAPIController extends AppBaseController
     /** @var  AddressRepository */
     private $addressRepository;
 
-    /** @var  PostRepository */
+    /** @var  PinboardRepository */
     private $postRepository;
 
     /** @var  ProductRepository */
@@ -60,7 +60,7 @@ class MediaAPIController extends AppBaseController
      * MediaAPIController constructor.
      * @param BuildingRepository $buildingRepo
      * @param AddressRepository $addrRepo
-     * @param PostRepository $postRepo
+     * @param PinboardRepository $postRepo
      * @param ProductRepository $productRepo
      * @param TenantRepository $tenantRepo
      * @param RentContractRepository $rentContractRepository
@@ -69,7 +69,7 @@ class MediaAPIController extends AppBaseController
     public function __construct(
         BuildingRepository $buildingRepo,
         AddressRepository $addrRepo,
-        PostRepository $postRepo,
+        PinboardRepository $postRepo,
         ProductRepository $productRepo,
         TenantRepository $tenantRepo,
         RentContractRepository $rentContractRepository,

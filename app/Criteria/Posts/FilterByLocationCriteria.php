@@ -37,7 +37,7 @@ class FilterByLocationCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         $u = \Auth::user();
-        if ($u->can('list-post')) {
+        if ($u->can('list-pinboard')) {
             return $model;
         }
 
@@ -51,25 +51,25 @@ class FilterByLocationCriteria implements CriteriaInterface
         }
 
         $conds = [
-            "posts.user_id = ?",
-            "posts.visibility = ?",
-            "building_post.building_id = ?",
+            "pinboards.user_id = ?",
+            "pinboards.visibility = ?",
+            "building_pinboard.building_id = ?",
         ];
         $args = [
             \Auth::id(),
             Pinboard::VisibilityAll,
             $t->building_id,
         ];
-        // If the tenant building is in a quarter, show the pinned posts from that quarter
+        // If the tenant building is in a quarter, show the pinned pinboards from that quarter
         if ($t->building && $t->building->quarter_id) {
-            $conds[] = "quarter_post.quarter_id = ?";
+            $conds[] = "quarter_pinboard.quarter_id = ?";
             $args[] = $t->building->quarter_id;
         }
 
         // It's raw, Melissa, because  https://github.com/laravel/framework/issues/23957
-        return $model->select('posts.*')->distinct()
-            ->leftJoin("building_post", "building_post.post_id", "=", "posts.id")
-            ->leftJoin("quarter_post", "quarter_post.post_id", "=", "posts.id")
+        return $model->select('pinboards.*')->distinct()
+            ->leftJoin("building_pinboard", "building_pinboard.pinboard_id", "=", "pinboards.id")
+            ->leftJoin("quarter_pinboard", "quarter_pinboard.pinboard_id", "=", "pinboards.id")
             ->whereRaw("(" . implode(" or ", $conds) . ")", $args);
     }
 }
