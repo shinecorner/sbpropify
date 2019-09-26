@@ -541,7 +541,7 @@ class TenantAPIController extends AppBaseController
             $q->with('building.address', 'unit', 'media');
         }]);
         if ($shouldPost) {
-            $pr->newTenantPost($tenant);
+            $pr->newTenantPinboard($tenant);
         }
         //if ($userPass) {
             //$tenant->setCredentialsPDF();

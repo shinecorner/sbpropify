@@ -100,7 +100,7 @@ class UnitAPIController extends AppBaseController
     }
 
     /**
-     * @SWG\Post(
+     * @SWG\Pinboard(
      *      path="/units",
      *      summary="Store a newly created Unit in storage",
      *      tags={"Unit"},
@@ -158,7 +158,7 @@ class UnitAPIController extends AppBaseController
                     'unit_id' => $unit->id,
                 ];
                 $tenant = $this->tenantRepository->update($attr, $input['tenant_id']);
-                $pr->newTenantPost($tenant);
+                $pr->newTenantPinboard($tenant);
             } catch (\Exception $e) {
                 return $this->sendError(__('models.unit.errors.tenant_assign') . $e->getMessage());
             }
@@ -301,7 +301,7 @@ class UnitAPIController extends AppBaseController
 
         $unit->load('building', 'tenants.user');
         if ($shouldPost) {
-            $pr->newTenantPost($unit->tenant);
+            $pr->newTenantPinboard($unit->tenant);
         }
 
         $response = (new UnitTransformer)->transform($unit);

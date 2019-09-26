@@ -341,9 +341,10 @@ class PinboardRepository extends BaseRepository
     /**
      * @param Tenant $tenant
      * @return Pinboard|bool|mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function newTenantPost(Tenant $tenant)
+    public function newTenantPinboard(Tenant $tenant)
     {
         if ($tenant->homeless()) {
             return false;
