@@ -226,7 +226,7 @@
 
                                 <ui-divider></ui-divider>
                                 <div class="contract-actions">
-                                    <el-button @click="deleteContract(contract.id)" type="danger" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button>
+                                    <el-button @click="deleteContract(c_index)" type="danger" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button>
                                 </div>
                                 </div>
                             </template>
@@ -494,7 +494,7 @@
                 console.log('delete PDF', contract_index, index)
             },
             deleteContract( contract_index ) {
-
+                this.contracts.splice(contract_index, 1)
             }
         },
         mounted() {
