@@ -87,6 +87,7 @@ return [
     'none' => 'Nessuna',
     'all' => 'Tutti',
     'loadMore' => 'Carica di più',
+    'loading' => 'Caricamento...',
     'account' => 'Conto',
     'activate_account' => "Attivare l'account",
     'activate_code' => 'Attivare il codice',

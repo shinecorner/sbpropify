@@ -154,7 +154,7 @@ export default {
             type: Object,
             default: () => ({
                 state: false,
-                text: 'Loading...',
+                text: this.$t('general.loading'),
                 icon: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.8)'
             })
