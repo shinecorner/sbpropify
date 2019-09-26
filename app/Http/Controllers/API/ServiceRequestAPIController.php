@@ -425,7 +425,7 @@ class ServiceRequestAPIController extends AppBaseController
         return $this->sendResponse($response, __('models.request.status_changed'));
     }
 
-    /*
+    /**
      * @SWG\Post(
      *      path="/requests/{id}/changePriority",
      *      summary="Change status on ServiceRequest",
