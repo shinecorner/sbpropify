@@ -15,10 +15,10 @@ class DeleteRequest extends BaseRequest
     public function authorize()
     {
         $u = \Auth::user();
-        if ($u->can('delete-post')) {
+        if ($u->can('delete-pinboard')) {
             return true;
         }
-        return Post::where('id', $this->route('post'))
+        return Post::where('id', $this->route('pinboard') ?? $this->route('post'))
             ->where('user_id', $u->id)->first();
     }
 }

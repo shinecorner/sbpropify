@@ -14,7 +14,7 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         $userPermissions = Permission::where('name', 'like', '%-user')->get();
-        $postPermissions = Permission::where('name', 'like', '%-post')->get();
+        $postPermissions = Permission::where('name', 'like', '%-pinboard')->get();
         $prodPermissions = Permission::where('name', 'like', '%-product')->get();
         $reqPermissions = Permission::where('name', 'like', '%-request')->get();
         $providerPermissions = Permission::where('name', 'like', '%-provider')->get();

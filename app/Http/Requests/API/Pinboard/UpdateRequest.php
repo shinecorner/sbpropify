@@ -15,10 +15,10 @@ class UpdateRequest extends BaseRequest
     public function authorize()
     {
         $u = \Auth::user();
-        if ($u->can('edit-post')) {
+        if ($u->can('edit-pinboard')) {
             return true;
         }
-        return Post::where('id', $this->route('post'))
+        return Post::where('id', $this->route('pinboard'))
             ->where('user_id', $u->id)->first();
     }
 

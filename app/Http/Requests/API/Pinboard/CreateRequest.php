@@ -14,7 +14,7 @@ class CreateRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('add-post');
+        return $this->can('add-pinboard');
     }
 
     /**

@@ -15,10 +15,10 @@ class ShowRequest extends BaseRequest
     public function authorize()
     {
         $u = \Auth::user();
-        if ($u->can('view-post')) {
+        if ($u->can('view-pinboard')) {
             return true;
         }
-        $p = Post::where('id', $this->route('post'))->first();
+        $p = Post::where('id', $this->route('pinboard'))->first();
         if (!$p) {
             return false;
         }

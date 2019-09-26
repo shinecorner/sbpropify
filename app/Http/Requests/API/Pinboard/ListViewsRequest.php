@@ -13,6 +13,6 @@ class ListViewsRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('list_views-post');
+        return $this->can('list_views-pinboard');
     }
 }

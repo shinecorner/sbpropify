@@ -13,6 +13,6 @@ class UnAssignRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('assign-post');
+        return $this->can('assign-pinboard');
     }
 }
