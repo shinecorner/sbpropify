@@ -379,18 +379,18 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @param User $user
      * @return array
      */
-    public function getPinnedPostParsedTemplate(Pinboard $post, User $user): array
+    public function getPinnedPinboardParsedTemplate(Pinboard $pinboard, User $user): array
     {
         $template = $this->getByCategoryName('pinned_post');
 
-        $user->redirect = '/news/' . $post->id;
+        $user->redirect = '/news/' . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $post,
+            'post' => $pinboard,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);

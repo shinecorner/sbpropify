@@ -25,7 +25,7 @@ class PinnedPinboardPublished extends Notification implements ShouldQueue
     protected $pinboard;
 
     /**
-     * PinnedPostPublished constructor.
+     * PinnedPinboardPublished constructor.
      * @param Pinboard $pinboard
      */
     public function __construct(Pinboard $pinboard)
@@ -53,7 +53,7 @@ class PinnedPinboardPublished extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $data = $tRepo->getPinnedPostParsedTemplate($this->pinboard, $notifiable);
+        $data = $tRepo->getPinnedPinboardParsedTemplate($this->pinboard, $notifiable);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
