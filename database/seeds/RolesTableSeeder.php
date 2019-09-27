@@ -138,18 +138,20 @@ class RolesTableSeeder extends Seeder
         $RLCUser->description = '';
         $RLCUser->save();
         $tenantPerms = [
+            'list-pinboard',
             'list-product',
+            'list-request',
+            'list-service_request_category',
             'add-pinboard',
             'add-product',
             'add-comment',
-            'list-service_request_category',
-            'view-service_request_category',
+            'add-request',
             'add-request_tenant',
-            'edit-request_tenant',
-            'list-request',
             'add-cleanify_request',
+            'view-service_request_category',
             'view-real_estate',
             'view-tenants_statistics',
+            'edit-request_tenant',
         ];
         foreach ($tenantPerms as $p) {
             $RLCUser->attachPermission(Permission::where('name', $p)->first());
