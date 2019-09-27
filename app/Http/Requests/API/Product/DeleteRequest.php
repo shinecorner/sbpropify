@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Product;
 
 use App\Models\Product;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class DeleteRequest extends APIRequest
+class DeleteRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,21 +14,12 @@ class DeleteRequest extends APIRequest
      */
     public function authorize()
     {
-        $u = \Auth::user();
-        if ($u->can('delete-product')) {
+        if ($this->can('delete-product')) {
             return true;
         }
+
+        $u = \Auth::user();
         return Product::where('id', $this->route('product'))
             ->where('user_id', $u->id)->exists();
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
     }
 }

@@ -7,23 +7,22 @@ use App\Criteria\Comments\FilterChildrenOutCriteria;
 use App\Criteria\Comments\FilterIdsOutCriteria;
 use App\Criteria\Comments\FilterModelCriteria;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\Comment\ChildrenListRequest;
 use App\Http\Requests\API\Comment\CreateRequest;
-use App\Http\Requests\API\Comment\DestroyRequest;
+use App\Http\Requests\API\Comment\DeleteRequest;
 use App\Http\Requests\API\Comment\ListRequest;
 use App\Http\Requests\API\Comment\UpdateRequest;
-use App\Notifications\PostCommented;
+use App\Notifications\PinboardCommented;
 use App\Notifications\ProductCommented;
 use App\Repositories\CommentRepository;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\RealEstateRepository;
 use App\Repositories\ServiceRequestRepository;
 use App\Transformers\CommentTransformer;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
-
 
 /**
  * Class CommentController
@@ -32,7 +31,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 class CommentAPIController extends AppBaseController
 {
     /** @var  CommentRepository */
-    private $postRepository;
+    private $pinboardRepository;
     /**
      * @var ProductRepository
      */
@@ -56,7 +55,7 @@ class CommentAPIController extends AppBaseController
 
     /**
      * CommentAPIController constructor.
-     * @param PostRepository $postRepo
+     * @param PinboardRepository $pinboardRepo
      * @param CommentRepository $commRepo
      * @param ProductRepository $prodRepo
      * @param ServiceRequestRepository $sr
@@ -64,7 +63,7 @@ class CommentAPIController extends AppBaseController
      * @param CommentTransformer $pt
      */
     public function __construct(
-        PostRepository $postRepo,
+        PinboardRepository $pinboardRepo,
         CommentRepository $commRepo,
         ProductRepository $prodRepo,
         ServiceRequestRepository $sr,
@@ -72,7 +71,7 @@ class CommentAPIController extends AppBaseController
         CommentTransformer $pt
     )
     {
-        $this->postRepository = $postRepo;
+        $this->pinboardRepository = $pinboardRepo;
         $this->productRepository = $prodRepo;
         $this->serviceRequestRepository = $sr;
         $this->commentRepository = $commRepo;
@@ -81,12 +80,8 @@ class CommentAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param CreateRequest $request
-     * @return Response
-     *
      * @SWG\Post(
-     *      path="/posts/{id}/comments",
+     *      path="/pinboard/{id}/comments",
      *      summary="Store a newly created comment in storage",
      *      tags={"Comment"},
      *      description="Store Comment",
@@ -118,34 +113,34 @@ class CommentAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param CreateRequest $request
+     * @return Response
      */
-    public function storePostComment(int $id, CreateRequest $request)
+    public function storePinboardComment(int $id, CreateRequest $request)
     {
-        $post = $this->postRepository->findWithoutFail($id);
-        if (empty($post)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+        $pinboard = $this->pinboardRepository->findWithoutFail($id);
+        if (empty($pinboard)) {
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
-        $comment = $post->comment($request->comment, $request->parent_id);
+        $comment = $pinboard->comment($request->comment, $request->parent_id);
         $comment->load('user');
 
 
         // if logged in user is tenant and
-        // author of post is tenant and
-        // author of post is different than liker
+        // author of pinboard is tenant and
+        // author of pinboard is different than liker
         $u = \Auth::user();
-        if ($u->tenant && $post->user->tenant && $u->id != $post->user_id) {
-            $post->user->notify(new PostCommented($post, $u->tenant, $comment));
+        if ($u->tenant && $pinboard->user->tenant && $u->id != $pinboard->user_id) {
+            $pinboard->user->notify(new PinboardCommented($pinboard, $u->tenant, $comment));
         }
         $out = $this->transformer->transform($comment);
         return $this->sendResponse($out, __('general.comment_created'));
     }
 
     /**
-     * @param int $id
-     * @param CreateRequest $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/requests/{id}/comments",
      *      summary="Store a newly created comment in storage",
@@ -179,6 +174,10 @@ class CommentAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param CreateRequest $request
+     * @return Response
      */
     public function storeRequestComment(int $id, CreateRequest $request)
     {
@@ -196,10 +195,6 @@ class CommentAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param CreateRequest $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/products/{id}/comments",
      *      summary="Store a newly created comment in storage",
@@ -233,6 +228,10 @@ class CommentAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param CreateRequest $request
+     * @return Response
      */
     public function storeProductComment(int $id, CreateRequest $request)
     {
@@ -245,8 +244,8 @@ class CommentAPIController extends AppBaseController
         $comment->load('user');
 
         // if logged in user is tenant and
-        // author of post is tenant and
-        // author of post is different than liker
+        // author of pinboard is tenant and
+        // author of pinboard is different than liker
         $u = \Auth::user();
         if ($u->tenant && $product->user->tenant && $u->id != $product->user_id) {
             $product->user->notify(new ProductCommented($product, $u->tenant, $comment));
@@ -256,10 +255,6 @@ class CommentAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/comments",
      *      summary="Get a listing of the Comments.",
@@ -301,6 +296,10 @@ class CommentAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(ListRequest $request)
     {
@@ -323,10 +322,6 @@ class CommentAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/comments/{id}",
      *      summary="Get a listing of the children comments.",
@@ -361,8 +356,12 @@ class CommentAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ChildrenListRequest $request
+     * @return Response
+     * @throws \Exception
      */
-    public function children($id, Request $request)
+    public function children($id, ChildrenListRequest $request)
     {
         $this->commentRepository->pushCriteria(new RequestCriteria($request));
         $this->commentRepository->pushCriteria(new LimitOffsetCriteria($request));
@@ -376,7 +375,6 @@ class CommentAPIController extends AppBaseController
         $out = $this->transformer->transformPaginator($comments);
         return $this->sendResponse($out, 'Children comments retrieved successfully');
     }
-
 
     /**
      * @param int $id
@@ -447,11 +445,6 @@ class CommentAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param DeleteRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Delete(
      *      path="/comments/{id}",
      *      summary="Detele a created comment in storage",
@@ -485,8 +478,13 @@ class CommentAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param DeleteRequest $request
+     * @return Response
+     * @throws \Exception
      */
-    public function destroyComment(int $id, DestroyRequest $request)
+    public function destroyComment(int $id, DeleteRequest $request)
     {
         $comment = $this->commentRepository->findWithoutFail($id);
 

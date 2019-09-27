@@ -6,14 +6,16 @@ use App\Criteria\Common\RequestCriteria;
 use App\Criteria\ServiceProviders\FilterByCategoryCriteria;
 use App\Criteria\ServiceProviders\FilterByRelationsCriteria;
 use App\Criteria\ServiceProviders\FilterByLanguageCriteria;
-use App\Criteria\ServiceProviders\FilterByPostCriteria;
+use App\Criteria\ServiceProviders\FilterByPinboardCriteria;
 use App\Criteria\Common\HasRequestCriteria;
 use App\Criteria\ServiceProviders\FilterByStateCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\ServiceProvider\AssignRequest;
 use App\Http\Requests\API\ServiceProvider\CreateRequest;
 use App\Http\Requests\API\ServiceProvider\DeleteRequest;
-use App\Http\Requests\API\ServiceProvider\ShowRequest;
+use App\Http\Requests\API\ServiceProvider\ListRequest;
+use App\Http\Requests\API\ServiceProvider\ViewRequest;
+use App\Http\Requests\API\ServiceProvider\UnAssignRequest;
 use App\Http\Requests\API\ServiceProvider\UpdateRequest;
 use App\Models\ServiceProvider;
 use App\Models\User;
@@ -38,9 +40,23 @@ class ServiceProviderAPIController extends AppBaseController
 {
     /** @var  ServiceProviderRepository */
     private $serviceProviderRepository;
+
+    /**
+     * @var AddressRepository
+     */
     private $addressRepository;
+
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
+    /**
+     * ServiceProviderAPIController constructor.
+     * @param ServiceProviderRepository $serviceProviderRepo
+     * @param AddressRepository $addressRepo
+     * @param UserRepository $userRepo
+     */
     public function __construct(ServiceProviderRepository $serviceProviderRepo, AddressRepository $addressRepo, UserRepository $userRepo)
     {
         $this->serviceProviderRepository = $serviceProviderRepo;
@@ -49,10 +65,6 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Get(
      *      path="/service",
      *      summary="Get a listing of the ServiceProviders.",
@@ -80,12 +92,16 @@ class ServiceProviderAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param Request $request
+     * @return Response
+     * @throws /Exception
      */
-    public function index(Request $request)
+    public function index(ListRequest $request)
     {
         $this->serviceProviderRepository->pushCriteria(new RequestCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
-        $this->serviceProviderRepository->pushCriteria(new FilterByPostCriteria($request));
+        $this->serviceProviderRepository->pushCriteria(new FilterByPinboardCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByLanguageCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByCategoryCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByStateCriteria($request));
@@ -120,10 +136,6 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Get(
      *      path="/service/category",
      *      summary="Get a listing of the ServiceProviders by category.",
@@ -151,8 +163,12 @@ class ServiceProviderAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function indexByCategory(Request $request)
+    public function indexByCategory(ListRequest $request)
     {
         $this->serviceProviderRepository->pushCriteria(new RequestCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
@@ -165,9 +181,6 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/service",
      *      summary="Store a newly created ServiceProvider in storage",
@@ -201,6 +214,9 @@ class ServiceProviderAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return mixed
      */
     public function store(CreateRequest $request)
     {
@@ -258,9 +274,6 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/service/{id}",
      *      summary="Display the specified ServiceProvider",
@@ -294,8 +307,12 @@ class ServiceProviderAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ViewRequest $request
+     * @return mixed
      */
-    public function show($id, ShowRequest $request)
+    public function show($id, ViewRequest $request)
     {
         /** @var ServiceProvider $serviceProvider */
         $serviceProvider = $this->serviceProviderRepository->findWithoutFail($id);
@@ -311,10 +328,6 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateRequest $request
-     * @return Response
-     *
      * @SWG\Put(
      *      path="/service/{id}",
      *      summary="Update the specified ServiceProvider in storage",
@@ -355,6 +368,10 @@ class ServiceProviderAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
      */
     public function update($id, UpdateRequest $request)
     {
@@ -406,9 +423,6 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/service/{id}",
      *      summary="Remove the specified ServiceProvider from storage",
@@ -442,6 +456,10 @@ class ServiceProviderAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $request
+     * @return mixed
      */
     public function destroy($id, DeleteRequest $request)
     {
@@ -468,10 +486,10 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
+     * @param DeleteRequest $request
      * @return mixed
      */
-    public function destroyWithIds(Request $request){
+    public function destroyWithIds(DeleteRequest $request){
         $ids = $request->get('ids');
         try{
             foreach($ids as $id){
@@ -492,12 +510,6 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $did
-     * @param AssignRequest $r
-     * @param QuarterRepository $qRepo
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/services/{id}/quarters/{did}",
      *      summary="Assign the provided quarter to the service provider",
@@ -524,6 +536,12 @@ class ServiceProviderAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $did
+     * @param QuarterRepository $qRepo
+     * @param AssignRequest $r
+     * @return mixed
      */
     public function assignQuarter(int $id, int $did, QuarterRepository $qRepo, AssignRequest $r)
     {
@@ -544,12 +562,6 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $did
-     * @param AssignRequest $r
-     * @param QuarterRepository $qRepo
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/services/{id}/quarters/{did}",
      *      summary="Unassign the provided quarter from the service provider",
@@ -576,8 +588,14 @@ class ServiceProviderAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $did
+     * @param QuarterRepository $qRepo
+     * @param UnAssignRequest $r
+     * @return mixed
      */
-    public function unassignQuarter(int $id, int $did, QuarterRepository $qRepo, AssignRequest $r)
+    public function unassignQuarter(int $id, int $did, QuarterRepository $qRepo, UnAssignRequest $r)
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {
@@ -596,12 +614,6 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $bid
-     * @param AssignRequest $r
-     * @param BuildingRepository $bRepo
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/services/{id}/buildings/{bid}",
      *      summary="Assign the provided building to the service provider",
@@ -628,6 +640,12 @@ class ServiceProviderAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $bid
+     * @param BuildingRepository $bRepo
+     * @param AssignRequest $r
+     * @return mixed
      */
     public function assignBuilding(int $id, int $bid, BuildingRepository $bRepo, AssignRequest $r)
     {
@@ -653,12 +671,6 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $bid
-     * @param AssignRequest $request
-     * @param BuildingRepository $bRepo
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/services/{id}/buildings/{bid}",
      *      summary="Unassign the provided building from the service provider",
@@ -685,8 +697,14 @@ class ServiceProviderAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $bid
+     * @param BuildingRepository $bRepo
+     * @param UnAssignRequest $r
+     * @return mixed
      */
-    public function unassignBuilding(int $id, int $bid, BuildingRepository $bRepo, AssignRequest $r)
+    public function unassignBuilding(int $id, int $bid, BuildingRepository $bRepo, UnAssignRequest $r)
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {
@@ -705,11 +723,6 @@ class ServiceProviderAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/services/{id}/locations",
      *      summary="Get a listing of the service provider locations.",
@@ -737,8 +750,12 @@ class ServiceProviderAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param Request $request
+     * @return mixed
      */
-    public function getLocations(int $id, Request $request)
+    public function getLocations(int $id, ViewRequest $request)
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {

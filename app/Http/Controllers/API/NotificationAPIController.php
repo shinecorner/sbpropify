@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\Notification\EditRequest;
+use App\Http\Requests\API\Notification\ListRequest;
 use App\Transformers\NotificationTransformer;
-use Illuminate\Http\Request;
-use InfyOm\Generator\Criteria\LimitOffsetCriteria;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Criteria\Notifications\FilterByUserCriteria;
 
 /**
  * Class NotificationController
@@ -16,17 +14,21 @@ use App\Criteria\Notifications\FilterByUserCriteria;
 
 class NotificationAPIController extends AppBaseController
 {
+    /**
+     * @var NotificationTransformer
+     */
     private $transformer;
 
+    /**
+     * NotificationAPIController constructor.
+     * @param NotificationTransformer $nTrans
+     */
     public function __construct(NotificationTransformer $nTrans)
     {
         $this->transformer = $nTrans;
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/notifications",
      *      summary="Get a listing of the notifications.",
@@ -54,8 +56,11 @@ class NotificationAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
      */
-    public function index(Request $request)
+    public function index(ListRequest $request)
     {
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $user = $request->user();
@@ -69,9 +74,6 @@ class NotificationAPIController extends AppBaseController
     }
 
     /**
-     * @param MarkNotificationAPIRequest $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/notifications/{id}",
      *      summary="Mark a notification as read/unread",
@@ -97,8 +99,12 @@ class NotificationAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param EditRequest $request
+     * @return mixed
      */
-    public function markAsReadUnRead($id, Request $request)
+    public function markAsReadUnRead($id, EditRequest $request)
     {
         $notification = $request->user()->notifications()
             ->where('id', $id)
@@ -114,10 +120,7 @@ class NotificationAPIController extends AppBaseController
         return $this->sendResponse($response, 'Notification marked successfully');
     }
 
-
     /**
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/notifications",
      *      summary="Mark all notifications as read",
@@ -143,8 +146,11 @@ class NotificationAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param EditRequest $request
+     * @return mixed
      */
-    public function markAllAsRead(Request $request)
+    public function markAllAsRead(EditRequest $request)
     {
         $marked = $request->user()->unreadNotifications()
             ->get()->markAsRead();

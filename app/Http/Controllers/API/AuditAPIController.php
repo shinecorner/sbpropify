@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\AuditRepository;
 use App\Transformers\AuditTransformer;
-use Illuminate\Http\Request;
 use Prettus\Repository\Criteria\RequestCriteria;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use App\Criteria\Audits\FilterByUserCriteria;
@@ -22,8 +21,17 @@ class AuditAPIController extends AppBaseController
 {
     /** @var  AuditRepository */
     private $auditRepository;
+
+    /**
+     * @var AuditTransformer
+     */
     private $auditTransformer;
 
+    /**
+     * AuditAPIController constructor.
+     * @param AuditRepository $ar
+     * @param AuditTransformer $at
+     */
     public function __construct(AuditRepository $ar, AuditTransformer $at)
     {
         $this->auditRepository = $ar;
@@ -31,9 +39,6 @@ class AuditAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/audits",
      *      summary="Get a listing of the Audits.",
@@ -60,6 +65,10 @@ class AuditAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(ListRequest $request)
     {

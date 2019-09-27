@@ -51,9 +51,13 @@ export default (config = {}) => {
                         deposit_amount: '',
                         deposit_type: '',
                         net_rent: '',
-                        heating_operating_costs_installment: ''
+                        unit_id: '',
+                        building_id: '',
+                        heating_operating_costs_installment: '',
+                        media: []
                     }
                 },
+                contracts: [],
                 validationRules: {
                     first_name: [{
                         required: true,
@@ -174,7 +178,13 @@ export default (config = {}) => {
                 });
             },
             async addContract() {
-                console.log('add contract')
+
+                this.contracts.push(Object.assign({}, this.model.contract))
+                Object.keys(this.model.contract).forEach(index => {
+                    this.model.contract[index] = ''
+                })
+                this.model.contract.media = [];
+                console.log('add contract', this.contracts)
                 // let params = {tenant_id : 1, ...this.model.contract}
                 // await this.$store.dispatch('rentContracts/create', params)
             },

@@ -87,6 +87,7 @@ return [
     'none' => 'Nessuna',
     'all' => 'Tutti',
     'loadMore' => 'Carica di più',
+    'loading' => 'Caricamento...',
     'account' => 'Conto',
     'activate_account' => "Attivare l'account",
     'activate_code' => 'Attivare il codice',
@@ -252,6 +253,5 @@ return [
     ],
     'to_homepage' => 'Alla Homepage',
     "assignment" => "Assegnazione",
-    'status_changed' => "Stato cambiato",
-    'notification' => 'Notifica',
+    'status_changed' => "Stato cambiato"
 ];

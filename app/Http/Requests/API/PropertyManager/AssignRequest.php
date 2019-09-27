@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\API\PropertyManager;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class AssignRequest extends APIRequest
+class AssignRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,16 +13,6 @@ class AssignRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('assign-property_manager');
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
+        return $this->can('assign-property_manager');
     }
 }

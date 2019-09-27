@@ -5,8 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Media\BuildingDeleteRequest;
 use App\Http\Requests\API\Media\BuildingUploadRequest;
-use App\Http\Requests\API\Media\PostDeleteRequest;
-use App\Http\Requests\API\Media\PostUploadRequest;
+use App\Http\Requests\API\Media\PinboardDeleteRequest;
+use App\Http\Requests\API\Media\PinboardUploadRequest;
 use App\Http\Requests\API\Media\ProductDeleteRequest;
 use App\Http\Requests\API\Media\ProductUploadRequest;
 use App\Http\Requests\API\Media\SRequestDeleteRequest;
@@ -18,13 +18,12 @@ use App\Http\Requests\API\Media\TenantUploadRequest;
 use App\Models\Building;
 use App\Repositories\AddressRepository;
 use App\Repositories\BuildingRepository;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ServiceRequestRepository;
 use App\Repositories\RentContractRepository;
 use App\Repositories\TenantRepository;
 use App\Transformers\MediaTransformer;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -40,8 +39,8 @@ class MediaAPIController extends AppBaseController
     /** @var  AddressRepository */
     private $addressRepository;
 
-    /** @var  PostRepository */
-    private $postRepository;
+    /** @var  PinboardRepository */
+    private $pinboardRepository;
 
     /** @var  ProductRepository */
     private $productRepository;
@@ -61,7 +60,7 @@ class MediaAPIController extends AppBaseController
      * MediaAPIController constructor.
      * @param BuildingRepository $buildingRepo
      * @param AddressRepository $addrRepo
-     * @param PostRepository $postRepo
+     * @param PinboardRepository $pinboardRepo
      * @param ProductRepository $productRepo
      * @param TenantRepository $tenantRepo
      * @param RentContractRepository $rentContractRepository
@@ -70,7 +69,7 @@ class MediaAPIController extends AppBaseController
     public function __construct(
         BuildingRepository $buildingRepo,
         AddressRepository $addrRepo,
-        PostRepository $postRepo,
+        PinboardRepository $pinboardRepo,
         ProductRepository $productRepo,
         TenantRepository $tenantRepo,
         RentContractRepository $rentContractRepository,
@@ -79,7 +78,7 @@ class MediaAPIController extends AppBaseController
     {
         $this->buildingRepository = $buildingRepo;
         $this->addressRepository = $addrRepo;
-        $this->postRepository = $postRepo;
+        $this->pinboardRepository = $pinboardRepo;
         $this->productRepository = $productRepo;
         $this->tenantRepository = $tenantRepo;
         $this->serviceRequestRepository = $serviceRequestRepo;
@@ -87,10 +86,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/buildings/{building_id}/media",
      *      summary="Store a newly created Building Media in storage",
@@ -124,11 +119,14 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param BuildingUploadRequest $request
+     * @return Response
      */
     public function buildingUpload(int $id, BuildingUploadRequest $request)
     {
-
-        $categories = \App\Models\Building::BuildingMediaCategories;
+        $categories = Building::BuildingMediaCategories;
         $rules = [];
         foreach ($categories as $category) {
             $requiredWithout = implode('_upload,', array_diff($categories, [$category])) . '_upload';
@@ -177,10 +175,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $building_id
-     * @param int $media_id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/building/{building_id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
@@ -214,6 +208,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $building_id
+     * @param int $media_id
+     * @param BuildingDeleteRequest $r
+     * @return Response
      */
     public function buildingDestroy(int $building_id, int $media_id, BuildingDeleteRequest $r)
     {
@@ -234,13 +233,9 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Post(
-     *      path="/posts/{post_id}/media",
-     *      summary="Store a newly created Post Media in storage",
+     *      path="/pinboard/{pinboard_id}/media",
+     *      summary="Store a newly created Pinboard Media in storage",
      *      tags={"Listing"},
      *      description="Store Media",
      *      produces={"application/json"},
@@ -249,7 +244,7 @@ class MediaAPIController extends AppBaseController
      *          in="body",
      *          description="Media that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Post")
+     *          @SWG\Schema(ref="#/definitions/Pinboard")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -262,7 +257,7 @@ class MediaAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -271,16 +266,20 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param PinboardUploadRequest $request
+     * @return Response
      */
-    public function postUpload(int $id, PostUploadRequest $request)
+    public function pinboardUpload(int $id, PinboardUploadRequest $request)
     {
-        $post = $this->postRepository->findWithoutFail($id);
-        if (empty($post)) {
+        $pinboard = $this->pinboardRepository->findWithoutFail($id);
+        if (empty($pinboard)) {
             return $this->sendError(__('models.building.not_found'));
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->postRepository->uploadFile('media', $data, $post, $request->merge_in_audit)) {
+        if (!$media = $this->pinboardRepository->uploadFile('media', $data, $pinboard, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
 
@@ -289,12 +288,8 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $media_id
-     * @return Response
-     *
      * @SWG\Delete(
-     *      path="/post/{post_id}/media/{media_id}",
+     *      path="/pinboard/{pinboard_id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
      *      tags={"Listing"},
      *      description="Delete Media",
@@ -326,15 +321,20 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $media_id
+     * @param PinboardDeleteRequest $r
+     * @return Response
      */
-    public function postDestroy(int $id, int $media_id, PostDeleteRequest $r)
+    public function pinboardDestroy(int $id, int $media_id, PinboardDeleteRequest $r)
     {
-        $post = $this->postRepository->findWithoutFail($id);
-        if (empty($post)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+        $pinboard = $this->pinboardRepository->findWithoutFail($id);
+        if (empty($pinboard)) {
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
-        $media = $post->media->find($media_id);
+        $media = $pinboard->media->find($media_id);
         if (empty($media)) {
             return $this->sendError(__('general.media_not_found'));
         }
@@ -345,11 +345,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param TenantUploadRequest $request
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     *
      * @SWG\Post(
      *      path="/tenants/{tenant_id}/media",
      *      summary="Store a newly created Tenant Media in storage",
@@ -361,7 +356,7 @@ class MediaAPIController extends AppBaseController
      *          in="body",
      *          description="Media that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Post")
+     *          @SWG\Schema(ref="#/definitions/Pinboard")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -383,6 +378,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param TenantUploadRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function tenantUpload(int $id, TenantUploadRequest $request)
     {
@@ -414,11 +414,6 @@ class MediaAPIController extends AppBaseController
 
 
     /**
-     * @param int $id
-     * @param int $media_id
-     * @param TenantDeleteRequest $r
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/tenants/{id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
@@ -452,12 +447,17 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $media_id
+     * @param TenantDeleteRequest $r
+     * @return Response
      */
     public function tenantDestroy(int $id, int $media_id, TenantDeleteRequest $r)
     {
         $tenant = $this->tenantRepository->findWithoutFail($id);
         if (empty($tenant)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
         $media = $tenant->media->find($media_id);
@@ -471,10 +471,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param RentContractUploadRequest $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/rent-contracts/{id}/media",
      *      summary="Store a newly created RentContract Media in storage",
@@ -508,6 +504,10 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param RentContractUploadRequest $request
+     * @return Response
      */
     public function rentContractUpload(int $id, RentContractUploadRequest $request)
     {
@@ -526,11 +526,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $media_id
-     * @param RentContractDeleteRequest $r
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/rent-contracts/{id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
@@ -564,6 +559,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $media_id
+     * @param RentContractDeleteRequest $r
+     * @return Response
      */
     public function rentContractDestroy(int $id, int $media_id, RentContractDeleteRequest $r)
     {
@@ -583,10 +583,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/requests/{id}/media",
      *      summary="Store a newly created Request Media in storage",
@@ -620,6 +616,10 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param SRequestUploadRequest $request
+     * @return Response
      */
     public function serviceRequestUpload(int $id, SRequestUploadRequest $request)
     {
@@ -639,10 +639,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $media_id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/requests/{id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
@@ -676,6 +672,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $media_id
+     * @param SRequestDeleteRequest $r
+     * @return Response
      */
     public function serviceRequestDestroy(int $id, int $media_id, SRequestDeleteRequest $r)
     {
@@ -695,10 +696,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/products/{product_id}/media",
      *      summary="Store a newly created product Media in storage",
@@ -732,6 +729,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     *
+     * @param int $id
+     * @param ProductUploadRequest $request
+     * @return Response
      */
     public function productUpload(int $id, ProductUploadRequest $request)
     {
@@ -750,10 +752,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $media_id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/products/{product_id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
@@ -787,6 +785,12 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $media_id
+     * @param ProductDeleteRequest $r
+     * @return Response
+     *
      */
     public function productDestroy(int $id, int $media_id, ProductDeleteRequest $r)
     {

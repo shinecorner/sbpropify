@@ -15,16 +15,16 @@ class PinnedEmailReceptionistTransformer extends BaseTransformer
     protected $defaultIncludes = [];
 
     /**
-     * Transform the Post entity.
+     * Transform the Pinboard entity.
      *
-     * @param \App\Models\Post $model
+     * @param \App\Models\PinnedEmailReceptionist $model
      *
      * @return array
      */
     public function transform(PinnedEmailReceptionist $model)
     {
         $response = [
-            'post_id' => $model->post_id,
+            'pinboard_id' => $model->pinboard_id,
             'tenant_ids' => $model->tenant_ids,
             'failed_tenant_ids' => $model->failed_tenant_ids,
         ];

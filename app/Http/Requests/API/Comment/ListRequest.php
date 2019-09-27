@@ -2,13 +2,12 @@
 
 namespace App\Http\Requests\API\Comment;
 
-use App\Models\Post;
+use App\Http\Requests\BaseRequest;
 use App\Models\Conversation;
-use InfyOm\Generator\Request\APIRequest;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Validation\Rule;
 
-class ListRequest extends APIRequest
+class ListRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +16,12 @@ class ListRequest extends APIRequest
      */
     public function authorize()
     {
+        $this->commentable = ('post' == $this->commentable) ? 'pinboard' : $this->commentable; // @TODO remove
         // users can only see comments from own conversations
+        if (empty(Relation::$morphMap[$this->commentable])) {
+            return false;
+        }
+
         if (Relation::$morphMap[$this->commentable] == Conversation::class) {
             return Conversation::where('id', $this->id)->ofLoggedInUser()->exists();
         }
@@ -38,7 +42,8 @@ class ListRequest extends APIRequest
             'commentable' => [
                 'required',
                 'string',
-                Rule::in(array_keys(Relation::$morphMap)),
+                Rule::in(array_merge(array_keys(Relation::$morphMap), ['post'])), // @TODO remove
+//                Rule::in(array_keys(Relation::$morphMap)), // TODO revert
             ],
         ];
     }

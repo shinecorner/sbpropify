@@ -196,7 +196,8 @@ return [
             'not_found' => 'Contratto di locazione non trovato',
             'create' => 'Contratto di affitto inquilino creare errore: ',
             'deleted' => 'Contratto di locazione dell\'inquilino Cancella errore: ',
-        ]
+        ],
+        'filename' => 'Nome del file',
     ],
     'building' => [
         "title" => "Edifici",

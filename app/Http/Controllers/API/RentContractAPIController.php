@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\Posts\FilterByTenantCriteria;
+use App\Criteria\Pinboard\FilterByTenantCriteria;
 use App\Criteria\TenantsRentContract\FilterByBuildingCriteria;
 use App\Criteria\TenantsRentContract\FilterByUnitCriteria;
 use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\API\Post\ShowRequest;
+use App\Http\Requests\API\RentContract\ShowRequest;
 use App\Http\Requests\API\RentContract\DeleteRequest;
 use App\Http\Requests\API\RentContract\UpdateRequest;
 use App\Http\Requests\API\RentContract\CreateRequest;
@@ -37,10 +37,6 @@ class RentContractAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/rent-contracts",
      *      summary="Get a listing of the RentContracts.",
@@ -89,6 +85,10 @@ class RentContractAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(ListRequest $request)
     {
@@ -118,13 +118,7 @@ class RentContractAPIController extends AppBaseController
         return $this->sendResponse($response, 'RentContracts retrieved successfully');
     }
 
-
     /**
-     * @param $id
-     * @param ShowRequest $request
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @SWG\Get(
      *      path="/rent-contracts/{id}",
      *      summary="Display the specified Tenant Rent Contract",
@@ -158,6 +152,11 @@ class RentContractAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ShowRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function show($id, ShowRequest $request)
     {
@@ -173,11 +172,6 @@ class RentContractAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     *
      * @SWG\Post(
      *      path="/rent-contracts",
      *      summary="Store a newly created Tenant renat Contract in storage",
@@ -211,6 +205,10 @@ class RentContractAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function store(CreateRequest $request)
     {
@@ -229,11 +227,6 @@ class RentContractAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @param UpdateRequest $request
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @SWG\Put(
      *      path="/rent-contracts/{id}",
      *      summary="Update the specified Tenant Rent Contract in storage",
@@ -275,6 +268,10 @@ class RentContractAPIController extends AppBaseController
      *      )
      * )
      *
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function update($id, UpdateRequest $request)
     {
@@ -297,10 +294,6 @@ class RentContractAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param DeleteRequest $request
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/rent-contracts/{id}",
      *      summary="Remove the specified Tenant Rent Contract from storage",
@@ -334,6 +327,10 @@ class RentContractAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param DeleteRequest $request
+     * @return Response
      */
     public function destroy($id, DeleteRequest $request)
     {
@@ -347,10 +344,6 @@ class RentContractAPIController extends AppBaseController
     }
 
     /**
-     * @param DeleteRequest $request
-     * @return mixed
-     *
-     *
      * @SWG\Post(
      *      path="/rent-contracts/deletewithids",
      *      summary="Remove multiple Tenant Rent Contract from storage",
@@ -384,6 +377,9 @@ class RentContractAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param DeleteRequest $request
+     * @return mixed
      */
     public function destroyWithIds(DeleteRequest $request){
         $ids = $request->get('ids');

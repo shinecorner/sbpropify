@@ -198,7 +198,7 @@ return [
     "welcome_other" => "weitere Person",
     "welcome_others" => "weitere Personen",
     "welcome" => "Heisse :name willkommen",
-    "unwelcome" => "Willkommensgrüsse zurücknehmen",
+    "unwelcome" => "Ich habe diese Person nicht willkommen geheißen.",
     "mark_all_as_read" => "Alle als gelesen markieren",
     "notification_label" => "Benachrichtigungen",
     "settings" => "Einstellungen",

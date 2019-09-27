@@ -196,7 +196,8 @@ return [
             'not_found' => 'Le contrat de location du locataire n\'a pas été trouvé',
             'create' => 'Le contrat de location du locataire crée une erreur : ',
             'deleted' => 'Contrat de location du locataire Supprimer erreur : ',
-        ]
+        ],
+        'filename' => 'Nom de fichier',
     ],
     'building' => [
         "title" => "Bâtiments",

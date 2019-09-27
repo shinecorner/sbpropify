@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\RentContract;
 
 use App\Models\RentContract;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class UpdateRequest extends APIRequest
+class UpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class UpdateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('edit-tenant'); // @TODO use correct permission
+        return $this->can('edit-tenant'); // @TODO use correct permission
     }
 
     /**

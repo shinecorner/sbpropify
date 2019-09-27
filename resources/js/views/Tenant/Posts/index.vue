@@ -4,7 +4,7 @@
             <ui-heading icon="icon-megaphone-1" :title="$t('tenant.news')" :description="$t('tenant.heading_info.news')" />
             
                 <ui-divider />
-            <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
+            <div class="container" >
                 
                 <div class="content">
                     <post-add-card />
@@ -16,17 +16,17 @@
                             <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                         </el-popover> -->
                     </el-divider>
-                    <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode v-if="!loading">
+                    <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" v-if="!loading && filteredPosts.length">
                         <template #before v-if="loading && !filteredPosts.length">
                             <loader v-for="idx in 5" :key="idx" />
                         </template>
                         <template v-slot="{item, index, active}">
-                            <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" :watchData="true" >
+                            <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" page-mode v-if="!loading">
                                 <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'"/>
                                 <post-card :data="item" @edit-post="editPost" @delete-post="deletePost" v-else/>
                             </dynamic-scroller-item>
                         </template>
-                        <template #after v-if="loading && filteredPosts.length">
+                        <template #after v-if="loading && !filteredPosts.length">
                             <loader />
                         </template>
                     </dynamic-scroller>
@@ -207,6 +207,9 @@
                 //     this.$refs['dynamic-scroller'].forceUpdate()
                 return this.posts.data.filter( post => { return this.filterCategory == null || post.category == this.filterCategory})
             }
+        },
+        async mounted() {
+            await this.getPosts()
         }
     }
 </script>
