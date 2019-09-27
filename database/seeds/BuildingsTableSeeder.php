@@ -33,7 +33,7 @@ class BuildingsTableSeeder extends Seeder
 
             $address = factory(Address::class)->create($this->getDateColumns($date));
             $data['address_id'] = $address->id;
-            $data['name'] = sprintf('%s %s', $address->street, $address->house_num);
+            $data['name'] = sprintf('%s %s', $address->street, $address->street_nr);
             $geoData = $this->getGeoDataByAddress($address);
             $data = array_merge($data, $geoData);
             factory(Building::class)->create($data);
@@ -51,7 +51,7 @@ class BuildingsTableSeeder extends Seeder
             'longitude' => 0,
             'latitude' => 0
         ];
-        $_address = sprintf('%s %s, %s %s', $address->street, $address->house_num, $address->zip, $address->city);
+        $_address = sprintf('%s %s, %s %s', $address->street, $address->street_nr, $address->zip, $address->city);
         $client = new \GuzzleHttp\Client();
         $geocoder = new \Spatie\Geocoder\Geocoder($client);
         $geocoder->setApiKey(config('geocoder.key'));
