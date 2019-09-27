@@ -1,6 +1,7 @@
 <template>
     <ui-card shadow="always">
         <div class="left-circle">
+            <i class="icon-attention-alt"></i>
         </div>
         <div class="right-text">
             <p>Emegerency Number</p>
@@ -37,10 +38,14 @@
             .left-circle
                 min-width: 50px
                 height: 50px
-                background-image: url('/storage/avatar/tamara-wenger-642.png')
-                background-position: center
                 background-size: cover
-                border-radius: 50%
+                display: block
+                i 
+                    width: 50px
+                    height: 50px
+                    font-size: 30px
+                    display: block
+                    color: red
                 
             .right-text
                 flex: 1
