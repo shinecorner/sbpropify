@@ -112,9 +112,9 @@ class RolesTableSeeder extends Seeder
         $RLCService->save();
         $servicePerms = [
             'list-request',
-            'post-comment',
+            'add-comment',
             'list-service_request_category',
-            'post-request_service',
+            'add-request_service',
             'edit-request_service',
             'list-quarter',
             'list-property_manager',
@@ -138,15 +138,15 @@ class RolesTableSeeder extends Seeder
         $RLCUser->description = '';
         $RLCUser->save();
         $tenantPerms = [
-            'post-post',
-            'post-product',
-            'post-comment',
+            'add-pinboard',
+            'add-product',
+            'add-comment',
             'list-service_request_category',
             'view-service_request_category',
-            'post-request_tenant',
+            'add-request_tenant',
             'edit-request_tenant',
             'list-request',
-            'post-cleanify_request',
+            'add-cleanify_request',
             'view-real_estate'
         ];
         foreach ($tenantPerms as $p) {
