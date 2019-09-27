@@ -74,11 +74,12 @@ class CleanDB extends Command
      */
     public function handle()
     {
-        $conversations = $this->getAllMorphTable('conversationable_id', 'conversationable_type');
-        $comments = $this->getAllMorphTable('commentable_id', 'commentable_type');
-        $media = $this->getAllMorphTable('model_id', 'model_type');
+        $conversations = $this->getAllMorphTable('conversationable_id', 'conversationable_type', Conversation::class);
+        $comments = $this->getAllMorphTable('commentable_id', 'commentable_type', Comment::class);
+        $media = $this->getAllMorphTable('model_id', 'model_type', Media::class);
+        $translations = $this->getAllMorphTable('object_id', 'object_type', [Translation::class,]);
+
         $notifications = $this->getMorphTable('notifiable_id', 'notifiable_type', [User::class,]);
-        $translations = $this->getMorphTable('object_id', 'object_type', [User::class,]);
 
 
         $audits = $this->getAllMorphTable('auditable_id', 'auditable_type');
@@ -89,7 +90,7 @@ class CleanDB extends Command
             ],
         ];
 
-        $likes = $this->getAllMorphTable('likeable_id', 'likeable_type');
+        $likes = $this->getAllMorphTable('likeable_id', 'likeable_type', [Like::class]);
         $likeCounts = $likes;
         $likes[] = [
             'relation' => (new User())->getTable(),
@@ -186,6 +187,11 @@ class CleanDB extends Command
 
     }
 
+    /**
+     * @param $table
+     * @param $data
+     * @return string
+     */
     protected function getQuery($table, $data)
     {
         $relation = $data['relation'];
@@ -228,7 +234,13 @@ class CleanDB extends Command
         return $data;
     }
 
-    protected function getAllMorphTable($relatedId, $relatedType)
+    /**
+     * @param $relatedId
+     * @param $relatedType
+     * @param array $exclude
+     * @return array
+     */
+    protected function getAllMorphTable($relatedId, $relatedType, $exclude = [])
     {
         $classes = [
             Address::class,
@@ -267,6 +279,10 @@ class CleanDB extends Command
             User::class,
             UserSettings::class,
         ];
+
+        $exclude = is_array($exclude) ? $exclude : [$exclude];
+
+        $classes = array_diff($classes, $exclude);
         return $this->getMorphTable($relatedId, $relatedType, $classes);
     }
 }

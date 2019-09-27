@@ -6,7 +6,7 @@
         <el-dropdown-menu class="language-switcher" slot="dropdown">
             <div class="content">
                 <i class="icon icon-language"></i>
-                Choose the language
+                {{$t('general.chooseLanguage')}}
                 <div class="description">{{$t('tenant.language_switcher_info')}}</div>
             </div>
             <el-dropdown-item v-for="(name, iso) in $constants.app.languages" :key="iso" :command="iso">

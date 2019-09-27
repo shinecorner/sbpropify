@@ -98,7 +98,7 @@ export default {
             axios.get('auth/logout').then(({status}) => {
                 if (status === 200) {
                     localStorage.removeItem('token');
-                    dispatch('application/setLocale', '');
+                    // dispatch('application/setLocale', '');
                     // commit('SET_LOGGED_IN', false);
                     // commit('SET_LOGGED_IN_USER', {});
                 }
@@ -113,7 +113,7 @@ export default {
 
         //TODO figure out how to logout without reloading the page
         window.location.reload();
-        dispatch('application/setLocale', '');
+        // dispatch('application/setLocale', '');
         commit('SET_LOGGED_IN', false);
         commit('SET_LOGGED_IN_USER', {});
 

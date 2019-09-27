@@ -157,12 +157,12 @@ export default (config = {}) => {
             },
             disabledRentStart(date) {
                 const d = new Date(date).getTime();
-                const rentEnd = new Date(this.model.rent_end).getTime();
+                const rentEnd = new Date(this.model.contract.rent_end).getTime();
                 return d >= rentEnd;
             },
             disabledRentEnd(date) {
                 const d = new Date(date).getTime();
-                const rentStart = new Date(this.model.rent_start).getTime();
+                const rentStart = new Date(this.model.contract.rent_start).getTime();
                 return d <= rentStart;
             },
             contractUploaded(file) {
