@@ -43,24 +43,26 @@ export default (config = {}) => {
                         language: '',
                     },
                     nation: '',
-                    contract: {
-                        buildings: [],
-                        units: [],
-                        rent_type: '',
-                        rent_duration: '',
-                        rent_start: '',
-                        rent_end: '',
-                        deposit_amount: '',
-                        deposit_type: '',
-                        unit_id: '',
-                        building_id: '',
-                        net_rent: '',
-                        heating_operating_costs_installment: '',
-                        maintenance: '',
-                        gross_rent: '',
-                        media: []
-                    },
                     rent_contracts: [],
+                },
+                contract: {
+                    type: '',
+                    duration: '',
+                    start_date: '',
+                    end_date: '',
+                    deposit_amount: '',
+                    deposit_type: '',
+                    net_rent: '',
+                    operating_cost: '',
+                    status: '1',
+                    deposit_status: '1',
+                    gross_rent: '',
+                    parking_price: 0,
+                    unit_id: '',
+                    building_id: '',
+                    media: [],
+                    buildings: [],
+                    units: [],
                 },
                 validationRules: {
                     first_name: [{
@@ -161,12 +163,12 @@ export default (config = {}) => {
             },
             disabledRentStart(date) {
                 const d = new Date(date).getTime();
-                const rentEnd = new Date(this.model.contract.rent_end).getTime();
+                const rentEnd = new Date(this.model.contract.end_date).getTime();
                 return d >= rentEnd;
             },
             disabledRentEnd(date) {
                 const d = new Date(date).getTime();
-                const rentStart = new Date(this.model.contract.rent_start).getTime();
+                const rentStart = new Date(this.model.contract.start_date).getTime();
                 return d <= rentStart;
             },
             contractUploaded(file) {
@@ -198,7 +200,6 @@ export default (config = {}) => {
                 }
             },
             async searchContractUnits(contract) {
-                console.log('building_id', contract.building_id)
                 contract.unit_id = '';
                 try {
                     const resp = await this.getUnits({
@@ -207,8 +208,7 @@ export default (config = {}) => {
                     });
 
                     contract.units = resp.data;
-
-                    console.log('units', contract.units)
+                    console.log('contract units', contract.units)
                 } catch (err) {
                     displayError(err);
                 } finally {
@@ -220,11 +220,11 @@ export default (config = {}) => {
                 
                 let unit = contract.units.find(item => item.id == contract.unit_id)
                 contract.net_rent = unit.monthly_rent_net
-                contract.maintenance = unit.monthly_maintenance
+                contract.operating_cost = unit.monthly_maintenance
                 contract.gross_rent = unit.monthly_rent_gross
             },
             async addContract() {
-                this.model.rent_contracts.push(Object.assign({}, this.model.contract))
+                this.model.rent_contracts.push(Object.assign({}, this.contract))
             },
             deleteContract( contract_index ) {
                 this.model.rent_contracts.splice(contract_index, 1)
@@ -285,7 +285,10 @@ export default (config = {}) => {
                             }
 
                             this.loading.state = true;
-
+                            
+                            this.model.rent_contracts.forEach(contract => {
+                                contract.gross_rent = contract.net_rent + contract.operating_cost
+                            })
                             let {email, password, password_confirmation, ...tenant} = this.model;
 
                             try {

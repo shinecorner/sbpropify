@@ -183,10 +183,10 @@
                                     </el-row>
                                     <el-row :gutter="20" v-if="contract.unit_id">
                                         <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.rent_type')" prop="rent_type"
+                                            <el-form-item :label="$t('models.tenant.rent_type')"
                                                         class="label-block">
                                                 <el-select placeholder="Select" style="display: block" 
-                                                            v-model="contract.rent_type">
+                                                            v-model="contract.type">
                                                     <el-option
                                                             :key="type.value"
                                                             :label="type.name"
@@ -197,15 +197,15 @@
                                             </el-form-item>
                                         </el-col>
                                         <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.rent_duration')" prop="rent_duration"
+                                            <el-form-item :label="$t('models.tenant.rent_duration')"
                                                         class="label-block">
                                                 <el-select placeholder="Select" style="display: block" 
-                                                            v-model="contract.rent_duration">
+                                                            v-model="contract.duration">
                                                     <el-option
                                                             :key="type.value"
                                                             :label="type.name"
                                                             :value="type.value"
-                                                            v-for="type in rent_durations">
+                                                            v-for="type in duration">
                                                     </el-option>
                                                 </el-select>
                                             </el-form-item>
@@ -221,20 +221,19 @@
                                                         format="dd.MM.yyyy"
                                                         style="width: 100%;"
                                                         type="date"
-                                                        v-model="contract.rent_start"
+                                                        v-model="contract.start_date"
                                                         value-format="yyyy-MM-dd"/>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :md="12" v-if="contract.rent_duration == 'limited'">
-                                            <el-form-item :label="$t('models.tenant.rent_end')"
-                                                            prop="rent_end">
+                                            <el-form-item :label="$t('models.tenant.rent_end')">
                                                 <el-date-picker
                                                     :picker-options="{disabledDate: disabledRentEnd}"
                                                     :placeholder="$t('models.tenant.rent_end')"
                                                     format="dd.MM.yyyy"
                                                     style="width: 100%;"
                                                     type="date"
-                                                    v-model="contract.rent_end"
+                                                    v-model="contract.end_date"
                                                     value-format="yyyy-MM-dd"/>
                                             </el-form-item>
                                         </el-col>
@@ -243,7 +242,7 @@
                                     <el-row :gutter="20" v-if="contract.unit_id">
                                         <el-col :md="24">
                                             <el-form-item :label="$t('models.tenant.rent_contract_pdf')">
-                                        
+
                                             <el-table
                                                 :data="contract.media"
                                                 style="width: 100%"
@@ -303,7 +302,6 @@
                                             <el-form-item :label="$t('models.tenant.net_rent')" class="label-block">
                                                 <el-input type="text"
                                                         v-model="contract.net_rent"
-                                                        class="dis-autofill"
                                                 ></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -312,15 +310,14 @@
                                             <el-form-item :label="$t('models.tenant.maintenance')"
                                                         class="label-block">
                                                 <el-input type="text"
-                                                        v-model="contract.maintenance"
-                                                        class="dis-autofill"
+                                                        v-model="contract.operating_cost"
                                                 ></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :md="8">
                                             <el-form-item :label="$t('models.tenant.gross_rent')"
                                                         class="label-block">
-                                                {{Number(contract.net_rent) + Number(contract.maintenance)}}
+                                                {{Number(contract.net_rent) + Number(contract.operating_cost)}}
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
