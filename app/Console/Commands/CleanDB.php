@@ -77,7 +77,7 @@ class CleanDB extends Command
         $conversations = $this->getAllMorphTable('conversationable_id', 'conversationable_type', Conversation::class);
         $comments = $this->getAllMorphTable('commentable_id', 'commentable_type', Comment::class);
         $media = $this->getAllMorphTable('model_id', 'model_type', Media::class);
-        $translations = $this->getMorphTable('object_id', 'object_type', [Translation::class,]);
+        $translations = $this->getAllMorphTable('object_id', 'object_type', [Translation::class,]);
 
         $notifications = $this->getMorphTable('notifiable_id', 'notifiable_type', [User::class,]);
 
