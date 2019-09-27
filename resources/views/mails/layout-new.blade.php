@@ -163,7 +163,7 @@
     <div style="margin: 0 auto;" class="email-container">
         <table border="0" align="center" bordercolor="" cellpadding="0" cellspacing="0" width="100%" style="margin: auto">
             <tr>
-                <td align="center" bgcolor="#E4BED1" class="email-background">
+                <td align="center" bgcolor="{{$company->primary_color_lighter ?? '#c55a9059'}}" class="email-background">
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650" align="center">
@@ -200,7 +200,7 @@
                 </td>
             </tr>
             <tr>
-                <td bgcolor="#E4BED1" align="center">
+                <td bgcolor="{{$company->primary_color_lighter ?? '#c55a9059'}}" align="center">
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650"
