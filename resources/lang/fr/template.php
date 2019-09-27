@@ -41,5 +41,5 @@ return [
     'tenant_portal' => 'Portail des locataires',
     'generated_email_for_user' => 'Cet email a été généré automatiquement pour :userName.',
     'generated_email_for_company' => 'Vous recevrez cet e-mail généré automatiquement en tant qu\'utilisateur du portail locataires :companyName. Le portail des locataires est exploité par Propify AG.',
-    'links' => '<a href="#" style="color: #000000 ">Impression </a>&ensp ; | <a href="#" style="color: #000000 ">Conditions d\'utilisation </a>&ensp ; || &ensp;<a href="#" style="color: #000000 ">Déclaration de confidentialité </a>'
+    'links' => '<a href="#" style="color: #000000 ">Impression </a>&ensp; | <a href="#" style="color: #000000 ">Conditions d\'utilisation </a>&ensp; | &ensp;<a href="#" style="color: #000000 ">Déclaration de confidentialité </a>'
 ];

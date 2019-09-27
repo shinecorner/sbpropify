@@ -18,6 +18,8 @@ class TenantCredentials extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $tries = 3;
+
     /**
      * @var Tenant
      */
