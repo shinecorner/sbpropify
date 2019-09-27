@@ -11,7 +11,7 @@ $factory->define(App\Models\Address::class, function (Faker $faker) {
         'state_id' => $state->id,
         'city' => $faker->city,
         'street' => $faker->streetAddress,
-        'street_nr' => $faker->buildingNumber,
+        'house_num' => $faker->buildingNumber,
         'zip' => 3172,
     ];
 });
