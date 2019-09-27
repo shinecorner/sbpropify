@@ -17,18 +17,18 @@
                         </el-popover> -->
                     </el-divider>
                     <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" v-if="!loading && filteredPosts.length">
-                        <template #before v-if="loading && !filteredPosts.length">
+                        <!-- <template #before v-if="loading && !filteredPosts.length">
                             <loader v-for="idx in 5" :key="idx" />
-                        </template>
+                        </template> -->
                         <template v-slot="{item, index, active}">
                             <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" page-mode v-if="!loading">
-                                <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'"/>
-                                <post-card :data="item" @edit-post="editPost" @delete-post="deletePost" v-else/>
+                                <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour' && item.user_id != $store.getters.loggedInUser.id"/>
+                                <post-card :data="item" @edit-post="editPost" @delete-post="deletePost" v-else-if="$constants.posts.type[item.type] !== 'new_neighbour'"/>
                             </dynamic-scroller-item>
                         </template>
-                        <template #after v-if="loading && !filteredPosts.length">
+                        <!-- <template #after v-if="loading && !filteredPosts.length">
                             <loader />
-                        </template>
+                        </template> -->
                     </dynamic-scroller>
                 </div>
                 <rss-feed class="rss-feed" title="Blick.ch News" />
