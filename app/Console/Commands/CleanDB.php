@@ -74,6 +74,12 @@ class CleanDB extends Command
      */
     public function handle()
     {
+        $conversations = $this->getAllMorphTable('conversationable_id', 'conversationable_type');
+        $comments = $this->getAllMorphTable('commentable_id', 'commentable_type');
+        $media = $this->getAllMorphTable('model_id', 'model_type');
+        $notifications = $this->getMorphTable('notifiable_id', 'notifiable_type', [User::class,]);
+
+
         $audits = $this->getAllMorphTable('auditable_id', 'auditable_type');
         $audits[] = [
             'relation' => (new User())->getTable(),
@@ -82,11 +88,12 @@ class CleanDB extends Command
             ],
         ];
 
+        $likes = $this->getAllMorphTable('likeable_id', 'likeable_type');
+        $likeCounts = $likes;
+        $likes[] = [
+            'relation' => (new User())->getTable(),
+        ];
 
-        $conversations = $this->getAllMorphTable('conversationable_id', 'conversationable_type');
-
-
-        $comments = $this->getAllMorphTable('commentable_id', 'commentable_type');
 
 
         $buildingAssignees = $this->getMorphTable('assignee_id', 'assignee_type', [
@@ -98,17 +105,13 @@ class CleanDB extends Command
         ];
 
 
-        $likes = $this->getAllMorphTable('likeable_id', 'likeable_type');
-        $likeCounts = $likes;
-        $likes[] = [
-            'relation' => (new User())->getTable(),
+        $quarterAssignees = $this->getMorphTable('assignee_id', 'assignee_type', [
+            User::class,
+            PropertyManager::class,
+        ]);
+        $quarterAssignees[] = [
+            'relation' => (new Quarter())->getTable(),
         ];
-
-
-        $media = $this->getAllMorphTable('model_id', 'model_type');
-
-
-        $notifications = $this->getMorphTable('notifiable_id', 'notifiable_type', [User::class,]);
 
         $config = [
             'audits' => $audits,
@@ -143,6 +146,10 @@ class CleanDB extends Command
             'love_like_counters' => $likeCounts,
             'media' => $media,
             'notifications' => $notifications,
+            'oauth_access_tokens' => [
+                'relation' => (new User())->getTable(),
+            ],
+            'quarter_assignees' => $quarterAssignees
         ];
 
 
