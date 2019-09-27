@@ -138,6 +138,7 @@ class RolesTableSeeder extends Seeder
         $RLCUser->description = '';
         $RLCUser->save();
         $tenantPerms = [
+            'list-product',
             'add-pinboard',
             'add-product',
             'add-comment',
@@ -147,7 +148,8 @@ class RolesTableSeeder extends Seeder
             'edit-request_tenant',
             'list-request',
             'add-cleanify_request',
-            'view-real_estate'
+            'view-real_estate',
+            'view-tenants_statistics',
         ];
         foreach ($tenantPerms as $p) {
             $RLCUser->attachPermission(Permission::where('name', $p)->first());
