@@ -90,7 +90,7 @@ class CleanDB extends Command
             ],
         ];
 
-        $likes = $this->getAllMorphTable('likeable_id', 'likeable_type');
+        $likes = $this->getAllMorphTable('likeable_id', 'likeable_type', [Like::class]);
         $likeCounts = $likes;
         $likes[] = [
             'relation' => (new User())->getTable(),
