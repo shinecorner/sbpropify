@@ -56,7 +56,7 @@ function update_district_to_quarter($class, $fields)
     }
 }
 
-function update_db_fileds($class, $fields, $replace, $to)
+function update_db_fileds($class, $fields, $replace, $to, $isUcFirst = true)
 {
     $model = new $class();
     $query = $model->newQuery();
@@ -67,8 +67,14 @@ function update_db_fileds($class, $fields, $replace, $to)
     $items = $query->select($fields)->addSelect('id')->get();
     foreach ($items as $item) {
         foreach ($fields as $field) {
+
             $oldValue = $item->{$field};
-            $value = str_replace(ucfirst($replace), ucfirst($to), $item->{$field});
+            if ($isUcFirst) {
+                $value = str_replace(ucfirst($replace), ucfirst($to), $item->{$field});
+            } else {
+                $value = $oldValue;
+            }
+
             $value = str_replace($replace, $to, $value);
             $item->{$field} = $value;
             if ($oldValue != $value) {
