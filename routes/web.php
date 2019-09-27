@@ -1,17 +1,5 @@
 <?php
 
-//$perms = \App\Models\Permission::with('roles')->get();
-//foreach ($perms as $perm) {
-//    echo $perm->name  .": ". '<br>';
-//    echo '<pre>';
-//    foreach ($perm->roles as $role) {
-//        echo '                 ' . $role->name  ."". '<br>';
-//    }
-//    echo '</pre>';
-//    echo '<br>';
-//}
-//dd();
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
