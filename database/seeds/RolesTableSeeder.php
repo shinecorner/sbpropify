@@ -162,7 +162,8 @@ class RolesTableSeeder extends Seeder
             'add_media_upload-tenant',
             'delete_media_upload-tenant',
             'add_media_upload-request',
-            'delete_media_upload-request'
+            'delete_media_upload-request',
+            'view-pinboard'
         ];
         foreach ($tenantPerms as $p) {
             $RLCUser->attachPermission(Permission::where('name', $p)->first());

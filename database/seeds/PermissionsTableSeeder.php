@@ -12,16 +12,12 @@ class PermissionsTableSeeder extends Seeder
         ['add-user', 'Add User', 'add user'],
         ['edit-user', 'Edit User', 'edit existing user'],
         ['delete-user', 'Delete User', 'delete existing user'],
-        ['edit-user_setting', 'Edit user setting', 'edit user setting'],
-        ['view-user_setting', 'View user setting', 'view user setting'],
         // Tenant
         ['list-tenant', 'List Tenants', 'list tenants'],
         ['view-tenant', 'View Tenant', 'view tenant'],
         ['add-tenant', 'Add Tenant', 'add tenant'],
         ['edit-tenant', 'Edit Tenant', 'edit existing tenant'],
         ['delete-tenant', 'Delete Tenant', 'delete existing tenant'],
-        ['send_credentials-tenant', 'Send credentials', 'Send tenant credentials'],
-        ['download_credentials-tenant', 'Download credentials', 'Download tenant credentials'],
         // Comment
         ['add-comment', 'Add Comment', 'add comment'],
         ['edit-comment', 'Edit Comment', 'edit existing comment'],

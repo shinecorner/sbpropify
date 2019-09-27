@@ -48,9 +48,19 @@ class RenameSomePermissions extends Migration
                 $role->attachPermissionIfNotExits($permission);
             }
         }
+        $roles = \App\Models\Role::whereIn('name', ['administrator', 'manager'])->get();
+        if ($roles->count() == 2) {
+            foreach ($this->getNewPerms() as $permission) {
+                $role->attachPermissionIfNotExits($permission);
+            }
+        }
+
 
         update_db_fileds(\App\Models\Permission::class, ['name', 'description'], 'publish', '(un)publish');
         update_db_fileds(\App\Models\Permission::class, ['display_name'], 'Publish', '(Un)Publish', false);
+
+
+        \App\Models\Permission::whereIn('name', ['edit-user_setting', 'view-user_setting', 'send_credentials-tenant', 'download_credentials-tenant'])->delete();
     }
 
     /**
@@ -77,14 +87,21 @@ class RenameSomePermissions extends Migration
         $role = \App\Models\Role::whereName('registered')->first();
         if ($role) {
             foreach ($this->getTenantPermissions() as $permission) {
-                $role->attachPermissionIfNotExits($permission);
+                $role->detachPermissionIfExits($permission);
             }
         }
 
         $role = \App\Models\Role::whereName('service')->first();
         if ($role) {
             foreach ($this->getServicePermissions() as $permission) {
-                $role->attachPermissionIfNotExits($permission);
+                $role->detachPermissionIfExits($permission);
+            }
+        }
+
+        $roles = \App\Models\Role::whereIn('name', ['administrator', 'manager'])->get();
+        if ($roles->count() == 2) {
+            foreach ($this->getNewPerms() as $permission) {
+                $role->detachPermissionIfExits($permission);
             }
         }
 
@@ -138,7 +155,8 @@ class RenameSomePermissions extends Migration
             'add_media_upload-tenant',
             'delete_media_upload-tenant',
             'add_media_upload-request',
-            'delete_media_upload-request'
+            'delete_media_upload-request',
+            'view-pinboard'
         ];
     }
 
@@ -160,4 +178,25 @@ class RenameSomePermissions extends Migration
             'delete_media_upload-request'
         ];
     }
+
+    protected $missingPerms = [
+        'list-pinboard',
+        'add-pinboard',
+        'edit-pinboard',
+        'delete-pinboard',
+        'publish-pinboard',
+        'pin-pinboard',
+        'assign-pinboard',
+        'list_views-pinboard',
+        'list-product',
+        'view-product',
+        'add-product',
+        'edit-product',
+        'delete-product',
+        'publish-product',
+        'list-audit',
+        'list-cleanify_request',
+        'add-cleanify_request',
+    ];
+
 }
