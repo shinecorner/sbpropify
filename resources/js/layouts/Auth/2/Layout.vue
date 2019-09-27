@@ -1,5 +1,10 @@
 <template>
     <div class="login2-layout" :style="{backgroundImage: `url(${backImage})`}">
+        <div class="languageswitcher">
+            <div class="item">
+                <locale-switcher />
+            </div>
+        </div>    
         <el-row class="container-row" type="flex" justify="center">
             <el-col :xs="24" :sm="12" :md="18" :lg="15" :xl="15">
                 <div class="auth-card" >
@@ -96,6 +101,11 @@ export default {
                     }
                 }
             }
+        }
+        .languageswitcher{
+            position: fixed;
+            top: 10px;
+            right: 20px;
         }
     }
 </style>
