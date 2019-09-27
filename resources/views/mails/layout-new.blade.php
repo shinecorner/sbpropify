@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@yield('title')</title>
+    <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
     <style type="text/css">
         /* FONTS */
 
@@ -61,16 +62,16 @@
         }
 
         a:hover {
-            color: #c55a9059 !important;
+            color: {{$company->primary_color_lighter ?? '#c55a9059'}} !important;
         }
 
         #a_link span:hover {
-            color: #c55a9059 !important;
+            color: {{$company->primary_color_lighter ?? '#c55a9059'}} !important;
             text-decoration: none;
         }
 
         #a_button:hover {
-            background-color: #c55a9059;
+            background-color: {{$company->primary_color_lighter ?? '#c55a9059'}};
         }
 
         table tr td {
@@ -90,12 +91,12 @@
         /* MOBILE STYLES */
         @media screen and (max-width: 726px) {
             h1 {
-                font-size: 32px !important;
-                line-height: 32px !important;
+                font-size: 28px !important;
+                line-height: 28px !important;
             }
 
             h2 {
-                font-size: 24px;
+                font-size: 22px;
             }
 
             h3 {
@@ -109,6 +110,14 @@
             p {
                 font-size: 15px;
             }
+
+            .wrapper {
+                width: 100% !important;
+            }
+
+            .email-header {
+                text-align: center;
+            }
         }
 
         @media screen and (max-width: 440px) {
@@ -116,8 +125,24 @@
                 padding: 0;
             }
 
+            .email-cell {
+                padding: 0 10px !important;
+            }
+
+            h2, h3 {
+                font-size: 18px;
+            }
+
+            .min-height {
+                height: 20px !important;
+            }
+
+            .email-background {
+                background-color: #f4f4f4 !important;
+            }
+
             .email-header {
-                padding-left: 30px !important;
+                color: black !important;
             }
         }
 
@@ -125,12 +150,6 @@
             margin: 0 !important;
             padding: 0 !important;
             font-family: sans-serif, 'Times New Roman', Times, serif;
-        }
-
-        @media screen and (max-width: 726px) {
-            .wrapper {
-                width: 100% !important;
-            }
         }
 
         /* ANDROID CENTER FIX */
@@ -142,66 +161,64 @@
 <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;  mso-line-height-rule: exactly;" width="100%">
 <center style="width: 100%; ">
     <div style="margin: 0 auto;" class="email-container">
-        <table border="0" bordercolor="" cellpadding="0" cellspacing="0" width="100%" style="margin: auto">
-            <tbody>
+        <table border="0" align="center" bordercolor="" cellpadding="0" cellspacing="0" width="100%" style="margin: auto">
             <tr>
-                <td align="center" style="background-color: {{$company->primary_color_lighter ?? '#c55a9059'}} ">
+                <td align="center" bgcolor="{{$company->primary_color_lighter ?? '#c55a9059'}}" class="email-background">
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650" align="center">
                             <tr>
-                                <td>
-                                    <![endif]-->
-                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapper">
-                                        <tbody>
-                                        <tr>
-                                            <td bgcolor="transparent" height="60"></td>
-                                        </tr>
-                                        <tr>
-                                            <td bgcolor="transparent">
-                                                <img src="{{ $company->logo ? asset($company->logo) : asset('images/logo3.png') }}" width="200" alt="Propify" class="email-header">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td bgcolor="transparent" height="23"></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="background-color: transparent; font-size: 18px;color: white;">
-                                                <h3 style="padding: 0; margin: 0" class="email-header">@lang('template.tenant_portal', [], $lang)</h3>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td bgcolor="transparent" height="23"></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <!--[if mso]>
-                               </td>
+                                <td><![endif]-->
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapper">
+                            <tr>
+                                <td bgcolor="transparent" height="60" class="min-height"></td>
                             </tr>
+                            <tr>
+                                <td bgcolor="transparent" style="padding: 0" class="email-header">
+                                    &emsp;&emsp;<img src="{{ $company->logo ? asset($company->logo) : asset('images/logo3.png') }}" width="200"
+                                                     alt="Propify"/>&emsp;&emsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="transparent" height="23"></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: transparent; font-size: 18px;color: white;padding: 0">
+                                    <h3 style="padding: 0; margin: 0;color: #ffffff" class="email-header">&emsp;&emsp;@lang('template.tenant_portal', [], $lang)&emsp;&emsp;</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="transparent" height="23"></td>
+                            </tr>
+                        </table>
+                        <!--[if mso]>
+                        </td>
+                        </tr>
                         </table>
                         <![endif]-->
                     </div>
                 </td>
             </tr>
             <tr>
-                <td style="background-color: {{$company->primary_color_lighter ?? '#c55a9059'}} " align="center">
+                <td bgcolor="{{$company->primary_color_lighter ?? '#c55a9059'}}" align="center">
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650" align="center">
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650"
+                               align="center">
                             <tr>
                                 <td>
-                                    <![endif]-->
+                        <![endif]-->
 
-                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapper">
-                                        <tbody>
-                                            <tr>
-                                                <td height="40" width="100%" bgcolor="#ffffff" style="border-radius: 4px 4px 0 0;"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <!--[if mso]>
-                                </td>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapper">
+                            <tr>
+                                <td height="40" width="100%" bgcolor="#ffffff"
+                                    style="border-radius: 4px 4px 0 0;-webkit-border-radius: 4px 4px 0 0; -moz-border-radius:  4px 4px 0 0;  -ms-border-radius:  4px 4px 0 0;"
+                                    class="min-height"></td>
                             </tr>
+                        </table>
+                        <!--[if mso]>
+                        </td>
+                        </tr>
                         </table>
                         <![endif]-->
                     </div>
@@ -215,101 +232,15 @@
                                align="center">
                             <tr>
                                 <td>
-                                    <![endif]-->
-                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapper">
-                                        <tbody>
-                                            @yield('body')
-                                        </tbody>
-                                    </table>
-                                    <!--[if mso]>
-                                </td>
-                            </tr>
-                        </table>
                         <![endif]-->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td bgcolor="#f4f4f4" align="center" cellpadding="0" cellspacing="0">
-                    <div style="max-width: 650px; margin: 0 auto;" class="email-container">
-                        <!--[if mso]>
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650" align="center">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapper">
                             <tr>
-                                <td>
-                                    <![endif]-->
-                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapper">
-                                        <tbody>
-                                            <tr>
-                                                <td height="40" width="100%" bgcolor="#ffffff" style="border-radius: 0 0 4px 4px;"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <!--[if mso]>
+                                <td bgcolor="#ffffff" align="center"
+                                    style="color: #000000; font-size: 18px; font-weight: 400; line-height: 25px;"
+                                    class="email-cell">
+                                        @yield('body')
                                 </td>
                             </tr>
-                        </table>
-                        <![endif]-->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td style="background-color: #f4f4f4 " align="center">
-                    <div style="max-width: 650px; margin: 0 auto;" class="email-container">
-                        <!--[if mso]>
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650"
-                               align="center">
-                            <tr>
-                                <td>
-                        <![endif]-->
-                        <table border="0" width="100%" cellpadding="0" cellspacing="0" class="wrapper">
-                            <tbody>
-                            <tr>
-                                <td height="20" bgcolor="transparent"></td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="transparent" align="center" style="color: grey; font-size: 12px; font-weight: 400; line-height: 25px;">
-                                    @lang('template.generated_email_for_user', ['userName' =>  $userName], $lang)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="transparent" height="15"></td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="transparent" align="center" style="color: #000000; font-size: 14px; font-weight: 400; line-height: 1.3;padding: 0 10px">
-                                    <span>
-                                        @lang('template.generated_email_for_company', ['companyName' =>  $companyName], $lang)
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="transparent" height="30"></td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="transparent" align="center" style="color: #000000; font-size: 18px; font-weight: 400; line-height: 25px;">
-                                    <img src="http://dev.propify.ch/images/logo3.png?457809be3146f072c0b6f87bfea7cbf6" width="100" height="30" alt="Creating Email Magic" style="display: block;">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="transparent" height="10"></td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="transparent" align="center"
-                                    style="color: #000000; font-size: 14px; font-weight: 400; line-height: 1;">
-                                    Lange Gasse 8, 4052 Basel, Schweiz
-                                </td>
-                            </tr>
-                            <tr>
-                                <td height="20"></td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="transparent" align="center" style="color: #000000; font-size: 14px; font-weight: 400; line-height: 25px;">
-                                    {!! __('template.links', [], $lang) !!}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td height="30"></td>
-                            </tr>
-                            </tbody>
                         </table>
                         <!--[if mso]>
                         </td>
@@ -319,14 +250,110 @@
                     </div>
                 </td>
             </tr>
-            </tbody>
         </table>
+        <!--[if mso]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
+    </div>
+    </td>
+    </tr>
+    <tr>
+        <td bgcolor="#f4f4f4" align="center" cellpadding="0" cellspacing="0">
+            <div style="max-width: 650px; margin: 0 auto;" class="email-container">
+                <!--[if mso]>
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650"
+                       align="center">
+                    <tr>
+                        <td>
+                <![endif]-->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapper">
+                    <tr>
+                        <td height="40" width="100%" bgcolor="#ffffff"
+                            style="border-radius:  0 0 4px 4px;-webkit-border-radius:  0 0 4px 4px; -moz-border-radius:   0 0 4px 4px;  -ms-border-radius:   0 0 4px 4px;"></td>
+                    </tr>
+                </table>
+                <!--[if mso]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#f4f4f4" align="center">
+            <div style="max-width: 650px; margin: 0 auto;" class="email-container">
+                <!--[if mso]>
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650"
+                       align="center">
+                    <tr>
+                        <td>
+                <![endif]-->
+                <table align="center" border="0" width="100%" cellpadding="0" cellspacing="0" class="wrapper">
+                    <tr>
+                        <td height="20" bgcolor="transparent"></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="transparent" align="center"
+                            style="color: grey; font-size: 12px; font-weight: 400; line-height: 25px;">
+                            @lang('template.generated_email_for_user', ['userName' =>  $userName], $lang)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="transparent" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="transparent" align="center"
+                            style="color: #000000; font-size: 14px; font-weight: 400; line-height: 1.3;padding: 0 10px"
+                            class="email-cell">
+                                    <span>
+                                             @lang('template.generated_email_for_company', ['companyName' =>  $companyName], $lang)
+                                   </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="transparent" height="20" style="z-index: 1;"></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="transparent" align="center" height="60"
+                            style="color: #000000; font-size: 18px; font-weight: 400; line-height: 60px;z-index:999">
+                            <img src="http://dev.propify.ch/images/logo3.png?457809be3146f072c0b6f87bfea7cbf6"
+                                 width="100" height="30" alt="Creating Email Magic" style="display: block;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="transparent" height="10"></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="transparent" align="center"
+                            style="color: #000000; font-size: 14px; font-weight: 400; line-height: 1;">
+                            Lange Gasse 8, 4052 Basel, Schweiz
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="20"></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="transparent" align="center" style="color: #000000; font-size: 14px; font-weight: 400; line-height: 25px;">
+                            {!! __('template.links', [], $lang) !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30"></td>
+                    </tr>
+                </table>
+                <!--[if mso]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </div>
+        </td>
+    </tr>
+    </table>
     </div>
 </center>
-
-
-</body>
-
 </body>
 </html>
-

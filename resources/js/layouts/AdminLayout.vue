@@ -648,7 +648,7 @@
                 this.activeLanguage = language;
             },
 
-            onClick(language, flag){
+            onClick(language, flag){                
                 this.$i18n.locale = language;
                 this.selectedFlag = flag;
                 this.$root.$emit('changeLanguage');
@@ -659,15 +659,18 @@
             },
 
             init(){
-                if(!localStorage.getItem('locale')){
+                if(this.$i18n.locale){
+                    if(this.$i18n.locale === 'en'){
+                        this.selectedFlag = `flag-icon flag-icon-us`;
+                    }else {
+                        this.selectedFlag = `flag-icon flag-icon-${this.$i18n.locale}`;
+                    }                    
+                } else {                                        
                     if(this.user.settings.language === 'en'){
                         this.selectedFlag = `flag-icon flag-icon-us`;
                     }else {
                         this.selectedFlag = `flag-icon flag-icon-${this.user.settings.language}`;
                     }
-                } else {
-                    this.selectedFlag = localStorage.getItem('selectedFlag');
-                    this.$i18n.locale = localStorage.getItem('locale');
                 }
             },
 

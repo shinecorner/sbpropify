@@ -201,6 +201,7 @@
                 this.categories = categories.filter(category => {
                     return category.parent_id !== 1;
                 });
+
                 return this.categories;
             },
             async getFilterServices() {
