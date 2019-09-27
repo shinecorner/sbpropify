@@ -13,7 +13,7 @@ export default (config = {}) => {
             return {
                 loading: {
                     state: false,
-                    text: 'Please wait...'
+                    text: 'general.please_wait'
                 },
                 model: {
                     id: '',

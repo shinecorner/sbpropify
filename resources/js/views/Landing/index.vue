@@ -14,8 +14,11 @@
                     <el-menu-item index="2" route="/"  class="spacer"></el-menu-item>
                     <el-menu-item index="3" route="login">
                         <el-button type="primary" icon="ti-user" round>Login</el-button>
-                    </el-menu-item>
+                    </el-menu-item>                    
                 </el-menu>
+                <div class="languageswitcher">                    
+                        <locale-switcher />                    
+                </div>   
             </div>
             <div class="container">
                 <h1>Lorem. Ipsum. Dolor sit amet.</h1>
@@ -276,6 +279,14 @@
         }
     }
 </script>
+<style lang="scss">
+    .languageswitcher{
+            position: fixed;
+            top: 35px;
+            right: 20px;
+            z-index: 3000;
+    }
+</style>
 <style lang="scss" scoped>
     .container {
         padding-right: 15px;
