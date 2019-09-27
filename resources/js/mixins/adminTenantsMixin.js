@@ -43,21 +43,27 @@ export default (config = {}) => {
                         language: '',
                     },
                     nation: '',
-                    contract: {
-                        rent_type: '',
-                        rent_duration: '',
-                        rent_start: '',
-                        rent_end: '',
-                        deposit_amount: '',
-                        deposit_type: '',
-                        net_rent: '',
-                        unit_id: '',
-                        building_id: '',
-                        heating_operating_costs_installment: '',
-                        media: []
-                    }
+                    rent_contracts: [],
                 },
-                contracts: [],
+                contract: {
+                    type: '',
+                    duration: '',
+                    start_date: '',
+                    end_date: '',
+                    deposit_amount: '',
+                    deposit_type: '',
+                    net_rent: '',
+                    operating_cost: '',
+                    status: '1',
+                    deposit_status: '1',
+                    gross_rent: '',
+                    parking_price: 0,
+                    unit_id: '',
+                    building_id: '',
+                    media: [],
+                    buildings: [],
+                    units: [],
+                },
                 validationRules: {
                     first_name: [{
                         required: true,
@@ -157,12 +163,12 @@ export default (config = {}) => {
             },
             disabledRentStart(date) {
                 const d = new Date(date).getTime();
-                const rentEnd = new Date(this.model.contract.rent_end).getTime();
+                const rentEnd = new Date(this.model.contract.end_date).getTime();
                 return d >= rentEnd;
             },
             disabledRentEnd(date) {
                 const d = new Date(date).getTime();
-                const rentStart = new Date(this.model.contract.rent_start).getTime();
+                const rentStart = new Date(this.model.contract.start_date).getTime();
                 return d <= rentStart;
             },
             contractUploaded(file) {
@@ -177,16 +183,54 @@ export default (config = {}) => {
                     displayError(err);
                 });
             },
-            async addContract() {
+            async remoteContractdSearchBuildings(search, index) {
+                if (search === '') {
+                    this.model.rent_contracts[index].buildings = [];
+                } else {
+                    this.remoteLoading = true;
 
-                this.contracts.push(Object.assign({}, this.model.contract))
-                Object.keys(this.model.contract).forEach(index => {
-                    this.model.contract[index] = ''
-                })
-                this.model.contract.media = [];
-                console.log('add contract', this.contracts)
-                // let params = {tenant_id : 1, ...this.model.contract}
-                // await this.$store.dispatch('rentContracts/create', params)
+                    try {
+                        const resp = await this.getBuildings({get_all: true, search});
+                        this.model.rent_contracts[index].buildings = resp.data;
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.remoteLoading = false;
+                    }
+                }
+            },
+            async searchContractUnits(contract) {
+                contract.unit_id = '';
+                try {
+                    const resp = await this.getUnits({
+                        get_all: true,
+                        building_id: contract.building_id
+                    });
+
+                    contract.units = resp.data;
+                    console.log('contract units', contract.units)
+                } catch (err) {
+                    displayError(err);
+                } finally {
+                    this.remoteLoading = false;
+                }
+            },
+            changeContractUnit(contract) {
+                console.log(contract.unit_id)
+                
+                let unit = contract.units.find(item => item.id == contract.unit_id)
+                contract.net_rent = unit.monthly_rent_net
+                contract.operating_cost = unit.monthly_maintenance
+                contract.gross_rent = unit.monthly_rent_gross
+            },
+            async addContract() {
+                this.model.rent_contracts.push(Object.assign({}, this.contract))
+            },
+            deleteContract( contract_index ) {
+                this.model.rent_contracts.splice(contract_index, 1)
+            },
+            deletePDFfromContract(contract_index, index) {
+                console.log('delete PDF', contract_index, index)
             },
             ...mapActions(['getBuildings', 'getUnits', 'getCountries', 'uploadMediaFile']),
         },
@@ -207,6 +251,8 @@ export default (config = {}) => {
             for (var key in deposit_types) {
                 this.deposit_types.push({name : deposit_types[key], value : key})
             }
+
+            this.model.rent_contracts.push(Object.assign({}, this.model.contract))
         },
         computed: {
             form() {
@@ -239,7 +285,10 @@ export default (config = {}) => {
                             }
 
                             this.loading.state = true;
-
+                            
+                            this.model.rent_contracts.forEach(contract => {
+                                contract.gross_rent = contract.net_rent + contract.operating_cost
+                            })
                             let {email, password, password_confirmation, ...tenant} = this.model;
 
                             try {

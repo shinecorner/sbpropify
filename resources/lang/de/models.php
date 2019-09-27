@@ -152,6 +152,8 @@ return [
         ],
         'net_rent' => 'Nettomiete',
         'heating_operating_costs_installment' => 'Heizungs-/Betriebskostenrate',
+        'maintenance' => 'Wartung',
+        'parking_price' => 'Parkplatz Preis',
         'gross_rent' => 'Bruttomiete',
         'contact' => [
             'category' => 'Kategorie',

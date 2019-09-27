@@ -152,6 +152,8 @@ return [
         ],
         'net_rent' => 'Net rent',
         'heating_operating_costs_installment' => 'Heating/operating costs installment',
+        'maintenance' => 'Maintenance',
+        'parking_price' => 'Parking Price',
         'gross_rent' => 'Gross rent',
         'contact' => [
             'category' => 'Category',
