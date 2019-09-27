@@ -113,6 +113,20 @@ class CleanDB extends Command
             'relation' => (new Quarter())->getTable(),
         ];
 
+
+
+        $requestAssignees = $this->getMorphTable('assignee_id', 'assignee_type', [
+            User::class,
+            PropertyManager::class,
+            ServiceProvider::class,
+        ]);
+        $requestAssignees[] = [
+            'relation' => (new ServiceRequest())->getTable(),
+            'relation_id' => 'request_id'
+        ];
+
+
+
         $config = [
             'audits' => $audits,
             'autologins' => [
@@ -149,7 +163,8 @@ class CleanDB extends Command
             'oauth_access_tokens' => [
                 'relation' => (new User())->getTable(),
             ],
-            'quarter_assignees' => $quarterAssignees
+            'quarter_assignees' => $quarterAssignees,
+            'request_assignees' => $requestAssignees
         ];
 
 
