@@ -152,6 +152,8 @@ return [
         ],
         'net_rent' => 'Affitto netto',
         'heating_operating_costs_installment' => 'Rata dei costi di riscaldamento/costi di esercizio',
+        'maintenance' => 'Manutenzione',
+        'parking_price' => 'Prezzo del parcheggio',
         'gross_rent' => 'Affitto lordo',
         'contact' => [
             "category" => "Categoria",

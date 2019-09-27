@@ -152,6 +152,8 @@ return [
         ],
         'net_rent' => 'Loyer net',
         'heating_operating_costs_installment' => "Versement des frais de chauffage et d'exploitation",
+        'maintenance' => 'Maintenance',
+        'parking_price' => 'Prix Parking',
         'gross_rent' => 'Loyer brut',
         'contact' => [
             "category" => "Catégorie",
