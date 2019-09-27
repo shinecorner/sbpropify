@@ -79,8 +79,8 @@
                     border-radius: 0;
                     font-family: inherit;
                     //box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
-                    /deep/ i {
-                        padding-right: 10px;
+                    /deep/ span {
+                        padding-left: 10px;
                     }
                 }
             }

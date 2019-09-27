@@ -44,20 +44,24 @@ export default (config = {}) => {
                     },
                     nation: '',
                     contract: {
+                        buildings: [],
+                        units: [],
                         rent_type: '',
                         rent_duration: '',
                         rent_start: '',
                         rent_end: '',
                         deposit_amount: '',
                         deposit_type: '',
-                        net_rent: '',
                         unit_id: '',
                         building_id: '',
+                        net_rent: '',
                         heating_operating_costs_installment: '',
+                        maintenance: '',
+                        gross_rent: '',
                         media: []
-                    }
+                    },
+                    rent_contracts: [],
                 },
-                contracts: [],
                 validationRules: {
                     first_name: [{
                         required: true,
@@ -177,16 +181,56 @@ export default (config = {}) => {
                     displayError(err);
                 });
             },
-            async addContract() {
+            async remoteContractdSearchBuildings(search, index) {
+                if (search === '') {
+                    this.model.rent_contracts[index].buildings = [];
+                } else {
+                    this.remoteLoading = true;
 
-                this.contracts.push(Object.assign({}, this.model.contract))
-                Object.keys(this.model.contract).forEach(index => {
-                    this.model.contract[index] = ''
-                })
-                this.model.contract.media = [];
-                console.log('add contract', this.contracts)
-                // let params = {tenant_id : 1, ...this.model.contract}
-                // await this.$store.dispatch('rentContracts/create', params)
+                    try {
+                        const resp = await this.getBuildings({get_all: true, search});
+                        this.model.rent_contracts[index].buildings = resp.data;
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.remoteLoading = false;
+                    }
+                }
+            },
+            async searchContractUnits(contract) {
+                console.log('building_id', contract.building_id)
+                contract.unit_id = '';
+                try {
+                    const resp = await this.getUnits({
+                        get_all: true,
+                        building_id: contract.building_id
+                    });
+
+                    contract.units = resp.data;
+
+                    console.log('units', contract.units)
+                } catch (err) {
+                    displayError(err);
+                } finally {
+                    this.remoteLoading = false;
+                }
+            },
+            changeContractUnit(contract) {
+                console.log(contract.unit_id)
+                
+                let unit = contract.units.find(item => item.id == contract.unit_id)
+                contract.net_rent = unit.monthly_rent_net
+                contract.maintenance = unit.monthly_maintenance
+                contract.gross_rent = unit.monthly_rent_gross
+            },
+            async addContract() {
+                this.model.rent_contracts.push(Object.assign({}, this.model.contract))
+            },
+            deleteContract( contract_index ) {
+                this.model.rent_contracts.splice(contract_index, 1)
+            },
+            deletePDFfromContract(contract_index, index) {
+                console.log('delete PDF', contract_index, index)
             },
             ...mapActions(['getBuildings', 'getUnits', 'getCountries', 'uploadMediaFile']),
         },
@@ -207,6 +251,8 @@ export default (config = {}) => {
             for (var key in deposit_types) {
                 this.deposit_types.push({name : deposit_types[key], value : key})
             }
+
+            this.model.rent_contracts.push(Object.assign({}, this.model.contract))
         },
         computed: {
             form() {
