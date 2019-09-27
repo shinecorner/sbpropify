@@ -31,7 +31,7 @@ class PermissionsTableSeeder extends Seeder
         ['add-pinboard', 'Add Pinboard', 'add pinboard'],
         ['edit-pinboard', 'Edit Pinboard', 'edit existing pinboard'],
         ['delete-pinboard', 'Delete Pinboard', 'delete existing pinboard'],
-        ['publish-pinboard', 'Publish Pinboard', 'publish pinboard'],
+        ['(un)publish-pinboard', 'Publish Pinboard', 'publish pinboard'],
         ['pin-pinboard', 'Pin Pinboard', 'pin pinboard'],
         ['assign-pinboard', 'Assign Pinboard', 'assign pinboard'],
         ['list_views-pinboard', 'List views of Pinboard', 'list views of pinboard'],
@@ -41,7 +41,7 @@ class PermissionsTableSeeder extends Seeder
         ['add-product', 'Add Product', 'add product'],
         ['edit-product', 'Edit Product', 'edit existing product'],
         ['delete-product', 'Delete Product', 'delete existing product'],
-        ['publish-product', 'Publish Product', 'publish product'],
+        ['(un)publish-product', 'Publish Product', 'publish product'],
         // Provider
         ['list-provider', 'List service provider', 'list all service providers'],
         ['add-provider', 'Add service provider', 'add service provider'],
