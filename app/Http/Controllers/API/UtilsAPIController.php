@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App;
 use App\Http\Controllers\AppBaseController;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\Product;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
@@ -120,7 +120,8 @@ class UtilsAPIController extends AppBaseController
             'serviceProviders' => $this->getServiceProviderConstants(),
             'serviceRequests' => $this->getServiceRequestsConstants(),
             'propertyManager' => $this->getPropertyManagerConstants(),
-            'posts' => $this->getPostConstants(),
+            'posts' => $this->getPinboardConstants(),
+            'pinboard' => $this->getPinboardConstants(),
             'products' => $this->getProductConstants(),
             'templates' => $this->getTemplateConstants(),
             'audits' => $this->getAuditConstants(),
@@ -228,15 +229,15 @@ class UtilsAPIController extends AppBaseController
     /**
      * @return array
      */
-    protected function getPostConstants()
+    protected function getPinboardConstants()
     {
         $result = [
-            'type' => Post::Type,
-            'sub_type' => Post::SubType,
-            'visibility' => Post::Visibility,
-            'status' => Post::Status,
-            'category' => Post::Category,
-            'execution_period' => Post::ExecutionPeriod,
+            'type' => Pinboard::Type,
+            'sub_type' => Pinboard::SubType,
+            'visibility' => Pinboard::Visibility,
+            'status' => Pinboard::Status,
+            'category' => Pinboard::Category,
+            'execution_period' => Pinboard::ExecutionPeriod,
         ];
 
         return $result;

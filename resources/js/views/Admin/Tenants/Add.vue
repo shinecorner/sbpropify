@@ -260,7 +260,7 @@
                                                 value-format="yyyy-MM-dd"/>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12" v-if="model.rent_duration == 'limited'">
+                                <el-col :md="12" v-if="model.contract.rent_duration == 'limited'">
                                     <el-form-item :label="$t('models.tenant.rent_end')"
                                                     prop="rent_end">
                                         <el-date-picker
@@ -276,7 +276,7 @@
                             </el-row>   
                             
                             <el-form-item :label="$t('models.tenant.rent_contract_pdf')">
-                                <el-row :gutter="20" class="list-complete-item" justify="center"
+                                <!-- <el-row :gutter="20" class="list-complete-item" justify="center"
                                         style="margin-bottom: 1em;"
                                         type="flex"
                                         v-if="!_.isEmpty(toUploadContract)">
@@ -291,8 +291,24 @@
                                         <el-button @click="deleteToUploadContract" icon="ti-trash" size="mini"
                                                     type="danger"/>
                                     </el-col>
-                                </el-row>
-                                <upload-document @fileUploaded="contractToUpload" class="drag-custom" drag/>
+                                </el-row> -->
+                                <relation-list
+                                    :actions="unitActions"
+                                    :columns="unitColumns"
+                                    :filterValue="model.id"
+                                    fetchAction="getUnits"
+                                    filter="building_id"
+                                    v-if="model.id"
+                                />
+                                <upload-document @fileUploaded="contractToUpload" class="drag-custom" drag multiple/>
+                                <!-- <ui-media-gallery :files="model.contract.media.map(({url}) => url)" />
+                                <ui-media-uploader v-model="model.media" 
+                                                :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" 
+                                                :action="`api/v1/contracts/${model.contract.id}/media`" 
+                                                :id="model.contract.id" 
+                                                type="contract"
+                                                :options="{drop: true, draggable: true, multiple: true}" /> -->
+
                             </el-form-item>
                            
                            <el-row :gutter="20">
@@ -343,7 +359,7 @@
                             <ui-divider></ui-divider>
                             <div class="contract-actions">
                                 <el-button type="primary" @click="addContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>
-                                <el-button type="danger" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button>
+                                <!-- <el-button type="danger" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button> -->
                             </div>
                             
                         </card>
@@ -379,12 +395,33 @@
         },
         data() {
             return {
-                toUploadContract: {}
+                toUploadContract: {},
+                unitColumns: [{
+                    prop: 'name',
+                    label: 'models.unit.name'
+                },{
+                    prop: 'typeLabel',
+                    label: 'models.unit.type.label'
+                },{
+                    prop: 'floor',
+                    label: 'models.unit.floor'
+                }],
+                unitActions: [{
+                    width: '180px',
+                    buttons: [{
+                        title: 'general.actions.edit',
+                        type: 'primary',
+                        onClick: this.unitEditView,
+                        tooltipMode: true,
+                        icon: 'el-icon-edit'
+                    }]
+                }],
             }
         },
         methods: {
             contractToUpload(file) {
                 this.toUploadContract = {...file, url: URL.createObjectURL(file.raw)};
+                console.log('toUploadContract', this.toUploadContract)
             },
             deleteToUploadContract() {
                 this.toUploadContract = {};

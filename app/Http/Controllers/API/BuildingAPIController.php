@@ -601,7 +601,7 @@ class BuildingAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="/buildings/{post_id}/service/{service_id}",
+     *      path="/buildings/{pinboard_id}/service/{service_id}",
      *      summary="Remove the specified Service from storage",
      *      tags={"Building"},
      *      description="Delete Service",
@@ -710,7 +710,7 @@ class BuildingAPIController extends AppBaseController
      *      path="/buildings/{id}/propertyManagers",
      *      summary="Assign the provided propertyManagers to the Building",
      *      tags={"Building"},
-     *      description=" <a href='http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers'>http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers</a>",
+     *      description=" <a href='http://dev.propify.ch/api/docs#/Building/pinboard_buildings__id__managers'>http://dev.propify.ch/api/docs#/Building/pinboard_buildings__id__managers</a>",
      *      produces={"application/json"},
      *      deprecated=true,
      *      @SWG\Parameter(

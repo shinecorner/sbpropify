@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/docs/api-docs.json
 /storage/temp
 /vendor
 /public/myAdmin

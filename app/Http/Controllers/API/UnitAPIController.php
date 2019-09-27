@@ -14,7 +14,7 @@ use App\Http\Requests\API\Unit\ListRequest;
 use App\Http\Requests\API\Unit\UpdateRequest;
 use App\Http\Requests\API\Unit\ViewRequest;
 use App\Models\Unit;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UnitRepository;
 use App\Transformers\UnitTransformer;
@@ -135,10 +135,10 @@ class UnitAPIController extends AppBaseController
      * )
      *
      * @param CreateRequest $request
-     * @param PostRepository $pr
+     * @param PinboardRepository $pr
      * @return Response
      */
-    public function store(CreateRequest $request, PostRepository $pr)
+    public function store(CreateRequest $request, PinboardRepository $pr)
     {
         $input = $request->all();
         $input['sq_meter'] = $input['sq_meter'] ?? 0;
@@ -158,7 +158,7 @@ class UnitAPIController extends AppBaseController
                     'unit_id' => $unit->id,
                 ];
                 $tenant = $this->tenantRepository->update($attr, $input['tenant_id']);
-                $pr->newTenantPost($tenant);
+                $pr->newTenantPinboard($tenant);
             } catch (\Exception $e) {
                 return $this->sendError(__('models.unit.errors.tenant_assign') . $e->getMessage());
             }
@@ -265,11 +265,12 @@ class UnitAPIController extends AppBaseController
      *
      * @param $id
      * @param UpdateRequest $request
-     * @param PostRepository $pr
+     * @param PinboardRepository $pr
      * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update($id, UpdateRequest $request, PostRepository $pr)
+    public function update($id, UpdateRequest $request, PinboardRepository $pr)
     {
         $input = $request->all();
         if (isset($input['monthly_rent'])) {
@@ -281,7 +282,7 @@ class UnitAPIController extends AppBaseController
         if (empty($unit)) {
             return $this->sendError(__('models.unit.errors.not_found'));
         }
-        $shouldPost = isset($input['tenant_id']) &&
+        $shouldPinboard = isset($input['tenant_id']) &&
             (!$unit->tenant || ($unit->tenant && $unit->tenant->id != $input['tenant_id']));
 
         try {
@@ -300,8 +301,8 @@ class UnitAPIController extends AppBaseController
         }
 
         $unit->load('building', 'tenants.user');
-        if ($shouldPost) {
-            $pr->newTenantPost($unit->tenant);
+        if ($shouldPinboard) {
+            $pr->newTenantPinboard($unit->tenant);
         }
 
         $response = (new UnitTransformer)->transform($unit);
