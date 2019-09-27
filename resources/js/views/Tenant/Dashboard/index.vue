@@ -7,7 +7,7 @@
         <ui-heading icon="ti-home" :title="$t('tenant.my_dashboard')">
             <greeting ref="greeting" class="description" slot="description" />
         </ui-heading>
-        <ui-divider />
+        <ui-divider />        
         <div class="row" name="fade" tag="div" ref="widgets">
             <div class="column">
                 <emergency-card class="widget" />
@@ -34,7 +34,7 @@
                 <el-tab-pane name="chat" lazy>
                     <div slot="label">
                         <i class="ti-comments"></i>
-                        Chat
+                        {{$t('tenant.chat')}}
                     </div>
                     <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
                 </el-tab-pane>
