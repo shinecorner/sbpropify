@@ -74,16 +74,41 @@ class CleanDB extends Command
      */
     public function handle()
     {
-        $audits = $this->getMorphTable('auditable_id', 'auditable_type');
-        $conversations = $this->getMorphTable('conversationable_id', 'conversationable_type');
-        $comments = $this->getMorphTable('commentable_id', 'commentable_type');
-
+        $audits = $this->getAllMorphTable('auditable_id', 'auditable_type');
         $audits[] = [
             'relation' => (new User())->getTable(),
             'conditions' => [
                 'user_type' => get_morph_type_of(User::class)
             ],
         ];
+
+
+        $conversations = $this->getAllMorphTable('conversationable_id', 'conversationable_type');
+
+
+        $comments = $this->getAllMorphTable('commentable_id', 'commentable_type');
+
+
+        $buildingAssignees = $this->getMorphTable('assignee_id', 'assignee_type', [
+                User::class,
+                PropertyManager::class,
+            ]);
+        $buildingAssignees[] = [
+            'relation' => (new Building())->getTable(),
+        ];
+
+
+        $likes = $this->getAllMorphTable('likeable_id', 'likeable_type');
+        $likeCounts = $likes;
+        $likes[] = [
+            'relation' => (new User())->getTable(),
+        ];
+
+
+        $media = $this->getAllMorphTable('model_id', 'model_type');
+
+
+        $notifications = $this->getMorphTable('notifiable_id', 'notifiable_type', [User::class,]);
 
         $config = [
             'audits' => $audits,
@@ -99,8 +124,25 @@ class CleanDB extends Command
                     'relation_id' => 'address_id'
                 ]
             ],
+            'cleanify_requests' => [
+                'relation' => (new User())->getTable(),
+            ],
             'conversations' => $conversations,
             'comments' => $comments,
+            'building_assignees' => $buildingAssignees,
+            'internal_notices' => [
+                [
+                    'relation' => (new User())->getTable(),
+                ],
+                [
+                    'relation' => (new ServiceRequest())->getTable(),
+                    'relation_id' => 'request_id'
+                ],
+            ],
+            'love_likes' => $likes,
+            'love_like_counters' => $likeCounts,
+            'media' => $media,
+            'notifications' => $notifications,
         ];
 
 
@@ -142,9 +184,27 @@ class CleanDB extends Command
     /**
      * @param $relatedId
      * @param $relatedType
+     * @param $classes
      * @return array
      */
-    protected function getMorphTable($relatedId, $relatedType)
+    protected function getMorphTable($relatedId, $relatedType, $classes)
+    {
+
+        $data = [];
+        foreach ($classes as $class) {
+            $data[] = [
+                'relation' => (new $class)->getTable(),
+                'relation_id' => $relatedId,
+                'conditions' => [
+                    $relatedType => get_morph_type_of($class)
+                ],
+            ];
+        }
+
+        return $data;
+    }
+
+    protected function getAllMorphTable($relatedId, $relatedType)
     {
         $classes = [
             Address::class,
@@ -183,17 +243,6 @@ class CleanDB extends Command
             User::class,
             UserSettings::class,
         ];
-        $data = [];
-        foreach ($classes as $class) {
-            $data[] = [
-                'relation' => (new $class)->getTable(),
-                'relation_id' => $relatedId,
-                'conditions' => [
-                    $relatedType => get_morph_type_of($class)
-                ],
-            ];
-        }
-
-        return $data;
+        return $this->getMorphTable($relatedId, $relatedType, $classes);
     }
 }

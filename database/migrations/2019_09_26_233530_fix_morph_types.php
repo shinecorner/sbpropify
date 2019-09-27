@@ -16,6 +16,7 @@ class FixMorphTypes extends Migration
         update_db_fileds(\App\Models\Comment::class, ['commentable_type'], 'post', 'pinboard');
         update_db_fileds(\App\Models\Conversation::class, ['conversationable_type'], 'post', 'pinboard');
         update_db_fileds(\App\Models\Like::class, ['likeable_type'], 'post', 'pinboard');
+        update_db_fileds(\App\Models\Media::class, ['model_type'], 'post', 'pinboard');
 
     }
 
