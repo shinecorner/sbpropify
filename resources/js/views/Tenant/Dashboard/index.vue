@@ -7,9 +7,7 @@
         <ui-heading icon="ti-home" :title="$t('tenant.my_dashboard')">
             <greeting ref="greeting" class="description" slot="description" />
         </ui-heading>
-        <ui-divider />
-        {{$i18n.locale}}
-        {{$store.state.application.locale}}
+        <ui-divider />        
         <div class="row" name="fade" tag="div" ref="widgets">
             <div class="column">
                 <emergency-card />
