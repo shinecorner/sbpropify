@@ -1,4 +1,4 @@
-import Layout from 'layouts/Auth/all/Layout'
+import Layout from 'layouts/Auth/Layout'
 import isGuestGuard from 'guards/isGuestGuard'
 import VueRouterMultiguard from 'vue-router-multiguard'
 
