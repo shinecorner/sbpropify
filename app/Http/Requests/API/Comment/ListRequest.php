@@ -16,7 +16,12 @@ class ListRequest extends BaseRequest
      */
     public function authorize()
     {
+        $this->commentable = ('post' == $this->commentable) ? 'pinboard' : $this->commentable; // @TODO remove
         // users can only see comments from own conversations
+        if (empty(Relation::$morphMap[$this->commentable])) {
+            return false;
+        }
+
         if (Relation::$morphMap[$this->commentable] == Conversation::class) {
             return Conversation::where('id', $this->id)->ofLoggedInUser()->exists();
         }
@@ -37,7 +42,8 @@ class ListRequest extends BaseRequest
             'commentable' => [
                 'required',
                 'string',
-                Rule::in(array_keys(Relation::$morphMap)),
+                Rule::in(array_merge(array_keys(Relation::$morphMap), ['post'])), // @TODO remove
+//                Rule::in(array_keys(Relation::$morphMap)), // TODO revert
             ],
         ];
     }

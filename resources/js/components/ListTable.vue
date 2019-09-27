@@ -245,7 +245,7 @@
                 :label="$t(column.label)"
                 v-for="(column, key) in headerWithSelect">
                 <template slot-scope="scope">
-                    <!-- <el-select class="select-icon" :class="column.class" @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]">
+                    <el-select class="select-icon" :class="column.class" @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]" :style="{width: column.ShowCircleIcon != undefined? '120px': '150px'}">
                         <template slot="prefix">
                             <i class="icon-dot-circled" :class="scope.row[column.prop] == 1 ? 'icon-success':'icon-danger'"  v-if="column.ShowCircleIcon"></i>
                         </template>
@@ -256,13 +256,8 @@
                             v-for="item in column.select.data">
                             <i class="icon-dot-circled" :class="item.id == 1 ? 'icon-success':'icon-danger'"  v-if="column.ShowCircleIcon"></i> {{item.name}}
                         </el-option>
-                    </el-select> -->
-                    <list-table-select
-                        :column="column"
-                        @change="selectChanged($event, scope.row, column)"
-                        :spanKey="column.prop"
-                        :selectValue="scope.row[column.prop]"
-                    />
+                    </el-select>
+                   
                 </template>
             </el-table-column>
             <el-table-column

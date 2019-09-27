@@ -178,9 +178,13 @@ export default (config = {}) => {
                 });
             },
             async addContract() {
-                console.log('add contract')
-                this.contracts.push(this.model.contract)
-                console.log(this.contracts)
+
+                this.contracts.push(Object.assign({}, this.model.contract))
+                Object.keys(this.model.contract).forEach(index => {
+                    this.model.contract[index] = ''
+                })
+                this.model.contract.media = [];
+                console.log('add contract', this.contracts)
                 // let params = {tenant_id : 1, ...this.model.contract}
                 // await this.$store.dispatch('rentContracts/create', params)
             },
