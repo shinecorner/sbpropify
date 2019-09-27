@@ -45,7 +45,8 @@ export default (config = {}) => {
                     nation: '',
                     rent_contracts: [],
                 },
-                contract: {
+                activeContractIndex: 0,
+                rent_contract: {
                     type: '',
                     duration: '',
                     start_date: '',
@@ -163,12 +164,12 @@ export default (config = {}) => {
             },
             disabledRentStart(date) {
                 const d = new Date(date).getTime();
-                const rentEnd = new Date(this.model.contract.end_date).getTime();
+                const rentEnd = new Date(this.model.rent_contracts[this.activeContractIndex].end_date).getTime();
                 return d >= rentEnd;
             },
             disabledRentEnd(date) {
                 const d = new Date(date).getTime();
-                const rentStart = new Date(this.model.contract.start_date).getTime();
+                const rentStart = new Date(this.model.rent_contracts[this.activeContractIndex].start_date).getTime();
                 return d <= rentStart;
             },
             contractUploaded(file) {
@@ -199,38 +200,54 @@ export default (config = {}) => {
                     }
                 }
             },
-            async searchContractUnits(contract) {
-                contract.unit_id = '';
+            async searchContractUnits(c_index) {
+                this.activeContractIndex = c_index
+                this.model.rent_contracts[c_index].unit_id = '';
                 try {
                     const resp = await this.getUnits({
                         get_all: true,
-                        building_id: contract.building_id
+                        building_id: this.model.rent_contracts[c_index].building_id
                     });
 
-                    contract.units = resp.data;
-                    console.log('contract units', contract.units)
+                    this.model.rent_contracts.forEach(contract => {
+                        resp.data = resp.data.filter( item => item.id != contract.unit_id )
+                    })
+
+                    this.model.rent_contracts[c_index].units = resp.data;
+
                 } catch (err) {
                     displayError(err);
                 } finally {
                     this.remoteLoading = false;
                 }
             },
-            changeContractUnit(contract) {
-                console.log(contract.unit_id)
-                
-                let unit = contract.units.find(item => item.id == contract.unit_id)
-                contract.net_rent = unit.monthly_rent_net
-                contract.operating_cost = unit.monthly_maintenance
-                contract.gross_rent = unit.monthly_rent_gross
+            changeContractUnit(c_index) {
+                this.activeContractIndex = c_index
+                let unit = this.model.rent_contracts[c_index].units.find(item => item.id == this.model.rent_contracts[c_index].unit_id)
+                this.model.rent_contracts[c_index].net_rent = unit.monthly_rent_net
+                this.model.rent_contracts[c_index].operating_cost = unit.monthly_maintenance
+                this.model.rent_contracts[c_index].gross_rent = unit.monthly_rent_gross
             },
             async addContract() {
-                this.model.rent_contracts.push(Object.assign({}, this.contract))
+                this.rent_contract.media = [];
+                this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
             },
             deleteContract( contract_index ) {
                 this.model.rent_contracts.splice(contract_index, 1)
             },
-            deletePDFfromContract(contract_index, index) {
-                console.log('delete PDF', contract_index, index)
+            addPDFtoContract(file, index) {
+                this.activeContractIndex = index;
+                let toUploadContract = {...file, url: URL.createObjectURL(file.raw)};
+                this.model.rent_contracts[this.activeContractIndex].media.push(toUploadContract)
+                console.log('contract media', this.model.rent_contracts[this.activeContractIndex].media)
+            },
+            deletePDFfromContract(c_index, index) {
+                this.model.rent_contracts[c_index].splice(index, 1)
+                console.log('after delete', this.model.rent_contracts[c_index])
+            },
+            selectContract(c_index) {
+                this.activeContractIndex = c_index
+                console.log('activeContractindex', this.activeContractIndex)
             },
             ...mapActions(['getBuildings', 'getUnits', 'getCountries', 'uploadMediaFile']),
         },
@@ -252,7 +269,7 @@ export default (config = {}) => {
                 this.deposit_types.push({name : deposit_types[key], value : key})
             }
 
-            this.model.rent_contracts.push(Object.assign({}, this.model.contract))
+            this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
         },
         computed: {
             form() {
@@ -289,6 +306,10 @@ export default (config = {}) => {
                             this.model.rent_contracts.forEach(contract => {
                                 contract.gross_rent = contract.net_rent + contract.operating_cost
                             })
+
+                            this.model.building_id = this.model.rent_contracts[0].building_id;
+                            this.model.unit_id = this.model.rent_contracts[0].unit_id;
+
                             let {email, password, password_confirmation, ...tenant} = this.model;
 
                             try {
