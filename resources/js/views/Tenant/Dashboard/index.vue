@@ -8,6 +8,8 @@
             <greeting ref="greeting" class="description" slot="description" />
         </ui-heading>
         <ui-divider />
+        {{$i18n.locale}}
+        {{$store.state.application.locale}}
         <div class="row" name="fade" tag="div" ref="widgets">
             <div class="column">
                 <weather-card class="widget" />
@@ -33,7 +35,7 @@
                 <el-tab-pane name="chat" lazy>
                     <div slot="label">
                         <i class="ti-comments"></i>
-                        Chat
+                        {{$t('tenant.chat')}}
                     </div>
                     <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
                 </el-tab-pane>

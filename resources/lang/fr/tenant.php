@@ -223,4 +223,5 @@ return [
     "execution" => "Exécution",
     "loading" => "Chargement...",
     "chat" => "Clavardage",
+    "monthly_rent_net" => "Loyer mensuel net",
 ];
