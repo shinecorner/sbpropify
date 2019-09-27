@@ -1,7 +1,7 @@
 <template>
     <ui-card shadow="always">
-        <div class="left-circle">
-            <i class="icon-attention-alt"></i>
+        <div class=" icon-attention-alt">
+            
         </div>
         <div class="right-text">
             <p>Emegerency Number</p>
@@ -45,7 +45,6 @@
                     height: 50px
                     font-size: 30px
                     display: block
-                    color: red
                 
             .right-text
                 flex: 1
