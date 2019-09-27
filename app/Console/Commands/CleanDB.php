@@ -78,6 +78,7 @@ class CleanDB extends Command
         $comments = $this->getAllMorphTable('commentable_id', 'commentable_type');
         $media = $this->getAllMorphTable('model_id', 'model_type');
         $notifications = $this->getMorphTable('notifiable_id', 'notifiable_type', [User::class,]);
+        $translations = $this->getMorphTable('object_id', 'object_type', [User::class,]);
 
 
         $audits = $this->getAllMorphTable('auditable_id', 'auditable_type');
@@ -164,7 +165,8 @@ class CleanDB extends Command
                 'relation' => (new User())->getTable(),
             ],
             'quarter_assignees' => $quarterAssignees,
-            'request_assignees' => $requestAssignees
+            'request_assignees' => $requestAssignees,
+            'translations' => $translations
         ];
 
 
