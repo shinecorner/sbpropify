@@ -151,7 +151,7 @@ class RolesTableSeeder extends Seeder
             'view-service_request_category',
             'view-real_estate',
             'view-tenants_statistics',
-            'edit-request_tenant',
+            'edit-request',
         ];
         foreach ($tenantPerms as $p) {
             $RLCUser->attachPermission(Permission::where('name', $p)->first());
