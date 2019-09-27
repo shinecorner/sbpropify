@@ -64,7 +64,7 @@ export default (config = {}) => {
                 },
                 loading: {
                     state: false,
-                    text: 'Please wait...'
+                    text: 'general.please_wait'
                 },
                 isFormSubmission: false
             };
