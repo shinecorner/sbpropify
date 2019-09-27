@@ -50,13 +50,13 @@ class RenameSomePermissions extends Migration
         }
         $roles = \App\Models\Role::whereIn('name', ['administrator', 'manager'])->get();
         if ($roles->count() == 2) {
-            foreach ($this->getNewPerms() as $permission) {
+            foreach ($this->missingPerms() as $permission) {
                 $role->attachPermissionIfNotExits($permission);
             }
         }
 
 
-        update_db_fileds(\App\Models\Permission::class, ['name', 'description'], 'publish', '(un)publish');
+        update_db_fileds(\App\Models\Permission::class, ['name', 'description'], 'publish', '(un)publish', false);
         update_db_fileds(\App\Models\Permission::class, ['display_name'], 'Publish', '(Un)Publish', false);
 
 
@@ -70,7 +70,7 @@ class RenameSomePermissions extends Migration
      */
     public function down()
     {
-        update_db_fileds(\App\Models\Permission::class, ['name', 'description'], '(un)publish', 'publish');
+        update_db_fileds(\App\Models\Permission::class, ['name', 'description'], '(un)publish', 'publish', false);
         update_db_fileds(\App\Models\Permission::class, ['display_name'], '(Un)Publish', 'Publish', false);
 
         $roles = \App\Models\Role::whereIn('name', ['super_admin', 'administrator', 'manager'])->get();
@@ -100,7 +100,7 @@ class RenameSomePermissions extends Migration
 
         $roles = \App\Models\Role::whereIn('name', ['administrator', 'manager'])->get();
         if ($roles->count() == 2) {
-            foreach ($this->getNewPerms() as $permission) {
+            foreach ($this->missingPerms() as $permission) {
                 $role->detachPermissionIfExits($permission);
             }
         }
@@ -179,24 +179,26 @@ class RenameSomePermissions extends Migration
         ];
     }
 
-    protected $missingPerms = [
-        'list-pinboard',
-        'add-pinboard',
-        'edit-pinboard',
-        'delete-pinboard',
-        'publish-pinboard',
-        'pin-pinboard',
-        'assign-pinboard',
-        'list_views-pinboard',
-        'list-product',
-        'view-product',
-        'add-product',
-        'edit-product',
-        'delete-product',
-        'publish-product',
-        'list-audit',
-        'list-cleanify_request',
-        'add-cleanify_request',
-    ];
+    protected function missingPerms() {
+        return [
+            'list-pinboard',
+            'add-pinboard',
+            'edit-pinboard',
+            'delete-pinboard',
+            'publish-pinboard',
+            'pin-pinboard',
+            'assign-pinboard',
+            'list_views-pinboard',
+            'list-product',
+            'view-product',
+            'add-product',
+            'edit-product',
+            'delete-product',
+            'publish-product',
+            'list-audit',
+            'list-cleanify_request',
+            'add-cleanify_request',
+        ];
 
+    }
 }
