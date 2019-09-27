@@ -198,7 +198,7 @@ return [
     "welcome_other" => "altro",
     "welcome_others" => "altri",
     "welcome" => "Benvenuta :name",
-    "unwelcome" => "Restituire il saluto di benvenuto",
+    "unwelcome" => "Ich habe diese Person nicht willkommen geheißen.",
     "mark_all_as_read" => "Segnare tutto come letto",
     "notification_label" => "Notifiche",
     "settings" => "Impostazioni",

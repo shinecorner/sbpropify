@@ -196,7 +196,8 @@ return [
             'not_found' => 'Mieter Mietvertrag nicht gefunden',
             'create' => 'Mietvertrag des Mieters erstellt Fehler: ',
             'deleted' => 'Mieter Mietvertrag Löschfehler: ',
-        ]
+        ],
+        'filename' => 'Dateiname',
     ],
     'building' => [
         'title' => 'Liegenschaften',

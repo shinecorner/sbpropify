@@ -29,7 +29,7 @@
     .el-card {
         overflow: visible;
         margin-top: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 0;
 
         :global(.el-card__body) {
             display: flex;

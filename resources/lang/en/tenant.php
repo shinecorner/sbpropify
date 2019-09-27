@@ -198,7 +198,7 @@ return [
     "welcome_other" => "other",
     "welcome_others" => "others",
     "welcome" => "Welcome :name",
-    "unwelcome" => "Take back the welcome greeting",
+    "unwelcome" => "I haven't welcome this person",
     "mark_all_as_read" => "Mark all as read",
     "notification_label" => "Notifications",
     "settings" => "Settings",    

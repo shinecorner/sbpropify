@@ -135,50 +135,102 @@
                                 </el-col>
                             </el-row>
                         </card>
-                        <!-- <card :loading="loading" class="mt15" :header="$t('models.tenant.building_card')">
-                            <el-row :gutter="20">
-                                <el-col :md="24">
-                                    <el-form-item :label="$t('models.tenant.building.name')" prop="building_id">
-                                        <el-select
-                                                :loading="remoteLoading"
-                                                :placeholder="$t('models.tenant.search_building')"
-                                                :remote-method="remoteSearchBuildings"
-                                                :rules="validationRules.building_id"
-                                                @change="searchUnits"
-                                                filterable
-                                                remote
-                                                reserve-keyword
-                                                style="width: 100%;"
-                                                v-model="model.building_id">
-                                            <el-option
-                                                    :label="`--${$t('models.tenant.no_building')}--`"
-                                                    value=""
-                                            />
-                                            <el-option
-                                                    :key="building.id"
-                                                    :label="building.name"
-                                                    :value="building.id"
-                                                    v-for="building in buildings"/>
-                                        </el-select>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="24">
-                                    <el-form-item :label="$t('models.tenant.unit.name')" prop="unit_id"
-                                                  v-if="model.building_id">
-                                        <el-select :placeholder="$t('models.tenant.search_unit')" style="display: block"
-                                                   v-model="model.unit_id">
-                                            <el-option
-                                                    :key="unit.id"
-                                                    :label="unit.name"
-                                                    :value="unit.id"
-                                                    v-for="unit in units">
-                                            </el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                </el-col>
-                            </el-row>
-                        </card> -->
+                        
+                        
                         <card class="mt15" :header="$t('models.tenant.rent_contract')">
+                            <template  v-if="contracts.length">
+                                <div v-for="(contract, c_index) in contracts"
+                                        :key="c_index">
+
+                                <el-row :gutter="20">
+                                    <el-col :md="12">
+                                         <el-form-item :label="$t('models.tenant.building.name')" prop="building_id">
+                                            {{contract.building_id}}
+                                         </el-form-item>
+                                    </el-col>
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.tenant.unit.name')" prop="unit_id">
+                                            {{contract.unit_id}}
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                                <el-row :gutter="20">
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.tenant.rent_type')" prop="rent_type"
+                                                    class="label-block">
+                                            {{contract.rent_type}}
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.tenant.rent_duration')" prop="rent_duration"
+                                                    class="label-block">
+                                            {{contract.rent_duration}}
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                                <el-row :gutter="20">
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.tenant.rent_start')"
+                                                prop="rent_start">
+                                            {{contract.rent_start}}
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md="12" v-if="model.contract.rent_duration == 'limited'">
+                                        <el-form-item :label="$t('models.tenant.rent_end')"
+                                                        prop="rent_end">
+                                            {{contract.rent_end}}
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>   
+                                
+                                <el-form-item :label="$t('models.tenant.rent_contract_pdf')">
+                                    <el-table
+                                        :data="contract.media"
+                                        style="width: 100%"
+                                        v-if="contract.media.length"
+                                        >
+                                        <el-table-column
+                                            :label="$t('models.rent_contract.filename')"
+                                            prop="name"
+                                        >
+                                        </el-table-column>
+                                        <!-- <el-table-column
+                                            align="right"
+                                        >
+                                            <template slot-scope="scope">
+                                                <el-tooltip
+                                                    :content="$t('general.actions.delete')"
+                                                    class="item" effect="light" 
+                                                    placement="top-end">
+                                                        <el-button @click="deletePDFfromContract(c_index, scope.$index)" icon="ti-trash" size="mini" type="danger"/>
+                                                </el-tooltip>
+                                            </template>
+                                        </el-table-column> -->
+                                    </el-table>
+                                </el-form-item>
+                            
+                                <el-row :gutter="20">
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.tenant.deposit_amount')"
+                                                        prop="deposit_amount">
+                                            {{contract.deposit_amount}}
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.tenant.type_of_deposit')" prop="deposit_type"
+                                                    class="label-block">
+                                            {{contract.deposit_type}}
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+
+                                <ui-divider></ui-divider>
+                                <div class="contract-actions">
+                                    <el-button @click="deleteContract(c_index)" type="danger" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button>
+                                </div>
+                                </div>
+                            </template>
+                            
                             <el-row :gutter="20">
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.tenant.building.name')" prop="building_id">
@@ -192,7 +244,7 @@
                                                 remote
                                                 reserve-keyword
                                                 style="width: 100%;"
-                                                v-model="model.building_id">
+                                                v-model="model.contract.building_id">
                                             <el-option
                                                     :key="building.id"
                                                     :label="building.name"
@@ -203,9 +255,9 @@
                                 </el-col>
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.tenant.unit.name')" prop="unit_id"
-                                                  v-if="model.building_id">
+                                                  v-if="model.contract.building_id">
                                         <el-select :placeholder="$t('models.tenant.search_unit')" style="display: block"
-                                                   v-model="model.unit_id">
+                                                   v-model="model.contract.unit_id">
                                             <el-option
                                                     :key="unit.id"
                                                     :label="unit.name"
@@ -292,14 +344,29 @@
                                                     type="danger"/>
                                     </el-col>
                                 </el-row> -->
-                                <relation-list
-                                    :actions="unitActions"
-                                    :columns="unitColumns"
-                                    :filterValue="model.id"
-                                    fetchAction="getUnits"
-                                    filter="building_id"
-                                    v-if="model.id"
-                                />
+                                <el-table
+                                    :data="model.contract.media"
+                                    style="width: 100%"
+                                    v-if="model.contract.media.length"
+                                    >
+                                    <el-table-column
+                                        :label="$t('models.rent_contract.filename')"
+                                        prop="name"
+                                    >
+                                    </el-table-column>
+                                    <el-table-column
+                                        align="right"
+                                    >
+                                        <template slot-scope="scope">
+                                            <el-tooltip
+                                                :content="$t('general.actions.delete')"
+                                                class="item" effect="light" 
+                                                placement="top-end">
+                                                    <el-button @click="deleteToUploadContract(scope.$index)" icon="ti-trash" size="mini" type="danger"/>
+                                            </el-tooltip>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
                                 <upload-document @fileUploaded="contractToUpload" class="drag-custom" drag multiple/>
                                 <!-- <ui-media-gallery :files="model.contract.media.map(({url}) => url)" />
                                 <ui-media-uploader v-model="model.media" 
@@ -336,7 +403,7 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-row :gutter="20">
+                            <!-- <el-row :gutter="20">
                                <el-col :md="12">
                                     <el-form-item :label="$t('models.tenant.net_rent')"
                                                     prop="net_rent">
@@ -355,7 +422,7 @@
                                         ></el-input>
                                     </el-form-item>
                                 </el-col>
-                            </el-row>
+                            </el-row> -->
                             <ui-divider></ui-divider>
                             <div class="contract-actions">
                                 <el-button type="primary" @click="addContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>
@@ -396,24 +463,18 @@
         data() {
             return {
                 toUploadContract: {},
-                unitColumns: [{
-                    prop: 'name',
-                    label: 'models.unit.name'
-                },{
-                    prop: 'typeLabel',
-                    label: 'models.unit.type.label'
-                },{
-                    prop: 'floor',
-                    label: 'models.unit.floor'
+                contractColumns: [{
+                    prop: 'filename',
+                    label: 'filename'
                 }],
-                unitActions: [{
+                contractActions: [{
                     width: '180px',
                     buttons: [{
-                        title: 'general.actions.edit',
+                        title: 'general.actions.delete',
                         type: 'primary',
                         onClick: this.unitEditView,
                         tooltipMode: true,
-                        icon: 'el-icon-edit'
+                        icon: 'el-icon-close'
                     }]
                 }],
             }
@@ -421,10 +482,19 @@
         methods: {
             contractToUpload(file) {
                 this.toUploadContract = {...file, url: URL.createObjectURL(file.raw)};
-                console.log('toUploadContract', this.toUploadContract)
+                console.log('new contract media', this.model.contract.media)
+                this.model.contract.media.push(this.toUploadContract)
             },
-            deleteToUploadContract() {
+            deleteToUploadContract(index) {
+                this.model.contract.media.splice(index, 1)
+                console.log('after delete contract media', this.model.contract.media)
                 this.toUploadContract = {};
+            },
+            deletePDFfromContract(contract_index, index) {
+                console.log('delete PDF', contract_index, index)
+            },
+            deleteContract( contract_index ) {
+                this.contracts.splice(contract_index, 1)
             }
         },
         mounted() {
