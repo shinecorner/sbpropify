@@ -648,8 +648,7 @@
                 this.activeLanguage = language;
             },
 
-            onClick(language, flag){
-                console.log(flag);
+            onClick(language, flag){                
                 this.$i18n.locale = language;
                 this.selectedFlag = flag;
                 this.$root.$emit('changeLanguage');
