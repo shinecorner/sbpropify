@@ -61,9 +61,9 @@
                         if (index === 0) {
                             text += users.map(({id, name}) => id === this.loggedInUser.id ? 'You' : name.split(' ')[0]).join(', ')
                         } else if (users.length > 1) {
-                            text += ` and ${users.length} ` + $t('tenant.welcome_others')
+                            text += ` and ${users.length} ` + this.$t('tenant.welcome_others')
                         } else if (users.length) {
-                            text += ` and ${users.length} ` + $t('tenant.welcome_other')
+                            text += ` and ${users.length} ` + this.$t('tenant.welcome_other')
                         } else {
                             text = text.replace(/,(?=[^,]*$)/, ' and')
                         }
