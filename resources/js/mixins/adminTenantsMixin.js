@@ -202,10 +202,10 @@ export default (config = {}) => {
                     }
                 }
             },
-            async searchRentContractUnits(c_index) {
-                console.log('searchRentContractUnits', c_index)
+            async searchRentContractUnits(c_index, shouldKeepValue) {
                 this.activeRentContractIndex = c_index
-                this.model.rent_contracts[c_index].unit_id = '';
+                if(!shouldKeepValue)
+                    this.model.rent_contracts[c_index].unit_id = '';
                 try {
                     const resp = await this.getUnits({
                         get_all: true,
@@ -219,7 +219,6 @@ export default (config = {}) => {
                     })
 
                     this.$set(this.model.rent_contracts, c_index, { ...this.model.rent_contracts[c_index], units: resp.data})
-                    console.log('updated units', this.model.rent_contracts[c_index].units)
                 } catch (err) {
                     displayError(err);
                 } finally {
@@ -410,29 +409,17 @@ export default (config = {}) => {
                         this.original_email = this.user.email;
                         this.model.email = user.email;
                         this.model.avatar = user.avatar;
-                        this.model.nation = parseInt(this.model.nation)
+                        this.model.nation = +this.model.nation
 
-                        // if (building) {
-                        //     this.model.building_id = building.id;
-                        //     this.remoteSearchBuildings(building.name);
-                        // }
-                        // if (unit) {
-                        //     await this.searchUnits();
-                        //     this.model.unit_id = unit.id;
-                        //     this.unit = unit;
-                        // }
-
-                        console.log('models', this.model)
 
                         this.model.rent_contracts.forEach(async (rent_contract, c_index) => {
-                            let unit_id = +rent_contract.unit_id
+                            
                             if(rent_contract.building) {
-                                this.remoteRentContractdSearchBuildings(rent_contract.building.name, c_index)
+                                await this.remoteRentContractdSearchBuildings(rent_contract.building.name, c_index)
                             }
 
                             if (rent_contract.unit) {
-                                await this.searchRentContractUnits(c_index)
-                                rent_contract.unit_id = unit_id;
+                                await this.searchRentContractUnits(c_index, true)
                             }
                         })
 

@@ -219,7 +219,7 @@
                                                         :placeholder="$t('models.tenant.search_building')"
                                                         :remote-method="data => remoteRentContractdSearchBuildings(data, c_index) "
                                                         :rules="validationRules.building_id"
-                                                        @change="searchRentContractUnits(c_index)"
+                                                        @change="searchRentContractUnits(c_index, false)"
                                                         filterable
                                                         remote
                                                         reserve-keyword
