@@ -409,13 +409,15 @@
                                         <el-col :md="12">
                                             <el-form-item :label="$t('models.tenant.deposit_status.label')"
                                                             class="label-block">
-                                                <el-radio v-model="rent_contract.deposit_status"
-                                                    :key="status.value" 
-                                                    :label="status.value" 
-                                                    v-for="status in deposit_statuses"
-                                                >
-                                                    {{status.name}}
-                                                </el-radio>
+                                                <el-radio-group v-model="rent_contract.deposit_status">
+                                                    <el-radio-button 
+                                                        :key="status.value" 
+                                                        :label="status.value" 
+                                                        v-for="status in deposit_statuses"
+                                                    >
+                                                        {{status.name}}
+                                                    </el-radio-button>
+                                                </el-radio-group>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :md="12">
@@ -426,7 +428,7 @@
                                                             :key="status.value"
                                                             :label="status.name"
                                                             :value="status.value"
-                                                            v-for="status in rent_contract_statuses">
+                                                            v-for="status in rentcontract_statuses">
                                                     </el-option>
                                                 </el-select>
                                             </el-form-item>
