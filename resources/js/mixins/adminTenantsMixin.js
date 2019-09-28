@@ -307,9 +307,6 @@ export default (config = {}) => {
                                 contract.gross_rent = contract.net_rent + contract.operating_cost
                             })
 
-                            this.model.building_id = this.model.rent_contracts[0].building_id;
-                            this.model.unit_id = this.model.rent_contracts[0].unit_id;
-
                             let {email, password, password_confirmation, ...tenant} = this.model;
 
                             try {
