@@ -242,11 +242,9 @@ export default (config = {}) => {
             },
             deletePDFfromRentContract(c_index, index) {
                 this.model.rent_contracts[c_index].splice(index, 1)
-                console.log('after delete', this.model.rent_contracts[c_index])
             },
             selectRentContract(c_index) {
                 this.activeRentContractIndex = c_index
-                console.log('activeContractindex', this.activeRentContractIndex)
             },
             ...mapActions(['getBuildings', 'getUnits', 'getCountries', 'uploadMediaFile']),
         },

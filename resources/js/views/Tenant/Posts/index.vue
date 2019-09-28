@@ -182,7 +182,6 @@
                 });
             },
             editPost(event, data) {
-                console.log('editPost', data)
                this.editingPost = data;
                this.visibleDrawer = true;
             }
@@ -301,7 +300,7 @@
 
             .vue-recycle-scroller {
                 overflow-x: hidden;
-                
+
                 :global(.vue-recycle-scroller__item-wrapper) {
                     overflow: visible;
 

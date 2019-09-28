@@ -727,18 +727,15 @@
                 });
             },
             async changeTags(tags) {
-                console.log('changeTags', tags)
                 if(tags.length)
                 {
                     let addedTag = tags[ tags.length - 1];
-                    console.log('addedTag', addedTag)
                     let flag = true;
                     tags.forEach((tag,index) => {
                         if(index == tags.length - 1)
                             return;
                         if( tag == addedTag )
                         {
-                            console.log('equal')
                             flag = false;
                         }
                     })
@@ -769,11 +766,6 @@
                 } finally {
                     this.loading.state = false;
                 }
-            },
-            keymonitor(e) {
-                console.log(this.tags);
-                console.log(e.target.value);
-                console.log(e.key);
             }
         }
     };
