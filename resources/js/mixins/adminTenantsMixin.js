@@ -232,13 +232,13 @@ export default (config = {}) => {
                 this.rent_contract.media = [];
                 this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
             },
-            deleteRentContract( contract_index ) {
-                this.model.rent_contracts.splice(contract_index, 1)
+            deleteRentContract( c_index ) {
+                this.model.rent_contracts.splice(c_index, 1)
             },
             addPDFtoRentContract(file, index) {
                 this.activeRentContractIndex = index;
-                let toUploadContract = {...file, url: URL.createObjectURL(file.raw)};
-                this.model.rent_contracts[this.activeRentContractIndex].media.push(toUploadContract)
+                let toUploadRentContractFile = {...file, url: URL.createObjectURL(file.raw)};
+                this.model.rent_contracts[this.activeRentContractIndex].media.push(toUploadRentContractFile)
             },
             deletePDFfromRentContract(c_index, index) {
                 this.model.rent_contracts[c_index].splice(index, 1)
@@ -284,10 +284,10 @@ export default (config = {}) => {
                 mixin.mixins = [PasswordValidatorMixin(), EmailCheckValidatorMixin(), TenantTitleTypes, UploadUserAvatarMixin];
 
                 mixin.methods = {
-                    async contractUpl(id) {
+                    async rentContractUpl(id) {
                         return await this.uploadMediaFile({
                             id,
-                            media: this.toUploadContract.src
+                            media: this.toUploadRentContract.src
                         }).then(r => {
                             displaySuccess(r.data);
                         }).catch(err => {
@@ -323,13 +323,9 @@ export default (config = {}) => {
                                     this.uploadAvatarIfNeeded(resp.data.user.id);
                                 }
 
-                                // if (resp.data && resp.data.id && !_.isEmpty(this.toUploadContract)) {
-                                //     await this.contractUpl(resp.data.id);
-                                // }
                                 
                                 displaySuccess(resp);
 
-                                this.toUploadContract = {};
                                 this.model.rent_start = '';
                                 this.form.resetFields();
                                 if (!!afterValid) {

@@ -364,26 +364,6 @@
             AddActions,
             SelectLanguage,
         },
-        data() {
-            return {
-                contractColumns: [{
-                    prop: 'filename',
-                    label: 'filename'
-                }],
-                contractActions: [{
-                    width: '180px',
-                    buttons: [{
-                        title: 'general.actions.delete',
-                        type: 'primary',
-                        onClick: this.unitEditView,
-                        tooltipMode: true,
-                        icon: 'el-icon-close'
-                    }]
-                }],
-            }
-        },
-        methods: {
-        },
         mounted() {
             this.$root.$on('changeLanguage', () => this.getCountries());
         },
