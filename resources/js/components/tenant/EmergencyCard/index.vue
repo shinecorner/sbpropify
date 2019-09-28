@@ -1,6 +1,6 @@
 <template>
     <ui-card shadow="always">
-        <div class="left-circle">
+        <div class="left-circle icon-attention-alt">
         </div>
         <div class="right-text">
             <p>Emegerency Number</p>
@@ -35,12 +35,23 @@
             align-items: center
             
             .left-circle
-                min-width: 50px
+                width: 50px
                 height: 50px
-                background-image: url('/storage/avatar/tamara-wenger-642.png')
-                background-position: center
-                background-size: cover
+                font-size: 30px
+                color: var(--primary-color)
+                display: -webkit-box
+                display: -ms-flexbox
+                display: flex
+                -webkit-box-align: center
+                -ms-flex-align: center
+                align-items: center
+                -webkit-box-pack: center
+                -ms-flex-pack: center
+                justify-content: center
                 border-radius: 50%
+                border: 8px var(--primary-color) solid
+                -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)
                 
             .right-text
                 flex: 1

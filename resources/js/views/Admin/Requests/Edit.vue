@@ -153,6 +153,7 @@
                                             default-first-option
                                             @remove-tag="deleteTag"
                                             style="display:block"
+                                            @change="changeTags"
                                             >
                                             <el-option
                                                 v-for="item in tags"
@@ -725,6 +726,26 @@
                     return item.name != tag;
                 });
             },
+            async changeTags(tags) {
+                if(tags.length)
+                {
+                    let addedTag = tags[ tags.length - 1];
+                    let flag = true;
+                    tags.forEach((tag,index) => {
+                        if(index == tags.length - 1)
+                            return;
+                        if( tag == addedTag )
+                        {
+                            flag = false;
+                        }
+                    })
+
+                    // if(!flag) {
+                    //     tags.splice(tags.length - 1, 1 )
+                    // }
+                }
+                
+            },
             async downloadPDF() {
                 this.loading.state = true;
                 try {
@@ -745,7 +766,7 @@
                 } finally {
                     this.loading.state = false;
                 }
-            },
+            }
         }
     };
 </script>
