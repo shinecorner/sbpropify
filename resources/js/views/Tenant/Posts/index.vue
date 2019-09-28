@@ -182,7 +182,6 @@
                 });
             },
             editPost(event, data) {
-                console.log('editPost', data)
                this.editingPost = data;
                this.visibleDrawer = true;
             }
@@ -209,6 +208,7 @@
             }
         },
         async mounted() {
+            await this.$store.dispatch('newPosts/reset')
             await this.getPosts()
         }
     }
@@ -299,6 +299,8 @@
             }
 
             .vue-recycle-scroller {
+                overflow-x: hidden;
+
                 :global(.vue-recycle-scroller__item-wrapper) {
                     overflow: visible;
 

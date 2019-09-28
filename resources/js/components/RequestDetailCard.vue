@@ -102,8 +102,8 @@
                 </el-col> 
                 <el-col :span="4" class="request-category">
                     <span>{{ $t('models.request.category') }}</span>
-                    <p>{{ item.category.parent_id==null?'':item.category.parentCategory.name + ' > ' }}
-                        {{ item.category.name }}
+                    <p>{{ item.category.parent_id==null?'': categories[item.category.parentCategory.id] + ' > ' }}
+                        {{ categories[item.category.id] }}
                     </p>
                 </el-col>
                 <el-col :span="3">
@@ -131,7 +131,7 @@
 </template>
 
 <script>
-
+    import {mapActions, mapState} from 'vuex';
     import RequestCount from 'components/RequestCount.vue';
     import {Avatar} from 'vue-avatar'
     import tableAvatar from 'components/Avatar';
@@ -162,6 +162,7 @@ export default {
     },
     data() {
         return {
+            categories: []
         }
     },
     components: {
@@ -220,6 +221,20 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['getRequestCategoriesTree']),
+        async getFilterCategories() {
+            const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
+            
+            this.categories = [];
+            categories.map((category) => {
+                this.categories[category.id] = category.name;
+                if(category.categories.length > 0) {
+                    category.categories.map((subCategory) => {
+                        this.categories[subCategory.id] = subCategory.name;
+                    });
+                }
+            });
+        },
         handleSelectionChanged(val) {
             this.$emit('selectionChanged', this.item);
         },
@@ -231,8 +246,15 @@ export default {
             return res[0];
         }
     },
-    created() {
-    }
+    async created() {
+        this.getFilterCategories();
+    },
+    async mounted() {
+        this.$root.$on('changeLanguage', () => {
+            this.getFilterCategories();
+        });
+        
+    },
 }
 </script>
 <style lang="scss" scoped>

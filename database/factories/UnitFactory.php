@@ -36,6 +36,5 @@ $factory->define(App\Models\Unit::class, function (Faker $faker) {
         'description' => $faker->sentence(5),
         'floor' => $faker->numberBetween(0, 30),
         'room_no' => $roomNumberList[$faker->numberBetween(0, count($roomNumberList)-1)],
-        'monthly_rent' => $faker->numberBetween(100, 500),
     ];
 });

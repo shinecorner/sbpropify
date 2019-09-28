@@ -43,21 +43,28 @@ export default (config = {}) => {
                         language: '',
                     },
                     nation: '',
-                    contract: {
-                        rent_type: '',
-                        rent_duration: '',
-                        rent_start: '',
-                        rent_end: '',
-                        deposit_amount: '',
-                        deposit_type: '',
-                        net_rent: '',
-                        unit_id: '',
-                        building_id: '',
-                        heating_operating_costs_installment: '',
-                        media: []
-                    }
+                    rent_contracts: [],
                 },
-                contracts: [],
+                activeRentContractIndex: 0,
+                rent_contract: {
+                    type: '',
+                    duration: '',
+                    start_date: '',
+                    end_date: '',
+                    deposit_amount: '',
+                    deposit_type: '',
+                    net_rent: '',
+                    operating_cost: '',
+                    status: '1',
+                    deposit_status: '1',
+                    gross_rent: '',
+                    parking_price: 0,
+                    unit_id: '',
+                    building_id: '',
+                    media: [],
+                    buildings: [],
+                    units: [],
+                },
                 validationRules: {
                     first_name: [{
                         required: true,
@@ -157,15 +164,15 @@ export default (config = {}) => {
             },
             disabledRentStart(date) {
                 const d = new Date(date).getTime();
-                const rentEnd = new Date(this.model.contract.rent_end).getTime();
+                const rentEnd = new Date(this.model.rent_contracts[this.activeRentContractIndex].end_date).getTime();
                 return d >= rentEnd;
             },
             disabledRentEnd(date) {
                 const d = new Date(date).getTime();
-                const rentStart = new Date(this.model.contract.rent_start).getTime();
+                const rentStart = new Date(this.model.rent_contracts[this.activeRentContractIndex].start_date).getTime();
                 return d <= rentStart;
             },
-            contractUploaded(file) {
+            rentContractUploaded(file) {
                 this.uploadMediaFile({
                     id: this.model.id,
                     media: file.src
@@ -177,16 +184,67 @@ export default (config = {}) => {
                     displayError(err);
                 });
             },
-            async addContract() {
+            async remoteRentContractdSearchBuildings(search, index) {
+                if (search === '') {
+                    this.model.rent_contracts[index].buildings = [];
+                } else {
+                    this.remoteLoading = true;
 
-                this.contracts.push(Object.assign({}, this.model.contract))
-                Object.keys(this.model.contract).forEach(index => {
-                    this.model.contract[index] = ''
-                })
-                this.model.contract.media = [];
-                console.log('add contract', this.contracts)
-                // let params = {tenant_id : 1, ...this.model.contract}
-                // await this.$store.dispatch('rentContracts/create', params)
+                    try {
+                        const resp = await this.getBuildings({get_all: true, search});
+                        this.model.rent_contracts[index].buildings = resp.data;
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.remoteLoading = false;
+                    }
+                }
+            },
+            async searchRentContractUnits(c_index) {
+                this.activeRentContractIndex = c_index
+                this.model.rent_contracts[c_index].unit_id = '';
+                try {
+                    const resp = await this.getUnits({
+                        get_all: true,
+                        building_id: this.model.rent_contracts[c_index].building_id
+                    });
+
+                    this.model.rent_contracts.forEach(rent_contract => {
+                        resp.data = resp.data.filter( item => item.id != rent_contract.unit_id )
+                    })
+
+                    this.model.rent_contracts[c_index].units = resp.data;
+
+                } catch (err) {
+                    displayError(err);
+                } finally {
+                    this.remoteLoading = false;
+                }
+            },
+            changeRentContractUnit(c_index) {
+                this.activeRentContractIndex = c_index
+                let unit = this.model.rent_contracts[c_index].units.find(item => item.id == this.model.rent_contracts[c_index].unit_id)
+                this.model.rent_contracts[c_index].net_rent = unit.monthly_rent_net
+                this.model.rent_contracts[c_index].operating_cost = unit.monthly_maintenance
+                this.model.rent_contracts[c_index].gross_rent = unit.monthly_rent_gross
+            },
+            async addRentContract() {
+                this.rent_contract.media = [];
+                this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
+            },
+            deleteRentContract( c_index ) {
+                this.model.rent_contracts.splice(c_index, 1)
+            },
+            addPDFtoRentContract(file, index) {
+                this.activeRentContractIndex = index;
+                let toUploadRentContractFile = {...file, url: URL.createObjectURL(file.raw)};
+                this.model.rent_contracts[this.activeRentContractIndex].media.push(toUploadRentContractFile)
+            },
+            deletePDFfromRentContract(c_index, index) {
+                this.model.rent_contracts[c_index].splice(index, 1)
+            },
+            selectRentContract(c_index) {
+                this.activeRentContractIndex = c_index
             },
             ...mapActions(['getBuildings', 'getUnits', 'getCountries', 'uploadMediaFile']),
         },
@@ -207,6 +265,8 @@ export default (config = {}) => {
             for (var key in deposit_types) {
                 this.deposit_types.push({name : deposit_types[key], value : key})
             }
+
+            this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
         },
         computed: {
             form() {
@@ -222,10 +282,10 @@ export default (config = {}) => {
                 mixin.mixins = [PasswordValidatorMixin(), EmailCheckValidatorMixin(), TenantTitleTypes, UploadUserAvatarMixin];
 
                 mixin.methods = {
-                    async contractUpl(id) {
+                    async rentContractUpl(id) {
                         return await this.uploadMediaFile({
                             id,
-                            media: this.toUploadContract.src
+                            media: this.toUploadRentContract.src
                         }).then(r => {
                             displaySuccess(r.data);
                         }).catch(err => {
@@ -239,6 +299,10 @@ export default (config = {}) => {
                             }
 
                             this.loading.state = true;
+                            
+                            this.model.rent_contracts.forEach(rent_contract => {
+                                rent_contract.gross_rent = rent_contract.net_rent + rent_contract.operating_cost
+                            })
 
                             let {email, password, password_confirmation, ...tenant} = this.model;
 
@@ -257,13 +321,9 @@ export default (config = {}) => {
                                     this.uploadAvatarIfNeeded(resp.data.user.id);
                                 }
 
-                                if (resp.data && resp.data.id && !_.isEmpty(this.toUploadContract)) {
-                                    await this.contractUpl(resp.data.id);
-                                }
                                 
                                 displaySuccess(resp);
 
-                                this.toUploadContract = {};
                                 this.model.rent_start = '';
                                 this.form.resetFields();
                                 if (!!afterValid) {

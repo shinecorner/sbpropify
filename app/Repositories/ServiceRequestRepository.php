@@ -95,7 +95,7 @@ class ServiceRequestRepository extends BaseRepository
     private static function getPostAttributes($attributes)
     {
         $user = Auth::user(); // @TODO @TODO
-        if ($user->can('add-request_tenant')) {
+        if ($user->tenant) {
             $attr = [];
             $attr['title'] = $attributes['title'];
             $attr['description'] = $attributes['description'];
@@ -111,7 +111,7 @@ class ServiceRequestRepository extends BaseRepository
             return $attr;
         }
 
-        if ($user->can('add-request_service')) {
+        if ($user->can('add-request_service')) { // @TODO correct
             $attr = [];
             $attr['title'] = $attributes['title'];
             $attr['description'] = $attributes['description'];
