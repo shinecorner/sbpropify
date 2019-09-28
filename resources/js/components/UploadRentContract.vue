@@ -33,7 +33,7 @@
                 type: String,
                 default: ""
             },
-            contractIndex: {
+            rentContractIndex: {
                 type: Number,
                 default: 0
             }
@@ -59,7 +59,7 @@
                 };
                 this.base64(e.file, (dataUrl) => {
                     file.src = dataUrl;
-                    this.$emit("fileUploaded", file, this.contractIndex);
+                    this.$emit("fileUploaded", file, this.rentContractIndex);
                 });
             }
         }
