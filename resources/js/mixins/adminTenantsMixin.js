@@ -209,8 +209,8 @@ export default (config = {}) => {
                         building_id: this.model.rent_contracts[c_index].building_id
                     });
 
-                    this.model.rent_contracts.forEach(contract => {
-                        resp.data = resp.data.filter( item => item.id != contract.unit_id )
+                    this.model.rent_contracts.forEach(rent_contract => {
+                        resp.data = resp.data.filter( item => item.id != rent_contract.unit_id )
                     })
 
                     this.model.rent_contracts[c_index].units = resp.data;
@@ -303,8 +303,8 @@ export default (config = {}) => {
 
                             this.loading.state = true;
                             
-                            this.model.rent_contracts.forEach(contract => {
-                                contract.gross_rent = contract.net_rent + contract.operating_cost
+                            this.model.rent_contracts.forEach(rent_contract => {
+                                rent_contract.gross_rent = rent_contract.net_rent + rent_contract.operating_cost
                             })
 
                             let {email, password, password_confirmation, ...tenant} = this.model;
@@ -324,9 +324,9 @@ export default (config = {}) => {
                                     this.uploadAvatarIfNeeded(resp.data.user.id);
                                 }
 
-                                if (resp.data && resp.data.id && !_.isEmpty(this.toUploadContract)) {
-                                    await this.contractUpl(resp.data.id);
-                                }
+                                // if (resp.data && resp.data.id && !_.isEmpty(this.toUploadContract)) {
+                                //     await this.contractUpl(resp.data.id);
+                                // }
                                 
                                 displaySuccess(resp);
 
