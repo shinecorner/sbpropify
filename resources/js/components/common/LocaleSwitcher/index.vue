@@ -7,8 +7,8 @@
             <div class="content">
                 <i class="icon icon-language"></i>
                 {{$t('general.chooseLanguage')}}
-                <div class="description">{{$t('tenant.language_switcher_info')}}</div>
             </div>
+            <el-divider />
             <el-dropdown-item v-for="(name, iso) in $constants.app.languages" :key="iso" :command="iso">
                 <img :src="require(`svg/${iso}.svg`)" />
                 {{name}}
@@ -43,6 +43,9 @@
 </script>
 
 <style lang="scss">
+    .el-divider--horizontal{
+        margin: 10px 0;
+    }
     .el-dropdown-menu.language-switcher {
         // TODO - make this global within the theme
         border-color: var(--border-color-base);
