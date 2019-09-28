@@ -184,7 +184,7 @@ export default (config = {}) => {
                     displayError(err);
                 });
             },
-            async remoteContractdSearchBuildings(search, index) {
+            async remoteRentContractdSearchBuildings(search, index) {
                 if (search === '') {
                     this.model.rent_contracts[index].buildings = [];
                 } else {
@@ -200,7 +200,7 @@ export default (config = {}) => {
                     }
                 }
             },
-            async searchContractUnits(c_index) {
+            async searchRentContractUnits(c_index) {
                 this.activeRentContractIndex = c_index
                 this.model.rent_contracts[c_index].unit_id = '';
                 try {
@@ -221,31 +221,30 @@ export default (config = {}) => {
                     this.remoteLoading = false;
                 }
             },
-            changeContractUnit(c_index) {
+            changeRentContractUnit(c_index) {
                 this.activeRentContractIndex = c_index
                 let unit = this.model.rent_contracts[c_index].units.find(item => item.id == this.model.rent_contracts[c_index].unit_id)
                 this.model.rent_contracts[c_index].net_rent = unit.monthly_rent_net
                 this.model.rent_contracts[c_index].operating_cost = unit.monthly_maintenance
                 this.model.rent_contracts[c_index].gross_rent = unit.monthly_rent_gross
             },
-            async addContract() {
+            async addRentContract() {
                 this.rent_contract.media = [];
                 this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
             },
-            deleteContract( contract_index ) {
+            deleteRentContract( contract_index ) {
                 this.model.rent_contracts.splice(contract_index, 1)
             },
-            addPDFtoContract(file, index) {
+            addPDFtoRentContract(file, index) {
                 this.activeRentContractIndex = index;
                 let toUploadContract = {...file, url: URL.createObjectURL(file.raw)};
                 this.model.rent_contracts[this.activeRentContractIndex].media.push(toUploadContract)
-                console.log('contract media', this.model.rent_contracts[this.activeRentContractIndex].media)
             },
-            deletePDFfromContract(c_index, index) {
+            deletePDFfromRentContract(c_index, index) {
                 this.model.rent_contracts[c_index].splice(index, 1)
                 console.log('after delete', this.model.rent_contracts[c_index])
             },
-            selectContract(c_index) {
+            selectRentContract(c_index) {
                 this.activeRentContractIndex = c_index
                 console.log('activeContractindex', this.activeRentContractIndex)
             },
