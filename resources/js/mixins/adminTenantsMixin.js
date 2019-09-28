@@ -251,27 +251,9 @@ export default (config = {}) => {
         async mounted() {
             await this.getCountries();
 
-            // let rent_types = this.$t('models.tenant.rent_types');
-            // for (var key in rent_types) {
-            //     this.rent_types.push({name : rent_types[key], value : key})
-            // }
-            // let rent_durations = this.$t('models.tenant.rent_durations');
-            // for (var key in rent_durations) {
-            //     this.rent_durations.push({name : rent_durations[key], value : key})
-            // }
-
-            // let deposit_types = this.$t('models.tenant.deposit_types');
-            // for (var key in deposit_types) {
-            //     this.deposit_types.push({name : deposit_types[key], value : key})
-            // }
-
             this.rent_types = Object.entries(this.$constants.rentContracts.type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_types.${label}`)}))
             this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
             this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))
-
-            console.log('rent_types', this.rent_types)
-            console.log('deposit_types', this.deposit_types)
-            console.log('rent_durations', this.rent_durations)
 
             if( config.mode == 'add' )
                 this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
