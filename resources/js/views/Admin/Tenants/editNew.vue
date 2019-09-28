@@ -404,6 +404,47 @@
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
+
+                                    <el-row :gutter="20">
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.tenant.deposit_status.label')"
+                                                            class="label-block">
+                                                <el-radio v-model="rent_contract.deposit_status"
+                                                    :key="status.value" 
+                                                    :label="status.value" 
+                                                    v-for="status in deposit_statuses"
+                                                >
+                                                    {{status.name}}
+                                                </el-radio>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.tenant.status.label')" class="label-block">
+                                                <el-select placeholder="Select" style="display: block" 
+                                                            v-model="rent_contract.status">
+                                                    <el-option
+                                                            :key="status.value"
+                                                            :label="status.name"
+                                                            :value="status.value"
+                                                            v-for="status in rent_contract_statuses">
+                                                    </el-option>
+                                                </el-select>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-row :gutter="20">
+                                        <el-col :md="12">
+                                            <el-form-item label="Contract Id"
+                                                            class="label-block">
+                                                <el-input
+                                                    v-model="rent_contract.id"
+                                                    :disabled="true">
+                                                </el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+
                                     <ui-divider></ui-divider>
                                     <div class="contract-actions">
                                         <el-button type="primary" v-if="c_index == model.rent_contracts.length - 1" @click="addRentContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>

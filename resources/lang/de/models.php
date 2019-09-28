@@ -158,6 +158,7 @@ return [
         'parking_price' => 'Parkplatz Preis',
         'gross_rent' => 'Bruttomiete',
         'deposit_status' => [
+            'label' => 'Einzahlungsstatus',
             'yes' => 'Ja',
             'no' => 'Nein',
         ],

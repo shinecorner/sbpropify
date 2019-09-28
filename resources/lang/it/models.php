@@ -158,6 +158,7 @@ return [
         'parking_price' => 'Prezzo del parcheggio',
         'gross_rent' => 'Affitto lordo',
         'deposit_status' => [
+            'label' => 'Stato del deposito',
             'yes' => 'Sì',
             'no' => 'No',
         ],

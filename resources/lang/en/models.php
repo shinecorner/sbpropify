@@ -158,6 +158,7 @@ return [
         'parking_price' => 'Parking Price',
         'gross_rent' => 'Gross rent',
         'deposit_status' => [
+            'label' => 'Deposit Status',
             'yes' => 'Yes',
             'no' => 'No',
         ],

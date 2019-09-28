@@ -12,7 +12,7 @@ export default (config = {}) => {
             title: {
                 type: String,
                 required: true
-            }
+            }   
         },
         data() {
             return {
@@ -21,6 +21,8 @@ export default (config = {}) => {
                 units: [],
                 rent_types: [],
                 rent_durations: [],
+                deposit_statuses: [],
+                rent_contract_statuses: [],
                 deposit_types: [],
                 user: {},
                 unit: {},
@@ -257,6 +259,8 @@ export default (config = {}) => {
             this.rent_types = Object.entries(this.$constants.rentContracts.type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_types.${label}`)}))
             this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
             this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))
+            this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
+            this.rent_contract_statuses = Object.entries(this.$constants.rentContracts.status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_status.${label}`)}));
 
             if( config.mode == 'add' )
                 this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
@@ -421,12 +425,12 @@ export default (config = {}) => {
                         console.log('models', this.model)
 
                         this.model.rent_contracts.forEach(async (rent_contract, c_index) => {
+                            let unit_id = +rent_contract.unit_id
                             if(rent_contract.building) {
                                 this.remoteRentContractdSearchBuildings(rent_contract.building.name, c_index)
                             }
 
                             if (rent_contract.unit) {
-                                let unit_id = rent_contract.unit_id
                                 await this.searchRentContractUnits(c_index)
                                 rent_contract.unit_id = unit_id;
                             }
