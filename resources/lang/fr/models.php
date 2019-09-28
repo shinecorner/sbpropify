@@ -135,6 +135,7 @@ return [
             'private' => 'Privé',
             'business' => 'Affaires',
             'parking_lot' => 'Terrain de stationnement',
+            'parking_slot' => 'Terrain de stationnement',
         ],
         'rent_duration' => 'Durée du loyer',
         'rent_durations' => [
@@ -145,6 +146,7 @@ return [
         'deposit_amount' => 'Montant du dépôt',
         'type_of_deposit' => 'Type de dépôt',
         'deposit_types' => [
+            'bank_depot' => 'Dépôt bancaire',
             'bank_deposit' => 'Dépôt bancaire',
             'bank_guarantee' => 'Garantie bancaire',
             'insurance' => 'Assurance',

@@ -134,7 +134,7 @@ export default {
         getById: ({data}) => id => data.find(item => item.id === id)
     },
     mutations: {
-        reset: state => Object.assign({state}, {
+        reset: state => Object.assign(state, {
             data: [],
             current_page: 0
         }),

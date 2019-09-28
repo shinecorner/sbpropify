@@ -135,6 +135,7 @@ return [
             'private' => 'Private',
             'business' => 'Business',
             'parking_lot' => 'Parking Lot',
+            'parking_slot' => 'Parkings Lot',
         ],
         'rent_duration' => 'Rent duration',
         'rent_durations' => [
@@ -145,6 +146,7 @@ return [
         'deposit_amount' => 'Deposit amount',
         'type_of_deposit' => 'Type of deposit',
         'deposit_types' => [
+            'bank_depot' => 'Bank Deposit',
             'bank_deposit' => 'Bank Deposit',
             'bank_guarantee' => 'Bank Guarantee',
             'insurance' => 'Insurance',

@@ -135,6 +135,7 @@ return [
             'private' => 'Wohnung',
             'business' => 'Gewerbe',
             'parking_lot' => 'Parkplatz',
+            'parking_slot' => 'Parkplätze',
         ],
         'rent_duration' => 'Mietdauer',
         'rent_durations' => [
@@ -145,6 +146,7 @@ return [
         'deposit_amount' => 'Kautionsbetrag',
         'type_of_deposit' => 'Art der Sicherheitsleistung',
         'deposit_types' => [
+            'bank_depot' => 'Bankdepost',
             'bank_deposit' => 'Bankdepost',
             'bank_guarantee' => 'Bankgarantie',
             'insurance' => 'Kautionsversicherung',

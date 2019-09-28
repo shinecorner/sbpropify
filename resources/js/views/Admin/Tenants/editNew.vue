@@ -295,7 +295,7 @@
                                                         @focus="selectRentContract(c_index)"/>
                                             </el-form-item>
                                         </el-col>
-                                        <el-col :md="12" v-if="rent_contract.duration == 'limited'">
+                                        <el-col :md="12" v-if="rent_contract.duration == 2">
                                             <el-form-item :label="$t('models.tenant.rent_end')">
                                                 <el-date-picker
                                                     :picker-options="{disabledDate: disabledRentEnd}"
@@ -370,7 +370,7 @@
                                         </el-col>
                                     </el-row>
                                     
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type != 'parking_lot'">
+                                    <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type != 3">
                                         <el-col :md="8">
                                             <el-form-item :label="$t('models.tenant.net_rent')" class="label-block">
                                                 <el-input type="text"
@@ -395,7 +395,7 @@
                                         </el-col>
                                     </el-row>
 
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type == 'parking_lot'">
+                                    <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type == 3">
                                         <el-col :md="8">
                                             <el-form-item :label="$t('models.tenant.parking_price')" class="label-block">
                                                 <el-input type="text"
@@ -451,7 +451,7 @@
                                         </el-col>
                                     </el-row>
                                 </el-form-item>
-                                
+
                             </el-form>
                        </el-card>
                     </el-col>
@@ -471,7 +471,7 @@
     import ColoredStatisticsCard from 'components/ColoredStatisticsCard.vue';
     import ProgressStatisticsCard from 'components/ProgressStatisticsCard.vue';
     import AdminTenantsMixin from 'mixins/adminTenantsMixin';
-    import UploadDocument from 'components/UploadDocument';
+    import UploadRentContract from 'components/UploadRentContract';
     import {mapActions, mapGetters} from 'vuex';
     import {displayError, displaySuccess} from "helpers/messages";
     import Cropper from 'components/Cropper';
@@ -491,7 +491,7 @@
             CircularProgressStatisticsCard,
             ColoredStatisticsCard,
             ProgressStatisticsCard,
-            UploadDocument,
+            UploadRentContract,
             Cropper,
             EditActions,
             SelectLanguage
