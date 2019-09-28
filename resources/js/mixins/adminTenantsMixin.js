@@ -212,13 +212,12 @@ export default (config = {}) => {
 
                     
                     this.model.rent_contracts.forEach((rent_contract, cc_index) => {
-                        console.log('cc_index', cc_index)
                         if(cc_index != c_index)
                             resp.data = resp.data.filter( item => item.id != rent_contract.unit_id )
                     })
 
-                    this.model.rent_contracts[c_index].units = resp.data;
-                    console.log('resp', resp)
+                    this.$set(this.model.rent_contracts, c_index, { ...this.model.rent_contracts[c_index], units: resp.data})
+                    console.log('updated units', this.model.rent_contracts[c_index].units)
                 } catch (err) {
                     displayError(err);
                 } finally {

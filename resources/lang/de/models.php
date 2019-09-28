@@ -157,6 +157,14 @@ return [
         'maintenance' => 'Wartung',
         'parking_price' => 'Parkplatz Preis',
         'gross_rent' => 'Bruttomiete',
+        'deposit_status' => [
+            'yes' => 'Ja',
+            'no' => 'Nein',
+        ],
+        'rent_status' => [
+            'active' => 'Aktiv',
+            'inactive' => 'Inaktiv',
+        ],
         'contact' => [
             'category' => 'Kategorie',
         ],

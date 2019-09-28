@@ -157,6 +157,14 @@ return [
         'maintenance' => 'Maintenance',
         'parking_price' => 'Parking Price',
         'gross_rent' => 'Gross rent',
+        'deposit_status' => [
+            'yes' => 'Yes',
+            'no' => 'No',
+        ],
+        'rent_status' => [
+            'active' => 'Active',
+            'inactive' => 'Inactive',
+        ],
         'contact' => [
             'category' => 'Category',
         ],

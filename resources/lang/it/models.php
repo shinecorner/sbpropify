@@ -157,6 +157,14 @@ return [
         'maintenance' => 'Manutenzione',
         'parking_price' => 'Prezzo del parcheggio',
         'gross_rent' => 'Affitto lordo',
+        'deposit_status' => [
+            'yes' => 'Sì',
+            'no' => 'No',
+        ],
+        'rent_status' => [
+            'active' => 'Attivo',
+            'inactive' => 'Inattivo',
+        ],
         'contact' => [
             "category" => "Categoria",
         ],
