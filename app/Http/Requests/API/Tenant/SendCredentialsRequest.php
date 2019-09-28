@@ -13,6 +13,6 @@ class SendCredentialsRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;//$this->can('send_credentials-tenant');
+        return $this->can('send_credentials-tenant');
     }
 }
