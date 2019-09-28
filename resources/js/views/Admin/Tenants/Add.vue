@@ -268,7 +268,7 @@
                                                     </template>
                                                 </el-table-column>
                                             </el-table>
-                                            <upload-contract :contractIndex="c_index" @fileUploaded="addPDFtoContract" class="drag-custom" drag multiple/>
+                                            <upload-rent-contract :contractIndex="c_index" @fileUploaded="addPDFtoContract" class="drag-custom" drag multiple/>
                                             </el-form-item>
                                         </el-col>
                                     
@@ -347,7 +347,7 @@
     import Card from 'components/Card';
     import AdminTenantsMixin from 'mixins/adminTenantsMixin';
     import Cropper from 'components/Cropper';
-    import UploadContract from 'components/UploadContract';
+    import UploadRentContract from 'components/UploadRentContract';
     import AddActions from 'components/EditViewActions';
     import SelectLanguage from 'components/SelectLanguage';
 
@@ -360,7 +360,7 @@
             Heading,
             Card,
             Cropper,
-            UploadContract,
+            UploadRentContract,
             AddActions,
             SelectLanguage,
         },
