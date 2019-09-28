@@ -209,6 +209,7 @@
             }
         },
         async mounted() {
+            await this.$store.dispatch('newPosts/reset')
             await this.getPosts()
         }
     }
@@ -299,6 +300,8 @@
             }
 
             .vue-recycle-scroller {
+                overflow-x: hidden;
+                
                 :global(.vue-recycle-scroller__item-wrapper) {
                     overflow: visible;
 
