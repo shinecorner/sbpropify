@@ -135,7 +135,7 @@ return [
             'private' => 'Wohnung',
             'business' => 'Gewerbe',
             'parking_lot' => 'Parkplatz',
-            'parking_slot' => 'Parkplätze',
+            'parking_slot' => 'Parkplatz',
         ],
         'rent_duration' => 'Mietdauer',
         'rent_durations' => [

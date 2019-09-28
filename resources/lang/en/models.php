@@ -135,7 +135,7 @@ return [
             'private' => 'Private',
             'business' => 'Business',
             'parking_lot' => 'Parking Lot',
-            'parking_slot' => 'Parkings Lot',
+            'parking_slot' => 'Parking slot',
         ],
         'rent_duration' => 'Rent duration',
         'rent_durations' => [

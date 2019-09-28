@@ -135,7 +135,7 @@ return [
             'private' => 'Privé',
             'business' => 'Affaires',
             'parking_lot' => 'Terrain de stationnement',
-            'parking_slot' => 'Terrain de stationnement',
+            'parking_slot' => 'Emplacement de stationnement',
         ],
         'rent_duration' => 'Durée du loyer',
         'rent_durations' => [

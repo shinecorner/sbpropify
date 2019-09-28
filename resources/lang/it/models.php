@@ -135,7 +135,7 @@ return [
             'private' => 'Privato',
             'business' => 'Affari',
             'parking_lot' => 'Parcheggio',
-            'parking_slot' => 'Parcheggi',
+            'parking_slot' => 'Parcheggio',
         ],
         'rent_duration' => "Durata dell'affitto",
         'rent_durations' => [
