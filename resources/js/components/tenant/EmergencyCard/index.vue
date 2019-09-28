@@ -3,8 +3,8 @@
         <div class="left-circle icon-attention-alt">
         </div>
         <div class="right-text">
-            <p>{{this.$t('tenant.emegerency.title')}}</p>
-            <p>{{this.$t('tenant.emegerency.desc')}} : 079 999 99 99</p>
+            <p>{{$t('tenant.emergency.title')}}</p>
+            <p>{{$t('tenant.emergency.desc')}} : 079 999 99 99</p>
         </div>
         
     </ui-card>
