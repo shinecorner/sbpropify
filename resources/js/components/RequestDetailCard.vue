@@ -140,10 +140,9 @@
         format, differenceInMinutes, parse, 
         differenceInCalendarDays, subHours
     } from 'date-fns';
-    import PrepareCategories from 'mixins/methods/prepareCategories';
 
 export default {
-    mixins: [globalFunction, PrepareCategories],
+    mixins: [globalFunction],
     props: {
         item: {
             type: Object,
