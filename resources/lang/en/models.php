@@ -162,6 +162,7 @@ return [
             'yes' => 'Yes',
             'no' => 'No',
         ],
+        'contract_id' => 'Contract ID',
         'rent_status' => [
             'active' => 'Active',
             'inactive' => 'Inactive',

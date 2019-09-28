@@ -224,4 +224,8 @@ return [
     "loading" => "Caricamento...",
     "chat" => "Chiacchierata",
     "monthly_rent_net" => "Affitto mensile netto",
+    "emegerency" => [
+        "title" => "Numero di emegerenza",
+        "desc" => "In caso di emergenza al di fuori dell'orario d'ufficio, si prega di chiamare il seguente numero"
+    ]
 ];

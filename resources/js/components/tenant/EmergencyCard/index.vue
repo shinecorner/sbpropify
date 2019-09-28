@@ -3,8 +3,8 @@
         <div class="left-circle icon-attention-alt">
         </div>
         <div class="right-text">
-            <p>Emegerency Number</p>
-            If you have an emergency outside of office hours, please call the following number : 079 999 99 99
+            <p>{{this.$t('tenant.emegerency.title')}}</p>
+            <p>{{this.$t('tenant.emegerency.desc')}} : 079 999 99 99</p>
         </div>
         
     </ui-card>

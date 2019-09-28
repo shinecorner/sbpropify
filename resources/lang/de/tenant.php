@@ -224,4 +224,8 @@ return [
     "loading" => "Ladet...",
     "chat" => "Chat",
     "monthly_rent_net" => "Nettomonatsmiete",
+    "emegerency" => [
+        "title" => "Notfallnummer",
+        "desc" => "Wenn Sie ausserhalb der Bürozeiten einen Notfall haben, so bitten wir Sie folgende Nummer anzurufen"
+    ]
 ];

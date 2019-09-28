@@ -224,4 +224,8 @@ return [
     "loading" => "Loading...",
     "chat" => "Chat",
     "monthly_rent_net" => "Net monthly rent",
+    "emegerency" => [
+        "title" => "Emegerency Number",
+        "desc" => "If you have an emergency outside of office hours, please call the following number"
+    ]
 ];
