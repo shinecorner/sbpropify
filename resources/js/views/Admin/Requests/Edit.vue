@@ -734,15 +734,15 @@
                     tags.forEach((tag,index) => {
                         if(index == tags.length - 1)
                             return;
-                        if( tag == addedTag )
+                        if( tag.toLowerCase() == addedTag.toLowerCase() )
                         {
                             flag = false;
                         }
                     })
 
-                    // if(!flag) {
-                    //     tags.splice(tags.length - 1, 1 )
-                    // }
+                    if(!flag) {
+                        tags.splice(tags.length - 1, 1 )
+                    }
                 }
                 
             },
