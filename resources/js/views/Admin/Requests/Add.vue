@@ -167,7 +167,7 @@
                             </el-form-item>
                         </el-col>
                         <el-col :md="24" v-if="model.is_public">
-                            <el-form-item :label="$t('models.request.send_notification')"
+                            <el-form-item :label="$t('models.request.send_notification_desc')"
                                         prop="send_notification"
                             >
                                 <el-switch v-model="model.send_notification"/>

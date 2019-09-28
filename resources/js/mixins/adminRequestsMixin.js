@@ -266,13 +266,14 @@ export default (config = {}) => {
                     });
                 }
             },
-            async uploadNewMedia(id) {
+            async uploadNewMedia(id, audit_id) {
                 if (this.media.length) {
                     for (let i = 0; i < this.media.length; i++) {
                         const image = this.media[i];
                         await this.uploadRequestMedia({
                             id,
-                            media: image.url.split('base64,')[1]
+                            media: image.url.split('base64,')[1],
+                            merge_audit : audit_id
                         });
                     }
                 }
@@ -367,12 +368,15 @@ export default (config = {}) => {
                         const resp = await this.createRequest(this.model);
                         
                         let requestId = resp.data.id;
+
+                        let audit_id = resp.data.audit_id;
+
                         await this.createRequestTags({
                             id: requestId,
                             tags: this.model.keywords
                         });
 
-                        await this.uploadNewMedia(resp.data.id);
+                        await this.uploadNewMedia(resp.data.id, audit_id);
 
                         this.media = [];
 
@@ -520,10 +524,11 @@ export default (config = {}) => {
                                 })
 
                                 try {
-                                    await this.uploadNewMedia(params.id);
+                                    
                                     
                                     const resp = await this.updateRequest(params);
-                                    
+
+                                    await this.uploadNewMedia(params.id, null);
                                     
                                     this.media = [];
                                     this.$set(this.model, 'service_providers', resp.data.service_providers);
