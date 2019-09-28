@@ -305,7 +305,7 @@
                                         <el-col :md="8">
                                             <el-form-item :label="$t('models.tenant.net_rent')" class="label-block">
                                                 <el-input type="text"
-                                                        v-model="rent_contract.net_rent" @focus="selectRentContract(c_index)"
+                                                        v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
                                                 ></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -314,14 +314,14 @@
                                             <el-form-item :label="$t('models.tenant.maintenance')"
                                                         class="label-block">
                                                 <el-input type="text"
-                                                        v-model="rent_contract.operating_cost" @focus="selectRentContract(c_index)"
+                                                        v-model="rent_contract.monthly_maintenance" @focus="selectRentContract(c_index)"
                                                 ></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :md="8">
                                             <el-form-item :label="$t('models.tenant.gross_rent')"
                                                         class="label-block">
-                                                {{Number(rent_contract.net_rent) + Number(rent_contract.operating_cost)}}
+                                                {{Number(rent_contract.monthly_rent_net) + Number(rent_contract.monthly_maintenance)}}
                                             </el-form-item>
                                         </el-col>
                                     </el-row>

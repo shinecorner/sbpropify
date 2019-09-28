@@ -53,11 +53,11 @@ export default (config = {}) => {
                     end_date: '',
                     deposit_amount: '',
                     deposit_type: '',
-                    net_rent: '',
-                    operating_cost: '',
+                    monthly_rent_net: '',
+                    monthly_maintenance: '',
                     status: '1',
                     deposit_status: '1',
-                    gross_rent: '',
+                    monthly_rent_gross: '',
                     parking_price: 0,
                     unit_id: '',
                     building_id: '',
@@ -201,6 +201,7 @@ export default (config = {}) => {
                 }
             },
             async searchRentContractUnits(c_index) {
+                console.log('searchRentContractUnits', c_index)
                 this.activeRentContractIndex = c_index
                 this.model.rent_contracts[c_index].unit_id = '';
                 try {
@@ -209,12 +210,15 @@ export default (config = {}) => {
                         building_id: this.model.rent_contracts[c_index].building_id
                     });
 
-                    this.model.rent_contracts.forEach(rent_contract => {
-                        resp.data = resp.data.filter( item => item.id != rent_contract.unit_id )
+                    
+                    this.model.rent_contracts.forEach((rent_contract, cc_index) => {
+                        console.log('cc_index', cc_index)
+                        if(cc_index != c_index)
+                            resp.data = resp.data.filter( item => item.id != rent_contract.unit_id )
                     })
 
                     this.model.rent_contracts[c_index].units = resp.data;
-
+                    console.log('resp', resp)
                 } catch (err) {
                     displayError(err);
                 } finally {
@@ -224,9 +228,9 @@ export default (config = {}) => {
             changeRentContractUnit(c_index) {
                 this.activeRentContractIndex = c_index
                 let unit = this.model.rent_contracts[c_index].units.find(item => item.id == this.model.rent_contracts[c_index].unit_id)
-                this.model.rent_contracts[c_index].net_rent = unit.monthly_rent_net
-                this.model.rent_contracts[c_index].operating_cost = unit.monthly_maintenance
-                this.model.rent_contracts[c_index].gross_rent = unit.monthly_rent_gross
+                this.model.rent_contracts[c_index].monthly_rent_net = unit.monthly_rent_net
+                this.model.rent_contracts[c_index].monthly_maintenance = unit.monthly_maintenance
+                this.model.rent_contracts[c_index].monthly_rent_gross = unit.monthly_rent_gross
             },
             async addRentContract() {
                 this.rent_contract.media = [];
@@ -291,7 +295,7 @@ export default (config = {}) => {
                             this.loading.state = true;
                             
                             this.model.rent_contracts.forEach(rent_contract => {
-                                rent_contract.gross_rent = rent_contract.net_rent + rent_contract.operating_cost
+                                rent_contract.monthly_rent_gross = rent_contract.monthly_rent_net + rent_contract.monthly_maintenance
                             })
 
                             let {email, password, password_confirmation, ...tenant} = this.model;
@@ -404,15 +408,30 @@ export default (config = {}) => {
                         this.model.email = user.email;
                         this.model.avatar = user.avatar;
                         this.model.nation = parseInt(this.model.nation)
-                        if (building) {
-                            this.model.building_id = building.id;
-                            this.remoteSearchBuildings(building.name);
-                        }
-                        if (unit) {
-                            await this.searchUnits();
-                            this.model.unit_id = unit.id;
-                            this.unit = unit;
-                        }
+
+                        // if (building) {
+                        //     this.model.building_id = building.id;
+                        //     this.remoteSearchBuildings(building.name);
+                        // }
+                        // if (unit) {
+                        //     await this.searchUnits();
+                        //     this.model.unit_id = unit.id;
+                        //     this.unit = unit;
+                        // }
+
+                        console.log('models', this.model)
+
+                        this.model.rent_contracts.forEach(async (rent_contract, c_index) => {
+                            if(rent_contract.building) {
+                                this.remoteRentContractdSearchBuildings(rent_contract.building.name, c_index)
+                            }
+
+                            if (rent_contract.unit) {
+                                let unit_id = rent_contract.unit_id
+                                await this.searchRentContractUnits(c_index)
+                                rent_contract.unit_id = unit_id;
+                            }
+                        })
 
                     } catch (err) {
                         this.$router.replace({

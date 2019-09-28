@@ -374,7 +374,7 @@
                                         <el-col :md="8">
                                             <el-form-item :label="$t('models.tenant.net_rent')" class="label-block">
                                                 <el-input type="text"
-                                                        v-model="rent_contract.net_rent" @focus="selectRentContract(c_index)"
+                                                        v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
                                                 ></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -383,14 +383,14 @@
                                             <el-form-item :label="$t('models.tenant.maintenance')"
                                                         class="label-block">
                                                 <el-input type="text"
-                                                        v-model="rent_contract.operating_cost" @focus="selectRentContract(c_index)"
+                                                        v-model="rent_contract.monthly_maintenance" @focus="selectRentContract(c_index)"
                                                 ></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :md="8">
                                             <el-form-item :label="$t('models.tenant.gross_rent')"
                                                         class="label-block">
-                                                {{Number(rent_contract.net_rent) + Number(rent_contract.operating_cost)}}
+                                                {{Number(rent_contract.monthly_rent_net) + Number(rent_contract.monthly_maintenance)}}
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
@@ -411,46 +411,7 @@
                                     </div>
                                 </div>
 
-                                <el-form-item style="margin-bottom: 0;">
-                                    
-                                    <el-row class="last-form-row" :gutter="20"> 
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.search_building')" prop="building_id">
-                                                <el-select
-                                                        :loading="remoteLoading"
-                                                        :placeholder="$t('models.tenant.search_building')"
-                                                        :remote-method="remoteSearchBuildings"
-                                                        :rules="validationRules.building_id"
-                                                        @change="searchUnits"
-                                                        filterable
-                                                        remote
-                                                        reserve-keyword
-                                                        style="width: 100%;"
-                                                        v-model="model.building_id">
-                                                    <el-option
-                                                            :key="building.id"
-                                                            :label="building.name"
-                                                            :value="building.id"
-                                                            v-for="building in buildings"/>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.unit.name')" prop="unit_id"
-                                                        v-if="model.building_id">
-                                                <el-select :placeholder="$t('models.tenant.search_unit')" style="display: block"
-                                                        v-model="model.unit_id">
-                                                    <el-option
-                                                            :key="unit.id"
-                                                            :label="unit.name"
-                                                            :value="unit.id"
-                                                            v-for="unit in units">
-                                                    </el-option>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                </el-form-item>
+                                
 
                             </el-form>
                        </el-card>
