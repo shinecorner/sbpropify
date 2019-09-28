@@ -435,7 +435,7 @@
 
                                     <el-row :gutter="20">
                                         <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.contract_id')"
+                                            <el-form-item :label="$t('models.tenant.rentcontract_id')"
                                                             class="label-block">
                                                 <el-input
                                                     v-model="rent_contract.id"

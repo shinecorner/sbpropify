@@ -224,8 +224,8 @@ return [
     "loading" => "Chargement...",
     "chat" => "Clavardage",
     "monthly_rent_net" => "Loyer mensuel net",
-    "emegerency" => [
-        "title" => "Numéro d'Emegerency",
+    "emergency" => [
+        "title" => "Numéro d'urgence",
         "desc" => "En cas d'urgence en dehors des heures de bureau, veuillez composer le numéro suivant"
     ]
 ];

@@ -162,7 +162,7 @@ return [
             'yes' => 'Oui',
             'no' => 'Non',
         ],
-        'contract_id' => 'ID du contrat',
+        'rentcontract_id' => 'ID du contrat de location',
         'rent_status' => [
             'active' => 'Actif',
             'inactive' => 'Inactif',

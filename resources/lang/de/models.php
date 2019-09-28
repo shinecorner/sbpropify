@@ -162,7 +162,7 @@ return [
             'yes' => 'Ja',
             'no' => 'Nein',
         ],
-        'contract_id' => 'Vertrags-ID',
+        'rentcontract_id' => 'Mietvertrags-ID',
         'rent_status' => [
             'active' => 'Aktiv',
             'inactive' => 'Inaktiv',
