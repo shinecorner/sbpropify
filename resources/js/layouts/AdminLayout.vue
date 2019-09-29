@@ -118,8 +118,7 @@
                 fullScreenText: 'Enter fullscreen mode',
                 showMenu: false,
                 language: "language",
-                activeLanguage: 'Piano',
-                selectedFlag: '',
+                activeLanguage: 'Piano',                
 
                 activeIndex: '1',
                 activeIndex2: '1',
@@ -144,6 +143,24 @@
             ...mapState({
                 user: ({users}) => users.loggedInUser
             }),
+            ...mapState('application', {
+                locale: ({locale}) => locale
+            }),
+            selectedFlag(){
+                if(this.$store.state.application.locale){
+                    if(this.$store.state.application.locale === 'en'){
+                        return `flag-icon flag-icon-us`;
+                    }else {
+                        return  `flag-icon flag-icon-${this.$store.state.application.locale}`;
+                    }                    
+                } else {                                        
+                    if(this.user.settings.language === 'en'){
+                        return  `flag-icon flag-icon-us`;
+                    }else {
+                        return `flag-icon flag-icon-${this.user.settings.language}`;
+                    }
+                }
+            },
             links() {
                 let links = [];
                 if(this.rolename == 'super_admin') {
@@ -580,7 +597,7 @@
         methods: {
             ...mapActions(['logout']),
             ...mapActions(['updateSettings', 'getRequestCategoriesTree']),
-
+            ...mapActions('application', ['setLocale']),
             toggleFullscreen() {
                 if (document.fullscreenElement) {
                     this.fullScreenText = 'Enter fullscreen mode';
@@ -649,35 +666,24 @@
             },
 
             onClick(language, flag){                
-                this.$i18n.locale = language;
+                this.setLocale(language)
                 this.selectedFlag = flag;
                 this.$root.$emit('changeLanguage');
 
                 this.toggleShow();
 
-                this.saveLangParamsInLocalStorage();
+                // this.saveLangParamsInLocalStorage();
             },
 
-            init(){
-                if(this.$i18n.locale){
-                    if(this.$i18n.locale === 'en'){
-                        this.selectedFlag = `flag-icon flag-icon-us`;
-                    }else {
-                        this.selectedFlag = `flag-icon flag-icon-${this.$i18n.locale}`;
-                    }                    
-                } else {                                        
-                    if(this.user.settings.language === 'en'){
-                        this.selectedFlag = `flag-icon flag-icon-us`;
-                    }else {
-                        this.selectedFlag = `flag-icon flag-icon-${this.user.settings.language}`;
-                    }
-                }
+            init(){                
+                console.log(this.$store.state.application.locale);
+                
             },
 
-            saveLangParamsInLocalStorage(){
+            /*saveLangParamsInLocalStorage(){
                 localStorage.setItem('locale', this.$i18n.locale);
                 localStorage.setItem('selectedFlag', this.selectedFlag);
-            },
+            },*/
 
             getDropdownWidth() {
                 this.dropdownwidth = this.$refs.prev.clientWidth;
@@ -699,7 +705,7 @@
         },
 
         mounted(){
-
+            console.log('1211121');
             this.init();
 
             EventBus.$on('profile-username-change', () => {
@@ -732,6 +738,7 @@
         },
         
         async created(){
+            console.log('rtrtrtrt');
             const requestsCounts = await this.axios.get('requestsCounts');
             this.all_request_count = requestsCounts.data.data.all_request_count;
             this.all_pending_count = requestsCounts.data.data.all_pending_request_count;
