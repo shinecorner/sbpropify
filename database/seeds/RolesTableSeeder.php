@@ -57,14 +57,6 @@ class RolesTableSeeder extends Seeder
 
         $adminPermissions = $allPermissions;
 
-        $superAdmin = new Role();
-        $superAdmin->name = 'super_admin';
-        $superAdmin->display_name = 'Super admin';
-        $superAdmin->description = '';
-        $superAdmin->save();
-        foreach ($allPermissions as $permission) {
-            $superAdmin->attachPermission($permission);
-        }
 
         $RLCAdmin = new Role();
         $RLCAdmin->name = 'administrator';
@@ -84,14 +76,9 @@ class RolesTableSeeder extends Seeder
             $RLCManager->attachPermission($permission);
         }
 
-        $RLCHomeowner = new Role();
-        $RLCHomeowner->name = 'homeowner';
-        $RLCHomeowner->display_name = 'RLC Homeowner';
-        $RLCHomeowner->description = '';
-        $RLCHomeowner->save();
 
         $RLCService = new Role();
-        $RLCService->name = 'service';
+        $RLCService->name = 'provider';
         $RLCService->display_name = 'RLC Third part Service';
         $RLCService->description = '';
         $RLCService->save();
@@ -131,7 +118,7 @@ class RolesTableSeeder extends Seeder
         }
 
         $RLCUser = new Role();
-        $RLCUser->name = 'registered';
+        $RLCUser->name = 'tenant';
         $RLCUser->display_name = 'Users (tenants)';
         $RLCUser->description = '';
         $RLCUser->save();

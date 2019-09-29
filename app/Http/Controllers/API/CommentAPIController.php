@@ -427,7 +427,7 @@ class CommentAPIController extends AppBaseController
         if ($realEstate = $this->reRepository->first()) {
             $timeout = $realEstate->comment_update_timeout;
         }
-        $isAdmin = $request->user()->hasRole('super_admin') ||
+        $isAdmin = $request->user()->hasRole('administrator') ||
             $request->user()->hasRole('administrator');
         if (!$isAdmin && $comment->created_at->addMinutes($timeout)->lessThan(now())) {
             $err = "Comments can only be edited in the first %d minutes after being created.";
