@@ -250,6 +250,7 @@
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
+    
     .container {
         display: grid;
         grid-gap: 12px;
@@ -310,6 +311,10 @@
                     }
                 }
             }
+        }
+
+        .el-divider--horizontal {
+            margin: 24px 0;
         }
     }
 
