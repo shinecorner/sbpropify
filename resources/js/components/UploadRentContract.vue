@@ -1,6 +1,4 @@
 <template>
-    <div class="">
-    <div class="file-uploader-container">
     <el-upload
         :action="''"
         :before-upload="beforeDocumentUpload"
@@ -12,11 +10,9 @@
         class="file-uploader"
     >
         <div class="uploader-icon-div">
-            <i class="el-icon-plus"></i>
+            <i class="icon-plus"></i>
         </div>
     </el-upload>
-    </div>
-    </div>
 </template>
 
 <script>
@@ -73,74 +69,59 @@
 </script>
 
 <style lang="scss">
-    .drag-custom {
-        width: 100%;
+    .upload-custom {
 
-        .el-upload-dragger {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
-
+        display: grid;
+        grid-gap: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+        grid-auto-rows: -webkit-min-content;
+        grid-auto-rows: min-content;
+        
         .el-upload {
-            width: 100%;
-        }
-    }
+            border: none;
 
-    /deep/ .rent-contract-upload {
-        .file-upload-container { 
-            .file-uploader {
-                display: grid;
-                grid-gap: 8px;
-                grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
-                grid-auto-rows: -webkit-min-content;
-                grid-auto-rows: min-content;
+            .el-upload-dragger {
+                width: 100%;
+                height: 0;
+                padding-top: 100%;
+                background: transparent;
+                border-style: dashed;
+                border-width: 2px;
+                color: var(--color-text-placeholder);
                 
-
                 &:hover {
                     color: var(--color-primary);
                     background-color: var(--primary-color-lighter);
                     border-color: var(--color-primary);
                 }
-                
-                /deep/ .el-upload {
-                    
-                    .el-upload-dragger {
-                        height: 0;
-                        padding-top: 100%;
-                        border-style: dashed;
-                        border-width: 2px;
 
-                        .uploader-icon-div {
-                            position: absolute;
-                            top: 0;
-                            right: 0;
-                            bottom: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            display: -webkit-box;
-                            display: -ms-flexbox;
-                            display: flex;
-                            -webkit-box-orient: vertical;
-                            -webkit-box-direction: normal;
-                            -ms-flex-direction: column;
-                            flex-direction: column;
-                            -webkit-box-align: center;
-                            -ms-flex-align: center;
-                            align-items: center;
-                            -webkit-box-pack: center;
-                            -ms-flex-pack: center;
-                            justify-content: center;
+                .uploader-icon-div {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-box-orient: vertical;
+                    -webkit-box-direction: normal;
+                    -ms-flex-direction: column;
+                    flex-direction: column;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
+                    -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+                    justify-content: center;
 
-                            i {
 
-                            }
-                        }
-                    }
                 }
             }
         }
+            
+
     }
 </style>

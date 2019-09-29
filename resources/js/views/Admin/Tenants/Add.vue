@@ -139,6 +139,7 @@
                         
                         <card class="mt15" :header="$t('models.tenant.rent_contract')">
                             <template  v-if="model.rent_contracts.length">
+                            <el-form :model="model" label-position="top" ref="form">
                                 <div v-for="(rent_contract, c_index) in model.rent_contracts"
                                         :key="c_index">
 
@@ -249,6 +250,7 @@
                                                 :data="rent_contract.media"
                                                 style="width: 100%"
                                                 v-if="rent_contract.media.length"
+                                                class="rentcontract-file-table"
                                                 >
                                                 <el-table-column
                                                     :label="$t('models.rent_contract.filename')"
@@ -268,7 +270,7 @@
                                                     </template>
                                                 </el-table-column>
                                             </el-table>
-                                            <upload-rent-contract :rentContractIndex="c_index" @fileUploaded="addPDFtoRentContract" class="rent-contract-upload" drag multiple/>
+                                            <upload-rent-contract :rentContractIndex="c_index" @fileUploaded="addPDFtoRentContract" class="upload-custom" drag multiple/>
                                             </el-form-item>
                                         </el-col>
                                     
@@ -341,6 +343,7 @@
                                         <el-button type="danger" @click="deleteRentContract(c_index)" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button>
                                     </div>
                                 </div>
+                            </el-form>
                             </template>
                             
                         </card>
@@ -412,5 +415,7 @@
         text-align: right;
     }
 
-    
+    .rentcontract-file-table {
+        margin-bottom: 10px;
+    }
 </style>

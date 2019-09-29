@@ -318,6 +318,7 @@
                                                 :data="rent_contract.media"
                                                 style="width: 100%"
                                                 v-if="rent_contract.media.length"
+                                                class="rentcontract-file-table"
                                                 >
                                                 <el-table-column
                                                     :label="$t('models.rent_contract.filename')"
@@ -337,7 +338,7 @@
                                                     </template>
                                                 </el-table-column>
                                             </el-table>
-                                            <upload-rent-contract :rentContractIndex="c_index" @fileUploaded="addPDFtoRentContract" class="rent-contract-upload" drag multiple/>
+                                            <upload-rent-contract :rentContractIndex="c_index" @fileUploaded="addPDFtoRentContract" class="upload-custom" drag multiple/>
                                             </el-form-item>
                                         </el-col>
                                     
@@ -724,6 +725,10 @@
 
         .contract-actions {
             text-align: right;
+        }
+
+        .rentcontract-file-table {
+            margin-bottom: 10px;
         }
     }
 </style>

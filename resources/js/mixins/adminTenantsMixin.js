@@ -245,7 +245,9 @@ export default (config = {}) => {
                 this.model.rent_contracts[this.activeRentContractIndex].media.push(toUploadRentContractFile)
             },
             deletePDFfromRentContract(c_index, index) {
-                this.model.rent_contracts[c_index].splice(index, 1)
+                console.log('rent_contracts', this.model.rent_contracts)
+                console.log('indexes', c_index, index)
+                this.model.rent_contracts[c_index].media.splice(index, 1)
             },
             selectRentContract(c_index) {
                 this.activeRentContractIndex = c_index
