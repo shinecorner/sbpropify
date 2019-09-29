@@ -88,7 +88,7 @@
                 border-style: dashed;
                 border-width: 2px;
                 color: var(--color-text-placeholder);
-                
+
                 &:hover {
                     color: var(--color-primary);
                     background-color: var(--primary-color-lighter);
@@ -121,7 +121,6 @@
                 }
             }
         }
-            
 
     }
 </style>
