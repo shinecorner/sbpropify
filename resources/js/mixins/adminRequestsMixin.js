@@ -316,9 +316,7 @@ export default (config = {}) => {
             async getRealCategories() {
                 const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
 
-                this.categories = categories.filter(category => {
-                    return category.parent_id !== 1;
-                });
+                this.categories = categories;
                 
                 let defect_cat = categories.find(category => {
                     return category.id === 1;

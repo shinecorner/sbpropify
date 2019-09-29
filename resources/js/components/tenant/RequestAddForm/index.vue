@@ -219,7 +219,8 @@
                                     ({file}) => queue.add(
                                         async () => { 
                                             const mediaResp = await this.$store.dispatch('newRequests/uploadMedia', {
-                                                id, media: file.src
+                                                id, media: file.src,
+                                                merge_audit: resp.data.audit_id
                                             }) 
                                         }
                                     )
