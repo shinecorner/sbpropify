@@ -298,6 +298,37 @@ export default (config = {}) => {
                     displaySuccess(resp);
                 }
             },
+            changeCategory() {
+                this.showsubcategory = this.model.category_id == 1 ? true : false;
+                this.showpayer = this.model.qualification == 5 ? true : false;
+                let p_category = this.categories.find(item => { return item.id == this.model.category_id});
+                this.showacquisition =  p_category && p_category.acquisition == 1 ? true : false;
+            },
+            changeSubCategory() {
+                const subcategory = this.defect_subcategories.find(category => {
+                    return category.id == this.model.defect;
+                });
+
+                this.model.room = '';
+                this.model.location = '';
+                this.showLiegenschaft = false;
+                this.showUmgebung = false;
+                this.showWohnung = false;
+
+                if(subcategory.room == 1) {
+                    this.showWohnung = true;
+                }
+                else if(subcategory.location == 1) {
+                    this.showLiegenschaft = true;
+                }
+                else if(subcategory.location == 0 && subcategory.room == 0) {
+                    this.showUmgebung = true;
+                }
+            },
+            changeQualification() {
+                this.model.payer = '';
+                this.showpayer = this.model.qualification == 5 ? true : false;
+            },
             selectedCategoryHasQualification(categoryId) {
                 if (!categoryId) {
                     return false;

@@ -16,7 +16,7 @@
                                             :placeholder="$t('models.request.placeholders.category')"
                                             class="custom-select"
                                             v-model="model.category_id"
-                                            @change="showSubcategory">
+                                            @change="changeCategory">
                                     <el-option
                                         :key="category.id"
                                         :label="category.name"
@@ -26,13 +26,13 @@
                                 </el-select>
                             </el-form-item>
                         </el-col>
-                        <el-col :md="12">
-                            <el-form-item :label="$t('models.request.defect_location.label')" v-if="this.showsubcategory == true">
+                        <el-col :md="12" v-if="this.showsubcategory == true">
+                            <el-form-item :label="$t('models.request.defect_location.label')">
                                 <el-select :disabled="$can($permissions.update.serviceRequest)"
                                             :placeholder="$t(`general.placeholders.select`)"
                                             class="custom-select"
                                             v-model="model.defect"
-                                            @change="showLocationOrRoom">
+                                            @change="changeSubCategory">
                                     <el-option
                                         :key="category.id"
                                         :label="category.name"
@@ -42,9 +42,9 @@
                                 </el-select>
                             </el-form-item>
                         </el-col>
-                        <el-col :md="12">
-                            <el-form-item :label="$t('models.request.category_options.range')"
+                        <el-col :md="12" 
                                 v-if="this.showsubcategory == true && this.showLiegenschaft == true && this.showWohnung == false">
+                            <el-form-item :label="$t('models.request.category_options.range')">
                                 <el-select :disabled="$can($permissions.update.serviceRequest)"
                                             :placeholder="$t(`general.placeholders.select`)"
                                             class="custom-select"
@@ -58,9 +58,9 @@
                                 </el-select>
                             </el-form-item>
                         </el-col>
-                        <el-col :md="12">
-                            <el-form-item :label="$t('models.request.category_options.room')"
+                        <el-col :md="12"
                                 v-if="this.showsubcategory == true && this.showWohnung == true && this.showLiegenschaft == false">
+                            <el-form-item :label="$t('models.request.category_options.room')">
                                 <el-select :disabled="$can($permissions.update.serviceRequest)"
                                             :placeholder="$t(`general.placeholders.select`)"
                                             class="custom-select"
@@ -74,15 +74,35 @@
                                 </el-select>
                             </el-form-item>
                         </el-col>
+                        <el-col :md="12" v-if="this.showacquisition == true">
+                            <el-form-item :label="$t('models.request.category_options.acquisition')">
+                                <el-select :disabled="$can($permissions.update.serviceRequest)"
+                                            :placeholder="$t(`general.placeholders.select`)"
+                                            class="custom-select"
+                                            v-model="model.capture_phase">
+                                    <el-option
+                                        :key="acquisition.value"
+                                        :label="acquisition.name"
+                                        :value="acquisition.value"
+                                        v-for="acquisition in acquisitions">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
                         <el-col :md="12">
+                            <el-form-item :label="$t('models.request.category_options.component')">
+                                <el-input v-model="model.component"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :md="12"
+                                v-if="model.category_id && selectedCategoryHasQualification(model.category_id)">
                             <el-form-item :label="$t('models.request.qualification.label')"
                                         :rules="validationRules.qualification"
-                                        prop="qualification"
-                                        v-if="model.category_id && selectedCategoryHasQualification(model.category_id)">
+                                        prop="qualification">
                                 <el-select :placeholder="$t('models.request.placeholders.qualification')"
                                         class="custom-select"
                                         v-model="model.qualification"
-                                        @change="selectPayer">
+                                        @change="changeQualification">
                                     <el-option
                                         :key="k"
                                         :label="$t(`models.request.qualification.${qualification}`)"
@@ -92,9 +112,9 @@
                                 </el-select>
                             </el-form-item>
                         </el-col>
-                        <el-col :md="12">
-                            <el-form-item :label="$t('models.request.category_options.cost')" 
+                        <el-col :md="12"
                                 v-if="model.category_id && selectedCategoryHasQualification(model.category_id) && this.showpayer == true">
+                            <el-form-item :label="$t('models.request.category_options.cost')">
                                 <el-select :disabled="$can($permissions.update.serviceRequest)"
                                             :placeholder="$t(`general.placeholders.select`)"
                                             class="custom-select"
@@ -106,11 +126,6 @@
                                         v-for="cost in costs">
                                     </el-option>
                                 </el-select>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :md="12">
-                            <el-form-item :label="$t('models.request.category_options.component')">
-                                <el-input v-model="model.component"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :md="12">
@@ -315,35 +330,6 @@
                 } finally {
                     this.loading.state = false;
                 }
-            },
-            showSubcategory() {
-                this.showsubcategory = this.model.category_id == 1 ? true : false;
-                this.showpayer = this.model.qualification == 5 ? true : false;
-            },
-            showLocationOrRoom() {
-                const subcategory = this.defect_subcategories.find(category => {
-                    return category.id == this.model.defect;
-                });
-
-                this.model.room = '';
-                this.model.location = '';
-                this.showLiegenschaft = false;
-                this.showUmgebung = false;
-                this.showWohnung = false;
-
-                if(subcategory.room == 1) {
-                    this.showWohnung = true;
-                }
-                else if(subcategory.location == 1) {
-                    this.showLiegenschaft = true;
-                }
-                else if(subcategory.location == 0 && subcategory.room == 0) {
-                    this.showUmgebung = true;
-                }
-            },
-            selectPayer() {
-                this.model.payer = '';
-                this.showpayer = this.model.qualification == 5 ? true : false;
             },
             changePublic(val) {
                 if(val == true)
