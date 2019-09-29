@@ -611,7 +611,7 @@
 
         },
         methods: {
-            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag', 'downloadRequestPDF']),
+            ...mapActions(['unassignAssignee', 'deleteRequest', 'downloadRequestPDF']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -707,44 +707,6 @@
             selectPayer() {
                 this.model.payer = '';
                 this.showpayer = this.model.qualification == 5 ? true : false;
-            },
-            async deleteTag(tag) {
-                
-                const deleteTag = this.alltags.find((item) => {
-                    return item.name == tag;
-                });
-
-                if(deleteTag != null) {
-                    const resp = await this.deleteRequestTag({
-                        id: this.$route.params.id,
-                        tag_id: deleteTag.id
-                    });
-                    
-                }
-
-                this.tags = this.tags.filter(item => {
-                    return item.name != tag;
-                });
-            },
-            async changeTags(tags) {
-                if(tags.length)
-                {
-                    let addedTag = tags[ tags.length - 1];
-                    let flag = true;
-                    tags.forEach((tag,index) => {
-                        if(index == tags.length - 1)
-                            return;
-                        if( tag.toLowerCase() == addedTag.toLowerCase() )
-                        {
-                            flag = false;
-                        }
-                    })
-
-                    if(!flag) {
-                        tags.splice(tags.length - 1, 1 )
-                    }
-                }
-                
             },
             async downloadPDF() {
                 this.loading.state = true;

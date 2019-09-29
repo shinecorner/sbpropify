@@ -241,6 +241,7 @@
                                     default-first-option
                                     @remove-tag="deleteTag"
                                     class="custom-select"
+                                    @change="changeTags"
                                     >
                                     <el-option
                                         v-for="item in tags"
@@ -348,25 +349,6 @@
                 if(val == true)
                     this.model.visibility = 1;
             },
-            async deleteTag(tag) {
-                
-                const deleteTag = this.alltags.find((item) => {
-                    return item.name == tag;
-                });
-
-                if(deleteTag != null) {
-                    const resp = await this.deleteRequestTag({
-                        id: this.$route.params.id,
-                        tag_id: deleteTag.id
-                    });
-                    
-                }
-
-                this.tags = this.tags.filter(item => {
-                    return item.name != tag;
-                });
-            },
-
         },
         created(){
             this.model['priority'] = '';

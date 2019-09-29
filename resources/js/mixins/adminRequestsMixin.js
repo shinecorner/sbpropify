@@ -348,7 +348,64 @@ export default (config = {}) => {
                 for (var key in costs) {
                     this.costs.push({name : costs[key], value : key})
                 }
-            }
+            },
+            async deleteTag(tag) {
+                
+                if(config.mode == 'edit') {
+                    const deleteTag = this.alltags.find((item) => {
+                        return item.name == tag;
+                    });
+
+                    if(deleteTag != null) {
+                        const resp = await this.deleteRequestTag({
+                            id: this.$route.params.id,
+                            tag_id: deleteTag.id
+                        });
+                        
+                    }
+
+                    this.tags = this.tags.filter(item => {
+                        return item.name != tag;
+                    });
+                }
+            },
+            changeTags(tags) {
+                if(tags.length)
+                {
+                    let addedTag = tags[ tags.length - 1];
+
+                    // check tags entered to see if it's already entered before
+                    let existingFlag = false;
+                    tags.forEach((tag,index) => {
+                        if(index == tags.length - 1)
+                            return;
+                        if( tag.toLowerCase() == addedTag.toLowerCase() )
+                        {
+                            existingFlag = true;
+                        }
+                    })
+
+                    if(existingFlag) {
+                        tags.splice(tags.length - 1, 1 )
+                        return;
+                    }
+
+                    // check alltags to see if there's a match
+                    let matchTag = null
+
+                    for(let i = 0; i < this.alltags.length; i++) {
+                        if( this.alltags[i].name.toLowerCase() == addedTag.toLowerCase() ) {
+                            matchTag = this.alltags[i].name;
+                            break;
+                        }
+                    }
+
+                    if(matchTag) {
+                        tags.splice(tags.length - 1, 1 )
+                        tags.push(matchTag)
+                    }
+                }
+            },
         }
     };
 
@@ -357,7 +414,7 @@ export default (config = {}) => {
             case 'add':
                 mixin.methods = {
                     ...mixin.methods,
-                    ...mapActions(['createRequest', 'createRequestTags']),
+                    ...mapActions(['createRequest', 'createRequestTags', 'getTags']),
                     async saveRequest() {
                         if(this.model.category_id == 1) {
                             this.model.category_id = this.model.defect;
@@ -423,6 +480,13 @@ export default (config = {}) => {
                     this.getRealCategories();
                     this.getLanguageI18n();
 
+                    const tagsResp = await this.getTags({get_all: true, search: ''});
+
+                    if(tagsResp.success == true) 
+                    {
+                        this.alltags = tagsResp.data;
+                    }
+
                     this.loading.state = false;
                 };
 
@@ -431,7 +495,7 @@ export default (config = {}) => {
                 mixin.methods = {
                     ...mixin.methods,
                     ...mapActions(['getRequest', 'updateRequest', 'getTenant', 'getRequestConversations', 'getAddress', 'getRequestTags',
-                'createRequestTags', 'getTags']),
+                'createRequestTags', 'getTags', 'deleteRequestTag']),
                     async fetchCurrentRequest() {
                         
                         this.getLanguageI18n();
@@ -516,9 +580,14 @@ export default (config = {}) => {
                                     tags: newTags
                                 });
 
+                                this.tags = []
                                 requestTags.data.tags.forEach(item => {
+                                    this.tags.push(item)
                                     if(this.alltags.findIndex((el) => {return el.id == item.id}) == -1)
+                                    {
                                         this.alltags.push({ id: item.id, name: item.name });
+                                    }
+                                        
                                 })
 
                                 try {
