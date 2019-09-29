@@ -80,7 +80,6 @@ class InternalNotice extends Model
      */
     public static $rules = [
         'request_id' => 'required',
-        'user_id' => 'required',
         'comment' => 'required'
     ];
 
