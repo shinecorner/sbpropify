@@ -309,9 +309,9 @@
             //const routeName = this.$route.name;
         },
         async mounted() {
-            this.$root.$on('changeLanguage', () => {
-                this.getFilterCategories();
-            });
+            // this.$root.$on('changeLanguage', () => {
+            //     this.getFilterCategories();
+            // });
             
         },
     }

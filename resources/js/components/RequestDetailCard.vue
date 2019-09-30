@@ -102,8 +102,8 @@
                 </el-col> 
                 <el-col :span="4" class="request-category">
                     <span>{{ $t('models.request.category') }}</span>
-                    <p>{{ item.category.parent_id==null?'': categories[item.category.parentCategory.id] + ' > ' }}
-                        {{ categories[item.category.id] }}
+                    <p>{{ item.category.parent_id==null?'': categories[item.category.parentCategory.id][$i18n.locale] + ' > ' }}
+                        {{ categories[item.category.id][$i18n.locale] }}
                     </p>
                 </el-col>
                 <el-col :span="3">
@@ -118,12 +118,13 @@
                     <div v-else style="display: flex">
                         <p v-if="updated_at.h">{{ updated_at.h }}h&nbsp;</p>
                         <p v-else-if="updated_at.m">{{  updated_at.m }}m&nbsp;</p>
-                        <p>{{ $t('models.request.ago') }}</p>
+                        <p v-if="updated_at.h || updated_at.m">{{ $t('models.request.ago') }}</p>
+                        <p v-else></p>
                     </div>
                 </el-col>
                 <el-col :span="3">
                     <span>{{ $t(due.label) }}</span>
-                    <p :style="{fontWeight: due.fontWeight}">{{ due.date }}</p>
+                    <p>{{ due.date }}</p>
                 </el-col>
             </el-row>    
         </div>
@@ -176,7 +177,6 @@ export default {
             var currentDate = new Date();
             var label = 'models.request.due_on';
             var date = '';
-            var fontWeight = 700;
             if(this.item.due_date !==undefined && this.item.due_date) {
                 let due_date_formatted = format(this.item.due_date, 'DD.MM.YYYY');
                 var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
@@ -194,12 +194,10 @@ export default {
             } else {
                 label= 'models.request.due_date';
                 date = this.$t('models.request.not_set');
-                fontWeight = 900;
             }
             return {
                 label: label,
-                date: date,
-                fontWeight: fontWeight
+                date: date
             };
             
         },
@@ -237,7 +235,11 @@ export default {
                 this.categories[category.id] = category.name;
                 if(category.categories.length > 0) {
                     category.categories.map((subCategory) => {
-                        this.categories[subCategory.id] = subCategory.name;
+                        this.categories[subCategory.id] = [];
+                        this.categories[subCategory.id]['en'] = subCategory.name_en;
+                        this.categories[subCategory.id]['fr'] = subCategory.name_fr;
+                        this.categories[subCategory.id]['ge'] = subCategory.name_ge;
+                        this.categories[subCategory.id]['it'] = subCategory.name_it;
                     });
                 }
             });
@@ -257,9 +259,6 @@ export default {
         this.getFilterCategories();
     },
     async mounted() {
-        this.$root.$on('changeLanguage', () => {
-            this.getFilterCategories();
-        });
         
     },
 }
