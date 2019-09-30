@@ -1,12 +1,12 @@
 <template>
     <div class="pinboard">
-        <heading icon="ti-announcement" :title="$t('tenant.news')" :description="$t('tenant.heading_info.news')"/>
+        <heading icon="ti-announcement" :title="$t('tenant.pinboard')" :description="$t('tenant.heading_info.pinboard')"/>
         <el-row :gutter="24">
             <el-col :span="16">
                 <pinboard-card :data="data" v-if="data" :show-actions="false"/>
             </el-col>
             <el-col :span="8">
-                <rss-feed title="Blick.ch News"/>
+                <rss-feed title="Blick.ch Pinboard"/>
             </el-col>
         </el-row>
     </div>

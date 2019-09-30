@@ -2,7 +2,7 @@
 return [
     'notifications' => 'Benachrichtigungen und Sprache',
     'admin' => 'Benachrichtigungen vom Vermieter',
-    'news' => 'Pinnwand Moderation',
+    'pinboard' => 'Pinnwand Moderation',
     'marketplace' => 'Markplatz Moderation',
     'service' => 'Dienstleister',
     'updated' => 'Einstellungen wurden gespeichert.',

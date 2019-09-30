@@ -190,7 +190,7 @@ return [
                 <li>With the digital tenant dossier you have access to all relevant documents, such as Tenancy agreement, house rules or other documents relating to the property</li>
                 <li>The ticketing system enables you to process your enquiries simply and uncomplicatedly - with the following features Communicate your concerns to the administration at any time and from any place.</li>
                 <li>On the market and lending place you can send objects to your neighbourhood. sell or lend.</li>
-                <li>Share news with your neighbours by publishing a contribution. The pinboard is also used by the administration for the communication, so all are always on the Running.</li>
+                <li>Share Pinboard with your neighbours by publishing a contribution. The pinboard is also used by the administration for the communication, so all are always on the Running.</li>
                 <li>Further micro apps within the application set new standards in living quality where various services can be conveniently used.</li>
             ',
             'register' => 'First registration and activation of your account',
