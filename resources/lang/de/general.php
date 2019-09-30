@@ -126,7 +126,7 @@ return [
     'details_saved' => 'Angaben gespeichert',
     'please_wait' => 'Bitte warten...',
     'no_data_available' => 'Keine Daten verfügbar',
-    "no_posts" => "Bislang keine Beiträge veröffentlicht.",
+    "no_pinboard" => "Bislang keine Beiträge veröffentlicht.",
     "no_requests" => "Bislang keine Anfragen gestellt.",
     "no_listings" => "Bislang keine Inserate veröffentlicht.",
     "no_data" => "Keine Angaben.",

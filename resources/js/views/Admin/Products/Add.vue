@@ -1,6 +1,6 @@
 <template>
     <div class="units-add">
-        <heading icon="icon-basket" :title="$t('models.post.add')" shadow="heavy" style="margin-bottom: 20px;" />
+        <heading icon="icon-basket" :title="$t('models.pinboard.add')" shadow="heavy" style="margin-bottom: 20px;" />
         <div class="crud-view">
             <card :loading="loading">
                 <el-form :model="model" ref="form" label-width="192px" style="max-width: 512px;">
@@ -19,10 +19,10 @@
 <script>
     import Heading from 'components/Heading';
     import Card from 'components/Card';
-    import PostsMixin from 'mixins/adminPostsMixin';
+    import PinboardMixin from 'mixins/adminPinboardMixin';
 
     export default {
-        mixins: [PostsMixin({
+        mixins: [PinboardMixin({
             mode: 'add'
         })],
         components: {

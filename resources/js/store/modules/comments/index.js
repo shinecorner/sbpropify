@@ -1,7 +1,7 @@
 export default {
     namespaced: true,
     state: {
-        post: {},
+        pinboard: {},
         request: {},
         product: {},
         internalNotices: {}
@@ -53,7 +53,7 @@ export default {
         async create ({commit, rootGetters}, {id, ...params}) {
             let url = params.commentable == 'internalNotices' ? '' : `/${id}/comments`;
             const {data} = await this._vm.axios.post({
-                post: 'posts',
+                pinboard: 'pinboard',
                 product: 'products',
                 request: 'requests',
                 conversation: 'conversations',
@@ -68,18 +68,18 @@ export default {
             })
 
             switch (params.commentable) {
-                case 'post':
-                    let post = rootGetters['newPosts/getById'](id)
+                case 'pinboard':
+                    let pinboard = rootGetters['newPinboard/getById'](id)
 
-                    if (post) {
-                        Object.assign(post, {comments_count: post.comments_count + 1})
+                    if (pinboard) {
+                        Object.assign(pinboard, {comments_count: pinboard.comments_count + 1})
 
-                        commit('newPosts/update', post, {root: true})
+                        commit('newPinboard/update', pinboard, {root: true})
                     }
 
                     break
                 case 'product':
-                    let product = rootGetters['newPosts/getById'](id)
+                    let product = rootGetters['newPinboard/getById'](id)
 
                     if (product) {
                         Object.assign(product, {comments_count: product.comments_count + 1})
@@ -102,7 +102,7 @@ export default {
         },
         async createOnly ({}, {id, ...params}) {
             const {data} = await this._vm.axios.post({
-                post: 'posts',
+                pinboards: 'pinboard',
                 product: 'products',
                 request: 'requests',
                 conversation: 'conversations'

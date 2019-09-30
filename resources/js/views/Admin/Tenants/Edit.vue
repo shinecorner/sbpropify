@@ -289,12 +289,12 @@
                                 v-if="model.id"
                         />
                     </el-tab-pane>
-                    <el-tab-pane :label="$t('models.tenant.posts')">
+                    <el-tab-pane :label="$t('models.tenant.pinboard')">
                         <relation-list
-                                :actions="postActions"
-                                :columns="postColumns"
+                                :actions="pinboardActions"
+                                :columns="pinboardColumns"
                                 :filterValue="user.id"
-                                fetchAction="getPostsTruncated"
+                                fetchAction="getPinboardsTruncated"
                                 filter="user_id"
                                 v-if="!_.isEmpty(user)"
                         />
@@ -431,16 +431,16 @@
                         onClick: this.requestEditView
                     }]
                 }],
-                postColumns: [{
+                pinboardColumns: [{
                     prop: 'preview',
-                    label: 'models.post.preview'
+                    label: 'models.pinboard.preview'
                 }],
-                postActions: [{
+                pinboardActions: [{
                     width: '180px',
                     buttons: [{
                         title: 'general.actions.edit',
                         type: 'primary',
-                        onClick: this.postEditView
+                        onClick: this.pinbordEditView
                     }]
                 }],
                 productColumns: [{
@@ -479,11 +479,11 @@
                     }
                 })
             },
-            postEditView(post) {
+            pinbordEditView(pinbord) {
                 this.$router.push({
-                    name: 'adminPostsEdit',
+                    name: 'adminPinbordEdit',
                     params: {
-                        id: post.id
+                        id: pinbord.id
                     }
                 })
             },

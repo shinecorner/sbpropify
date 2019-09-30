@@ -105,7 +105,7 @@
             },
             getTypeColor (type) {
                 return {
-                    'pinned_post_published': '#BF55EC'
+                    'pinned_pinbord_published': '#BF55EC'
                 }[type]
             }
         },

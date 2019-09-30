@@ -3,17 +3,17 @@ return [
     'common' => [
         'audit' => [
             'type' => [
-                'post' => 'Poster',
+                'pinboard' => 'Panneau d\'affichage',
                 'product' => 'Produit',
                 'request' => 'Demande'
             ],
             'filter' => [
                 'type' => [
-                    'post' => 'Poster',
+                    'pinboard' => 'Panneau d\'affichage',
                     'product' => 'Produit',
                     'request' => 'Demande'
                 ],
-                'post' => [
+                'pinboard' => [
                     'created' => 'Créé',
                     'updated' => 'Mises à jour',
                     'provider_assigned' => 'Fournisseur assigné',
@@ -35,11 +35,11 @@ return [
             ],
             'content' => [
                 'withId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} a ouvert ce {auditable_type} à bord de {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'status' => 'Le statut est passé de "{old}" au "{new}".',
-                            'published_at' => 'Article publié sur {new}.'
+                            'published_at' => 'Panneau d\'affichage publié sur {new}.'
                         ]
                     ],
                     'product' => [
@@ -81,11 +81,11 @@ return [
                     ]
                 ],
                 'withNoId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} a ouvert ce {auditable_type} à bord de {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'status' => 'Le statut est passé de "{old}" au "{new}" sur {auditable_type} #{auditable_id}.',
-                            'published_at' => 'Article publié au {new} sur {auditable_type} #{auditable_id}.'
+                            'published_at' => 'Panneau d\'affichage publié au {new} sur {auditable_type} #{auditable_id}.'
                         ]
                     ],
                     'product' => [
@@ -208,7 +208,7 @@ return [
             'humidity' => 'nébulosité',
             'pressure' => 'humidité',
         ],
-        'postAdd' => [
+        'pinboardAdd' => [
             'visibility' => [
                 'address' => 'faire pression',
                 'quarter' => 'Trimestre',

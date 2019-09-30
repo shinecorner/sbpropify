@@ -126,7 +126,7 @@ return [
     'details_saved' => 'Details saved',
     'please_wait' => 'Please wait...',
     'no_data_available' => 'No data available',
-    "no_posts" => "No news published yet.",
+    "no_pinboard" => "No pinboard published yet.",
     "no_requests" => "No requests made so far.",
     "no_listings" => "No advertisements published so far.",
     "no_data" => "No information.",
