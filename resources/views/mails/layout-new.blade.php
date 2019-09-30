@@ -88,6 +88,10 @@
             margin: 0;
         }
 
+        .email-lighter-background {
+            background-color: {{$company->primary_color_lighter ?? '#c55a9059'}};
+        }
+
         /* MOBILE STYLES */
         @media screen and (max-width: 726px) {
             h1 {
@@ -163,7 +167,7 @@
     <div style="margin: 0 auto;" class="email-container">
         <table border="0" align="center" bordercolor="" cellpadding="0" cellspacing="0" width="100%" style="margin: auto">
             <tr>
-                <td align="center" bgcolor="{{$company->primary_color_lighter ?? '#c55a9059'}}" class="email-background">
+                <td align="center" class="email-background email-lighter-background">
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650" align="center">
@@ -176,7 +180,7 @@
                             <tr>
                                 <td bgcolor="transparent" style="padding: 0" class="email-header">
                                     &emsp;&emsp;<img src="{{ $company->logo ? asset($company->logo) : asset('images/logo3.png') }}" width="200"
-                                                     alt="Propify"/>&emsp;&emsp;
+                                                     alt="{{$company->name}}"/>&emsp;&emsp;
                                 </td>
                             </tr>
                             <tr>
@@ -200,7 +204,7 @@
                 </td>
             </tr>
             <tr>
-                <td bgcolor="{{$company->primary_color_lighter ?? '#c55a9059'}}" align="center">
+                <td align="center" class="email-lighter-background">
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650"
