@@ -146,7 +146,7 @@ return [
         'deposit_amount' => 'Deposit amount',
         'type_of_deposit' => 'Type of deposit',
         'deposit_types' => [
-            'bank_depot' => 'Bank Deposit',
+            'bank_deposit' => 'Bank Deposit',
             'bank_deposit' => 'Bank Deposit',
             'bank_guarantee' => 'Bank Guarantee',
             'insurance' => 'Insurance',

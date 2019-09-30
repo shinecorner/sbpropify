@@ -146,7 +146,7 @@ return [
         'deposit_amount' => 'Importo del deposito',
         'type_of_deposit' => 'Tipo di deposito',
         'deposit_types' => [
-            'bank_depot' => 'Deposito bancario',
+            'bank_deposit' => 'Deposito bancario',
             'bank_deposit' => 'Deposito bancario',
             'bank_guarantee' => 'Garanzia bancaria',
             'insurance' => 'Assicurazione',
