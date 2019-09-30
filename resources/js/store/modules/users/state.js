@@ -7,8 +7,7 @@ export default {
         name: ''
     },
     roles: [
-        "administrator",
-        "super_admin"
+        "administrator"
     ],
     realEstate: {}
 }

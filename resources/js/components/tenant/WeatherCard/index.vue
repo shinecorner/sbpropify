@@ -62,7 +62,7 @@
         async mounted () {
             this.loading = true
 
-            const {data} = await this.axios.get('pinboard/weather.json')
+            const {data} = await this.axios.get('news/weather.json')
 
             this.data = data
             this.timeout = setTimeout(() => this.loading = false, EXTRA_LOADING_SECONDS)

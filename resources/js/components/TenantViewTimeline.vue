@@ -39,7 +39,7 @@
                                             </span>
                                          </el-tooltip>
                                     </template>
-                                     <template v-if="loggedInUser.roles[0].name === 'super_admin' || fetchAction === 'getRequests'">
+                                     <template v-if="loggedInUser.roles[0].name === 'administrator' || fetchAction === 'getRequests'">
                                         <span
                                             class="btn-view"
                                           >
