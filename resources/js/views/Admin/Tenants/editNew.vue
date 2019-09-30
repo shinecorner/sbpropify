@@ -370,32 +370,70 @@
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
-                                    
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type != 3">
-                                        <el-col :md="8">
-                                            <el-form-item :label="$t('general.monthly_rent_net')" class="label-block">
-                                                <el-input type="text"
-                                                        v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
-                                                ></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                        
-                                        <el-col :md="8">
-                                            <el-form-item :label="$t('models.tenant.maintenance')"
-                                                        class="label-block">
-                                                <el-input type="text"
-                                                        v-model="rent_contract.monthly_maintenance" @focus="selectRentContract(c_index)"
-                                                ></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="8">
-                                            <el-form-item :label="$t('models.tenant.gross_rent')"
-                                                        class="label-block">
-                                                {{Number(rent_contract.monthly_rent_net) + Number(rent_contract.monthly_maintenance)}}
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-
+                                    <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition rent-data" 
+                                            style="width: 100%;"
+                                            v-if="rent_contract.unit_id && rent_contract.type != 3">
+                                        <div class="el-table__header-wrapper">
+                                            <table cellspacing="0" cellpadding="0" border="0" class="el-table__header">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="data is-leaf">
+                                                            <div class="cell">Monthly rent</div>
+                                                        </th>
+                                                        <th class="symbol is-leaf">
+                                                            <div class="cell"></div>
+                                                        </th>
+                                                        <th class="data is-leaf">
+                                                            <div class="cell">Maintenance</div>
+                                                        </th>
+                                                        <th class="symbol is-leaf">
+                                                            <div class="cell"></div>
+                                                        </th>
+                                                        <th class="data is-leaf">
+                                                            <div class="cell">Gross rent</div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div class="el-table__body-wrapper is-scrolling-none">
+                                            <table cellspacing="0" cellpadding="0" border="0" class="el-table__body">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="data">
+                                                            <div class="cell">
+                                                                <el-input type="text"
+                                                                        v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
+                                                                ></el-input>
+                                                            </div>
+                                                        </td>
+                                                        <td class="symbol">
+                                                            <div class="cell">
+                                                                +
+                                                            </div>
+                                                        </td>
+                                                        <td class="data">
+                                                            <div class="cell">
+                                                                <el-input type="text"
+                                                                    v-model="rent_contract.monthly_maintenance" @focus="selectRentContract(c_index)"
+                                                            ></el-input>
+                                                            </div>
+                                                        </td>
+                                                        <td class="symbol">
+                                                            <div class="cell">
+                                                                =
+                                                            </div>
+                                                        </td>
+                                                        <td class="data">
+                                                            <div class="cell">
+                                                                {{Number(rent_contract.monthly_rent_net) + Number(rent_contract.monthly_maintenance)}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                     <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type == 3">
                                         <el-col :md="8">
                                             <el-form-item :label="$t('general.monthly_rent_net')" class="label-block">
@@ -450,8 +488,8 @@
 
                                     <ui-divider></ui-divider>
                                     <div class="rentcontract-actions">
-                                        <el-button type="primary" v-if="c_index == model.rent_contracts.length - 1" @click="addRentContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>
-                                        <el-button type="danger" @click="deleteRentContract(c_index)" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button>
+                                        <el-button type="primary" v-if="c_index == model.rent_contracts.length - 1" @click="addRentContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>
+                                        <el-button type="danger" @click="deleteRentContract(c_index)" icon="icon-minus" size="mini" round>{{$t('models.request.delete_rent_contract')}}</el-button>
                                     </div>
                                 </div>
 
@@ -729,6 +767,37 @@
 
         .rentcontract-file-table {
             margin-bottom: 10px;
+        }
+
+        .rent-data {
+            table {
+                width: 100%;
+
+                thead, tbody {
+                    width: 100%;
+
+                    tr {
+                        display: flex;
+                        width: 100%;
+
+                        .data {
+                            flex: 1;
+                            display: flex;
+                            align-items: center;
+
+                            .cell {
+                                width: 100%;
+                            }
+                        }
+                        
+                        .symbol {
+                            display: flex;
+                            align-items: center;
+                            width: 30px;
+                        }
+                    }
+                }
+            }
         }
     }
 </style>
