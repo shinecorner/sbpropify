@@ -199,11 +199,11 @@
                     macros.title = 'components.common.serviceproviderconversationsList.emptyPlaceholder.title';
                     macros.description = 'components.common.serviceproviderconversationsList.emptyPlaceholder.description';                    
                 }
-                else if((this.type === 'request') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'super_admin') > -1)){ 
+                else if((this.type === 'request') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'tenant') == -1)){ 
                     macros.title = 'components.common.tenantconversationsList.emptyPlaceholder.title';
                     macros.description = 'components.common.tenantconversationsList.emptyPlaceholder.description';                    
                 }
-                else if((this.type === 'product') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'registered') > -1)){ 
+                else if((this.type === 'product') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'tenant') > -1)){ 
                     macros.title = 'components.common.listingcommentsList.emptyPlaceholder.title';
                     macros.description = 'components.common.listingcommentsList.emptyPlaceholder.description';                    
                 }
