@@ -373,7 +373,7 @@
                                     
                                     <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type != 3">
                                         <el-col :md="8">
-                                            <el-form-item :label="$t('models.tenant.net_rent')" class="label-block">
+                                            <el-form-item :label="$t('tenant.monthly_rent_net')" class="label-block">
                                                 <el-input type="text"
                                                         v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
                                                 ></el-input>
@@ -398,7 +398,7 @@
 
                                     <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type == 3">
                                         <el-col :md="8">
-                                            <el-form-item :label="$t('models.tenant.net_rent')" class="label-block">
+                                            <el-form-item :label="$t('tenant.monthly_rent_net')" class="label-block">
                                                 <el-input type="text"
                                                         v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
                                                 ></el-input>
