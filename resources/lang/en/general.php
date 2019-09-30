@@ -88,6 +88,7 @@ return [
     'all' => 'All',
     'loadMore' => 'Load more',
     'loading' => 'Loading...',
+    'load_more_count' => 'Load {count} more',
     'account' => 'Account',
     'activate_account' => 'Activate Account',
     'activate_code' => 'Activate Code',
