@@ -11,7 +11,7 @@ return [
         'add-request',
         'add-request_tenant',
         'add-cleanify_request',
-        'view-real_estate',
+        'view-settings',
         'view-tenants_statistics',
         'edit-request',
         'delete-comment',
@@ -84,7 +84,7 @@ return [
         'add-quarter',
         'edit-quarter',
         'assign-quarter',
-        'view-real_estate',
+        'view-settings',
         'list-cleanify_request',
         'add-cleanify_request',
         'list-tag',
@@ -195,9 +195,9 @@ return [
         ['edit-quarter', 'Edit quarter', 'edit existing quarter'],
         ['delete-quarter', 'Delete quarter', 'delete existing quarter'],
         ['assign-quarter', 'Assign property manager, user quarter', 'Assign property manager, user quarter'],
-        // Real estate
-        ['view-real_estate', 'View real estate', 'view real estate'],
-        ['edit-real_estate', 'Edit real estate', 'edit existing real estate'],
+        // Settings
+        ['view-settings', 'View settings', 'view settings'],
+        ['edit-settings', 'Edit settings', 'edit existing settings'],
         // Template
         ['list-template', 'List template', 'list template'],
         ['view-template', 'View template', 'view template'],

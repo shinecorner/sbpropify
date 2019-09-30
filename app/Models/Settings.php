@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @SWG\Definition(
- *      definition="RealEstate",
+ *      definition="Settings",
  *      required={"name", "language"},
  *      @SWG\Property(
  *          property="id",

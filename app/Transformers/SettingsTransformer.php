@@ -18,7 +18,7 @@ class SettingsTransformer extends TransformerAbstract
     ];
 
     /**
-     * Transform the RealEstate entity.
+     * Transform the Settings entity.
      *
      * @param Settings $model
      * @return array

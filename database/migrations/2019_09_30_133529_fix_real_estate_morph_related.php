@@ -18,6 +18,20 @@ class FixRealEstateMorphRelated extends Migration
         update_db_fileds(Audit::class, ['auditable_type'], 'App\\Models\\Building', 'building');
         update_db_fileds(\Illuminate\Notifications\DatabaseNotification::class, ['notifiable_type'], 'App\\Models\\User', 'user');
         update_db_fileds(\Illuminate\Notifications\DatabaseNotification::class, ['notifiable_type'], "App\\Models\\User", 'user');
+
+        \App\Models\Permission::where('name' , 'view-real_estate')->update([
+            'name' => 'view-settings',
+            'display_name' => 'View settings',
+            'description' => 'view settings'
+        ]);
+
+        \App\Models\Permission::where('name' , 'edit-real_estate')->update([
+            'name' => 'edit-settings',
+            'display_name' => 'Edit settings',
+            'description' => 'edit settings'
+        ]);
+
+        update_db_fileds(\App\Models\Media::class, ['disk'], 'post', 'pinboard');
     }
 
     /**
