@@ -1215,14 +1215,14 @@ class PinboardAPIController extends AppBaseController
             return $u->tenant->address->zip;
         }
         $defaultZip = 3172;
-        $realEstate = $settingRepository->first();
-        if (empty($realEstate)) {
+        $settings = $settingRepository->first();
+        if (empty($settings)) {
             return $defaultZip;
         }
-        if (!isset($realEstate->address)) {
+        if (!isset($settings->address)) {
             return $defaultZip;
         }
 
-        return $realEstate->address->zip;
+        return $settings->address->zip;
     }
 }

@@ -56,7 +56,7 @@ class SettingsTransformer extends TransformerAbstract
             'news_receiver_ids' => $model->news_receiver_ids,
             'email_powered_by' => $model->email_powered_by,
         ];
-        if (\Auth::user()->can('edit-real_estate')) {
+        if (\Auth::user()->can('edit-settings')) {
             $response['mail_host'] = $model->mail_host;
             $response['mail_port'] = $model->mail_port;
             $response['mail_username'] = $model->mail_username;

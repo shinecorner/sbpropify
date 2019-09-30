@@ -16,6 +16,8 @@ class FixRealEstateMorphRelated extends Migration
         update_db_fileds(Audit::class, ['auditable_type'], 'App\\Models\\RealEstate', 'settings');
         update_db_fileds(Audit::class, ['auditable_type'], 'App\\Models\\Tenant', 'tenant');
         update_db_fileds(Audit::class, ['auditable_type'], 'App\\Models\\Building', 'building');
+        update_db_fileds(\App\Models\Template::class, ['name', 'subject', 'body'], 'realEstateCompany', 'settingsCompany');
+        update_db_fileds(\App\Models\TemplateCategory::class, ['description', 'subject'], 'realEstateCompany', 'settingsCompany');
         update_db_fileds(\Illuminate\Notifications\DatabaseNotification::class, ['notifiable_type'], 'App\\Models\\User', 'user');
         update_db_fileds(\Illuminate\Notifications\DatabaseNotification::class, ['notifiable_type'], "App\\Models\\User", 'user');
 
