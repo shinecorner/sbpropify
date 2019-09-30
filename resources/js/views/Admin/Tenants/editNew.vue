@@ -373,7 +373,7 @@
                                     
                                     <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type != 3">
                                         <el-col :md="8">
-                                            <el-form-item :label="$t('models.tenant.net_rent')" class="label-block">
+                                            <el-form-item :label="$t('tenant.monthly_rent_net')" class="label-block">
                                                 <el-input type="text"
                                                         v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
                                                 ></el-input>
@@ -398,9 +398,9 @@
 
                                     <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type == 3">
                                         <el-col :md="8">
-                                            <el-form-item :label="$t('models.tenant.parking_price')" class="label-block">
+                                            <el-form-item :label="$t('tenant.monthly_rent_net')" class="label-block">
                                                 <el-input type="text"
-                                                        v-model="rent_contract.parking_price" @focus="selectRentContract(c_index)"
+                                                        v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
                                                 ></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -449,7 +449,7 @@
                                     </el-row>
 
                                     <ui-divider></ui-divider>
-                                    <div class="contract-actions">
+                                    <div class="rentcontract-actions">
                                         <el-button type="primary" v-if="c_index == model.rent_contracts.length - 1" @click="addRentContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>
                                         <el-button type="danger" @click="deleteRentContract(c_index)" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button>
                                     </div>
@@ -723,7 +723,7 @@
             }
         }
 
-        .contract-actions {
+        .rentcontract-actions {
             text-align: right;
         }
 
