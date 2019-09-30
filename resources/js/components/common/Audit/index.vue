@@ -108,8 +108,7 @@
                                 value: key
                             }
                         })
-                    });
-                    console.log(schema_children);
+                    });                    
                 }else{
                     // If there is no type prop on audit component then show type select
                     // Get filter translations from file

@@ -41,7 +41,7 @@ class TemplateCategoriesTableSeeder extends Seeder
             ],
             [
                 'parent_id' => null,
-                'name' => 'post',
+                'name' => 'pinboard',
                 'description' => '',
             ],
             [
@@ -187,22 +187,22 @@ HTML
             [
                 'parent_id' => 3,
                 'system' => 1,
-                'name' => 'pinned_post',
-                'description' => 'Email sent to tenants when admin publishes a pinned post',
+                'name' => 'pinned_pinboard',
+                'description' => 'Email sent to tenants when admin publishes a pinned pinboard',
                 'tag_map' => [
                     'salutation' => 'user.title',
                     'name' => 'user.name',
-                    'title' => 'post.title',
-                    'content' => 'post.content',
-                    'execution_start' => 'post.executionStartStr',
-                    'execution_end' => 'post.executionEndStr',
-                    'category' => 'post.categoryStr',
-                    'providers' => 'post.providersStr',
-                    'buildings' => 'post.buildingsStr',
-                    'quarters' => 'post.quartersStr',
+                    'title' => 'pinboard.title',
+                    'content' => 'pinboard.content',
+                    'execution_start' => 'pinboard.executionStartStr',
+                    'execution_end' => 'pinboard.executionEndStr',
+                    'category' => 'pinboard.categoryStr',
+                    'providers' => 'pinboard.providersStr',
+                    'buildings' => 'pinboard.buildingsStr',
+                    'quarters' => 'pinboard.quartersStr',
                     'autologin' => 'user.autologinUrl',
                 ],
-                'subject' => 'New Pined post: {{title}}',
+                'subject' => 'New Pined pinboard: {{title}}',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>Title {{title}}.</p>
@@ -213,100 +213,100 @@ HTML
             [
                 'parent_id' => 3,
                 'system' => 1,
-                'name' => 'post_published',
-                'description' => 'Email sent to neighbour tenants when admin publishes a post, or the post is automatically published',
+                'name' => 'pinboard_published',
+                'description' => 'Email sent to neighbour tenants when admin publishes a pinboard, or the pinboard is automatically published',
                 'tag_map' => [
-                    'authorSalutation' => 'post.user.title',
-                    'authorName' => 'post.user.name',
+                    'authorSalutation' => 'pinboard.user.title',
+                    'authorName' => 'pinboard.user.name',
                     'salutation' => 'receiver.title',
                     'name' => 'receiver.name',
-                    'content' => 'post.content',
+                    'content' => 'pinboard.content',
                     'autologin' => 'receiver.autologinUrl',
                 ],
-                'subject' => 'New post published {{authorSalutation}} {{authorName}}',
+                'subject' => 'New pinboard published {{authorSalutation}} {{authorName}}',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
-<p>{{authorSalutation}} {{authorName}} published a new post.</p>
+<p>{{authorSalutation}} {{authorName}} published a new pinboard.</p>
 <p><em>{{content}}</em></p>
-<p>Use <a href="{{autologin}}">this link</a> to view the published post.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the published pinboard.</p>
 HTML
             ],
             [
                 'parent_id' => 3,
                 'system' => 1,
-                'name' => 'new_post',
-                'description' => 'Email sent to admins when tenant creates a new post',
+                'name' => 'new_pinboard',
+                'description' => 'Email sent to admins when tenant creates a new pinboard',
                 'tag_map' => [
                     'salutation' => 'user.title',
                     'name' => 'user.name',
                     'subjectSalutation' => 'subject.title',
                     'subjectName' => 'subject.name',
-                    'content' => 'post.content',
-                    'type' => 'post.type',
+                    'content' => 'pinboard.content',
+                    'type' => 'pinboard.type',
                     'autologin' => 'user.autologinUrl',
                 ],
-                'subject' => 'New tenant post',
+                'subject' => 'New tenant pinboard',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
-<p>Tenant {{subjectSalutation}} {{subjectName}} added a new post</p>
+<p>Tenant {{subjectSalutation}} {{subjectName}} added a new pinboard</p>
 <p>{{content}}.</p>
-<p>Use <a href="{{autologin}}">this link</a> to view the published post.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the published pinboard.</p>
 HTML
             ],
             [
                 'parent_id' => 3,
                 'system' => 1,
-                'name' => 'post_liked',
-                'description' => 'Email sent to post author when tenant liked the post',
+                'name' => 'pinboard_liked',
+                'description' => 'Email sent to pinboard author when tenant liked the pinboard',
                 'tag_map' => [
-                    'salutation' => 'post.user.title',
-                    'name' => 'post.user.name',
+                    'salutation' => 'pinboard.user.title',
+                    'name' => 'pinboard.user.name',
                     'likerSalutation' => 'user.title',
                     'likerName' => 'user.name',
-                    'content' => 'post.content',
-                    'autologin' => 'post.user.autologinUrl',
+                    'content' => 'pinboard.content',
+                    'autologin' => 'pinboard.user.autologinUrl',
                 ],
-                'subject' => '{{likerSalutation}} {{likerName}} liked your post',
+                'subject' => '{{likerSalutation}} {{likerName}} liked your pinboard',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
-<p>Tenant {{likerSalutation}} {{likerName}} liked your post:</p>
+<p>Tenant {{likerSalutation}} {{likerName}} liked your pinboard:</p>
 <p>{{content}}.</p>
-<p>Use <a href="{{autologin}}">this link</a> to view the liked post.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the liked pinboard.</p>
 HTML
             ],
             [
                 'parent_id' => 3,
                 'system' => 1,
-                'name' => 'post_commented',
-                'description' => 'Email sent to post author when tenant comments on the post',
+                'name' => 'pinboard_commented',
+                'description' => 'Email sent to pinboard author when tenant comments on the pinboard',
                 'tag_map' => [
-                    'salutation' => 'post.user.title',
-                    'name' => 'post.user.name',
+                    'salutation' => 'pinboard.user.title',
+                    'name' => 'pinboard.user.name',
                     'commenterSalutation' => 'user.title',
                     'commenterName' => 'user.name',
-                    'content' => 'post.content',
+                    'content' => 'pinboard.content',
                     'comment' => 'comment.comment',
-                    'autologin' => 'post.user.autologinUrl',
+                    'autologin' => 'pinboard.user.autologinUrl',
                 ],
-                'subject' => '{{commenterSalutation}} {{commenterName}} commented on your post',
+                'subject' => '{{commenterSalutation}} {{commenterName}} commented on your pinboard',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
-<p>Tenant {{commenterSalutation}} {{commenterName}} commented on your post:</p>
+<p>Tenant {{commenterSalutation}} {{commenterName}} commented on your pinboard:</p>
 <p><em>{{comment}}</em>.</p>
-<p>Use <a href="{{autologin}}">this link</a> to view the post.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the pinboard.</p>
 HTML
             ],
             [
                 'parent_id' => 3,
                 'system' => 1,
-                'name' => 'post_new_tenant_in_neighbour',
+                'name' => 'pinboard_new_tenant_in_neighbour',
                 'description' => 'Email sent to neighbour tenants when new neighbour moves in the neighbourhood',
                 'tag_map' => [
-                    'subjectSalutation' => 'post.user.title',
-                    'subjectName' => 'post.user.name',
+                    'subjectSalutation' => 'pinboard.user.title',
+                    'subjectName' => 'pinboard.user.name',
                     'salutation' => 'receiver.title',
                     'name' => 'receiver.name',
-                    'content' => 'post.content',
+                    'content' => 'pinboard.content',
                     'autologin' => 'receiver.autologinUrl',
                 ],
                 'subject' => 'New tenant in the neighbour',
@@ -314,7 +314,7 @@ HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>You got a new neighbour: {{subjectSalutation}} {{subjectName}}.</p>
 <p><em>{{content}}</em></p>
-<p>Use <a href="{{autologin}}">this link</a> to view the post.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the pinboard.</p>
 HTML
             ],
         ];
@@ -339,7 +339,7 @@ HTML
                     'type' => 'product.type',
                     'autologin' => 'product.user.autologinUrl',
                 ],
-                'subject' => '{{salutation}} {{name}} liked your post',
+                'subject' => '{{salutation}} {{name}} liked your pinboard',
                 'body' => <<<HTML
 <p>Hello {{authorSalutation}} {{authorName}},</p>
 <p>Tenant {{salutation}} {{name}} liked your product:</p>
@@ -361,7 +361,7 @@ HTML
                     'comment' => 'comment.comment',
                     'autologin' => 'product.user.autologinUrl',
                 ],
-                'subject' => '{{salutation}} {{name}} commented on your post',
+                'subject' => '{{salutation}} {{name}} commented on your pinboard',
                 'body' => <<<HTML
 <p>Hello {{authorSalutation}} {{authorName}},</p>
 <p>Tenant {{salutation}} {{name}} commented on  your product:</p>

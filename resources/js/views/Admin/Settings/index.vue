@@ -772,8 +772,7 @@
             },
              Iframe_drawer(val){
                 if(val)
-                {
-                    console.log("sd");
+                {                    
                     this.main_drawer = true;
                     this.Iframe_drawer_val = true;
                     this.Gocaution_drawer_val = false;

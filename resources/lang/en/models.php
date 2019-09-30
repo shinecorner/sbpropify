@@ -135,6 +135,7 @@ return [
             'private' => 'Private',
             'business' => 'Business',
             'parking_lot' => 'Parking Lot',
+            'parking_slot' => 'Parking slot',
         ],
         'rent_duration' => 'Rent duration',
         'rent_durations' => [
@@ -145,14 +146,26 @@ return [
         'deposit_amount' => 'Deposit amount',
         'type_of_deposit' => 'Type of deposit',
         'deposit_types' => [
+            'bank_depot' => 'Bank Deposit',
             'bank_deposit' => 'Bank Deposit',
             'bank_guarantee' => 'Bank Guarantee',
             'insurance' => 'Insurance',
             'other' => 'Other',
         ],
-        'net_rent' => 'Net rent',
         'heating_operating_costs_installment' => 'Heating/operating costs installment',
+        'maintenance' => 'Maintenance',
+        'parking_price' => 'Parking Price',
         'gross_rent' => 'Gross rent',
+        'deposit_status' => [
+            'label' => 'Deposit Status',
+            'yes' => 'Yes',
+            'no' => 'No',
+        ],
+        'rentcontract_id' => 'Rent Contract ID',
+        'rent_status' => [
+            'active' => 'Active',
+            'inactive' => 'Inactive',
+        ],
         'contact' => [
             'category' => 'Category',
         ],
@@ -634,7 +647,9 @@ return [
         'reset_sort' => 'Reset Sort',
         'creation_date' => 'Creation Date',
         'ago' => 'ago',
-        'media' => [
+        'not_set' => 'Not set',
+        'today' => 'Today',
+        'media'  => [
             'added' => 'Document added',
             'removed' => 'Document removed',
             'deleted' => 'Document deleted',

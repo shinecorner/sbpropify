@@ -29,7 +29,7 @@
                                                    :placeholder="$t('models.request.placeholders.category')"
                                                    class="custom-select"
                                                    v-model="model.category_id"
-                                                   @change="showSubcategory">
+                                                   @change="changeCategory">
                                             <el-option
                                                 :key="category.id"
                                                 :label="category.name"
@@ -46,7 +46,7 @@
                                                    :placeholder="$t(`general.placeholders.select`)"
                                                    class="custom-select"
                                                    v-model="model.defect"
-                                                   @change="showLocationOrRoom">
+                                                   @change="changeSubCategory">
                                             <el-option
                                                 :key="category.id"
                                                 :label="category.name"
@@ -57,7 +57,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showsubcategory == true && this.showLiegenschaft == true && this.showWohnung == false">
+                                        v-if="this.showsubcategory == true && this.showLiegenschaft == true">
                                     <el-form-item :label="$t('models.request.category_options.range')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
@@ -73,7 +73,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showsubcategory == true && this.showWohnung == true && this.showLiegenschaft == false">
+                                        v-if="this.showsubcategory == true && this.showWohnung == true">
                                     <el-form-item :label="$t('models.request.category_options.room')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
@@ -112,13 +112,12 @@
                                         v-if="model.category_id && selectedCategoryHasQualification(model.category_id)">
                                     <el-form-item :label="$t('models.request.qualification.label')"
                                                   :rules="validationRules.qualification"
-                                                  prop="qualification"
-                                    >
+                                                  prop="qualification">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t('models.request.placeholders.qualification')"
                                                    class="custom-select"
                                                    v-model="model.qualification"
-                                                   @change="selectPayer">
+                                                   @change="changeQualification">
                                             <el-option
                                                 :key="k"
                                                 :label="$t(`models.request.qualification.${qualification}`)"
@@ -153,6 +152,7 @@
                                             default-first-option
                                             @remove-tag="deleteTag"
                                             style="display:block"
+                                            @change="changeTags"
                                             >
                                             <el-option
                                                 v-for="item in tags"
@@ -610,7 +610,7 @@
 
         },
         methods: {
-            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag', 'downloadRequestPDF']),
+            ...mapActions(['unassignAssignee', 'deleteRequest', 'downloadRequestPDF']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -674,57 +674,6 @@
                     setTimeout( () => { active_bar.style.transform = 'translateX(265px)' }, 0)
                 }
             },
-            showSubcategory() {
-                this.showsubcategory = this.model.category_id == 1 ? true : false;
-                this.showpayer = this.model.qualification == 5 ? true : false;
-                let p_category = this.categories.find(item => { return item.id == this.model.category_id});
-                this.showacquisition =  p_category && p_category.acquisition == 1 ? true : false;
-            },
-            
-            showLocationOrRoom() {
-                const subcategory = this.defect_subcategories.find(category => {
-                    return category.id == this.model.defect;
-                });
-
-                this.model.room = '';
-                this.model.location = '';
-                this.showLiegenschaft = false;
-                this.showUmgebung = false;
-                this.showWohnung = false;
-
-                if(subcategory.room == 1) {
-                    this.showWohnung = true;
-                }
-                else if(subcategory.location == 1) {
-                    this.showLiegenschaft = true;
-                }
-                else if(subcategory.location == 0 && subcategory.room == 0) {
-                    this.showUmgebung = true;
-                }
-            },
-
-            selectPayer() {
-                this.model.payer = '';
-                this.showpayer = this.model.qualification == 5 ? true : false;
-            },
-            async deleteTag(tag) {
-                
-                const deleteTag = this.alltags.find((item) => {
-                    return item.name == tag;
-                });
-
-                if(deleteTag != null) {
-                    const resp = await this.deleteRequestTag({
-                        id: this.$route.params.id,
-                        tag_id: deleteTag.id
-                    });
-                    
-                }
-
-                this.tags = this.tags.filter(item => {
-                    return item.name != tag;
-                });
-            },
             async downloadPDF() {
                 this.loading.state = true;
                 try {
@@ -745,7 +694,7 @@
                 } finally {
                     this.loading.state = false;
                 }
-            },
+            }
         }
     };
 </script>

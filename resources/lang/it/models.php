@@ -135,6 +135,7 @@ return [
             'private' => 'Privato',
             'business' => 'Affari',
             'parking_lot' => 'Parcheggio',
+            'parking_slot' => 'Parcheggio',
         ],
         'rent_duration' => "Durata dell'affitto",
         'rent_durations' => [
@@ -145,14 +146,26 @@ return [
         'deposit_amount' => 'Importo del deposito',
         'type_of_deposit' => 'Tipo di deposito',
         'deposit_types' => [
+            'bank_depot' => 'Deposito bancario',
             'bank_deposit' => 'Deposito bancario',
             'bank_guarantee' => 'Garanzia bancaria',
             'insurance' => 'Assicurazione',
             'other' => 'Altro',
         ],
-        'net_rent' => 'Affitto netto',
         'heating_operating_costs_installment' => 'Rata dei costi di riscaldamento/costi di esercizio',
+        'maintenance' => 'Manutenzione',
+        'parking_price' => 'Prezzo del parcheggio',
         'gross_rent' => 'Affitto lordo',
+        'deposit_status' => [
+            'label' => 'Stato del deposito',
+            'yes' => 'Sì',
+            'no' => 'No',
+        ],
+        'rentcontract_id' => 'ID del contratto di affitto',
+        'rent_status' => [
+            'active' => 'Attivo',
+            'inactive' => 'Inattivo',
+        ],
         'contact' => [
             "category" => "Categoria",
         ],
@@ -634,6 +647,8 @@ return [
         'reset_sort' => 'Reset Sort it',
         'creation_date' => 'Creation Date it',
         'ago' => 'ago it',
+        'not_set' => 'Not set it',
+        'today' => 'Today it',
         'media' => [
             "added" => "Documento ajouté",
             "removed" => "Supporti rimossi",

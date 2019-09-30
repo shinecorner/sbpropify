@@ -251,6 +251,8 @@
 
         :global(.comments-list) {
             margin: 16px 0;
+            min-height: 30px;
+
             > :global(.el-button) {
                 padding-top: 0;
             }

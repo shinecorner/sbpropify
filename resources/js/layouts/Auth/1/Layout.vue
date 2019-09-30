@@ -1,5 +1,10 @@
 <template>
-    <el-container>
+    <el-container>        
+        <div class="languageswitcher">
+            <div class="item">
+                <locale-switcher />
+            </div>
+        </div>    
         <el-aside width="30%">
             <router-link to="/login" class="logo">
                 <img src="~img/logo5.png" v-show="!tenant_logo_src"/>
@@ -72,6 +77,14 @@
         }
     }
 </script>
+<style lang="scss">
+     .languageswitcher{
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            z-index: 3000;
+    }
+</style>
 <style lang="scss" scoped>
     .el-container {
         height: 100%;
@@ -93,6 +106,8 @@
             flex-direction: column;
             justify-content: center;
             padding: 3em;
+            width: 30%;
+
             @media screen and (max-height: 950px) {
                 padding-top: 0;
                 padding-bottom: 0;
@@ -216,6 +231,18 @@
                         }
                     }
                 }
+            }
+        }
+    }
+
+    @media screen and (max-width: 950px) {
+        .el-container {
+            .el-aside {
+                width: 80% !important;
+            }
+
+            .el-main {
+                display: none;
             }
         }
     }

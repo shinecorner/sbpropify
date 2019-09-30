@@ -7,7 +7,7 @@
         :multiple="multiple"
         :show-file-list="false"
         :accept="acceptType"
-        class="avatar-uploader"
+        class="file-uploader"
     >
         <div class="uploader-icon-div">
             <i class="icon-plus"></i>
@@ -20,7 +20,7 @@
     import UploadMixin from 'mixins/uploadMixin';
 
     export default {
-        name: "UploadDocument",
+        name: "UploadRentContract",
         mixins: [UploadMixin],
         props: {
             multiple: {
@@ -34,6 +34,10 @@
             acceptType: {
                 type: String,
                 default: ""
+            },
+            rentContractIndex: {
+                type: Number,
+                default: 0
             }
         },
         methods: {
@@ -57,7 +61,7 @@
                 };
                 this.base64(e.file, (dataUrl) => {
                     file.src = dataUrl;
-                    this.$emit("fileUploaded", file);
+                    this.$emit("fileUploaded", file, this.rentContractIndex);
                 });
             }
         }
@@ -65,22 +69,7 @@
 </script>
 
 <style lang="scss">
-    // .drag-custom {
-    //     width: 100%;
-
-    //     .el-upload-dragger {
-    //         display: flex;
-    //         align-items: center;
-    //         justify-content: center;
-    //         width: 100%;
-    //     }
-
-    //     .el-upload {
-    //         width: 100%;
-    //     }
-    // }
-
-    .drag-custom {
+    .upload-custom {
 
         display: grid;
         grid-gap: 8px;

@@ -14,7 +14,7 @@ class PublishRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('publish-pinboard');
+        return $this->can('(un)publish-pinboard');
     }
 
     /**
