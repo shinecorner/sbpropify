@@ -51,7 +51,7 @@
             showFilter: Boolean,
             type: {
                 type: String,
-                validator: type => ['post', 'product', 'request'].includes(type)
+                validator: type => ['pinboard', 'product', 'request'].includes(type)
             }
         },
         components: {
@@ -214,7 +214,7 @@
                 switch (auditable_type) {
                     case 'request': constant_variables = this.$constants.serviceRequests
                     break;
-                    case 'post': constant_variables = this.$constants.posts;
+                    case 'pinboard': constant_variables = this.$constants.pinboard;
                     break;
                     case 'product': constant_variables = this.$constants.products;
                     break;

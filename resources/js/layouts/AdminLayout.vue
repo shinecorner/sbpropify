@@ -250,11 +250,11 @@
                                 name: 'adminServices'
                             }
                         }, {
-                            title: this.$t('menu.posts'),
+                            title: this.$t('menu.pinboard'),
                             icon: 'icon-megaphone-1',
-                            permission: this.$permissions.list.post,
+                            permission: this.$permissions.list.pinboard,
                             route: {
-                                name: 'adminPosts'
+                                name: 'adminPinboard'
                             }
                         }, {
                             title: this.$t('menu.products'),
@@ -393,11 +393,11 @@
                                 name: 'adminServices'
                             }
                         }, {
-                            title: this.$t('menu.posts'),
+                            title: this.$t('menu.pinboard'),
                             icon: 'icon-megaphone-1',
-                            permission: this.$permissions.list.post,
+                            permission: this.$permissions.list.pinboard,
                             route: {
-                                name: 'adminPosts'
+                                name: 'adminPinboard'
                             }
                         }, {
                             title: this.$t('menu.products'),
@@ -527,11 +527,11 @@
                                 name: 'adminServices'
                             }
                         }, {
-                            title: this.$t('menu.posts'),
+                            title: this.$t('menu.pinboard'),
                             icon: 'icon-megaphone-1',
-                            permission: this.$permissions.list.post,
+                            permission: this.$permissions.list.pinboard,
                             route: {
-                                name: 'adminPosts'
+                                name: 'adminPinboard'
                             }
                         }, {
                             title: this.$t('menu.products'),

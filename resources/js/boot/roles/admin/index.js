@@ -2,7 +2,7 @@ export default {
     list: {
         user: 'list-user',
         tenant: 'list-tenant',
-        post: 'list-post',
+        pinboard: 'list-pinboard',
         product: 'list-product',
         request: 'list-request',
         audit: 'list-audit',
@@ -19,7 +19,7 @@ export default {
         user: 'view-user',
         userSetting: 'view-user_setting',
         tenant: 'view-tenant',
-        post: 'view-post',
+        pinboard: 'view-pinboard',
         product: 'view-product',
         provider: 'view-provider',
         building: 'view-building',
@@ -33,10 +33,10 @@ export default {
     },
     create: {
         comment: 'add-comment',
-        post: 'add-post',
+        pinboard: 'add-pinboard',
         user: 'add-user',
         tenant: 'add-tenant',
-        postToAnyLocation: 'add-located-post',
+        pinboardToAnyLocation: 'add-located-pinboard',
         product: 'add-product',
         provider: 'add-provider',
         tenantRequest: 'add-request_tenant',
@@ -56,7 +56,7 @@ export default {
         userSettings: 'edit-user_setting',
         tenant: 'edit-tenant',
         comment: 'edit-comment',
-        post: 'edit-post',
+        pinboard: 'edit-pinboard',
         product: 'edit-product',
         provider: 'edit-provider',
         request: 'edit-request',
@@ -74,7 +74,7 @@ export default {
     delete: {
         user: 'delete-user',
         tenant: 'delete-tenant',
-        post: 'delete-post',
+        pinboard: 'delete-pinboard',
         product: 'delete-product',
         provider: 'delete-provider',
         request: 'delete-request',
@@ -87,11 +87,11 @@ export default {
         requestCategory: 'delete-service_request_category'
     },
     publish: {
-        post: 'publish-post',
+        pinboard: 'publish-pinboard',
         product: 'publish-product'
     },
     pin: {
-        post: 'pin-post'
+        pinboard: 'pin-pinboard'
     },
     assign: {
         provider: 'assign-provider',

@@ -126,7 +126,7 @@ return [
     'details_saved' => 'Dettagli salvati',
     'please_wait' => 'Attendere per favore...',
     'no_data_available' => 'Nessun dato disponibile',
-    "no_posts" => "Non sono ancora stati pubblicati contributi.",
+    "no_pinboard" => "Nessuna bacheca pubblicata.",
     "no_requests" => "Finora non è stata fatta alcuna richiesta.",
     "no_listings" => "Finora non sono stati pubblicati annunci pubblicitari.",
     "no_data" => "Nessuna informazione.",

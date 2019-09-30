@@ -1,8 +1,8 @@
 import LatestMyNeighboursCardError from './LatestMyNeighboursCard/Error'
 import LatestMyNeighboursCardLoader from './LatestMyNeighboursCard/Loader'
 
-import LatestPostsCardError from './LatestPostsCard/Error'
-import LatestPostsCardLoader from './LatestPostsCard/Loader'
+import LatestPinboardCardError from './LatestPinboardCard/Error'
+import LatestPinboardCardLoader from './LatestPinboardCard/Loader'
 
 import LatestProductsCardError from './LatestProductsCard/Error'
 import LatestProductsCardLoader from './LatestProductsCard/Loader'
@@ -22,20 +22,20 @@ import LikesLoader from './Likes/Loader'
 import MyNeighboursError from './MyNeighbours/Error'
 import MyNeighboursLoader from './MyNeighbours/Loader'
 
-import PostAddCardError from './PostAddCard/Error'
-import PostAddCardLoader from './PostAddCard/Loader'
+import PinboardAddCardError from './PinboardAddCard/Error'
+import PinboardAddCardLoader from './PinboardAddCard/Loader'
 
-import PostCardError from './PostCard/Error'
-import PostCardLoader from './PostCard/Loader'
+import PinboardCardError from './PinboardCard/Error'
+import PinboardCardLoader from './PinboardCard/Loader'
 
-import PostNewTenantCardError from './PostNewTenantCard/Error'
-import PostNewTenantCardLoader from './PostNewTenantCard/Loader'
+import PinboardNewTenantCardError from './PinboardNewTenantCard/Error'
+import PinboardNewTenantCardLoader from './PinboardNewTenantCard/Loader'
 
-import PostEditFormError from './PostEditForm/Error'
-import PostEditFormLoader from './PostEditForm/Loader'
+import PinboardEditFormError from './PinboardEditForm/Error'
+import PinboardEditFormLoader from './PinboardEditForm/Loader'
 
-import PostDeleteModalError from './PostDeleteModal/Error'
-import PostDeleteModalLoader from './PostDeleteModal/Loader'
+import PinboardDeleteModalError from './PinboardDeleteModal/Error'
+import PinboardDeleteModalLoader from './PinboardDeleteModal/Loader'
 
 import ProductAddFormError from './ProductAddForm/Error'
 import ProductAddFormLoader from './ProductAddForm/Loader'
@@ -93,10 +93,10 @@ export default {
                 delay: 0,
                 timeout: 8000
             }),
-            latestPostsCard: () => ({
-                component: import(/* webpackChunkName: "latestPostsCard" */ './LatestPostsCard'),
-                loading: LatestPostsCardLoader,
-                error: LatestPostsCardError,
+            latestPinboardCard: () => ({
+                component: import(/* webpackChunkName: "latestPinboardCard" */ './LatestPinboardCard'),
+                loading: LatestPinboardCardLoader,
+                error: LatestPinboardCardError,
                 delay: 0,
                 timeout: 8000
             }),
@@ -142,38 +142,38 @@ export default {
                 delay: 0,
                 timeout: 8000
             }),
-            postAddCard: () => ({
-                component: import(/* webpackChunkName: "postAddCard" */ './PostAddCard'),
-                loading: PostAddCardLoader,
-                error: PostAddCardError,
+            pinboardAddCard: () => ({
+                component: import(/* webpackChunkName: "pinboardAddCard" */ './PinboardAddCard'),
+                loading: PinboardAddCardLoader,
+                error: PinboardAddCardError,
                 delay: 0,
                 timeout: 8000
             }),
-            postCard: () => ({
-                component: import(/* webpackChunkName: "postCard" */ './PostCard'),
-                loading: PostCardLoader,
-                error: PostCardError,
+            pinboardCard: () => ({
+                component: import(/* webpackChunkName: "pinboardCard" */ './PinboardCard'),
+                loading: PinboardCardLoader,
+                error: PinboardCardError,
                 delay: 0,
                 timeout: 8000
             }),
-            postNewTenantCard: () => ({
-                component: import(/* webpackChunkName: "postNewTenantCard" */ './PostNewTenantCard'),
-                loading: PostNewTenantCardLoader,
-                error: PostNewTenantCardError,
+            pinboardNewTenantCard: () => ({
+                component: import(/* webpackChunkName: "pinboardNewTenantCard" */ './PinboardNewTenantCard'),
+                loading: PinboardNewTenantCardLoader,
+                error: PinboardNewTenantCardError,
                 delay: 0,
                 timeout: 8000
             }),
-            postEditForm: () => ({
-                component: import(/* webpackChunkName: "postEditForm" */ './PostEditForm'),
-                loading: PostEditFormLoader,
-                error: PostEditFormError,
+            pinboardEditForm: () => ({
+                component: import(/* webpackChunkName: "pinboardEditForm" */ './PinboardEditForm'),
+                loading: PinboardEditFormLoader,
+                error: PinboardEditFormError,
                 delay: 0,
                 timeout: 8000
             }),
-            postDeleteModal: () => ({
-                component: import(/* webpackChunkName: "postDeleteModal" */ './PostDeleteModal'),
-                loading: PostDeleteModalLoader,
-                error: PostDeleteModalError,
+            pinboardDeleteModal: () => ({
+                component: import(/* webpackChunkName: "pinboardDeleteModal" */ './PinboardDeleteModal'),
+                loading: PinboardDeleteModalLoader,
+                error: PinboardDeleteModalError,
                 delay: 0,
                 timeout: 8000
             }),

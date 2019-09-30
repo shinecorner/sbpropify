@@ -9,9 +9,9 @@ return [
     'average_request_duration' => 'Resolution time',
     'week_hour' => 'Week vs. Hour',
     'month_date' => 'Month vs. Date',
-    'news_by_creation_date' => 'News by creation date',
-    'news_by_status' => 'News by status',
-    'news_by_type' => 'News by type',
+    'pinboard_by_creation_date' => 'Pinboard by creation date',
+    'pinboard_by_status' => 'Pinboard by status',
+    'pinboard_by_type' => 'Pinboard by type',
     'latest_products' => 'Latest products',
     'products_by_creation_date' => 'Market place products by creation date',
     'products_by_type' => 'Market place products by type',
@@ -58,9 +58,9 @@ return [
     'marketplace' => [
         'go_to_marketplace' => 'go to marketplace'
     ],
-    'news' => [
-        'latest_news' => 'Latest news',
-        'go_to_news' => 'go to news',
+    'pinboard' => [
+        'latest_pinboard' => 'Latest pinboard',
+        'go_to_pinboard' => 'go to pinboard',
         'counts' => 'Counts'
     ]
 ];

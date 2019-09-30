@@ -35,7 +35,7 @@
             type: {
                 type: String,
                 required: true,
-                validator: type => ['post', 'product'].includes(type)
+                validator: type => ['pinboard', 'product'].includes(type)
             },
             icons: {
                 type: Object,
@@ -68,8 +68,8 @@
                 this.loading = true
 
                 switch (this.type) {
-                    case 'post':
-                        await this.$store.dispatch(`newPosts/${this.status.liked ? 'unlike' : 'like'}`, {id: this.id})
+                    case 'pinboard':
+                        await this.$store.dispatch(`newPinboard/${this.status.liked ? 'unlike' : 'like'}`, {id: this.id})
 
                         break
                     case 'product':
@@ -84,7 +84,7 @@
         computed: {
             status () {
                 const {liked = false, likes_count = 0} = this.$store.getters[{
-                    post: `newPosts/getById`,
+                    pinboard: `newPinboard/getById`,
                     product: `newProducts/getById`
                 }[this.type]](this.id) || {}
 
