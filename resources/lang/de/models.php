@@ -152,7 +152,6 @@ return [
             'insurance' => 'Kautionsversicherung',
             'other' => 'Sonstiges',
         ],
-        'net_rent' => 'Nettomiete',
         'heating_operating_costs_installment' => 'Heiz- und Nebenkosten',
         'maintenance' => 'Heiz- und Nebenkosten',
         'parking_price' => 'Miete',
