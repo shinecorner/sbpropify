@@ -106,6 +106,8 @@
             flex-direction: column;
             justify-content: center;
             padding: 3em;
+            width: 30%;
+
             @media screen and (max-height: 950px) {
                 padding-top: 0;
                 padding-bottom: 0;
@@ -229,6 +231,18 @@
                         }
                     }
                 }
+            }
+        }
+    }
+
+    @media screen and (max-width: 950px) {
+        .el-container {
+            .el-aside {
+                width: 80% !important;
+            }
+
+            .el-main {
+                display: none;
             }
         }
     }
