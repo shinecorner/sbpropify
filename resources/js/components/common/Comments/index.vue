@@ -3,8 +3,8 @@
     <div class="placeholder" v-else-if="!loading && !comments.data.length">
         <template v-if="usePlaceholder">
             <img class="image" :src="require('img/5c98b47a97050.png')" />            
-                <div class="title">{{no_data_info.title}}</div>
-                <div class="description">{{no_data_info.description}}</div>       
+                <div class="title">{{$t(no_data_info.title)}}</div>
+                <div class="description">{{$t(no_data_info.description)}}</div>       
         </template>
     </div>
     <div class="comments-list" v-else>
