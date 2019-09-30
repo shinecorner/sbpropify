@@ -304,7 +304,6 @@ return [
         'floor' => 'Etage',
         'sq_meter' => 'Fläche',
         'room_no' => 'Anzahl Zimmer',
-        'monthly_rent_net' => 'Monatsmiete',
         'building_search' => 'Bitte nach einer Liegenschaft suchen',
         'building' => 'Liegenschaft',
         'basement' => 'Untergeschoss',
