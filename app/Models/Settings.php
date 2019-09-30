@@ -136,11 +136,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class RealEstate extends AuditableModel
+class Settings extends AuditableModel
 {
     use SoftDeletes;
-
-    public $table = 'real_estates';
 
     protected $dates = ['deleted_at'];
 
@@ -233,9 +231,7 @@ class RealEstate extends AuditableModel
     ];
 
     /**
-     * Validation rules
-     *
-     * @var array
+     * @return array
      */
     public static function rules()
     {
