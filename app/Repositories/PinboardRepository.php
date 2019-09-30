@@ -311,7 +311,7 @@ class PinboardRepository extends BaseRepository
      */
     public function notifyAdminActions(Pinboard $pinboard)
     {
-        if (! Auth::user()->hasRole('super_admin')) {
+        if (! Auth::user()->hasRole('administrator')) {
             return;
         }
         // @TODO

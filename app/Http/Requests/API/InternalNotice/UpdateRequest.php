@@ -4,6 +4,7 @@ namespace App\Http\Requests\API\InternalNotice;
 
 use App\Http\Requests\BaseRequest;
 use App\Models\InternalNotice;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateRequest extends BaseRequest
 {
@@ -14,8 +15,11 @@ class UpdateRequest extends BaseRequest
      */
     public function authorize()
     {
-        //TODO ROLE RELATED is need create update-internal_notice
-        return true;
+        if (! $this->can('edit-internal_notice')) {
+            return false;
+        }
+
+        return InternalNotice::where('user_id', Auth::id())->where('id', $this->route('internalNotice'))->exists();
     }
 
     /**

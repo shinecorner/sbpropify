@@ -13,6 +13,6 @@ class ListRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('list-service_request_category');
+        return $this->can('list-request');
     }
 }

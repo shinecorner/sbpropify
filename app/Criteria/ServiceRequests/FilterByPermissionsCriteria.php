@@ -39,7 +39,7 @@ class FilterByPermissionsCriteria implements CriteriaInterface
     {
         $u = $this->request->user();
 
-        if ($u->hasRole('registered') && $u->tenant) {
+        if ($u->tenant) {
 
             $qs = [
                 '(service_requests.visibility = ? and service_requests.tenant_id = ?)',
