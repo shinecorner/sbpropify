@@ -126,17 +126,41 @@ return [
                 ]
             ],
         ],
-        'commentsList' => [
-            'loading' => 'Caricamento...',
-            'loadMore' => [
-                'simple' => 'Carico {count} ',
-                'detailed' => 'Carico {count} altri commenti',
-            ],
+        'commentsList' => [            
+            'loadMore' => 'Carico {count} altri commenti',
             'emptyPlaceholder' => [
                 'title' => "Non ci sono ancora messaggi...",
                 'description' => 'Avviare la messaggistica utilizzando il modulo sottostante e premere Invio.',
             ],
         ],
+        'internalnoticesList' => [            
+            'loadMore' => 'Carico {count} altri avviso interno',            
+            'emptyPlaceholder' => [
+                'title' => "Non ci sono ancora avvisi interni",
+                'description' => "Aggiungere un avviso interno utilizzando il modulo sottostante e premere Invio.",
+            ],
+        ],
+        'serviceproviderconversationsList' => [            
+            'loadMore' => 'Carico {count} altri conversazioni con i fornitori di servizi',
+            'emptyPlaceholder' => [
+                'title' => 'Non ci sono ancora conversazioni con il fornitore di servizi',
+                'description' => "Aggiungere una conversazione al fornitore di servizi utilizzando il modulo sottostante e premere Invio.",
+            ],
+        ],
+        'tenantconversationsList' => [
+            'loadMore' => 'Carico {count} altri conversazioni degli inquilini',
+            'emptyPlaceholder' => [
+                'title' => "Non ci sono conversazioni fatte con l'inquilino.",
+                'description' => "Aggiungere un messaggio all'inquilino utilizzando il modulo sottostante e premere Invio.",
+            ],
+        ],
+        'listingcommentsList' => [
+            'loadMore' => "Carico {count} altri commenti all'elenco",
+            'emptyPlaceholder' => [
+                'title' => "Non ci sono commenti per l'inserimento nell'elenco",
+                'description' => "Chiedere l'annuncio inviando messaggi utilizzando il modulo sottostante e premere Invio.",
+            ],
+        ], 
         'comment' => [
             'updateShortcut' => "o l'uso {shortcut} scorciatoia",
             'updateOrCancel' => '{update} o premere {esc} al {cancel}',

@@ -24,7 +24,7 @@
                     </el-timeline-item>
                 </template>
                 <el-timeline-item v-if="loading">
-                    {{$t('components.common.commentsList.loading')}}
+                    {{$t('general.loading')}}
                 </el-timeline-item>
             </el-timeline>
     </div>
