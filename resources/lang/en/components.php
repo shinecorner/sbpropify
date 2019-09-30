@@ -126,17 +126,41 @@ return [
                 ]
             ],
         ],
-        'commentsList' => [
-            'loading' => 'Loading...',
-            'loadMore' => [
-                'simple' => 'Load {count} more',
-                'detailed' => 'Load {count} more comments',
-            ],
+        'commentsList' => [            
+            'loadMore' =>  'Load {count} more comments',            
             'emptyPlaceholder' => [
                 'title' => 'There are no messages yet...',
                 'description' => 'Start messaging by using the below form and press enter.',
             ],
         ],
+        'internalnoticesList' => [            
+            'loadMore' => 'Load {count} more internal notice',            
+            'emptyPlaceholder' => [
+                'title' => 'There are no internal notices yet...',
+                'description' => 'Add internal notice by using the below form and press enter.',
+            ],
+        ],
+        'serviceproviderconversationsList' => [            
+            'loadMore' => 'Load {count} more service provider conversations',
+            'emptyPlaceholder' => [
+                'title' => 'There are no conversations with service provider yet...',
+                'description' => 'Add conversation to service provider by using the below form and press enter.',
+            ],
+        ],
+        'tenantconversationsList' => [
+            'loadMore' => 'Load {count} more tenant conversations',
+            'emptyPlaceholder' => [
+                'title' => 'There are no conversation made with tenant.',
+                'description' => 'Add message to tenant using the below form and press enter.',
+            ],
+        ],
+        'listingcommentsList' => [
+            'loadMore' => 'Load {count} more listing comments',
+            'emptyPlaceholder' => [
+                'title' => 'There are no comments for listing',
+                'description' => 'Ask about listing by sending messaging using the below form and press enter.',
+            ],
+        ],        
         'comment' => [
             'updateShortcut' => 'or use {shortcut} shortcut',
             'updateOrCancel' => '{update} or press {esc} to {cancel}',
