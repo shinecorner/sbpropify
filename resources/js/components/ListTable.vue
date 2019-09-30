@@ -534,7 +534,7 @@
                     delete query.search;
                 }
                 if(this.$route.name=='adminUsers') {
-                    query = {roles: ['administrator', 'super_admin'], ...query};
+                    query = {roles: ['administrator'], ...query};
                     if(query.role)
                         delete query.roles;
                     else
