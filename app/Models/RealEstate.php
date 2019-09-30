@@ -106,6 +106,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *     @SWG\Property(
+ *          property="email_powered_by",
+ *          description="email_powered_by",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *     @SWG\Property(
  *          property="comment_update_timeout",
  *          description="comment_update_timeout",
  *          type="integer",
@@ -176,7 +182,8 @@ class RealEstate extends AuditableModel
         'primary_color_lighter',
         'accent_color',
         'login_variation',
-        'login_variation_2_slider'
+        'login_variation_2_slider',
+        'email_powered_by',
     ];
 
     /**
@@ -222,6 +229,7 @@ class RealEstate extends AuditableModel
         'accent_color' => 'string',
         'login_variation' => 'integer',
         'login_variation_2_slider' => 'integer',
+        'email_powered_by' => 'integer',
     ];
 
     /**
