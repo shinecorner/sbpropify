@@ -3,7 +3,7 @@
         <heading icon="icon-user" :title="$t('menu.admins')" shadow="heavy">
             <template v-if="$can($permissions.create.user)">
                 <el-button @click="add('administrator')" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}} {{ $t('general.roles.administrator') }}</el-button>
-                <el-button @click="add('super_admin')" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}} {{ $t('general.roles.super_admin') }}</el-button>
+
             </template>
             <template v-if="$can($permissions.delete.user)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
@@ -93,9 +93,6 @@
                         data: [{
                             id: 'administrator',
                             name: this.$t('models.user.administrator'),
-                        }, {
-                            id: 'super_admin',
-                            name: this.$t('models.user.super_admin'),
                         }],
                     },
                 ]

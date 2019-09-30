@@ -32,7 +32,7 @@
                                         <el-option
                                             :label="$t(`models.pinboard.type.article`)"
                                             :value="4"
-                                            v-if="rolename == 'administrator' || rolename == 'super_admin'"
+                                            v-if="rolename == 'administrator'"
                                         >
                                         </el-option>
                                     </el-select>
