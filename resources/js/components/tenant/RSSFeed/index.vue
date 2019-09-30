@@ -55,7 +55,7 @@
             });
 
             try {
-                const {items} = await parser.parseURL(API_BASE_URL + 'pinboard/rss.xml')
+                const {items} = await parser.parseURL(API_BASE_URL + 'news/rss.xml')
 
                 this.items = items.filter((item, idx) => {
                     item.pubDate = this.ago(item.pubDate, this.$i18n.locale)
