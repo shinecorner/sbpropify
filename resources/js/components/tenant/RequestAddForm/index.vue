@@ -237,7 +237,7 @@
                             //             async () => { 
                             //                 const mediaResp = await this.$store.dispatch('newRequests/uploadMedia', {
                             //                     id, media: file.src,
-                            //                     merge_audit: resp.data.audit_id
+                            //                     merge_in_audit: resp.data.audit_id
                             //                 }) 
                             //             }
                             //         )
