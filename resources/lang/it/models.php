@@ -304,7 +304,6 @@ return [
         "floor" => "Piano",
         "sq_meter" => "Misuratore di mq",
         "room_no" => "Numero di camere",
-        "monthly_rent_net" => "Affitto mensile",
         "building_search" => "Inserire il nome di un edificio e selezionarlo",
         "building" => "Edificio",
         "basement" => "Nel seminterrato",

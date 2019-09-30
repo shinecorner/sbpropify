@@ -304,7 +304,6 @@ return [
         'floor' => 'Floor',
         'sq_meter' => 'Sq Meter',
         'room_no' => 'Number of rooms',
-        'monthly_rent_net' => 'Monthly rent',
         'building_search' => 'Please enter a building name and select it',
         'building' => 'Building',
         'basement' => 'Basement',
