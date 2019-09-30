@@ -74,11 +74,6 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *          description="deposit_amount",
  *          type="integer"
  *      ),
- *     @SWG\Property(
- *          property="parking_price",
- *          description="parking_price",
- *          type="integer"
- *      ),
  *      @SWG\Property(
  *          property="monthly_rent_net",
  *          description="monthly_rent_net",
@@ -185,7 +180,6 @@ class RentContract extends AuditableModel implements HasMedia
         'deposit_type' => 'digits_between:1,4|numeric',
         'deposit_status' => 'digits_between:1,2|numeric',
         'deposit_amount' => 'numeric',
-        'parking_price' => 'numeric',
     ];
 
     protected $table = 'tenant_rent_contracts';
@@ -204,7 +198,6 @@ class RentContract extends AuditableModel implements HasMedia
         'deposit_type',
         'deposit_status',
         'deposit_amount',
-        'parking_price',
         'start_date',
         'end_date',
         'monthly_rent_net',
@@ -233,7 +226,6 @@ class RentContract extends AuditableModel implements HasMedia
         'deposit_type' => 'integer',
         'deposit_status' => 'integer',
         'deposit_amount' => 'integer',
-        'parking_price' => 'integer',
         'monthly_rent_net' => 'float',
         'monthly_rent_gross' => 'float',
         'monthly_maintenance' => 'float',
