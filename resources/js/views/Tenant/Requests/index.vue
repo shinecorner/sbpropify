@@ -96,7 +96,6 @@
                             :closable="false"
                         >
                         </el-alert>
-                        
                     </div>
                     <ui-media-uploader v-model="media" 
                                     :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" 
@@ -144,7 +143,7 @@
             <template v-if="!openedRequest">
                 <ui-divider content-position="left">{{$t('tenant.add_request')}}</ui-divider>
                 <div class="content">
-                    <request-add-form ref="request-add-form" />
+                    <request-add-form :visible.sync="visibleDrawer" ref="request-add-form" />
                 </div>
             </template>
         </ui-drawer>

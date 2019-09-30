@@ -1,6 +1,6 @@
 <template>
     <el-dialog  :close-on-click-modal="true" 
-                :title="$t(`general.swal.to_done.title`)"
+                :title="statusChangeModalType=='done' ? $t(`general.swal.to_done.title`) : $t(`general.swal.reactivate.title`)"
                 :visible="statusChangeModalVisible"
                 width="40%"
                 class="request-status-change-modal"
@@ -9,6 +9,7 @@
             <el-row>
                 <el-col :span="24" v-if="statusChangeModalType=='done'">
                     <p class="description">{{ $t(`general.swal.to_done.desc`) }}</p>
+                    <br/>
                     <p class="description">{{ $t(`general.swal.to_done.message`) }}</p>
                 </el-col>
                 <el-col :span="24" v-if="statusChangeModalType=='reactivate'">
@@ -25,7 +26,7 @@
         </el-form>
             <span class="dialog-footer" slot="footer">
                 <el-button @click="close" size="mini">{{$t('tenant.cancel')}}</el-button>
-                <el-button :disabled="model.message == null || model.message == ''" @click="changeStatus(statusChangeModalType, model.message)" size="mini" type="danger">{{$t('tenant.close_request')}}</el-button>
+                <el-button :disabled="model.message == null || model.message == ''" @click="changeStatus(statusChangeModalType, model.message)" size="mini" type="danger">{{statusChangeModalType=='done' ? $t('tenant.close_request') : $t('tenant.actions.to_reactivated')}}</el-button>
             </span>
         
     </el-dialog>
@@ -59,7 +60,7 @@
                 validationRules: {
                     message: {
                         required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.title')})
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.message')})
                     }               
                 },
             }
@@ -78,11 +79,21 @@
             margin: 0 0 22px 0;
         }
 
+        .el-row:last-child {
+            margin-bottom: 0;
+        }
+
         .description {
             margin: 0;
         }
+
+        .el-dialog__header {
+            border-bottom: 1px solid lightgrey;
+        }
+
         .el-dialog__body {
             word-break: break-word;
+            padding-bottom: 0;
         }
     }
 </style>

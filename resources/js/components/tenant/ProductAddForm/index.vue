@@ -1,6 +1,6 @@
 <template>
     <el-form ref="form" :model="model" :rules="validationRules" label-position="top" v-loading="loading">
-        <el-form-item prop="title" :label="$t('tenant.title')" style="grid-column: span 6">
+        <el-form-item prop="title" :label="$t('tenant.title')" style="grid-column: span 6; height: 40px;">
             <el-input v-model="model.title" />
         </el-form-item>
         <el-form-item prop="type" :label="$t('tenant.type')" style="grid-column: span 3">
@@ -35,7 +35,7 @@
             <media-uploader ref="media" :id="product_id" :audit_id="audit_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
         <el-form-item v-if="!hideSubmit" style="grid-column: span 6">
-            <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
+            <el-button class="submit is-round" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -49,7 +49,11 @@
             hideSubmit: {
                 type: Boolean,
                 default: false
-            }
+            },
+            visible: {
+                type: Boolean,
+                default: false
+            },
         },
         data () {
             return {
@@ -131,6 +135,7 @@
                             }
                         }
                         
+                        this.$emit('update:visible', false)
 
                         this.loading = false
                         this.$refs.form.resetFields()
