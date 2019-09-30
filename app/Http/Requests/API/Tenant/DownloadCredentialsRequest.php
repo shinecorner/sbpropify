@@ -13,6 +13,6 @@ class DownloadCredentialsRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('download_credentials-tenant');
+        return $this->can('view-tenant');
     }
 }

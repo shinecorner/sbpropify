@@ -255,5 +255,5 @@ return [
     'to_homepage' => 'Vers la page d\'accueil',
     "assignment" => "Affectation",
     'status_changed' => "Changement de statut",
-
+    "monthly_rent_net" => "Loyer mensuel",
 ];

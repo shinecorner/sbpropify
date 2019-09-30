@@ -254,5 +254,6 @@ return [
     ],
     'to_homepage' => 'Alla Homepage',
     "assignment" => "Assegnazione",
-    'status_changed' => "Stato cambiato"
+    'status_changed' => "Stato cambiato",
+    "monthly_rent_net" => "Affitto mensile",
 ];

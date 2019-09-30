@@ -266,13 +266,14 @@ export default (config = {}) => {
                     });
                 }
             },
-            async uploadNewMedia(id) {
+            async uploadNewMedia(id, audit_id) {
                 if (this.media.length) {
                     for (let i = 0; i < this.media.length; i++) {
                         const image = this.media[i];
                         await this.uploadRequestMedia({
                             id,
-                            media: image.url.split('base64,')[1]
+                            media: image.url.split('base64,')[1],
+                            merge_audit : audit_id
                         });
                     }
                 }
@@ -297,6 +298,37 @@ export default (config = {}) => {
                     displaySuccess(resp);
                 }
             },
+            changeCategory() {
+                this.showsubcategory = this.model.category_id == 1 ? true : false;
+                this.showpayer = this.model.qualification == 5 ? true : false;
+                let p_category = this.categories.find(item => { return item.id == this.model.category_id});
+                this.showacquisition =  p_category && p_category.acquisition == 1 ? true : false;
+            },
+            changeSubCategory() {
+                const subcategory = this.defect_subcategories.find(category => {
+                    return category.id == this.model.defect;
+                });
+
+                this.model.room = '';
+                this.model.location = '';
+                this.showLiegenschaft = false;
+                this.showUmgebung = false;
+                this.showWohnung = false;
+
+                if(subcategory.room == 1) {
+                    this.showWohnung = true;
+                }
+                else if(subcategory.location == 1) {
+                    this.showLiegenschaft = true;
+                }
+                else if(subcategory.location == 0 && subcategory.room == 0) {
+                    this.showUmgebung = true;
+                }
+            },
+            changeQualification() {
+                this.model.payer = '';
+                this.showpayer = this.model.qualification == 5 ? true : false;
+            },
             selectedCategoryHasQualification(categoryId) {
                 if (!categoryId) {
                     return false;
@@ -315,9 +347,7 @@ export default (config = {}) => {
             async getRealCategories() {
                 const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
 
-                this.categories = categories.filter(category => {
-                    return category.parent_id !== 1;
-                });
+                this.categories = categories;
                 
                 let defect_cat = categories.find(category => {
                     return category.id === 1;
@@ -349,7 +379,64 @@ export default (config = {}) => {
                 for (var key in costs) {
                     this.costs.push({name : costs[key], value : key})
                 }
-            }
+            },
+            async deleteTag(tag) {
+                
+                if(config.mode == 'edit') {
+                    const deleteTag = this.alltags.find((item) => {
+                        return item.name == tag;
+                    });
+
+                    if(deleteTag != null) {
+                        const resp = await this.deleteRequestTag({
+                            id: this.$route.params.id,
+                            tag_id: deleteTag.id
+                        });
+                        
+                    }
+
+                    this.tags = this.tags.filter(item => {
+                        return item.name != tag;
+                    });
+                }
+            },
+            changeTags(tags) {
+                if(tags.length)
+                {
+                    let addedTag = tags[ tags.length - 1];
+
+                    // check tags entered to see if it's already entered before
+                    let existingFlag = false;
+                    tags.forEach((tag,index) => {
+                        if(index == tags.length - 1)
+                            return;
+                        if( tag.toLowerCase() == addedTag.toLowerCase() )
+                        {
+                            existingFlag = true;
+                        }
+                    })
+
+                    if(existingFlag) {
+                        tags.splice(tags.length - 1, 1 )
+                        return;
+                    }
+
+                    // check alltags to see if there's a match
+                    let matchTag = null
+
+                    for(let i = 0; i < this.alltags.length; i++) {
+                        if( this.alltags[i].name.toLowerCase() == addedTag.toLowerCase() ) {
+                            matchTag = this.alltags[i].name;
+                            break;
+                        }
+                    }
+
+                    if(matchTag) {
+                        tags.splice(tags.length - 1, 1 )
+                        tags.push(matchTag)
+                    }
+                }
+            },
         }
     };
 
@@ -358,7 +445,7 @@ export default (config = {}) => {
             case 'add':
                 mixin.methods = {
                     ...mixin.methods,
-                    ...mapActions(['createRequest', 'createRequestTags']),
+                    ...mapActions(['createRequest', 'createRequestTags', 'getTags']),
                     async saveRequest() {
                         if(this.model.category_id == 1) {
                             this.model.category_id = this.model.defect;
@@ -367,12 +454,15 @@ export default (config = {}) => {
                         const resp = await this.createRequest(this.model);
                         
                         let requestId = resp.data.id;
+
+                        let audit_id = resp.data.audit_id;
+
                         await this.createRequestTags({
                             id: requestId,
                             tags: this.model.keywords
                         });
 
-                        await this.uploadNewMedia(resp.data.id);
+                        await this.uploadNewMedia(resp.data.id, audit_id);
 
                         this.media = [];
 
@@ -421,6 +511,13 @@ export default (config = {}) => {
                     this.getRealCategories();
                     this.getLanguageI18n();
 
+                    const tagsResp = await this.getTags({get_all: true, search: ''});
+
+                    if(tagsResp.success == true) 
+                    {
+                        this.alltags = tagsResp.data;
+                    }
+
                     this.loading.state = false;
                 };
 
@@ -429,7 +526,7 @@ export default (config = {}) => {
                 mixin.methods = {
                     ...mixin.methods,
                     ...mapActions(['getRequest', 'updateRequest', 'getTenant', 'getRequestConversations', 'getAddress', 'getRequestTags',
-                'createRequestTags', 'getTags']),
+                'createRequestTags', 'getTags', 'deleteRequestTag']),
                     async fetchCurrentRequest() {
                         
                         this.getLanguageI18n();
@@ -514,16 +611,22 @@ export default (config = {}) => {
                                     tags: newTags
                                 });
 
+                                this.tags = []
                                 requestTags.data.tags.forEach(item => {
+                                    this.tags.push(item)
                                     if(this.alltags.findIndex((el) => {return el.id == item.id}) == -1)
+                                    {
                                         this.alltags.push({ id: item.id, name: item.name });
+                                    }
+                                        
                                 })
 
                                 try {
-                                    await this.uploadNewMedia(params.id);
+                                    
                                     
                                     const resp = await this.updateRequest(params);
-                                    
+
+                                    await this.uploadNewMedia(params.id, null);
                                     
                                     this.media = [];
                                     this.$set(this.model, 'service_providers', resp.data.service_providers);

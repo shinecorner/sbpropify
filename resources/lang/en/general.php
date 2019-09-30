@@ -255,5 +255,5 @@ return [
     'to_homepage' => 'To Homepage',
     'assignment' => 'Assignment',
     'status_changed' => 'Status changed',
-
+    'monthly_rent_net' => 'Monthly rent',
 ];

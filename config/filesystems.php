@@ -90,10 +90,10 @@ return [
             'visibility' => 'public',
         ],
 
-        'posts_media' => [
+        'pinboard_media' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/posts/media'),
-            'url' => env('APP_URL').'/storage/posts/media',
+            'root' => storage_path('app/public/pinboard/media'),
+            'url' => env('APP_URL').'/storage/pinboard/media',
             'visibility' => 'public',
         ],
 

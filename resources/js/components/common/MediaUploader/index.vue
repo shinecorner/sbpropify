@@ -87,6 +87,9 @@
             id: {
                 type: Number
             },
+            audit_id: {
+                type: Number
+            },
             type: {
                 type: String,
                 validator: type => ['posts', 'requests', 'products'].includes(type),
@@ -259,7 +262,8 @@
                 }
 
                 return this.$refs.uploader.uploadXhr(xhr, file, JSON.stringify({
-                    media: file.file.src
+                    media: file.file.src,
+                    merge_audit: this.audit_id
                 }))
                 .then(data => {
                     if(this.type == "posts") {

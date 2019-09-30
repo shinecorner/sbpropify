@@ -139,6 +139,7 @@
                         
                         <card class="mt15" :header="$t('models.tenant.rent_contract')">
                             <template  v-if="model.rent_contracts.length">
+                            <el-form :model="model" label-position="top" ref="form">
                                 <div v-for="(rent_contract, c_index) in model.rent_contracts"
                                         :key="c_index">
 
@@ -150,7 +151,7 @@
                                                         :placeholder="$t('models.tenant.search_building')"
                                                         :remote-method="data => remoteRentContractdSearchBuildings(data, c_index) "
                                                         :rules="validationRules.building_id"
-                                                        @change="searchRentContractUnits(c_index)"
+                                                        @change="searchRentContractUnits(c_index, false)"
                                                         filterable
                                                         remote
                                                         reserve-keyword
@@ -226,7 +227,7 @@
                                                         @focus="selectRentContract(c_index)"/>
                                             </el-form-item>
                                         </el-col>
-                                        <el-col :md="12" v-if="rent_contract.duration == 'limited'">
+                                        <el-col :md="12" v-if="rent_contract.duration == 2">
                                             <el-form-item :label="$t('models.tenant.rent_end')">
                                                 <el-date-picker
                                                     :picker-options="{disabledDate: disabledRentEnd}"
@@ -249,6 +250,7 @@
                                                 :data="rent_contract.media"
                                                 style="width: 100%"
                                                 v-if="rent_contract.media.length"
+                                                class="rentcontract-file-table"
                                                 >
                                                 <el-table-column
                                                     :label="$t('models.rent_contract.filename')"
@@ -268,7 +270,7 @@
                                                     </template>
                                                 </el-table-column>
                                             </el-table>
-                                            <upload-rent-contract :rentContractIndex="c_index" @fileUploaded="addPDFtoRentContract" class="drag-custom" drag multiple/>
+                                            <upload-rent-contract :rentContractIndex="c_index" @fileUploaded="addPDFtoRentContract" class="upload-custom" drag multiple/>
                                             </el-form-item>
                                         </el-col>
                                     
@@ -301,11 +303,11 @@
                                         </el-col>
                                     </el-row>
                                     
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
+                                    <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type != 3">
                                         <el-col :md="8">
-                                            <el-form-item :label="$t('models.tenant.net_rent')" class="label-block">
+                                            <el-form-item :label="$t('general.monthly_rent_net')" class="label-block">
                                                 <el-input type="text"
-                                                        v-model="rent_contract.net_rent" @focus="selectRentContract(c_index)"
+                                                        v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
                                                 ></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -314,23 +316,34 @@
                                             <el-form-item :label="$t('models.tenant.maintenance')"
                                                         class="label-block">
                                                 <el-input type="text"
-                                                        v-model="rent_contract.operating_cost" @focus="selectRentContract(c_index)"
+                                                        v-model="rent_contract.monthly_maintenance" @focus="selectRentContract(c_index)"
                                                 ></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :md="8">
                                             <el-form-item :label="$t('models.tenant.gross_rent')"
                                                         class="label-block">
-                                                {{Number(rent_contract.net_rent) + Number(rent_contract.operating_cost)}}
+                                                {{Number(rent_contract.monthly_rent_net) + Number(rent_contract.monthly_maintenance)}}
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type == 3">
+                                        <el-col :md="8">
+                                            <el-form-item :label="$t('general.monthly_rent_net')" class="label-block">
+                                                <el-input type="text"
+                                                        v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
+                                                ></el-input>
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
                                     <ui-divider></ui-divider>
-                                    <div class="contract-actions">
-                                        <el-button type="primary" v-if="c_index == model.rent_contracts.length - 1" @click="addContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>
+                                    <div class="rentcontract-actions">
+                                        <el-button type="primary" v-if="c_index == model.rent_contracts.length - 1" @click="addRentContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>
                                         <el-button type="danger" @click="deleteRentContract(c_index)" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button>
                                     </div>
                                 </div>
+                            </el-form>
                             </template>
                             
                         </card>
@@ -398,7 +411,11 @@
         margin-bottom: 15px;
     }
 
-    .contract-actions {
+    .rentcontract-actions {
         text-align: right;
+    }
+
+    .rentcontract-file-table {
+        margin-bottom: 10px;
     }
 </style>
