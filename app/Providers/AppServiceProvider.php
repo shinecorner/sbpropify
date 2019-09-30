@@ -7,7 +7,7 @@ use App\Models\Quarter;
 use App\Models\Pinboard;
 use App\Models\Product;
 use App\Models\PropertyManager;
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Models\ServiceRequest;
 use App\Models\Template;
 use App\Models\Conversation;
@@ -57,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
             'building' => Building::class,
             'templates' => Template::class,
             'request' => ServiceRequest::class,
-            'real_estate' => RealEstate::class,
+            'settings' => Settings::class,
             'manager' => PropertyManager::class,
             'translation' => \App\Models\Translation::class,
             'provider' => \App\Models\ServiceProvider::class,
