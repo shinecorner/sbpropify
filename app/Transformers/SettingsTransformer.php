@@ -2,15 +2,15 @@
 
 namespace App\Transformers;
 
-use App\Models\RealEstate;
+use App\Models\Settings;
 use League\Fractal\TransformerAbstract;
 
 /**
- * Class RealEstateTransformer.
+ * Class SettingsTransformer.
  *
  * @package namespace App\Transformers;
  */
-class RealEstateTransformer extends TransformerAbstract
+class SettingsTransformer extends TransformerAbstract
 {
     protected $defaultIncludes = [
         'user',
@@ -20,13 +20,13 @@ class RealEstateTransformer extends TransformerAbstract
     /**
      * Transform the RealEstate entity.
      *
-     * @param \App\Models\RealEstate $model
-     *
+     * @param Settings $model
      * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function transform(RealEstate $model)
+    public function transform(Settings $model)
     {
-        $ret = [
+        $response = [
             'id' => $model->id,
             'name' => $model->name,
             'email' => $model->email,
@@ -57,25 +57,25 @@ class RealEstateTransformer extends TransformerAbstract
             'email_powered_by' => $model->email_powered_by,
         ];
         if (\Auth::user()->can('edit-real_estate')) {
-            $ret['mail_host'] = $model->mail_host;
-            $ret['mail_port'] = $model->mail_port;
-            $ret['mail_username'] = $model->mail_username;
-            $ret['mail_password'] = $model->mail_password;
-            $ret['mail_encryption'] = $model->mail_encryption;
-            $ret['mail_from_address'] = $model->mail_from_address;
-            $ret['mail_from_name'] = $model->mail_from_name;
+            $response['mail_host'] = $model->mail_host;
+            $response['mail_port'] = $model->mail_port;
+            $response['mail_username'] = $model->mail_username;
+            $response['mail_password'] = $model->mail_password;
+            $response['mail_encryption'] = $model->mail_encryption;
+            $response['mail_from_address'] = $model->mail_from_address;
+            $response['mail_from_name'] = $model->mail_from_name;
         }
 
         // @TODO check and use ->relationExists
         if ($model->address) {
-            $ret['address'] = (new AddressTransformer)->transform($model->address);
+            $response['address'] = (new AddressTransformer)->transform($model->address);
         }
 
         // @TODO check and use ->relationExists
         if (isset($model->news_receivers)) {
-            $ret['news_receivers'] = (new UserTransformer)->transformCollection($model->news_receivers);
+            $response['news_receivers'] = (new UserTransformer)->transformCollection($model->news_receivers);
         }
 
-        return $ret;
+        return $response;
     }
 }
