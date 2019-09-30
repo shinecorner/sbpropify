@@ -145,12 +145,12 @@ class RentContract extends AuditableModel implements HasMedia
         self::StatusInactive => 'inactive',
     ];
 
-    const DepositTypeBankDepot = 1;
+    const DepositTypeBankDepositt = 1;
     const DepositTypeBankGuarantee = 2;
     const DepositTypeInsurance = 3;
     const DepositTypeOther = 4;
     const DepositType = [
-        self::DepositTypeBankDepot => 'bank_depot',
+        self::DepositTypeBankDepositt => 'bank_deposit',
         self::DepositTypeBankGuarantee => 'bank_guarantee',
         self::DepositTypeInsurance => 'insurance',
         self::DepositTypeOther => 'other'
