@@ -222,6 +222,9 @@ return [
     "execution" => "Ausführung",  
     "loading" => "Ladet...",
     "chat" => "Chat",
-    "monthly_rent" => "Monatsmiete",
-    "monthly_rent_net" => "Miete Netto",
+    "monthly_rent_net" => "Nettomonatsmiete",
+    "emergency" => [
+        "title" => "Notfallnummer",
+        "desc" => "Wenn Sie ausserhalb der Bürozeiten einen Notfall haben, so bitten wir Sie folgende Nummer anzurufen"
+    ]
 ];

@@ -80,7 +80,9 @@
             <el-switch v-model="model.is_public"/>
         </el-form-item>
         <el-divider />
-        <media-upload ref="upload" v-model="model.media" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="4" />
+        <media-uploader ref="media" :id="request_id" :audit_id="audit_id" type="requests" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
+
+        <!-- <media-upload ref="upload" v-model="model.media" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="4" /> -->
         <el-form-item class="submitBtnDiv" v-if="showSubmit" style="grid-column: span 6">
             <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
@@ -144,6 +146,14 @@
                         message: this.$t('validation.required',{attribute: this.$t('tenant.description')})
                     }                    
                 },
+                uploadOptions: {
+                    drop: true,
+                    multiple: true,
+                    draggable: true,
+                    hideUploadButton: true,
+                    extensions: 'png,jpg,jpeg',
+                    hideSelectFilesButton: false
+                },
                 categories: [],
                 priorities: [],
                 loading: false,
@@ -159,6 +169,8 @@
                 showLiegenschaft: false,
                 showacquisition: false,
                 showWohnung: false,
+                request_id: null,
+                audit_id: null
             }
         },
         methods: {
@@ -207,29 +219,35 @@
                             
                             displaySuccess(resp.message)
 
-                            const {id} = resp.data
-
-                            if (media.length) {
-                                const queue = new PQueue({concurrency: 1})
-
-                                // media.forEach(({file}) => queue.add(async () => await this.$store.dispatch('uploadRequestMedia', {
-                                //     id, media: file.src
-                                // })))
-                                media.forEach(
-                                    ({file}) => queue.add(
-                                        async () => { 
-                                            const mediaResp = await this.$store.dispatch('newRequests/uploadMedia', {
-                                                id, media: file.src
-                                            }) 
-                                        }
-                                    )
-                                )
-
-                                await queue.onIdle()
+                            
+                            if (resp && resp.data) {                            
+                                if (this.model.media.length) {
+                                // TODO - make await for this   
+                                    this.request_id = resp.data.id;            
+                                    this.audit_id = resp.data.audit_id;
+                                    this.$refs.media.startUploading();
+                                }
                             }
+                            // const {id} = resp.data
+                            // if (media.length) {
+                            //     const queue = new PQueue({concurrency: 1})
+
+                            //     media.forEach(
+                            //         ({file}) => queue.add(
+                            //             async () => { 
+                            //                 const mediaResp = await this.$store.dispatch('newRequests/uploadMedia', {
+                            //                     id, media: file.src,
+                            //                     merge_audit: resp.data.audit_id
+                            //                 }) 
+                            //             }
+                            //         )
+                            //     )
+
+                            //     await queue.onIdle()
+                            // }
 
                             this.$refs.form.resetFields()
-                            this.$refs.upload.clear()
+                            //this.$refs.upload.clear()
                         } catch (err) {
                             displayError(err);
                         } finally {

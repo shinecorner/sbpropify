@@ -135,6 +135,7 @@ return [
             'private' => 'Wohnung',
             'business' => 'Gewerbe',
             'parking_lot' => 'Parkplatz',
+            'parking_slot' => 'Parkplatz',
         ],
         'rent_duration' => 'Mietdauer',
         'rent_durations' => [
@@ -145,7 +146,8 @@ return [
         'deposit_amount' => 'Kautionsbetrag',
         'type_of_deposit' => 'Art der Sicherheitsleistung',
         'deposit_types' => [
-            'bank_deposit' => 'Bankdepot',
+            'bank_depot' => 'Bankdepost',
+            'bank_deposit' => 'Bankdepost',
             'bank_guarantee' => 'Bankgarantie',
             'insurance' => 'Kautionsversicherung',
             'other' => 'Sonstiges',
@@ -155,6 +157,16 @@ return [
         'maintenance' => 'Heiz- und Nebenkosten',
         'parking_price' => 'Miete',
         'gross_rent' => 'Bruttomiete',
+        'deposit_status' => [
+            'label' => 'Einzahlungsstatus',
+            'yes' => 'Ja',
+            'no' => 'Nein',
+        ],
+        'rentcontract_id' => 'Mietvertrags-ID',
+        'rent_status' => [
+            'active' => 'Aktiv',
+            'inactive' => 'Inaktiv',
+        ],
         'contact' => [
             'category' => 'Kategorie',
         ],

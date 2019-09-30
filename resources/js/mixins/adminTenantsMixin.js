@@ -12,7 +12,7 @@ export default (config = {}) => {
             title: {
                 type: String,
                 required: true
-            }
+            }   
         },
         data() {
             return {
@@ -21,6 +21,8 @@ export default (config = {}) => {
                 units: [],
                 rent_types: [],
                 rent_durations: [],
+                deposit_statuses: [],
+                rentcontract_statuses: [],
                 deposit_types: [],
                 user: {},
                 unit: {},
@@ -53,11 +55,11 @@ export default (config = {}) => {
                     end_date: '',
                     deposit_amount: '',
                     deposit_type: '',
-                    net_rent: '',
-                    operating_cost: '',
+                    monthly_rent_net: '',
+                    monthly_maintenance: '',
                     status: '1',
                     deposit_status: '1',
-                    gross_rent: '',
+                    monthly_rent_gross: '',
                     parking_price: 0,
                     unit_id: '',
                     building_id: '',
@@ -200,21 +202,23 @@ export default (config = {}) => {
                     }
                 }
             },
-            async searchRentContractUnits(c_index) {
+            async searchRentContractUnits(c_index, shouldKeepValue) {
                 this.activeRentContractIndex = c_index
-                this.model.rent_contracts[c_index].unit_id = '';
+                if(!shouldKeepValue)
+                    this.model.rent_contracts[c_index].unit_id = '';
                 try {
                     const resp = await this.getUnits({
                         get_all: true,
                         building_id: this.model.rent_contracts[c_index].building_id
                     });
 
-                    this.model.rent_contracts.forEach(rent_contract => {
-                        resp.data = resp.data.filter( item => item.id != rent_contract.unit_id )
+                    
+                    this.model.rent_contracts.forEach((rent_contract, cc_index) => {
+                        if(cc_index != c_index)
+                            resp.data = resp.data.filter( item => item.id != rent_contract.unit_id )
                     })
 
-                    this.model.rent_contracts[c_index].units = resp.data;
-
+                    this.$set(this.model.rent_contracts, c_index, { ...this.model.rent_contracts[c_index], units: resp.data})
                 } catch (err) {
                     displayError(err);
                 } finally {
@@ -224,9 +228,9 @@ export default (config = {}) => {
             changeRentContractUnit(c_index) {
                 this.activeRentContractIndex = c_index
                 let unit = this.model.rent_contracts[c_index].units.find(item => item.id == this.model.rent_contracts[c_index].unit_id)
-                this.model.rent_contracts[c_index].net_rent = unit.monthly_rent_net
-                this.model.rent_contracts[c_index].operating_cost = unit.monthly_maintenance
-                this.model.rent_contracts[c_index].gross_rent = unit.monthly_rent_gross
+                this.model.rent_contracts[c_index].monthly_rent_net = unit.monthly_rent_net
+                this.model.rent_contracts[c_index].monthly_maintenance = unit.monthly_maintenance
+                this.model.rent_contracts[c_index].monthly_rent_gross = unit.monthly_rent_gross
             },
             async addRentContract() {
                 this.rent_contract.media = [];
@@ -241,7 +245,9 @@ export default (config = {}) => {
                 this.model.rent_contracts[this.activeRentContractIndex].media.push(toUploadRentContractFile)
             },
             deletePDFfromRentContract(c_index, index) {
-                this.model.rent_contracts[c_index].splice(index, 1)
+                console.log('rent_contracts', this.model.rent_contracts)
+                console.log('indexes', c_index, index)
+                this.model.rent_contracts[c_index].media.splice(index, 1)
             },
             selectRentContract(c_index) {
                 this.activeRentContractIndex = c_index
@@ -251,22 +257,14 @@ export default (config = {}) => {
         async mounted() {
             await this.getCountries();
 
-            let rent_types = this.$t('models.tenant.rent_types');
-            for (var key in rent_types) {
-                this.rent_types.push({name : rent_types[key], value : key})
-            }
+            this.rent_types = Object.entries(this.$constants.rentContracts.type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_types.${label}`)}))
+            this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
+            this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))
+            this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
+            this.rentcontract_statuses = Object.entries(this.$constants.rentContracts.status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_status.${label}`)}));
 
-            let rent_durations = this.$t('models.tenant.rent_durations');
-            for (var key in rent_durations) {
-                this.rent_durations.push({name : rent_durations[key], value : key})
-            }
-
-            let deposit_types = this.$t('models.tenant.deposit_types');
-            for (var key in deposit_types) {
-                this.deposit_types.push({name : deposit_types[key], value : key})
-            }
-
-            this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
+            if( config.mode == 'add' )
+                this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
         },
         computed: {
             form() {
@@ -301,7 +299,7 @@ export default (config = {}) => {
                             this.loading.state = true;
                             
                             this.model.rent_contracts.forEach(rent_contract => {
-                                rent_contract.gross_rent = rent_contract.net_rent + rent_contract.operating_cost
+                                rent_contract.monthly_rent_gross = rent_contract.monthly_rent_net + rent_contract.monthly_maintenance
                             })
 
                             let {email, password, password_confirmation, ...tenant} = this.model;
@@ -413,16 +411,19 @@ export default (config = {}) => {
                         this.original_email = this.user.email;
                         this.model.email = user.email;
                         this.model.avatar = user.avatar;
-                        this.model.nation = parseInt(this.model.nation)
-                        if (building) {
-                            this.model.building_id = building.id;
-                            this.remoteSearchBuildings(building.name);
-                        }
-                        if (unit) {
-                            await this.searchUnits();
-                            this.model.unit_id = unit.id;
-                            this.unit = unit;
-                        }
+                        this.model.nation = +this.model.nation
+
+
+                        this.model.rent_contracts.forEach(async (rent_contract, c_index) => {
+                            
+                            if(rent_contract.building) {
+                                await this.remoteRentContractdSearchBuildings(rent_contract.building.name, c_index)
+                            }
+
+                            if (rent_contract.unit) {
+                                await this.searchRentContractUnits(c_index, true)
+                            }
+                        })
 
                     } catch (err) {
                         this.$router.replace({
