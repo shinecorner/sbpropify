@@ -102,8 +102,9 @@
                 </el-col> 
                 <el-col :span="4" class="request-category">
                     <span>{{ $t('models.request.category') }}</span>
-                    <p>{{ item.category.parent_id==null?'': categories[item.category.parentCategory.id][$i18n.locale] + ' > ' }}
-                        {{ categories[item.category.id][$i18n.locale] }}
+                    <p>{{ item.category.parent_id==null?'': categories[item.category.parentCategory.id] == undefined? '':
+                        categories[item.category.parentCategory.id][$i18n.locale]+ ' > ' }}
+                        {{ categories[item.category.id] == undefined? '':categories[item.category.id][$i18n.locale]}}
                     </p>
                 </el-col>
                 <el-col :span="3">
@@ -119,7 +120,7 @@
                         <p v-if="updated_at.h">{{ updated_at.h }}h&nbsp;</p>
                         <p v-else-if="updated_at.m">{{  updated_at.m }}m&nbsp;</p>
                         <p v-if="updated_at.h || updated_at.m">{{ $t('models.request.ago') }}</p>
-                        <p v-else></p>
+                        <p v-else>{{ $t('models.request.just_now') }}</p>
                     </div>
                 </el-col>
                 <el-col :span="3">
@@ -185,11 +186,14 @@ export default {
                 if(days < 0) {
                     label = 'models.request.was_due_on';
                     date = due_date_formatted;
+                    if(days == -1)
+                        date = this.$t('models.request.yesterday');
                 } else if(days <= 30) {
-                    label = 'models.request.due_in';
                     date = Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`);
                     if(days == 0) 
                         date = this.$t('models.request.today');
+                    else if(days == 1) 
+                        date = this.$t('models.request.tomorrow');
                 }
             } else {
                 label= 'models.request.due_date';
@@ -232,14 +236,20 @@ export default {
             
             this.categories = [];
             categories.map((category) => {
-                this.categories[category.id] = category.name;
+                this.categories[category.id] = {
+                    'en' : category.name_en,
+                    'fr' : category.name_fr,
+                    'it' : category.name_it,
+                    'de' : category.name_de,
+                };
                 if(category.categories.length > 0) {
                     category.categories.map((subCategory) => {
-                        this.categories[subCategory.id] = [];
-                        this.categories[subCategory.id]['en'] = subCategory.name_en;
-                        this.categories[subCategory.id]['fr'] = subCategory.name_fr;
-                        this.categories[subCategory.id]['ge'] = subCategory.name_ge;
-                        this.categories[subCategory.id]['it'] = subCategory.name_it;
+                        this.categories[subCategory.id] = {
+                            'en' : subCategory.name_en,
+                            'fr' : subCategory.name_fr,
+                            'it' : subCategory.name_it,
+                            'de' : subCategory.name_de,
+                        }
                     });
                 }
             });
@@ -257,9 +267,6 @@ export default {
     },
     async created() {
         this.getFilterCategories();
-    },
-    async mounted() {
-        
     },
 }
 </script>
