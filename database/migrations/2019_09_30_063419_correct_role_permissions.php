@@ -34,9 +34,9 @@ class CorrectRolePermissions extends Migration
             $role->savePermissions($managerPermissions);
         }
 
-        $role = \App\Models\Role::whereName('manager')->first();
+        $role = \App\Models\Role::whereName('provider')->first();
         if ($role) {
-            $role->savePermissions($managerPermissions);
+            $role->savePermissions($providerPermissions);
         }
     }
 

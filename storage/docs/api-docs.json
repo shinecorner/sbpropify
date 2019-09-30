@@ -5590,7 +5590,7 @@
                     {
                         "name": "media",
                         "in": "body",
-                        "description": "Save media. You can pass media paramater\r\n                                As string(base64) like **media=base64_string**,\r\n                                as array of string(base64) like **media = [base64_string1, base64_string2, base64_string3, ...etc]**\r\n                                or as array of array(media => string(base64)) like media = **[[media => base64_string1], [media => base64_string2], ...etc]**",
+                        "description": "Save media. You can pass media paramater\n                                As string(base64) like **media=base64_string**,\n                                as array of string(base64) like **media = [base64_string1, base64_string2, base64_string3, ...etc]**\n                                or as array of array(media => string(base64)) like media = **[[media => base64_string1], [media => base64_string2], ...etc]**",
                         "required": false,
                         "schema": {
                             "properties": {

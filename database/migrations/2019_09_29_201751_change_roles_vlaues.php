@@ -15,7 +15,8 @@ class ChangeRolesVlaues extends Migration
     {
         \App\Models\Role::where('name', 'service')->update(['name' => 'provider']);
         \App\Models\Role::where('name', 'registered')->update(['name' => 'tenant']);
-        \App\Models\Role::where('name', 'super_admin')->delete();
+        \App\Models\Role::where('name', 'administrator')->delete();
+        \App\Models\Role::where('name', 'super_admin')->update(['name' => 'administrator']);
         \App\Models\Role::where('name', 'homeowner')->delete();
     }
 
