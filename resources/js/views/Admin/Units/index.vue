@@ -80,7 +80,7 @@
                     label: 'models.unit.room_no',
                     prop: 'room_no'
                 }, {
-                    label: 'models.unit.monthly_rent_net',
+                    label: 'general.monthly_rent_net',
                     prop: 'monthly_rent_net'
                 }, {
                     label: 'general.tenant',

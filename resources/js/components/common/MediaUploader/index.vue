@@ -263,7 +263,7 @@
 
                 return this.$refs.uploader.uploadXhr(xhr, file, JSON.stringify({
                     media: file.file.src,
-                    merge_audit: this.audit_id
+                    merge_in_audit: this.audit_id
                 }))
                 .then(data => {
                     if(this.type == "posts") {
