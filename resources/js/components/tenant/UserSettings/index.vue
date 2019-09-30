@@ -24,11 +24,11 @@
             <div class="p-user__settings__description">
                 {{$t('tenant.notifications.service')}}
             </div>
-            <el-form-item :label="$t('tenant.news')">
-                <el-switch v-model="loggedInUser.settings.news_notification" @change="save" />
+            <el-form-item :label="$t('tenant.pinboard')">
+                <el-switch v-model="loggedInUser.settings.pinboard_notification" @change="save" />
             </el-form-item>
             <div class="p-user__settings__description">
-                {{$t('tenant.notifications.news')}}
+                {{$t('tenant.notifications.pinboard')}}
             </div>
             <el-form-item :label="$t('tenant.marketplace')">
                 <el-switch v-model="loggedInUser.settings.marketplace_notification" @change="save" />

@@ -301,7 +301,7 @@ export default (config = {}) => {
                             this.loading.state = true;
                             
                             this.model.rent_contracts.forEach(rent_contract => {
-                                rent_contract.monthly_rent_gross = rent_contract.monthly_rent_net + rent_contract.monthly_maintenance
+                                rent_contract.monthly_rent_gross = Number(rent_contract.monthly_rent_net) + Number(rent_contract.monthly_maintenance)
                             })
 
                             let {email, password, password_confirmation, ...tenant} = this.model;
