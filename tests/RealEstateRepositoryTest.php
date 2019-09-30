@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Repositories\RealEstateRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -29,7 +29,7 @@ class RealEstateRepositoryTest extends TestCase
         $createdRealEstate = $createdRealEstate->toArray();
         $this->assertArrayHasKey('id', $createdRealEstate);
         $this->assertNotNull($createdRealEstate['id'], 'Created RealEstate must have id specified');
-        $this->assertNotNull(RealEstate::find($createdRealEstate['id']), 'RealEstate with given id must be in DB');
+        $this->assertNotNull(Settings::find($createdRealEstate['id']), 'RealEstate with given id must be in DB');
         $this->assertModelData($realEstate, $createdRealEstate);
     }
 
@@ -65,6 +65,6 @@ class RealEstateRepositoryTest extends TestCase
         $realEstate = $this->makeRealEstate();
         $resp = $this->realEstateRepo->delete($realEstate->id);
         $this->assertTrue($resp);
-        $this->assertNull(RealEstate::find($realEstate->id), 'RealEstate should not exist in DB');
+        $this->assertNull(Settings::find($realEstate->id), 'RealEstate should not exist in DB');
     }
 }

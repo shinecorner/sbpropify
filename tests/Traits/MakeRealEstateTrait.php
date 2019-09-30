@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Factory as Faker;
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Repositories\RealEstateRepository;
 
 trait MakeRealEstateTrait
@@ -10,7 +10,7 @@ trait MakeRealEstateTrait
      * Create fake instance of RealEstate and save it in database
      *
      * @param array $realEstateFields
-     * @return RealEstate
+     * @return Settings
      */
     public function makeRealEstate($realEstateFields = [])
     {
@@ -24,11 +24,11 @@ trait MakeRealEstateTrait
      * Get fake instance of RealEstate
      *
      * @param array $realEstateFields
-     * @return RealEstate
+     * @return Settings
      */
     public function fakeRealEstate($realEstateFields = [])
     {
-        return new RealEstate($this->fakeRealEstateData($realEstateFields));
+        return new Settings($this->fakeRealEstateData($realEstateFields));
     }
 
     /**

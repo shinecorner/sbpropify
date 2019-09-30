@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StatesTableSeeder::class);
         //$this->call(AddressesTableSeeder::class);
         $this->call(QuartersTableSeeder::class);
-        $this->call(RealEstateTableSeeder::class);
+        $this->call(SettingsTableSeeder::class);
 
         $this->call(BuildingsTableSeeder::class);
         $this->call(UnitsTableSeeder::class);
