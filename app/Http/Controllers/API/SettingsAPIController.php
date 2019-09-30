@@ -3,46 +3,45 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\API\RealEstate\UpdateRequest;
-use App\Http\Requests\API\RealEstate\ViewRequest;
-use App\Models\RealEstate;
+use App\Http\Requests\API\Settings\UpdateRequest;
+use App\Http\Requests\API\Settings\ViewRequest;
+use App\Models\Settings;
 use App\Models\User;
 use App\Repositories\AddressRepository;
-use App\Repositories\RealEstateRepository;
-use App\Transformers\RealEstateTransformer;
+use App\Repositories\SettingsRepository;
+use App\Transformers\SettingsTransformer;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 /**
  * Class RealEstateController
  * @package App\Http\Controllers\API
  */
-class RealEstateAPIController extends AppBaseController
+class SettingsAPIController extends AppBaseController
 {
-    /** @var  RealEstateRepository */
-    private $realEstateRepository;
+    /** @var  SettingsRepository */
+    private $settingsRepository;
 
     /** @var  AddressRepository */
     private $addressRepository;
 
     /**
      * RealEstateAPIController constructor.
-     * @param RealEstateRepository $realEstateRepo
+     * @param SettingsRepository $settingsRepo
      * @param AddressRepository $addressRepo
      */
-    public function __construct(RealEstateRepository $realEstateRepo, AddressRepository $addressRepo)
+    public function __construct(SettingsRepository $settingsRepo, AddressRepository $addressRepo)
     {
-        $this->realEstateRepository = $realEstateRepo;
+        $this->settingsRepository = $settingsRepo;
         $this->addressRepository = $addressRepo;
     }
 
     /**
      * @SWG\Get(
-     *      path="/realEstate/",
-     *      summary="Display the RealEstate",
-     *      tags={"RealEstate"},
-     *      description="Get RealEstate",
+     *      path="/settings",
+     *      summary="Display the Settings",
+     *      tags={"Settings"},
+     *      description="Get Settings",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -55,7 +54,7 @@ class RealEstateAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/RealEstate"
+     *                  ref="#/definitions/Settings"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -67,35 +66,36 @@ class RealEstateAPIController extends AppBaseController
      *
      * @param ViewRequest $r
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function show(ViewRequest $r)
     {
-        /** @var RealEstate $realEstate */
-        $realEstate = $this->realEstateRepository->first();
-        if (empty($realEstate)) {
-            return $this->sendError(__('models.realEstate.errors.not_found'));
+        /** @var Settings $settings */
+        $settings = $this->settingsRepository->first();
+        if (empty($settings)) {
+            return $this->sendError(__('models.settings.errors.not_found'));
         }
 
-        $news_receiver_ids = $realEstate->news_receiver_ids ?? [];
-        $realEstate->news_receivers = User::whereIn('id', $news_receiver_ids)->get();
+        $news_receiver_ids = $settings->news_receiver_ids ?? [];
+        $settings->news_receivers = User::whereIn('id', $news_receiver_ids)->get();
 
-        $response = (new RealEstateTransformer)->transform($realEstate);
-        return $this->sendResponse($response, 'Real Estate retrieved successfully');
+        $response = (new SettingsTransformer)->transform($settings);
+        return $this->sendResponse($response, 'Settings retrieved successfully');
     }
 
     /**
      * @SWG\Put(
-     *      path="/realEstate",
-     *      summary="Update the RealEstate in storage",
-     *      tags={"RealEstate"},
-     *      description="Update RealEstate",
+     *      path="/settings",
+     *      summary="Update the Settings in storage",
+     *      tags={"Settings"},
+     *      description="Update Settings",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="RealEstate that should be updated",
+     *          description="Settings that should be updated",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/RealEstate")
+     *          @SWG\Schema(ref="#/definitions/Settings")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -108,7 +108,7 @@ class RealEstateAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/RealEstate"
+     *                  ref="#/definitions/Settings"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -119,7 +119,8 @@ class RealEstateAPIController extends AppBaseController
      * )
      *
      * @param UpdateRequest $request
-     * @return Response
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function update(UpdateRequest $request)
     {
@@ -128,10 +129,10 @@ class RealEstateAPIController extends AppBaseController
             $input['iframe_url'] = '';
         }
 
-        /** @var RealEstate $realEstate */
-        $realEstate = $this->realEstateRepository->first();
-        if (empty($realEstate)) {
-            return $this->sendError(__('models.realEstate.errors.not_found'));
+        /** @var Settings $settings */
+        $settings = $this->settingsRepository->first();
+        if (empty($settings)) {
+            return $this->sendError(__('models.settings.errors.not_found'));
         }
 
         // image upload
@@ -142,19 +143,19 @@ class RealEstateAPIController extends AppBaseController
 
         try {
             if ($logoFileData) {
-                $input['logo'] = $this->realEstateRepository->uploadImage($logoFileData, $realEstate);
+                $input['logo'] = $this->settingsRepository->uploadImage($logoFileData, $settings);
             }
             if ($circleLogoFileData) {
-                $fileName = Str::slug(sprintf('%s-%d', $realEstate->name, $realEstate->id)) . '-circle-logo.png';
-                $input['circle_logo'] = $this->realEstateRepository->uploadImage($circleLogoFileData, $realEstate, $fileName);
+                $fileName = Str::slug(sprintf('%s-%d', $settings->name, $settings->id)) . '-circle-logo.png';
+                $input['circle_logo'] = $this->settingsRepository->uploadImage($circleLogoFileData, $settings, $fileName);
             }
             if ($tenantLogoFileData) {
-                $fileName = Str::slug(sprintf('%s-%d', $realEstate->name, $realEstate->id)) . '-tenant-logo.png';
-                $input['tenant_logo'] = $this->realEstateRepository->uploadImage($tenantLogoFileData, $realEstate, $fileName);
+                $fileName = Str::slug(sprintf('%s-%d', $settings->name, $settings->id)) . '-tenant-logo.png';
+                $input['tenant_logo'] = $this->settingsRepository->uploadImage($tenantLogoFileData, $settings, $fileName);
             }
             if ($faviconIconFileData) {
-                $fileName = Str::slug(sprintf('%s-%d', $realEstate->name, $realEstate->id)) . '-favicon-icon.png';
-                $input['favicon_icon'] = $this->realEstateRepository->uploadImage($faviconIconFileData, $realEstate, $fileName);
+                $fileName = Str::slug(sprintf('%s-%d', $settings->name, $settings->id)) . '-favicon-icon.png';
+                $input['favicon_icon'] = $this->settingsRepository->uploadImage($faviconIconFileData, $settings, $fileName);
             }
         } catch (\Exception $e) {
             return $this->sendError(__('models.user.errors.image_upload') . $e->getMessage());
@@ -162,22 +163,22 @@ class RealEstateAPIController extends AppBaseController
 
         try {
             if (isset($input['address'])) {
-                $this->addressRepository->update($input['address'], $realEstate->address_id);
+                $this->addressRepository->update($input['address'], $settings->address_id);
             }
-            $input['address_id'] = $realEstate->address_id;
+            $input['address_id'] = $settings->address_id;
             if (isset($input['login_variation_2_slider'])) {
                 $input['login_variation_2_slider'] = (int) $input['login_variation_2_slider'];
             }
-            $realEstate = $this->realEstateRepository->update($input, $realEstate->id);
+            $settings = $this->settingsRepository->update($input, $settings->id);
             // Forget weather so the next request to weather
             // brings info from the new location
             Cache::forget('weather_json');
         } catch (\Exception $e) {
-            return $this->sendError(__('models.realEstate.errors.update'));
+            return $this->sendError(__('models.settings.errors.update'));
         }
-        $realEstate->news_receivers = User::whereIn('id', $realEstate->news_receiver_ids)->get();
+        $settings->news_receivers = User::whereIn('id', $settings->news_receiver_ids)->get();
 
-        $response = (new RealEstateTransformer)->transform($realEstate);
-        return $this->sendResponse($response, __('models.user.realEstateSaved'));
+        $response = (new SettingsTransformer)->transform($settings);
+        return $this->sendResponse($response, __('models.user.settingsSaved'));
     }
 }

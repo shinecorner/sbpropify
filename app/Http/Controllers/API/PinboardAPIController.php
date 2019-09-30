@@ -28,7 +28,7 @@ use App\Notifications\PinboardLiked;
 use App\Repositories\BuildingRepository;
 use App\Repositories\QuarterRepository;
 use App\Repositories\PinboardRepository;
-use App\Repositories\RealEstateRepository;
+use App\Repositories\SettingsRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Transformers\PinboardTransformer;
 use App\Transformers\PinboardViewTransformer;
@@ -170,11 +170,12 @@ class PinboardAPIController extends AppBaseController
      * )
      *
      * @param CreateRequest $request
-     * @param RealEstateRepository $reRepo
+     * @param SettingsRepository $settingsRepository
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(CreateRequest $request, RealEstateRepository $reRepo)
+    public function store(CreateRequest $request, SettingsRepository $settingsRepository)
     {
         $input = $request->only(Pinboard::Fillable);
         $input['user_id'] = \Auth::id();
@@ -195,9 +196,9 @@ class PinboardAPIController extends AppBaseController
         $input['needs_approval'] = ! Auth::user()->hasRole('administrator');
         if (! empty($input['type']) && $input['type'] == Pinboard::TypePost) {
             $input['notify_email'] = true;
-            $realEstate = $reRepo->first();
-            if ($realEstate) {
-                $input['needs_approval'] = $realEstate->news_approval_enable;
+            $settings = $settingsRepository->first();
+            if ($settings) {
+                $input['needs_approval'] = $settings->news_approval_enable;
             }
         }
 
@@ -1183,13 +1184,13 @@ class PinboardAPIController extends AppBaseController
      *      )
      * )
      *
-     * @param RealEstateRepository $reRepo
+     * @param SettingsRepository $settingsRepository
      * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
      */
-    public function showWeatherJSON(RealEstateRepository $reRepo)
+    public function showWeatherJSON(SettingsRepository $settingsRepository)
     {
-        $zip = $this->getZip($reRepo);
-        $feed = Cache::remember('weather_at_' . $zip, 60*60, function() use ($reRepo, $zip) {
+        $zip = $this->getZip($settingsRepository);
+        $feed = Cache::remember('weather_at_' . $zip, 60*60, function() use ($settingsRepository, $zip) {
             $appid = env('OPENWEATHERMAP_API_KEY');
             $countryCode = env('OPENWEATHERMAP_COUNTRY_CODE', 'ch');
             $zipCountry = $zip . ',' . $countryCode;
@@ -1204,17 +1205,17 @@ class PinboardAPIController extends AppBaseController
     }
 
     /**
-     * @param $reRepo
+     * @param $settingRepository
      * @return int
      */
-    private function getZip($reRepo)
+    private function getZip($settingRepository)
     {
         $u = \Auth::user();
         if ($u->tenant && $u->tenant->address && $u->tenant->address->zip) {
             return $u->tenant->address->zip;
         }
         $defaultZip = 3172;
-        $realEstate = $reRepo->first();
+        $realEstate = $settingRepository->first();
         if (empty($realEstate)) {
             return $defaultZip;
         }

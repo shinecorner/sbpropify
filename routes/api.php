@@ -125,9 +125,11 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/units/{id}/assignees/{assignee_id}', 'UnitAPIController@assignTenant');
     Route::delete('/units/{id}/assignees/{assignee_id}', 'UnitAPIController@unassignTenant');
 
-    // Real Estate
-    Route::get('/realEstate', 'RealEstateAPIController@show')->name('units.show');
-    Route::put('/realEstate', 'RealEstateAPIController@update')->name('units.update');
+    // Settings
+    Route::get('/settings', 'SettingsAPIController@show')->name('settings.show');
+    Route::put('/settings', 'SettingsAPIController@update')->name('settings.update');
+    Route::get('/realEstate', 'SettingsAPIController@show')->name('settings.show');
+    Route::put('/realEstate', 'SettingsAPIController@update')->name('settings.update');
 
     // Services
     Route::get('/services', 'ServiceProviderAPIController@index')->name('services');
