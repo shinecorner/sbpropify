@@ -3,17 +3,17 @@ return [
     'common' => [
         'audit' => [
             'type' => [
-                'post' => 'Pinnwand',
+                'pinboard' => 'Pinnwand',
                 'product' => 'Markplatz',
                 'request' => 'Anfragen'
             ],
             'filter' => [
                 'type' => [
-                    'post' => 'Pinnwand',
+                    'pinboard' => 'Pinnwand',
                     'product' => 'Markplatz',
                     'request' => 'Anfragen'
                 ],
-                'post' => [
+                'pinboard' => [
                     'created' => 'Erstellt',
                     'updated' => 'Aktualisiert',
                     'provider_assigned' => 'Dienstleister wurde zugewiesen',
@@ -35,7 +35,7 @@ return [
             ],
             'content' => [
                 'withId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} hat diesen Beitrag erstellt.',
                         'updated' => [
                             'status' => 'Der Status wurde von "{old}" zu "{new}" geändert.',
@@ -81,7 +81,7 @@ return [
                     ]
                 ],
                 'withNoId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} hat folgende Anfrage erstellt: {auditable_type} im {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'status' => 'Der Status wurde von "{old}" zu "{new}" im {auditable_type} #{auditable_id} geändert.',
@@ -186,7 +186,7 @@ return [
             'humidity' => 'Luftfeuchte',
             'pressure' => 'Druck',
         ],
-        'postAdd' => [
+        'pinboardAdd' => [
             'visibility' => [
                 'address' => 'Nachbarn',
                 'quarter' => 'Überbauung',

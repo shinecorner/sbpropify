@@ -9,7 +9,7 @@ export default {
     }
     // async upload ({}, {id, type, ...payload}) {
     //     try {
-    //         if (!['buildings', 'products', 'posts', 'tenants', 'requests'].includes(type)) {
+    //         if (!['buildings', 'products', 'pinboard', 'tenants', 'requests'].includes(type)) {
     //             throw new Error('Invalid type')
     //         }
     
@@ -23,7 +23,7 @@ export default {
     // },
     // async delete ({}, {id, media_id, type, ...payload}) {
     //     try {
-    //         if (!['buildings', 'products', 'posts', 'tenants', 'requests'].includes(type)) {
+    //         if (!['buildings', 'products', 'pinboard', 'tenants', 'requests'].includes(type)) {
     //             throw new Error('Invalid type')
     //         }
     

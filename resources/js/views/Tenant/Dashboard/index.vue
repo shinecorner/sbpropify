@@ -18,7 +18,7 @@
             <div class="column">
                 <requests-statistics-card class="widget" />
                 <latest-requests-card class="widget" @view-detail-request="viewDetailRequest"/>
-                <latest-posts-card class="widget" />
+                <latest-pinboard-card class="widget" />
             </div>
             <div class="column">
                 <latest-products-card class="widget" />
@@ -92,8 +92,8 @@
     import RequestsStatisticsCardLoader from 'components/tenant/RequestsStatisticsCard/Loader'
     import RequestsStatisticsCardErrorFallback from 'components/tenant/RequestsStatisticsCard/Error'
 
-    import LatestPostsCardLoader from 'components/tenant/LatestPostsCard/Loader'
-    import LatestPostsCardErrorFallback from 'components/tenant/LatestPostsCard/Loader'
+    import LatestPinboardCardLoader from 'components/tenant/LatestPinboardCard/Loader'
+    import LatestPinboardCardErrorFallback from 'components/tenant/LatestPinboardCard/Loader'
 
     import LatestRequestsCardLoader from 'components/tenant/LatestRequestsCard/Loader'
     import LatestRequestsCardErrorFallback from 'components/tenant/LatestRequestsCard/Loader'
@@ -110,10 +110,10 @@
                 delay: 0,
                 timeout: 8000
             }),
-            latestPostsCard: () => ({
-                component: import(/* webpackChunkName: "latestPostsCard" */ 'components/tenant/LatestPostsCard'),
-                loading: LatestPostsCardLoader,
-                error: LatestPostsCardErrorFallback,
+            latestPinboardCard: () => ({
+                component: import(/* webpackChunkName: "latestPinboardCard" */ 'components/tenant/LatestPinboardCard'),
+                loading: LatestPinboardCardLoader,
+                error: LatestPinboardCardErrorFallback,
                 delay: 0,
                 timeout: 8000
             }),

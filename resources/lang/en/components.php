@@ -3,17 +3,17 @@ return [
     'common' => [
         'audit' => [
             'type' => [
-                'post' => 'Post',
+                'pinboard' => 'Pinboard',
                 'product' => 'Product',
                 'request' => 'Request'
             ],
             'filter' => [
                 'type' => [
-                    'post' => 'Post',
+                    'pinboard' => 'Pinboard',
                     'product' => 'Product',
                     'request' => 'Request'
                 ],
-                'post' => [
+                'pinboard' => [
                     'created' => 'Created',
                     'updated' => 'Updates',
                     'provider_assigned' => 'Provider assigned',
@@ -35,11 +35,11 @@ return [
             ],
             'content' => [
                 'withId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'status' => 'The status changed from "{old}" to "{new}".',
-                            'published_at' => 'Post published on {new}.'
+                            'published_at' => 'Pinboard published on {new}.'
                         ]
                     ],
                     'product' => [
@@ -81,11 +81,11 @@ return [
                     ]
                 ],
                 'withNoId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'status' => 'The status changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                            'published_at' => 'Post published on {new} on {auditable_type} #{auditable_id}.'
+                            'published_at' => 'Pinboard published on {new} on {auditable_type} #{auditable_id}.'
                         ]
                     ],
                     'product' => [
@@ -184,7 +184,7 @@ return [
             'humidity' => 'humidity',
             'pressure' => 'pressure',
         ],
-        'postAdd' => [
+        'pinboardAdd' => [
             'visibility' => [
                 'address' => 'Address',
                 'quarter' => 'Quarter',

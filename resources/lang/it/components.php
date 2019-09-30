@@ -3,17 +3,17 @@ return [
     'common' => [
         'audit' => [
             'type' => [
-                'post' => 'Messaggio',
+                'pinboard' => 'Bacheca',
                 'product' => 'Prodotto',
                 'request' => 'Richiesta'
             ],
             'filter' => [
                 'type' => [
-                    'post' => 'Messaggio',
+                    'pinboard' => 'Bacheca',
                     'product' => 'Prodotto',
                     'request' => 'Richiesta'
                 ],
-                'post' => [
+                'pinboard' => [
                     'created' => 'Creato',
                     'updated' => 'Aggiornamenti',
                     'provider_assigned' => 'Fornitore assegnato',
@@ -35,11 +35,11 @@ return [
             ],
             'content' => [
                 'withId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} ha aperto questo {auditable_type} su {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'status' => 'Lo stato è cambiato da "{old}" al "{new}".',
-                            'published_at' => 'Messaggio pubblicato su {new}.'
+                            'published_at' => 'Bacheca pubblicato su {new}.'
                         ]
                     ],
                     'product' => [
@@ -81,11 +81,11 @@ return [
                     ]
                 ],
                 'withNoId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} ha aperto questo {auditable_type} su {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'status' => 'Lo stato è cambiato da "{old}" al "{new}" su {auditable_type} #{auditable_id}.',
-                            'published_at' => 'Messaggio pubblicato su {new} su {auditable_type} #{auditable_id}.'
+                            'published_at' => 'Bacheca pubblicato su {new} su {auditable_type} #{auditable_id}.'
                         ]
                     ],
                     'product' => [
@@ -184,7 +184,7 @@ return [
             'humidity' => 'umidità',
             'pressure' => 'pressione',
         ],
-        'postAdd' => [
+        'pinboardAdd' => [
             'visibility' => [
                 'address' => 'Indirizzo',
                 'quarter' => 'Quartiere',

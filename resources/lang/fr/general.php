@@ -125,7 +125,7 @@ return [
     'details_saved' => 'Détails sauvegardés',
     'please_wait' => 'Veuillez patienter...',
     'no_data_available' => 'Pas de données disponibles',
-    "no_posts" => "Aucune contribution n'a encore été publiée.",
+    "no_pinboard" => "Aucun tableau d'affichage n'a encore été publié.",
     "no_requests" => "Aucune demande n'a été faite jusqu'à présent.",
     "no_listings" => "Aucune annonce n'a été publiée jusqu'à présent.",
     "no_data" => "Aucune information.",

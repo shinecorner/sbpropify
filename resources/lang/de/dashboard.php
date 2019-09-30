@@ -9,9 +9,9 @@ return [
     'average_request_duration' => 'Ø Bearbeitungszeit',
     'week_hour' => 'Woche und Stunden',
     'month_date' => 'Monat und Tag',
-    'news_by_creation_date' => 'Nachrichten nach Erstellungsdatum',
-    'news_by_status' => 'Nachrichten nach Status',
-    'news_by_type' => 'Nachrichten nach Typ',
+    'pinboard_by_creation_date' => 'Nachrichten nach Erstellungsdatum',
+    'pinboard_by_status' => 'Nachrichten nach Status',
+    'pinboard_by_type' => 'Nachrichten nach Typ',
     'latest_products' => 'Neueste Produkte',
     'products_by_creation_date' => 'Marktplatz-Produkte nach Erstellungsdatum',
     'products_by_type' => 'Marktplatz-Produkte nach Typ',
@@ -58,9 +58,9 @@ return [
     'marketplace' => [
         'go_to_marketplace' => 'zum Marktplatz gehen'
     ],
-    'news' => [
-        'latest_news' => 'Neueste Beiträge',
-        'go_to_news' => 'zur Pinnwand gehen',
+    'pinboard' => [
+        'latest_pinboard' => 'Neueste Beiträge',
+        'go_to_pinboard' => 'zur Pinnwand gehen',
         'counts' => 'Kommentare'
     ]
 ];
