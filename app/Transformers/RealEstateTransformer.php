@@ -54,6 +54,7 @@ class RealEstateTransformer extends TransformerAbstract
             'iframe_enable' => $model->iframe_enable,
             'cleanify_email' => $model->cleanify_email,
             'news_receiver_ids' => $model->news_receiver_ids,
+            'email_powered_by' => $model->email_powered_by,
         ];
         if (\Auth::user()->can('edit-real_estate')) {
             $ret['mail_host'] = $model->mail_host;
