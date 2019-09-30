@@ -241,7 +241,9 @@ export default (config = {}) => {
             },
             addPDFtoRentContract(file, index) {
                 this.activeRentContractIndex = index;
-                let toUploadRentContractFile = {...file, url: URL.createObjectURL(file.raw)};
+                //console.log('file', file)
+                let toUploadRentContractFile = file.src
+                //let toUploadRentContractFile = {...file, url: URL.createObjectURL(file.raw)};
                 this.model.rent_contracts[this.activeRentContractIndex].media.push(toUploadRentContractFile)
             },
             deletePDFfromRentContract(c_index, index) {
