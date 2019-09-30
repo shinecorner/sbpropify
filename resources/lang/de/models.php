@@ -146,7 +146,7 @@ return [
         'deposit_amount' => 'Kautionsbetrag',
         'type_of_deposit' => 'Art der Sicherheitsleistung',
         'deposit_types' => [
-            'bank_depot' => 'Bankdepost',
+            'bank_deposit' => 'Bankdepost',
             'bank_deposit' => 'Bankdepost',
             'bank_guarantee' => 'Bankgarantie',
             'insurance' => 'Kautionsversicherung',
@@ -304,7 +304,6 @@ return [
         'floor' => 'Etage',
         'sq_meter' => 'Fläche',
         'room_no' => 'Anzahl Zimmer',
-        'monthly_rent_net' => 'Monatsmiete',
         'building_search' => 'Bitte nach einer Liegenschaft suchen',
         'building' => 'Liegenschaft',
         'basement' => 'Untergeschoss',

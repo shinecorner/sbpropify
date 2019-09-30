@@ -271,7 +271,7 @@ class TenantAPIController extends AppBaseController
 
         DB::beginTransaction();
         try {
-            $input['user']['role'] = 'registered';
+            $input['user']['role'] = 'tenant';
             $input['user']['settings'] = Arr::pull($input, 'settings');
             User::disableAuditing();
             $user = $this->userRepository->create($input['user']);

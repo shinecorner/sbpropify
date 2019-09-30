@@ -556,7 +556,7 @@ class TemplateRepository extends BaseRepository
         $template = $this->getByCategoryName('request_comment');
 
         $user->redirect = '/admin/requests/' . $sr->id;
-        if ($user->hasRole('registered')) {
+        if ($user->hasRole('tenant')) {
             $user->redirect = '/requests';
         }
         $context = [
@@ -606,7 +606,7 @@ class TemplateRepository extends BaseRepository
         $template = $this->getByCategoryName('request_upload');
 
         $receiver->redirect = '/admin/requests/' . $sr->id;
-        if ($receiver->hasRole('registered')) {
+        if ($receiver->hasRole('tenant')) {
             $receiver->redirect = '/requests';
         }
         $context = [

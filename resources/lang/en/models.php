@@ -146,7 +146,7 @@ return [
         'deposit_amount' => 'Deposit amount',
         'type_of_deposit' => 'Type of deposit',
         'deposit_types' => [
-            'bank_depot' => 'Bank Deposit',
+            'bank_deposit' => 'Bank Deposit',
             'bank_deposit' => 'Bank Deposit',
             'bank_guarantee' => 'Bank Guarantee',
             'insurance' => 'Insurance',
@@ -304,7 +304,6 @@ return [
         'floor' => 'Floor',
         'sq_meter' => 'Sq Meter',
         'room_no' => 'Number of rooms',
-        'monthly_rent_net' => 'Monthly rent',
         'building_search' => 'Please enter a building name and select it',
         'building' => 'Building',
         'basement' => 'Basement',

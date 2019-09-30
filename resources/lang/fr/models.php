@@ -146,7 +146,7 @@ return [
         'deposit_amount' => 'Montant du dépôt',
         'type_of_deposit' => 'Type de dépôt',
         'deposit_types' => [
-            'bank_depot' => 'Dépôt bancaire',
+            'bank_deposit' => 'Dépôt bancaire',
             'bank_deposit' => 'Dépôt bancaire',
             'bank_guarantee' => 'Garantie bancaire',
             'insurance' => 'Assurance',
@@ -304,7 +304,6 @@ return [
         "floor" => "L'étage",
         "sq_meter" => "Mètre carré",
         "room_no" => "Nombre de pièces",
-        "monthly_rent_net" => "Loyer mensuel",
         "building_search" => "Veuillez entrer le nom d'un bâtiment et le sélectionner",
         "building" => "Bâtiment",
         "basement" => "Sous-sol",

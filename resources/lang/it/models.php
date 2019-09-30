@@ -146,7 +146,7 @@ return [
         'deposit_amount' => 'Importo del deposito',
         'type_of_deposit' => 'Tipo di deposito',
         'deposit_types' => [
-            'bank_depot' => 'Deposito bancario',
+            'bank_deposit' => 'Deposito bancario',
             'bank_deposit' => 'Deposito bancario',
             'bank_guarantee' => 'Garanzia bancaria',
             'insurance' => 'Assicurazione',
@@ -304,7 +304,6 @@ return [
         "floor" => "Piano",
         "sq_meter" => "Misuratore di mq",
         "room_no" => "Numero di camere",
-        "monthly_rent_net" => "Affitto mensile",
         "building_search" => "Inserire il nome di un edificio e selezionarlo",
         "building" => "Edificio",
         "basement" => "Nel seminterrato",

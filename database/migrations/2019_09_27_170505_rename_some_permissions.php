@@ -100,8 +100,10 @@ class RenameSomePermissions extends Migration
 
         $roles = \App\Models\Role::whereIn('name', ['administrator', 'manager'])->get();
         if ($roles->count() == 2) {
-            foreach ($this->missingPerms() as $permission) {
-                $role->detachPermissionIfExits($permission);
+            foreach ($roles as $role) {
+                foreach ($this->missingPerms() as $permission) {
+                    $role->detachPermissionIfExits($permission);
+                }
             }
         }
 
