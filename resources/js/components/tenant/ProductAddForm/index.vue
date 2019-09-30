@@ -35,7 +35,7 @@
             <media-uploader ref="media" :id="product_id" :audit_id="audit_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
         <el-form-item v-if="!hideSubmit" style="grid-column: span 6">
-            <el-button class="submit is-round" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
+            <el-button class="submit is-round " icon="ti-save" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -208,4 +208,7 @@
 
                 .el-button, .el-select
                     width: 100%
+
+                .el-button i
+                    padding-right: 5px
 </style>

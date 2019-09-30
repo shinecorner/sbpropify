@@ -98,7 +98,7 @@
 
         <!-- <media-upload ref="upload" v-model="model.media" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="4" /> -->
         <el-form-item class="submitBtnDiv" v-if="showSubmit" style="grid-column: span 6">
-            <el-button class="submit is-round" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
+            <el-button class="submit is-round" icon="ti-save" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -419,6 +419,9 @@
         .el-button.submit {
             margin-top: 1em;
             width: 100%;
+            /deep/ i {
+                padding-right: 5px;
+            }
         }
 
         .switcher-form-item {
