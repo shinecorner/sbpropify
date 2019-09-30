@@ -2,14 +2,7 @@
 
 namespace App\Models;
 
-use App\Traits\HasComments;
-use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
-use Cog\Laravel\Love\Likeable\Models\Traits\Likeable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
-use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 /**
  * @SWG\Definition(
@@ -22,8 +15,8 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="post_id",
- *          description="post_id",
+ *          property="pinboard_id",
+ *          description="pinboard_id",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -60,7 +53,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 class PinnedEmailReceptionist extends Model
 {
     public $fillable = [
-        'post_id',
+        'pinboard_id',
         'tenant_ids',
         'failed_tenant_ids'
     ];
@@ -71,60 +64,16 @@ class PinnedEmailReceptionist extends Model
      * @var array
      */
     protected $casts = [
-        'post_id' => 'integer',
+        'pinboard_id' => 'integer',
         'tenant_ids' => 'array',
         'failed_tenant_ids' => 'array'
     ];
 
     /**
-     * Validation rules
-     *
-     * @return array
-     * @var array
-     */
-    public static function rules()
-    {
-        $categories = array_keys(self::Category);
-        $categories[] = null;
-        $re = RealEstate::first();
-        $visibilities = self::Visibility;
-        if (!$re->quarter_enable) {
-            unset($visibilities[self::VisibilityQuarter]);
-        }
-        return [
-            'content' => 'required',
-            'visibility' => ['required', Rule::in(array_keys($visibilities))],
-            'category' => [Rule::in($categories)],
-            'pinned' => function ($attribute, $value, $fail) {
-                if ($value && !\Auth::user()->can('pin-post')) {
-                    $fail($attribute.' must be false.');
-                }
-            },
-            'pinned_to' => Rule::requiredIf(request()->pinned),
-            'execution_start' => 'nullable|date',
-            'execution_end' => 'nullable|date|after_or_equal:execution_start',
-        ];
-    }
-
-    /**
-     * Publish validation rules
-     *
-     * @return array
-     * @var array
-     */
-    public static function publishRules()
-    {
-        return [
-            'status' => ['required', Rule::in(array_keys(self::Status))]
-        ];
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function post()
+    public function pinboard()
     {
-        return $this->belongsTo(Post::class, 'post_id', 'id');
+        return $this->belongsTo(Pinboard::class, 'pinboard_id', 'id');
     }
-
 }

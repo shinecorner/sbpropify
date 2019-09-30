@@ -128,7 +128,7 @@
                         item.active = true
                         item.children[0].active = true
 
-                        this.$router.push(item.children[0].route)
+//                        this.$router.push(item.children[0].route)
                     }
                 } else {
                     this.submenu.visible = false

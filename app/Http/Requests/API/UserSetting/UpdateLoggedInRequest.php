@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests\API\UserSetting;
 
-use App\Models\UserSettings;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class UpdateLoggedInRequest extends APIRequest
+class UpdateLoggedInRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,17 +13,8 @@ class UpdateLoggedInRequest extends APIRequest
      */
     public function authorize()
     {
+        // @TODO ROLE RELATED
         return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
     }
 }
 

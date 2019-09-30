@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Quarter;
 
 use App\Models\Quarter;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class UpdateRequest extends APIRequest
+class UpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class UpdateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('edit-quarter');
+        return $this->can('edit-quarter');
     }
 
     /**

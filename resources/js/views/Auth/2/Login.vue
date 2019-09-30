@@ -25,7 +25,7 @@
             </el-form-item>
             <el-form-item>
                 <el-checkbox>{{$t('general.remember_me')}}</el-checkbox>
-                <router-link :to="{name: 'forgot2'}">
+                <router-link :to="{name: 'forgot'}">
                     <el-button type="text">
                         {{$t('general.forgot_password')}}
                     </el-button>
@@ -35,72 +35,16 @@
                 <el-button type="primary" class="text-center w100p" @click="submit" ref="prev">{{$t('general.login')}}</el-button>
             </el-form-item>
         </el-form>
-        <router-link :to="{name: 'activateAccount2'}" class="el-menu-item-link">
+        <router-link :to="{name: 'activateAccount'}" class="el-menu-item-link">
             <el-button type="primary" class="text-center w100p">{{$t('general.activate_account')}}</el-button>
         </router-link>
     </div>
 </template>
 <script>
-    import {mapActions, mapState} from 'vuex';
-    import {displaySuccess, displayError} from 'helpers/messages';
+    import loginMixin from 'mixins/authLoginMixin';
 
     export default {
-        data() {
-            return {
-                model: {
-                    email: '',
-                    password: ''
-                },
-                validationRules: {
-                    email: [{
-                        required: true,
-                        message: this.$t("general.email_validation.required")
-                    }, {
-                        type: 'email',
-                        message: this.$t("general.email_validation.email")
-                    }],
-                    password: [{
-                        required: true,
-                        message: this.$t("general.password_validation.required")
-                    }]
-                }
-            }
-        },
-        props: {
-          
-        },
-        computed: {
-            ...mapState({
-                loggedInUser: ({users}) => {
-                    return users.loggedInUser;
-                }
-            }),
-         
-        },
-        methods: {
-            submit() {
-                this.$refs.form.validate(async valid => {
-                    if (valid) {
-                        try {
-                            await this.login(this.model);
-                            const {data: {settings: {language}}, ...rest} = await this.me();
-
-                            this.$i18n.locale = language;
-                            this.$router.push({
-                                name: 'tenantDashboard'
-                            });
-
-                            displaySuccess(rest);
-                        } catch (err) {
-                            displayError(err);
-                        }
-                    }
-                });
-            },
-
-            ...mapActions(['me', 'login']),
-        },
-      
+        mixins: [loginMixin],
     }
 </script>
 <style lang="scss" scoped>

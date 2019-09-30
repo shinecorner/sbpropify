@@ -19,7 +19,7 @@
                      v-if="this.filters.length"
                     :element-loading-background="loading.background"
                     :element-loading-spinner="loading.icon"
-                    :element-loading-text="loading.text"
+                    :element-loading-text="$t(loading.text)"
                     v-loading="isLoadingFilters.state"
             >
                 <el-row :gutter="10">
@@ -110,6 +110,24 @@
                         </template>
 
                     </el-col>
+                    <el-popover placement="left-end" trigger="click" :width="192" style="float:right;padding: 0 5px 10px 0px">
+                        <el-button slot="reference" icon="el-icon-sort">{{$t('models.request.sort')}}</el-button>
+                        <div class="sorters">
+                            <template v-for="(sorter, key) in this.Sorters">
+                                <el-radio-group v-if="sorter.type=='el-radio'" v-model="filterModel[sorter.key]" @change="sortChanged(sorter)" :key="key">
+                                    <el-radio :label="item.key" v-for="(item, key) in sorter.data" :key="key" style="padding-top:5px">{{ $t(item.text) }}</el-radio>
+                                </el-radio-group>
+                                <div v-else-if="sorter.type=='el-button'" :key="key" class="sort-by">
+                                    <a @click="sortedBy(sorter)" style="cursor:pointer">
+                                        <i class="el-icon-bottom" v-if="filterModel[sorter.key]=='asc'"></i>
+                                        <i class="el-icon-top" v-else-if="filterModel[sorter.key]=='desc'"></i>
+                                        <i class="el-icon-bottom" v-else></i>
+                                    </a>
+                                </div>
+                            </template>
+                        </div>
+                        <el-button type="primary" size="small" icon="el-icon-sort-up" style="width: 100%; margin-top: 8px;" @click="resetSorters">{{$t('models.request.reset_sort')}}</el-button>
+                    </el-popover>
                 </el-row>
             </el-card>
         </el-form>
@@ -119,23 +137,6 @@
         <!--                {{$t('general.actions.delete')}}-->
         <!--            </el-button>-->
         <!--        </div>-->
-        <el-popover placement="left-end" trigger="click" :width="192" style="float:right">
-            <el-button slot="reference" icon="el-icon-sort">{{$t('models.request.sort')}}</el-button>
-            <div class="sorters">
-                <template v-for="(sorter, key) in this.Sorters">
-                    <el-radio-group v-if="sorter.type=='el-radio'" v-model="filterModel[sorter.key]" @change="filterChanged(sorter)" :key="key">
-                        <el-radio :label="item.key" v-for="(item, key) in sorter.data" :key="key" style="padding-top:5px">{{ $t(item.text) }}</el-radio>
-                    </el-radio-group>
-                    <div v-else-if="sorter.type=='el-button'" :key="key" class="sort-by">
-                        <el-button  size="medium" circle @click="sortedBy(sorter)">
-                            <i class="el-icon-bottom" v-if="filterModel[sorter.key]==undefined || filterModel[sorter.key]=='asc'"></i>
-                            <i class="el-icon-top" v-else-if="filterModel[sorter.key]=='desc'"></i>
-                        </el-button>
-                    </div>
-                </template>
-            </div>
-            <el-button type="primary" size="small" icon="el-icon-sort-up" style="width: 100%; margin-top: 8px;" @click="resetSorters">{{$t('models.request.reset_sort')}}</el-button>
-        </el-popover>
         
         <el-table
             :data="items"
@@ -225,7 +226,7 @@
                 type: Object,
                 default: () => ({
                     state: false,
-                    text: 'Loading...',
+                    text: 'general.loading',
                     icon: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.8)'
                 })
@@ -234,7 +235,7 @@
                 type: Object,
                 default: () => ({
                     state: false,
-                    text: 'Loading...',
+                    text: 'general.loading',
                     icon: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.8)'
                 })
@@ -290,7 +291,7 @@
                             key: 'due_date',
                             text: 'models.request.due_date'
                         }, {
-                            key: 'creation_date',
+                            key: 'created_at',
                             text: 'models.request.creation_date'
                         }],
                         
@@ -325,23 +326,25 @@
             clearSearch() {
                 this.search = '';
             },
+            sortChanged(sorter) {
+                this.filterModel['sortedBy'] = 'asc';
+                this.filterChanged(sorter)
+            },
             sortedBy(sorter) {
-                console.log(sorter);
-                if(this.filterModel[sorter.key] == undefined) {
-                    this.filterModel[sorter.key] = 'desc';
-                } else if(this.filterModel[sorter.key] == 'asc') {
-                    this.filterModel[sorter.key] = 'desc'
-                } else if(this.filterModel[sorter.key] == 'desc') {
-                    this.filterModel[sorter.key] = 'asc'
-                } 
-                this.filterChanged(sorter);
+                if(this.filterModel['orderBy'] == 'created_at' || this.filterModel['orderBy'] == 'due_date') {
+                    if(this.filterModel[sorter.key] == undefined) {
+                        this.filterModel[sorter.key] = 'asc';
+                    } else if(this.filterModel[sorter.key] == 'asc') {
+                        this.filterModel[sorter.key] = 'desc'
+                    } else if(this.filterModel[sorter.key] == 'desc') {
+                        this.filterModel[sorter.key] = 'asc'
+                    } 
+                    this.filterChanged(sorter);
+                }
             },
             resetSorters() {
                 this.Sorters.map((sorter) => {
-                    if(sorter.type == 'el-button') 
-                        this.filterModel[sorter.key] = 'asc';
-                    else
-                        this.filterModel[sorter.key] = '';
+                    this.filterModel[sorter.key] = '';
                     this.filterChanged(sorter);
                 });
             },
@@ -377,6 +380,10 @@
                     query = {search: this.search, ...query};
                 } else if (this.withSearch) {
                     delete query.search;
+                }
+                for(var filter in this.filterModel) {
+                    if(this.filterModel[filter] == '' && query[filter] != undefined)
+                        delete query[filter];
                 }
 
                 this.$router.replace({name: this.$route.name, query, params});
@@ -551,6 +558,11 @@
                 this.search = this.$route.query.search;
             }
 
+            _.each(this.Sorters, (sorter) => {
+                if(this.$route.query[sorter.key] != undefined)
+                    this.filterModel[sorter.key] = this.$route.query[sorter.key];
+            });
+
             _.each(this.filters, (filter) => {
                 const queryFilterValue = this.$route.query[filter.key];
                 const dateReg = /^\d{2}([./-])\d{2}\1\d{4}$/;
@@ -583,6 +595,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-right: 20px;
         }
     }
     .el-input {

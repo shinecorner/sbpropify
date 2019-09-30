@@ -8,6 +8,8 @@ use App\Criteria\Products\FilterByTypeCriteria;
 use App\Criteria\Products\FilterByUserCriteria;
 use App\Criteria\Products\FilterByStatusCriteria;
 use App\Criteria\Products\FilterByQuarterCriteria;
+use App\Http\Requests\API\Product\LikeRequest;
+use App\Http\Requests\API\Product\ListRequest;
 use App\Notifications\ProductLiked;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Product\CreateRequest;
@@ -66,10 +68,6 @@ class ProductAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/products",
      *      summary="Get a listing of the Products.",
@@ -97,8 +95,12 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return Response
+     * @throws \Exception
      */
-    public function index(Request $request)
+    public function index(ListRequest $request)
     {
         $this->productRepository->pushCriteria(new RequestCriteria($request));
         $this->productRepository->pushCriteria(new LimitOffsetCriteria($request));
@@ -124,9 +126,6 @@ class ProductAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return Response
-     * @throws \Exception
      * @SWG\Post(
      *      path="/products",
      *      summary="Store a newly created Product in storage",
@@ -160,6 +159,10 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return Response
+     * @throws \Exception
      */
     public function store(CreateRequest $request)
     {
@@ -180,9 +183,6 @@ class ProductAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/products/{id}",
      *      summary="Display the specified Product",
@@ -216,6 +216,10 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ViewRequest $request
+     * @return mixed
      */
     public function show($id, ViewRequest $request)
     {
@@ -238,11 +242,6 @@ class ProductAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Put(
      *      path="/products/{id}",
      *      summary="Update the specified Product in storage",
@@ -283,6 +282,11 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update($id, UpdateRequest $request)
     {
@@ -302,9 +306,6 @@ class ProductAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/products/{id}",
      *      summary="Remove the specified Product from storage",
@@ -338,6 +339,11 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $request
+     * @return mixed
+     * @throws \Exception
      */
     public function destroy($id, DeleteRequest $request)
     {
@@ -352,7 +358,12 @@ class ProductAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.product.deleted'));
     }
-    public function destroyWithIds(Request $request){
+
+    /**
+     * @param DeleteRequest $request
+     * @return mixed
+     */
+    public function destroyWithIds(DeleteRequest $request){
         $ids = $request->get('ids');
         try{
             Product::destroy($ids);
@@ -362,9 +373,8 @@ class ProductAPIController extends AppBaseController
         }
         return $this->sendResponse($ids, __('models.product.deleted'));
     }
+
     /**
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/products/{id}/like",
      *      summary="Like a product",
@@ -399,8 +409,12 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param LikeRequest $likeRequest
+     * @return mixed
      */
-    public function like($id)
+    public function like($id, LikeRequest $likeRequest)
     {
         $product = $this->productRepository->findWithoutFail($id);
         if (empty($product)) {
@@ -421,8 +435,6 @@ class ProductAPIController extends AppBaseController
     }
 
     /**
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/products/{id}/unlike",
      *      summary="Unlike a Product",
@@ -457,8 +469,12 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param LikeRequest $likeRequest
+     * @return mixed
      */
-    public function unlike($id)
+    public function unlike($id, LikeRequest $likeRequest)
     {
         $product = $this->productRepository->findWithoutFail($id);
         if (empty($product)) {
@@ -472,9 +488,6 @@ class ProductAPIController extends AppBaseController
     }
 
     /**
-     * @param PublishRequest $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/products/{id}/publish",
      *      summary="Publish a product",
@@ -517,6 +530,10 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param PublishRequest $request
+     * @return mixed
      */
     public function publish($id, PublishRequest $request)
     {

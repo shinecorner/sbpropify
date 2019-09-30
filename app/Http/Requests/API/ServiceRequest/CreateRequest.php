@@ -5,13 +5,13 @@ namespace App\Http\Requests\API\ServiceRequest;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
 use Illuminate\Support\Facades\Auth;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
 /**
  * Class CreateRequest
  * @package App\Http\Requests\API\ServiceRequest
  */
-class CreateRequest extends APIRequest
+class CreateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,12 +20,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        $user = Auth::user();
-        if (!$user->can(['post-request_tenant', 'post-request_service', 'post-request'])) {
-            return false;
-        }
-
-        return true;
+        return $this->can('add-request');
     }
 
     /**
@@ -36,7 +31,7 @@ class CreateRequest extends APIRequest
     public function rules()
     {
         $user = Auth::user();
-        if ($user->can('post-request_tenant')) {
+        if ($user->tenant) { // @TODO @TODO
             return ServiceRequest::$rulesPostTenant;
         }
 

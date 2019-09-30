@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Building;
 use App\Models\Quarter;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\Product;
 use App\Models\PropertyManager;
 use App\Models\RealEstate;
@@ -16,10 +16,10 @@ use App\Models\RentContract;
 use App\Models\Unit;
 use App\Models\User;
 use App\Notifications\NewTenantInNeighbour;
-use App\Notifications\NewTenantPost;
+use App\Notifications\NewTenantPinboard;
 use App\Notifications\NewTenantRequest;
-use App\Notifications\PinnedPostPublished;
-use App\Notifications\PostPublished;
+use App\Notifications\PinnedPinboardPublished;
+use App\Notifications\PinboardPublished;
 use App\Notifications\ProductPublished;
 use App\Notifications\StatusChangedRequest;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
 	    Relation::morphMap([
             'unit' => Unit::class,
             'user' => User::class,
-            'post' => Post::class,
+            'pinboard' => Pinboard::class,
             'tenant' => Tenant::class,
             'product' => Product::class,
             'quarter' => Quarter::class,
@@ -64,9 +64,9 @@ class AppServiceProvider extends ServiceProvider
             'rent_contract' => RentContract::class,
             'conversation' => Conversation::class,
 
-            'post_published' => PostPublished::class,
-            'new_tenant_post' => NewTenantPost::class,
-            'pinned_post_published' => PinnedPostPublished::class,
+            'pinboard_published' => PinboardPublished::class,
+            'new_tenant_pinboard' => NewTenantPinboard::class,
+            'pinned_pinboard_published' => PinnedPinboardPublished::class,
             'new_tenant_in_neighbour' => NewTenantInNeighbour::class,
             'product_published' => ProductPublished::class,
             'new_tenant_request' => NewTenantRequest::class,

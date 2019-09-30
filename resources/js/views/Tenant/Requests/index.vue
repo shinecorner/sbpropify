@@ -9,7 +9,7 @@
                         <filters ref="filters" layout="column" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
                         <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                     </el-popover>
-                    <el-button @click="addRequestDialogVisible = true" type="primary" icon="ti-plus" round>
+                    <el-button @click="showAddRequest" type="primary" icon="ti-plus" round>
                         {{$t('tenant.add_request')}}
                     </el-button>
                 </ui-heading>
@@ -55,12 +55,18 @@
                     </template>
                 </dynamic-scroller>
             </div>
-            <ui-drawer :size="448" :visible.sync="addRequestDialogVisible" :z-index="1" direction="right" docked>
+            <!-- <ui-drawer :size="448" :visible.sync="addRequestDialogVisible" :z-index="1" direction="right" docked>
                 <ui-divider content-position="left">{{$t('tenant.add_request')}}</ui-divider>
                 <div class="content">
                     <request-add-form ref="request-add-form" />
                 </div>
-            </ui-drawer>
+            </ui-drawer> -->
+            <request-status-change-modal
+                :statusChangeModalVisible="statusChangeModalVisible"
+                :statusChangeModalType="statusChangeModalType"
+                :closeModal="closeStatusChangeModal"
+                :changeStatus="changeStatus"
+            />
         </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked @update:visibleDrawer="resetDataFromDrawer">
             <el-tabs type="card" v-model="activeDrawerTab" stretch v-if="openedRequest">
@@ -92,7 +98,12 @@
                         </el-alert>
                         
                     </div>
-                    <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :id="openedRequest.id" :options="{drop: true, draggable: true, multiple: true}" />
+                    <ui-media-uploader v-model="media" 
+                                    :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" 
+                                    :action="`api/v1/requests/${openedRequest.id}/media`" 
+                                    :id="openedRequest.id" 
+                                    type="request"
+                                    :options="{drop: true, draggable: true, multiple: true}" />
 
                     <!-- <div ref="media-content" id="media-content" class="content">
                         <ui-media-gallery :images="openedRequest.media.map(({url}) => url)" />
@@ -130,13 +141,14 @@
                     <audit :id="openedRequest.id" type="request" show-filter />
                 </el-tab-pane>
             </el-tabs>
+            <template v-if="!openedRequest">
+                <ui-divider content-position="left">{{$t('tenant.add_request')}}</ui-divider>
+                <div class="content">
+                    <request-add-form ref="request-add-form" />
+                </div>
+            </template>
         </ui-drawer>
-        <request-status-change-modal
-                :statusChangeModalVisible="statusChangeModalVisible"
-                :statusChangeModalType="statusChangeModalType"
-                :closeModal="closeStatusChangeModal"
-                :changeStatus="changeStatus"
-            />
+        
     </div>
 </template>
 
@@ -284,6 +296,10 @@
                 this.visibleDrawer = !this.visibleDrawer
 
             },
+            showAddRequest () {
+                this.visibleDrawer = true
+                this.openedRequest = null
+            },
             changeRequestStatus(request, type) {
                 this.statusChangeModalType = type
                 this.statusChangeModalVisible = true
@@ -300,8 +316,8 @@
                         this.$refs['request-add-form'].$el.classList.remove('el-loading-parent--relative')
 
                         if (!state) {
-                            this.addRequestDialogVisible = false
-
+                            this.visibleDrawer = false
+                    
                             this.requests = {
                                 data: []
                             }
@@ -403,6 +419,21 @@
                     min-height: 42px
 
         .ui-drawer
+
+            &:before
+                content: ''
+                position: fixed
+                top: 0
+                left: 0
+                width: 100%
+                height: 100%
+                background-repeat: no-repeat
+                background-position: top center
+                width: 100%
+                height: 100%
+                filter: opacity(0.08)
+                pointer-events: none
+
             .el-tabs
                 height: 100%
                 display: flex

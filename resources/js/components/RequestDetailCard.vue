@@ -102,8 +102,8 @@
                 </el-col> 
                 <el-col :span="4" class="request-category">
                     <span>{{ $t('models.request.category') }}</span>
-                    <p>{{ item.category.parent_id==null?'':item.category.parentCategory.name + ' > ' }}
-                        {{ item.category.name }}
+                    <p>{{ item.category.parent_id==null?'': categories[item.category.parentCategory.id] + ' > ' }}
+                        {{ categories[item.category.id] }}
                     </p>
                 </el-col>
                 <el-col :span="3">
@@ -123,7 +123,7 @@
                 </el-col>
                 <el-col :span="3">
                     <span>{{ $t(due.label) }}</span>
-                    <p>{{ due.date }}</p>
+                    <p :style="{fontWeight: due.fontWeight}">{{ due.date }}</p>
                 </el-col>
             </el-row>    
         </div>
@@ -131,7 +131,7 @@
 </template>
 
 <script>
-
+    import {mapActions, mapState} from 'vuex';
     import RequestCount from 'components/RequestCount.vue';
     import {Avatar} from 'vue-avatar'
     import tableAvatar from 'components/Avatar';
@@ -154,7 +154,7 @@ export default {
             type: Object,
             default: () => ({
                 state: false,
-                text: 'Loading...',
+                text: this.$t('general.loading'),
                 icon: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.8)'
             })
@@ -162,6 +162,7 @@ export default {
     },
     data() {
         return {
+            categories: []
         }
     },
     components: {
@@ -173,29 +174,32 @@ export default {
     computed: {
         due() {
             var currentDate = new Date();
-            if(this.item.due_date !==undefined) {
+            var label = 'models.request.due_on';
+            var date = '';
+            var fontWeight = 700;
+            if(this.item.due_date !==undefined && this.item.due_date) {
                 let due_date_formatted = format(this.item.due_date, 'DD.MM.YYYY');
                 var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
                 var days = differenceInCalendarDays(updated_date, new Date()) ;
-                var label, date;
+                date = due_date_formatted;
                 if(days < 0) {
                     label = 'models.request.was_due_on';
                     date = due_date_formatted;
-                }
-                else if(days <= 30) {
+                } else if(days <= 30) {
                     label = 'models.request.due_in';
                     date = Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`);
-                } else {
-                    label = 'models.request.due_on';
-                    date = due_date_formatted;
+                    if(days == 0) 
+                        date = this.$t('models.request.today');
                 }
-            }  else {
-                label = 'models.request.due_on';
-                date = '';
+            } else {
+                label= 'models.request.due_date';
+                date = this.$t('models.request.not_set');
+                fontWeight = 900;
             }
             return {
                 label: label,
-                date: date
+                date: date,
+                fontWeight: fontWeight
             };
             
         },
@@ -224,6 +228,20 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['getRequestCategoriesTree']),
+        async getFilterCategories() {
+            const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
+            
+            this.categories = [];
+            categories.map((category) => {
+                this.categories[category.id] = category.name;
+                if(category.categories.length > 0) {
+                    category.categories.map((subCategory) => {
+                        this.categories[subCategory.id] = subCategory.name;
+                    });
+                }
+            });
+        },
         handleSelectionChanged(val) {
             this.$emit('selectionChanged', this.item);
         },
@@ -235,8 +253,15 @@ export default {
             return res[0];
         }
     },
-    created() {
-    }
+    async created() {
+        this.getFilterCategories();
+    },
+    async mounted() {
+        this.$root.$on('changeLanguage', () => {
+            this.getFilterCategories();
+        });
+        
+    },
 }
 </script>
 <style lang="scss" scoped>

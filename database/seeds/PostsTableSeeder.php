@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Post;
-use App\Repositories\PostRepository;
+use App\Models\Pinboard;
+use App\Repositories\PinboardRepository;
 use Illuminate\Database\Seeder;
 
 class PostsTableSeeder extends Seeder
@@ -16,16 +16,16 @@ class PostsTableSeeder extends Seeder
 //        $pRepo = new PostRepository(app());
         if (App::environment('local')) {
             $totalPosts = 200;
-            $posts = factory(App\Models\Post::class, $totalPosts)->create(['status' => Post::StatusPublished]);
-            foreach ($posts as $post) {
-                $u = $post->user;
+            $pinboards = factory(App\Models\Pinboard::class, $totalPosts)->create(['status' => Pinboard::StatusPublished]);
+            foreach ($pinboards as $pinboard) {
+                $u = $pinboard->user;
                 if ($u->tenant && $u->tenant->building) {
-                    $post->buildings()->sync($u->tenant->building->id);
+                    $pinboard->buildings()->sync($u->tenant->building->id);
                     if ($u->tenant->building->quarter_id) {
-                        $post->quarters()->sync($u->tenant->building->quarter_id);
+                        $pinboard->quarters()->sync($u->tenant->building->quarter_id);
                     }
                 }
-                //$pRepo->setStatus($post->id, Post::StatusPublished, now());
+                //$pRepo->setStatus($pinboard->id, Post::StatusPublished, now());
             }
         }
     }

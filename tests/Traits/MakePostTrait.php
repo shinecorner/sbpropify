@@ -1,8 +1,8 @@
 <?php
 
 use Faker\Factory as Faker;
-use App\Models\Post;
-use App\Repositories\PostRepository;
+use App\Models\Pinboard;
+use App\Repositories\PinboardRepository;
 
 trait MakePostTrait
 {
@@ -10,12 +10,12 @@ trait MakePostTrait
      * Create fake instance of Post and save it in database
      *
      * @param array $postFields
-     * @return Post
+     * @return Pinboard
      */
     public function makePost($postFields = [])
     {
-        /** @var PostRepository $postRepo */
-        $postRepo = App::make(PostRepository::class);
+        /** @var PinboardRepository $postRepo */
+        $postRepo = App::make(PinboardRepository::class);
         $theme = $this->fakePostData($postFields);
         return $postRepo->create($theme);
     }
@@ -24,11 +24,11 @@ trait MakePostTrait
      * Get fake instance of Post
      *
      * @param array $postFields
-     * @return Post
+     * @return Pinboard
      */
     public function fakePost($postFields = [])
     {
-        return new Post($this->fakePostData($postFields));
+        return new Pinboard($this->fakePostData($postFields));
     }
 
     /**

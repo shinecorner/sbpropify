@@ -87,6 +87,7 @@ return [
     'none' => 'None',
     'all' => 'All',
     'loadMore' => 'Load more',
+    'loading' => 'Loading...',
     'account' => 'Account',
     'activate_account' => 'Activate Account',
     'activate_code' => 'Activate Code',
@@ -253,5 +254,5 @@ return [
     'to_homepage' => 'To Homepage',
     'assignment' => 'Assignment',
     'status_changed' => 'Status changed',
-    'notification' => 'Notification',
+    'monthly_rent_net' => 'Monthly rent',
 ];

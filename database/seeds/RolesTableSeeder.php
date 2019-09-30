@@ -14,7 +14,7 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         $userPermissions = Permission::where('name', 'like', '%-user')->get();
-        $postPermissions = Permission::where('name', 'like', '%-post')->get();
+        $pinboardPermissions = Permission::where('name', 'like', '%-pinboard')->get();
         $prodPermissions = Permission::where('name', 'like', '%-product')->get();
         $reqPermissions = Permission::where('name', 'like', '%-request')->get();
         $providerPermissions = Permission::where('name', 'like', '%-provider')->get();
@@ -30,9 +30,12 @@ class RolesTableSeeder extends Seeder
         $templatePermissions = Permission::where('name', 'like', '%-template')->get();
         $sReqCategPermissions = Permission::where('name', 'like', '%-service_request_category')->get();
         $cleanifyPermissions = Permission::where('name', 'like', '%-cleanify_request')->get();
+        $statisticsPermissions = Permission::where('name', 'like', '%_statistics')->get();
+        $tagPermissions = Permission::where('name', 'like', '%-tag')->get();
+        $translationPermissions = Permission::where('name', 'like', '%-translation')->get();
 
         $allPermissions = $userPermissions
-            ->merge($postPermissions)
+            ->merge($pinboardPermissions)
             ->merge($prodPermissions)
             ->merge($reqPermissions)
             ->merge($providerPermissions)
@@ -47,21 +50,12 @@ class RolesTableSeeder extends Seeder
             ->merge($templatePermissions)
             ->merge($sReqCategPermissions)
             ->merge($cleanifyPermissions)
-            ->merge($auditPermissions);
+            ->merge($auditPermissions)
+            ->merge($tagPermissions)
+            ->merge($translationPermissions)
+            ->merge($statisticsPermissions);
 
-        $adminPermissions = $userPermissions
-            ->merge($providerPermissions)
-            ->merge($commentPermissions)
-            ->merge($tenantPermissions)
-            ->merge($buildingPermissions)
-            ->merge($addressPermissions)
-            ->merge($unitPermissions)
-            ->merge($pManagerPermissions)
-            ->merge($quarterPermissions)
-            ->merge($realEstatePermissions)
-            ->merge($templatePermissions)
-            ->merge($sReqCategPermissions)
-            ->merge($reqPermissions);
+        $adminPermissions = $allPermissions;
 
         $superAdmin = new Role();
         $superAdmin->name = 'super_admin';
@@ -103,9 +97,9 @@ class RolesTableSeeder extends Seeder
         $RLCService->save();
         $servicePerms = [
             'list-request',
-            'post-comment',
+            'add-comment',
             'list-service_request_category',
-            'post-request_service',
+            'add-request_service',
             'edit-request_service',
             'list-quarter',
             'list-property_manager',
@@ -117,6 +111,19 @@ class RolesTableSeeder extends Seeder
             'view-tenant',
             'assign-request',
             'view-address',
+            'delete-comment',
+            'add_media_upload-quarter',
+            'delete_media_upload-quarter',
+            'add_media_upload-building',
+            'delete_media_upload-building',
+            'add_media_upload-pinboard',
+            'delete_media_upload-pinboard',
+            'add_media_upload-product',
+            'delete_media_upload-product',
+            'add_media_upload-tenant',
+            'delete_media_upload-tenant',
+            'add_media_upload-request',
+            'delete_media_upload-request'
 
         ];
         foreach ($servicePerms as $p) {
@@ -129,16 +136,34 @@ class RolesTableSeeder extends Seeder
         $RLCUser->description = '';
         $RLCUser->save();
         $tenantPerms = [
-            'post-post',
-            'post-product',
-            'post-comment',
-            'list-service_request_category',
-            'view-service_request_category',
-            'post-request_tenant',
-            'edit-request_tenant',
+            'list-pinboard',
+            'list-product',
             'list-request',
-            'post-cleanify_request',
-            'view-real_estate'
+            'list-service_request_category',
+            'add-pinboard',
+            'add-product',
+            'add-comment',
+            'add-request',
+            'add-request_tenant',
+            'add-cleanify_request',
+            'view-service_request_category',
+            'view-real_estate',
+            'view-tenants_statistics',
+            'edit-request',
+            'delete-comment',
+            'add_media_upload-quarter',
+            'delete_media_upload-quarter',
+            'add_media_upload-building',
+            'delete_media_upload-building',
+            'add_media_upload-pinboard',
+            'delete_media_upload-pinboard',
+            'add_media_upload-product',
+            'delete_media_upload-product',
+            'add_media_upload-tenant',
+            'delete_media_upload-tenant',
+            'add_media_upload-request',
+            'delete_media_upload-request',
+            'view-pinboard'
         ];
         foreach ($tenantPerms as $p) {
             $RLCUser->attachPermission(Permission::where('name', $p)->first());

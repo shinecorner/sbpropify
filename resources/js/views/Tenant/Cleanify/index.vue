@@ -50,13 +50,13 @@
                         </el-row>
                         <el-row :gutter="10">
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.cleanify.zip')" prop="zip"
+                                <el-form-item :label="$t('general.zip')" prop="zip"
                                 >
                                     <el-input type="text" v-model="model.zip"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.cleanify.city')"
+                                <el-form-item :label="$t('general.city')"
                                               prop="city"
                                 >
                                     <el-input type="text" v-model="model.city"></el-input>

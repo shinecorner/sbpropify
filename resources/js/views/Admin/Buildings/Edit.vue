@@ -132,7 +132,41 @@
                         </span>
                         <draggable @sort="sortFiles" v-model="model.media">
                             <transition-group name="list-complete">
-                                <el-row :gutter="10" :key="element.name" class="list-complete-item"
+                                <div key="list-complete-item" class="list-complete-item">
+                                    <el-table
+                                        :data="model.media"
+                                        style="width: 100%"
+                                        v-if="model.media && model.media.length"
+                                        :show-header="false"
+                                        >
+                                        <el-table-column
+                                            prop="collection_name"
+                                        >
+                                            <template slot-scope="scope">
+                                                <strong>{{$t(`models.building.${scope.row.collection_name}`)}}</strong>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column
+                                            align="right"
+                                        >
+                                            <template slot-scope="scope">
+                                                <a :href="scope.row.url" class="file-name" target="_blank">
+                                                    {{scope.row.name}}
+                                                </a>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column
+                                            align="right"
+                                        >
+                                            <template slot-scope="scope">
+                                                <el-button :style="{color: 'red'}" @click="deleteDocument('media', scope.$index)"
+                                                    icon="ti-close" size="mini" type="text"
+                                                />
+                                            </template>
+                                        </el-table-column>
+                                    </el-table>
+                                </div>
+                                <!-- <el-row :gutter="10" :key="element.name" class="list-complete-item"
                                         v-for="(element, i) in model.media">
                                     <el-col :md="12">
                                         <strong>{{$t(`models.building.${element.collection_name}`)}}</strong>
@@ -147,7 +181,7 @@
                                                    icon="ti-close" size="mini" type="text"
                                         />
                                     </el-col>
-                                </el-row>
+                                </el-row> -->
                             </transition-group>
                         </draggable>
                         <div class="mt15">
@@ -270,7 +304,7 @@
                                        style="margin: 15px 0 0; width: 100%" v-model="model.service_providers_ids">
                                 <el-option-group
                                     :key="serviceCategory"
-                                    :label="$t(`models.service.${serviceCategory}`)"
+                                    :label="$t(`models.service.category.${$constants.serviceProviders.category[serviceCategory]}`)"
                                     v-for="(services, serviceCategory) in allServices">
                                     <el-option
                                         :key="service.id"

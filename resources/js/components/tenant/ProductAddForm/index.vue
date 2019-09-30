@@ -32,7 +32,7 @@
             <el-input v-model="model.tenant_phone" />
         </el-form-item>
         <el-form-item style="grid-column: span 6">
-            <media-uploader ref="media" :id="product_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
+            <media-uploader ref="media" :id="product_id" :audit_id="audit_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
         <el-form-item v-if="!hideSubmit" style="grid-column: span 6">
             <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
@@ -64,6 +64,7 @@
                     hideSelectFilesButton: false
                 },
                 product_id: null,
+                audit_id: null,
                 model: {
                     media: [],
                     type: null,
@@ -125,7 +126,8 @@
                             if (this.model.media.length) {
                             // TODO - make await for this   
                                 this.product_id = resp.data.id;            
-                               this.$refs.media.startUploading();
+                                this.audit_id = resp.data.audit_id;
+                                this.$refs.media.startUploading();
                             }
                         }
                         

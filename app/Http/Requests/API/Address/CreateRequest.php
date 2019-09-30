@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\API\Address;
 
+use App\Http\Requests\BaseRequest;
 use App\Models\Address;
-use InfyOm\Generator\Request\APIRequest;
 
-class CreateRequest extends APIRequest
+class CreateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('post-address');
+        return $this->can('add-address');
     }
 
     /**

@@ -198,7 +198,7 @@ return [
     "welcome_other" => "other",
     "welcome_others" => "others",
     "welcome" => "Welcome :name",
-    "unwelcome" => "Take back the welcome greeting",
+    "unwelcome" => "I haven't welcome this person",
     "mark_all_as_read" => "Mark all as read",
     "notification_label" => "Notifications",
     "settings" => "Settings",    
@@ -223,4 +223,9 @@ return [
     "execution" => "Execution",
     "loading" => "Loading...",
     "chat" => "Chat",
+    "monthly_rent_net" => "Net monthly rent",
+    "emergency" => [
+        "title" => "Emergency Number",
+        "desc" => "If you have an emergency outside of office hours, please call the following number"
+    ]
 ];

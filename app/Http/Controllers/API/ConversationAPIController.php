@@ -6,12 +6,11 @@ use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Conversations\FilterModelCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Conversation\CommentRequest;
+use App\Http\Requests\API\Conversation\ViewRequest;
 use App\Models\Conversation;
-use App\Models\User;
 use App\Repositories\ConversationRepository;
 use App\Transformers\ConversationTransformer;
 use App\Transformers\CommentTransformer;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
@@ -21,10 +20,27 @@ use InfyOm\Generator\Criteria\LimitOffsetCriteria;
  */
 class ConversationAPIController extends AppBaseController
 {
+    /**
+     * @var ConversationRepository
+     */
     private $repo;
+
+    /**
+     * @var ConversationTransformer
+     */
     private $convTransf;
+
+    /**
+     * @var CommentTransformer
+     */
     private $commTransf;
 
+    /**
+     * ConversationAPIController constructor.
+     * @param ConversationRepository $repo
+     * @param ConversationTransformer $convTransf
+     * @param CommentTransformer $commTransf
+     */
     public function __construct(
         ConversationRepository $repo,
         ConversationTransformer $convTransf,
@@ -36,8 +52,6 @@ class ConversationAPIController extends AppBaseController
     }
 
     /**
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/conversations",
      *      summary="Display conversations",
@@ -64,8 +78,12 @@ class ConversationAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ViewRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function show(Request $request)
+    public function show(ViewRequest $request)
     {
         $this->repo->pushCriteria(new RequestCriteria($request));
         $this->repo->pushCriteria(new LimitOffsetCriteria($request));
@@ -85,9 +103,6 @@ class ConversationAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/conversations{id}",
      *      summary="Store a conversation message",
@@ -121,6 +136,9 @@ class ConversationAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @return Response
      */
     public function storeComment($id, CommentRequest $r)
     {

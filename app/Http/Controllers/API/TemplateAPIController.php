@@ -43,10 +43,6 @@ class TemplateAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Get(
      *      path="/templates",
      *      summary="Get a listing of the Templates.",
@@ -74,6 +70,10 @@ class TemplateAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return Response
+     * @throws Exception
      */
     public function index(ListRequest $request)
     {
@@ -96,10 +96,6 @@ class TemplateAPIController extends AppBaseController
     }
 
     /**
-     * @param ListCategoriesRequest $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Get(
      *      path="/templates/categories",
      *      summary="Get a listing of the Templates.",
@@ -127,8 +123,12 @@ class TemplateAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return Response
+     * @throws Exception
      */
-    public function categories(ListCategoriesRequest $request)
+    public function categories(ListRequest $request)
     {
         $templateCategories = $this->templateCategoryRepository->findWhere([
             'parent_id' => null
@@ -139,10 +139,6 @@ class TemplateAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Post(
      *      path="/templates",
      *      summary="Store a newly created Template in storage",
@@ -176,6 +172,10 @@ class TemplateAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(CreateRequest $request)
     {
@@ -188,11 +188,6 @@ class TemplateAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param ViewRequest $r
-     *
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/templates/{id}",
      *      summary="Display the specified Template",
@@ -226,6 +221,10 @@ class TemplateAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ViewRequest $r
+     * @return mixed
      */
     public function show($id, ViewRequest $r)
     {
@@ -241,11 +240,6 @@ class TemplateAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateRequest $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Put(
      *      path="/templates/{id}",
      *      summary="Update the specified Template in storage",
@@ -286,6 +280,11 @@ class TemplateAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update($id, UpdateRequest $request)
     {
@@ -306,10 +305,6 @@ class TemplateAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param DeleteRequest $r
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/templates/{id}",
      *      summary="Remove the specified Template from storage",
@@ -343,6 +338,11 @@ class TemplateAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $r
+     * @return mixed
+     * @throws Exception
      */
     public function destroy($id, DeleteRequest $r)
     {

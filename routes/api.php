@@ -27,14 +27,13 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     // Users
     Route::get('/users', 'UserAPIController@index')->name('users');
     Route::get('/users/me', 'UserAPIController@showLoggedIn')->name('users.me');
-    Route::get('/users/requestManagers', 'UserAPIController@requestManagers')->name('users.requestManagers');
+    Route::get('/users/requestManagers', 'UserAPIController@requestManagers')->name('users.requestManagers'); // @TODO used or not
     Route::get('/users/check-email', 'UserAPIController@checkEmail')->name('users.check-email');
     Route::get('/users/{id}', 'UserAPIController@show')->name('users.show');
 
     Route::post('/users', 'UserAPIController@store')->name('users.store');
-    Route::post('/users/me/upload_image', 'UserAPIController@uploadImageLoggedIn')->name('users.me.upload.image');
-    Route::post('/users/{id}/upload_image', 'UserAPIController@uploadImage')->name('users.upload.image');
-
+    Route::post('/users/me/upload_image', 'UserAPIController@uploadImageLoggedIn')->name('users.me.upload.image');  // @TODO ROLE RELATED is incorrect permission
+    Route::post('/users/{id}/upload_image', 'UserAPIController@uploadImage')->name('users.upload.image'); // @TODO ROLE RELATED one is incorrect permission
     Route::put('/users/me', 'UserAPIController@updateLoggedIn')->name('users.me.update');
     Route::put('/users/me/changePassword', 'UserAPIController@changePassword')->name('users.me.changePassword');
     Route::put('/users/me/settings', 'UserSettingsAPIController@updateLoggedIn')->name('users.me.settings.update');
@@ -47,12 +46,12 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Tenants
     Route::get('/tenants', 'TenantAPIController@index')->name('tenants');
-    Route::get('/tenants/gender-statistics', 'StatisticsAPIController@tenantsGenderStatistics')->name('tenants.gender-statistics');
-    Route::get('/tenants/age-statistics', 'StatisticsAPIController@tenantsAgeStatistics')->name('tenants.age-statistics');
+    Route::get('/tenants/gender-statistics', 'DashboardAPIController@tenantsGenderStatistics')->name('tenants.gender-statistics');
+    Route::get('/tenants/age-statistics', 'DashboardAPIController@tenantsAgeStatistics')->name('tenants.age-statistics');
     Route::get('/tenants/latest', 'TenantAPIController@latest')->name('tenants.latest');
     Route::get('/tenants/me', 'TenantAPIController@showLoggedIn')->name('tenants.me');
     Route::get('/tenants/{id}', 'TenantAPIController@show')->name('tenants.show');
-    Route::get('/tenants/{id}/statistics', 'StatisticsAPIController@tenantStatistics')->name('tenants.statistics.show');
+    Route::get('/tenants/{id}/statistics', 'DashboardAPIController@tenantStatistics')->name('tenants.statistics.show');
 
     Route::post('/tenants', 'TenantAPIController@store')->name('tenants.store');
     Route::post('/addReview', 'TenantAPIController@addReview');
@@ -96,7 +95,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/buildings/latest', 'BuildingAPIController@latest')->name('buildings.latest');
     Route::get('/buildings/map', 'BuildingAPIController@map')->name('buildings.map');
     Route::get('/buildings/{id}', 'BuildingAPIController@show')->name('buildings.show');
-    Route::get('/buildings/{id}/statistics', 'StatisticsAPIController@buildingStatistics')->name('buildings.statistics.show');
+    Route::get('/buildings/{id}/statistics', 'DashboardAPIController@buildingStatistics')->name('buildings.statistics.show');
     Route::get('/buildings/{id}/assignees', 'BuildingAPIController@getAssignees');
 
     Route::post('/buildings', 'BuildingAPIController@store')->name('buildings.store');
@@ -170,30 +169,55 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::delete('/quarters-assignees/{quarters_assignee_id}', 'QuarterAPIController@deleteQuarterAssignee');
 
 
-    // Posts
-    Route::resource('posts', 'PostAPIController');
-    Route::post('/posts/deletewithids', 'PostAPIController@destroyWithIds')->name('posts.destroyWithIds');
-    Route::post('posts/{id}/publish', 'PostAPIController@publish')->name('posts.publish');
-    Route::post('posts/{id}/like', 'PostAPIController@like')->name('posts.like');
-    Route::post('posts/{id}/unlike', 'PostAPIController@unlike')->name('posts.unlike');
-    Route::post('posts/{id}/media', 'MediaAPIController@postUpload')->name('posts.media.upload');
-    Route::delete('posts/{id}/media/{media_id}', 'MediaAPIController@postDestroy')->name('posts.media.destroy');
-    Route::post('posts/{id}/comments', 'CommentAPIController@storePostComment')->name('posts.store.comment');
-    Route::get('/posts/{id}/locations', 'PostAPIController@getLocations');
-    Route::post('/posts/{id}/buildings/{building_id}', 'PostAPIController@assignBuilding');
-    Route::delete('/posts/{id}/buildings/{building_id}', 'PostAPIController@unassignBuilding');
-    Route::post('/posts/{id}/quarters/{quarter_id}', 'PostAPIController@assignQuarter');
-    Route::post('/posts/{id}/districts/{district_id}', 'PostAPIController@assignQuarter');
-    Route::delete('/posts/{id}/quarters/{quarter_id}', 'PostAPIController@unassignQuarter');
-    Route::delete('/posts/{id}/districts/{district_id}', 'PostAPIController@unassignQuarter');
-    Route::post('/posts/{id}/providers/{provider_id}', 'PostAPIController@assignProvider');
-    Route::delete('/posts/{id}/providers/{provider_id}', 'PostAPIController@unassignProvider');
-    Route::put('/posts/{id}/views', 'PostAPIController@incrementViews');
-    Route::get('/posts/{id}/views', 'PostAPIController@indexViews');
+    // Pinboard
+    Route::resource('pinboard', 'PinboardAPIController');
+    Route::post('/pinboard/deletewithids', 'PinboardAPIController@destroyWithIds')->name('pinboard.destroyWithIds');
+    Route::post('pinboard/{id}/publish', 'PinboardAPIController@publish')->name('pinboard.publish');
+    Route::post('pinboard/{id}/like', 'PinboardAPIController@like')->name('pinboard.like');
+    Route::post('pinboard/{id}/unlike', 'PinboardAPIController@unlike')->name('pinboard.unlike');
+    Route::post('pinboard/{id}/media', 'MediaAPIController@pinboardUpload')->name('pinboard.media.upload');
+    Route::delete('pinboard/{id}/media/{media_id}', 'MediaAPIController@pinboardDestroy')->name('pinboard.media.destroy');
+    Route::post('pinboard/{id}/comments', 'CommentAPIController@storePinboardComment')->name('pinboard.store.comment');
+    Route::get('/pinboard/{id}/locations', 'PinboardAPIController@getLocations');
+    Route::post('/pinboard/{id}/buildings/{building_id}', 'PinboardAPIController@assignBuilding');
+    Route::delete('/pinboard/{id}/buildings/{building_id}', 'PinboardAPIController@unassignBuilding');
+    Route::post('/pinboard/{id}/quarters/{quarter_id}', 'PinboardAPIController@assignQuarter');
+    Route::post('/pinboard/{id}/districts/{district_id}', 'PinboardAPIController@assignQuarter');
+    Route::delete('/pinboard/{id}/quarters/{quarter_id}', 'PinboardAPIController@unassignQuarter');
+    Route::delete('/pinboard/{id}/districts/{district_id}', 'PinboardAPIController@unassignQuarter');
+    Route::post('/pinboard/{id}/providers/{provider_id}', 'PinboardAPIController@assignProvider');
+    Route::delete('/pinboard/{id}/providers/{provider_id}', 'PinboardAPIController@unassignProvider');
+    Route::put('/pinboard/{id}/views', 'PinboardAPIController@incrementViews');
+    Route::get('/pinboard/{id}/views', 'PinboardAPIController@indexViews');
+
+    Route::get('pinboard/rss.xml', 'PinboardAPIController@showNewsRSS');
+    Route::get('pinboard/weather.json', 'PinboardAPIController@showWeatherJSON');
+
+
+    // Pinboard
+    Route::resource('posts', 'PinboardAPIController');
+    Route::post('/posts/deletewithids', 'PinboardAPIController@destroyWithIds')->name('posts.destroyWithIds');
+    Route::post('posts/{id}/publish', 'PinboardAPIController@publish')->name('posts.publish');
+    Route::post('posts/{id}/like', 'PinboardAPIController@like')->name('posts.like');
+    Route::post('posts/{id}/unlike', 'PinboardAPIController@unlike')->name('posts.unlike');
+    Route::post('posts/{id}/media', 'MediaAPIController@pinboardUpload')->name('posts.media.upload');
+    Route::delete('posts/{id}/media/{media_id}', 'MediaAPIController@pinboardDestroy')->name('posts.media.destroy');
+    Route::post('posts/{id}/comments', 'CommentAPIController@storePinboardComment')->name('posts.store.comment');
+    Route::get('/posts/{id}/locations', 'PinboardAPIController@getLocations');
+    Route::post('/posts/{id}/buildings/{building_id}', 'PinboardAPIController@assignBuilding');
+    Route::delete('/posts/{id}/buildings/{building_id}', 'PinboardAPIController@unassignBuilding');
+    Route::post('/posts/{id}/quarters/{quarter_id}', 'PinboardAPIController@assignQuarter');
+    Route::post('/posts/{id}/districts/{district_id}', 'PinboardAPIController@assignQuarter');
+    Route::delete('/posts/{id}/quarters/{quarter_id}', 'PinboardAPIController@unassignQuarter');
+    Route::delete('/posts/{id}/districts/{district_id}', 'PinboardAPIController@unassignQuarter');
+    Route::post('/posts/{id}/providers/{provider_id}', 'PinboardAPIController@assignProvider');
+    Route::delete('/posts/{id}/providers/{provider_id}', 'PinboardAPIController@unassignProvider');
+    Route::put('/posts/{id}/views', 'PinboardAPIController@incrementViews');
+    Route::get('/posts/{id}/views', 'PinboardAPIController@indexViews');
 
     // News
-    Route::get('news/rss.xml', 'NewsAPIController@showNewsRSS');
-    Route::get('news/weather.json', 'NewsAPIController@showWeatherJSON');
+    Route::get('news/rss.xml', 'PinboardAPIController@showNewsRSS');
+    Route::get('news/weather.json', 'PinboardAPIController@showWeatherJSON');
 
     //Internal Notices
     Route::resource('internalNotices', 'InternalNoticeAPIController');
@@ -209,8 +233,10 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/conversations', 'ConversationAPIController@show');
     Route::post('/conversations/{id}/comments', 'ConversationAPIController@storeComment');
 
+    // Cleanify Request
     Route::get('cleanify', 'CleanifyRequestAPIController@index');
     Route::post('cleanify', 'CleanifyRequestAPIController@store');
+
     // Service Requests Category
     Route::get('/requestCategories', 'ServiceRequestCategoryAPIController@index')->name('requests.categories');
     Route::get('/requestCategories/tree', 'ServiceRequestCategoryAPIController@categoryTree')->name('requests.categories.tree');
@@ -225,7 +251,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     // Service Requests
     Route::get('/requests', 'ServiceRequestAPIController@index')->name('requests');
     Route::get('/requestsCounts', 'ServiceRequestAPIController@requestsCounts')->name('requestsCounts');
-    Route::get('/requests/statistics', 'StatisticsAPIController@requestsStatistics')->name('requests.statistics');
+    Route::get('/requests/statistics', 'DashboardAPIController@requestsStatistics')->name('requests.statistics');
     Route::get('/requests/{id}', 'ServiceRequestAPIController@show')->name('requests.show');
     Route::post('/requests', 'ServiceRequestAPIController@store')->name('requests.store');
     Route::post('/requests/{id}/media', 'MediaAPIController@serviceRequestUpload')->name('requests.media.upload');
@@ -299,20 +325,20 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Translations
     Route::resource('translations', 'TranslationAPIController');
-    Route::get('/admin/statistics', 'StatisticsAPIController@adminStats');
-    Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
-    Route::get('/admin/chartRequestByAssignedProvider', 'StatisticsAPIController@chartRequestByAssignedProvider');
-    Route::get('/admin/chartBuildingsByCreationDate', 'StatisticsAPIController@chartBuildingsByCreationDate');
-    Route::get('/admin/chartByCreationDate', 'StatisticsAPIController@chartByCreationDate');
+    Route::get('/admin/statistics', 'DashboardAPIController@adminStats');
+    Route::get('/admin/chartRequestByCreationDate', 'DashboardAPIController@chartRequestByCreationDate');
+    Route::get('/admin/chartRequestByAssignedProvider', 'DashboardAPIController@chartRequestByAssignedProvider');
+    Route::get('/admin/chartBuildingsByCreationDate', 'DashboardAPIController@chartBuildingsByCreationDate');
+    Route::get('/admin/chartByCreationDate', 'DashboardAPIController@chartByCreationDate');
 
-    Route::get('/admin/donutChart', 'StatisticsAPIController@donutChart');
-    Route::get('/admin/donutChartRequestByCategory', 'StatisticsAPIController@donutChartRequestByCategory');
-    Route::get('/admin/donutChartTenantsByDateAndStatus', 'StatisticsAPIController@donutChartTenantsByDateAndStatus');
-    Route::get('/admin/pieChartBuildingByState', 'StatisticsAPIController@pieChartBuildingByState');
+    Route::get('/admin/donutChart', 'DashboardAPIController@donutChart');
+    Route::get('/admin/donutChartRequestByCategory', 'DashboardAPIController@donutChartRequestByCategory');
+    Route::get('/admin/donutChartTenantsByDateAndStatus', 'DashboardAPIController@donutChartTenantsByDateAndStatus');
+    Route::get('/admin/pieChartBuildingByState', 'DashboardAPIController@pieChartBuildingByState');
 
-    Route::get('/admin/heatMapByDatePeriod', 'StatisticsAPIController@heatMapByDatePeriod');
-    Route::get('/admin/chartLoginDevice', 'StatisticsAPIController@chartLoginDevice');
-    Route::get('/admin/chartTenantLanguage', 'StatisticsAPIController@chartTenantLanguage');
+    Route::get('/admin/heatMapByDatePeriod', 'DashboardAPIController@heatMapByDatePeriod');
+    Route::get('/admin/chartLoginDevice', 'DashboardAPIController@chartLoginDevice');
+    Route::get('/admin/chartTenantLanguage', 'DashboardAPIController@chartTenantLanguage');
 });
 
 

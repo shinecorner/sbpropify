@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests\API\Audit;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Validation\Rule;
 use App\Models\ServiceRequest;
 
-class ListRequest extends APIRequest
+class ListRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,15 +30,5 @@ class ListRequest extends APIRequest
         }
 
         return false;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
     }
 }

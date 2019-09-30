@@ -4,7 +4,7 @@
             <ui-heading icon="icon-megaphone-1" :title="$t('tenant.news')" :description="$t('tenant.heading_info.news')" />
             
                 <ui-divider />
-            <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
+            <div class="container" >
                 
                 <div class="content">
                     <post-add-card />
@@ -16,19 +16,19 @@
                             <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                         </el-popover> -->
                     </el-divider>
-                    <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode v-if="!loading">
-                        <template #before v-if="loading && !filteredPosts.length">
+                    <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" v-if="!loading && filteredPosts.length">
+                        <!-- <template #before v-if="loading && !filteredPosts.length">
                             <loader v-for="idx in 5" :key="idx" />
-                        </template>
+                        </template> -->
                         <template v-slot="{item, index, active}">
-                            <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" :watchData="true" >
-                                <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'"/>
-                                <post-card :data="item" @edit-post="editPost" @delete-post="deletePost" v-else/>
+                            <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" page-mode v-if="!loading">
+                                <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour' && item.user_id != $store.getters.loggedInUser.id"/>
+                                <post-card :data="item" @edit-post="editPost" @delete-post="deletePost" v-else-if="$constants.posts.type[item.type] !== 'new_neighbour'"/>
                             </dynamic-scroller-item>
                         </template>
-                        <template #after v-if="loading && filteredPosts.length">
+                        <!-- <template #after v-if="loading && !filteredPosts.length">
                             <loader />
-                        </template>
+                        </template> -->
                     </dynamic-scroller>
                 </div>
                 <rss-feed class="rss-feed" title="Blick.ch News" />
@@ -182,7 +182,6 @@
                 });
             },
             editPost(event, data) {
-                console.log('editPost', data)
                this.editingPost = data;
                this.visibleDrawer = true;
             }
@@ -207,6 +206,10 @@
                 //     this.$refs['dynamic-scroller'].forceUpdate()
                 return this.posts.data.filter( post => { return this.filterCategory == null || post.category == this.filterCategory})
             }
+        },
+        async mounted() {
+            await this.$store.dispatch('newPosts/reset')
+            await this.getPosts()
         }
     }
 </script>
@@ -247,6 +250,7 @@
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
+    
     .container {
         display: grid;
         grid-gap: 12px;
@@ -296,6 +300,8 @@
             }
 
             .vue-recycle-scroller {
+                overflow-x: hidden;
+
                 :global(.vue-recycle-scroller__item-wrapper) {
                     overflow: visible;
 
@@ -305,6 +311,10 @@
                     }
                 }
             }
+        }
+
+        .el-divider--horizontal {
+            margin: 24px 0;
         }
     }
 

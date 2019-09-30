@@ -10,7 +10,7 @@
                     {{formatDatetime(data.created_at)}}
                 </small>
             </div>
-            <div class="actions" v-if="showActions">
+            <div class="actions" v-if="showActions && loggedInUser.id == data.user_id">
                 <el-tooltip :content="$t('tenant.tooltips.edit_post')">
                     <el-button size="mini" @click="$emit('edit-post', $event, data)" plain round>{{$t('general.actions.edit')}}</el-button>
                 </el-tooltip>
@@ -59,6 +59,8 @@
 </template>
 
 <script>
+    import {mapActions, mapGetters} from 'vuex'
+
     import AgoMixin from 'mixins/agoMixin'
     import Card from 'components/Card'
     import Likes from 'components/tenant/Likes'
@@ -79,6 +81,11 @@
                 idProp: vm => vm.data.id
             })
         ],
+        data () {
+            return {
+                height: null,
+            }
+        },
         props: {
             data: {
                 type: Object,
@@ -87,7 +94,7 @@
             showActions : {
                 type: Boolean,
                 default: true
-            }
+            },
         },
         idState () {
             return {
@@ -107,6 +114,8 @@
             }
         },
         computed: {
+            ...mapGetters(['loggedInUser']),
+
             isNewNeighbourType() {
                 return this.$store.getters['application/constants'].posts.type[this.data.type] === 'new_neighbour'
             },
@@ -123,9 +132,11 @@
 
                 return `${title}. ${first_name} ${last_name}`
             }
+            
         },
         mounted () {
             this.data.height =  this.$refs.container.clientHeight
+
         }
     }
 </script>
@@ -240,6 +251,8 @@
 
         :global(.comments-list) {
             margin: 16px 0;
+            min-height: 30px;
+
             > :global(.el-button) {
                 padding-top: 0;
             }
