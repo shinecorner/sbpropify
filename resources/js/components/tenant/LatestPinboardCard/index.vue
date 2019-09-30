@@ -1,15 +1,15 @@
 <template>
     <ui-card shadow="always">
         <template #header>
-            <i class="icon-megaphone-1"></i> {{$t('tenant.latest_news')}}
+            <i class="icon-megaphone-1"></i> {{$t('tenant.latest_pinboard')}}
             <el-button type="text" @click="$router.push({name: 'tenantPinboard'})">{{$t('tenant.actions.view_all')}}</el-button>
         </template>
         <loader v-if="loading" />
         <div class="placeholder" v-else-if="!loading && !pinboard.length">
             <img class="image" :src="require('img/5c9d6e6c73f70.png')" />
             <div class="content">
-                <div class="title">{{$t('tenant.no_data.news')}}</div>
-                <div class="description">{{$t('tenant.no_data_info.news')}}</div>
+                <div class="title">{{$t('tenant.no_data.pinboard')}}</div>
+                <div class="description">{{$t('tenant.no_data_info.pinboard')}}</div>
             </div>
         </div>
         <el-collapse :value="0" accordion v-else>

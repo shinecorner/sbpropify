@@ -31,7 +31,7 @@
                         </template> -->
                     </dynamic-scroller>
                 </div>
-                <rss-feed class="rss-feed" title="Blick.ch News" />
+                <rss-feed class="rss-feed" title="Blick.ch Pinboard" />
             </div>
             
         </div>
