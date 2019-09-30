@@ -636,6 +636,8 @@ return [
         'reset_sort' => 'Reset Sort de',
         'creation_date' => 'Creation Date de',
         'ago' => 'ago de',
+        'not_set' => 'Not set de',
+        'today' => 'Today de',
         'media' => [
             'added' => 'Mediendatei hinzugefügt',
             'removed' => 'Mediendatei entfernt.',

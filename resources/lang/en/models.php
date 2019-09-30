@@ -636,7 +636,9 @@ return [
         'reset_sort' => 'Reset Sort',
         'creation_date' => 'Creation Date',
         'ago' => 'ago',
-        'media' => [
+        'not_set' => 'Not set',
+        'today' => 'Today',
+        'media'  => [
             'added' => 'Document added',
             'removed' => 'Document removed',
             'deleted' => 'Document deleted',
