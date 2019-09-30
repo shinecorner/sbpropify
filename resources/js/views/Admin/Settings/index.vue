@@ -130,12 +130,12 @@
                                             <el-switch v-model="model.marketplace_approval_enable"/>
                                         </el-form-item> -->
                                         <el-form-item class="switcher"
-                                                      prop="news_approval_enable">
+                                                      prop="pinboard_approval_enable">
                                             <label class="switcher__label">
-                                                {{$t('models.realEstate.news_approval_enable')}}
-                                                <span class="switcher__desc">{{$t('models.realEstate.news_approval_enable_desc')}}</span>
+                                                {{$t('models.realEstate.pinboard_approval_enable')}}
+                                                <span class="switcher__desc">{{$t('models.realEstate.pinboard_approval_enable_desc')}}</span>
                                             </label>
-                                            <el-switch v-model="model.news_approval_enable"/>
+                                            <el-switch v-model="model.pinboard_approval_enable"/>
                                         </el-form-item>
                                         <el-form-item class="switcher"
                                                       prop="contact_enable">
@@ -526,7 +526,7 @@
                     tenant_logo_upload: '',
                     tenant_logo_upload: '',
                     marketplace_approval_enable: true,
-                    news_approval_enable: false,
+                    pinboard_approval_enable: false,
                     comment_update_timeout: 60,
                     iframe_url: '',
                     mail_from_name: '',
