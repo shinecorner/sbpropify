@@ -1,33 +1,6 @@
 <script>
-    import {mapActions} from 'vuex';
-
-    export default {
-        data() {
-            return {}
-        },
-        props: {
-          
-        },
-        created() {
-            const token = this.$route.query.token;
-
-            if (!token) {
-                this.$router.push({name: 'login'});
-                return;
-            }
-
-            this.autoLogin({token}).then((response) => {
-                window.location.href = response.redirect;
-            }).catch((error) => {
-                this.$router.push({name: 'login'});
-            });
-        },
-        render() {
-            return false;
-        },
-        methods: {
-            ...mapActions(['autoLogin'])
-        },
-     
-    }
+   import authAutoLoginMixin from 'mixins/authAutoLoginMixin';
+   export default {
+       mixins: [authAutoLoginMixin]
+   }
 </script>
