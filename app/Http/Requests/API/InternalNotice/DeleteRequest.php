@@ -3,6 +3,8 @@
 namespace App\Http\Requests\API\InternalNotice;
 
 use App\Http\Requests\BaseRequest;
+use App\Models\InternalNotice;
+use Illuminate\Support\Facades\Auth;
 
 class DeleteRequest extends BaseRequest
 {
@@ -13,7 +15,10 @@ class DeleteRequest extends BaseRequest
      */
     public function authorize()
     {
-        //TODO ROLE RELATED is need create delete-internal_notice
-        return true;
+        if (! $this->can('delete-internal_notice')) {
+            return false;
+        }
+
+        return InternalNotice::where('user_id', Auth::id())->where('id', $this->route('internalNotice'))->exists();
     }
 }

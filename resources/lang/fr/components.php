@@ -3,17 +3,17 @@ return [
     'common' => [
         'audit' => [
             'type' => [
-                'post' => 'Poster',
+                'pinboard' => 'Panneau d\'affichage',
                 'product' => 'Produit',
                 'request' => 'Demande'
             ],
             'filter' => [
                 'type' => [
-                    'post' => 'Poster',
+                    'pinboard' => 'Panneau d\'affichage',
                     'product' => 'Produit',
                     'request' => 'Demande'
                 ],
-                'post' => [
+                'pinboard' => [
                     'created' => 'Créé',
                     'updated' => 'Mises à jour',
                     'provider_assigned' => 'Fournisseur assigné',
@@ -35,11 +35,11 @@ return [
             ],
             'content' => [
                 'withId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} a ouvert ce {auditable_type} à bord de {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'status' => 'Le statut est passé de "{old}" au "{new}".',
-                            'published_at' => 'Article publié sur {new}.'
+                            'published_at' => 'Panneau d\'affichage publié sur {new}.'
                         ]
                     ],
                     'product' => [
@@ -81,11 +81,11 @@ return [
                     ]
                 ],
                 'withNoId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} a ouvert ce {auditable_type} à bord de {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'status' => 'Le statut est passé de "{old}" au "{new}" sur {auditable_type} #{auditable_id}.',
-                            'published_at' => 'Article publié au {new} sur {auditable_type} #{auditable_id}.'
+                            'published_at' => 'Panneau d\'affichage publié au {new} sur {auditable_type} #{auditable_id}.'
                         ]
                     ],
                     'product' => [
@@ -126,17 +126,41 @@ return [
                 ]
             ],
         ],
-        'commentsList' => [
-            'loading' => 'Chargement...',
-            'loadMore' => [
-                'simple' => 'Charge {count} plus',
-                'detailed' => 'Charge {count} commentaires supplémentaires',
-            ],
+        'commentsList' => [            
+            'loadMore' => 'Charge {count} commentaires supplémentaires',
             'emptyPlaceholder' => [
                 'title' => "Il n'y a pas encore de messages...",
                 'description' => 'Commencez la messagerie en utilisant le formulaire ci-dessous et appuyez sur Entrée.',
             ],
         ],
+        'internalnoticesList' => [            
+            'loadMore' => "Charger {count} plus d'avis interne",            
+            'emptyPlaceholder' => [
+                'title' => "Il n'y a pas encore d'avis internes",
+                'description' => "Ajoutez une résiliation interne en utilisant le formulaire ci-dessous et appuyez sur Entrée.",
+            ],
+        ],
+        'serviceproviderconversationsList' => [            
+            'loadMore' => 'Charger {count} plus conversations avec les fournisseurs de services',
+            'emptyPlaceholder' => [
+                'title' => "Il n'y a pas encore de conversations avec le fournisseur de services",
+                'description' => "Ajoutez la conversation au fournisseur de services en utilisant le formulaire ci-dessous et appuyez sur Entrée.",
+            ],
+        ],
+        'tenantconversationsList' => [
+            'loadMore' => 'Charger {count} plus conversations avec les locataires',
+            'emptyPlaceholder' => [
+                'title' => "Il n'y a pas de conversation avec le locataire.",
+                'description' => "Ajouter un message au locataire à l'aide du formulaire ci-dessous et appuyez sur Entrée.",
+            ],
+        ],
+        'listingcommentsList' => [
+            'loadMore' => 'Charger {count} plus commentaires de listage',
+            'emptyPlaceholder' => [
+                'title' => "Il n'y a pas de commentaires pour l'inscription",
+                'description' => "Renseignez-vous sur l'inscription en envoyant un message à l'aide du formulaire ci-dessous et appuyez sur Entrée.",
+            ],
+        ], 
         'comment' => [
             'updateShortcut' => 'ou utiliser {shortcut} raccourci',
             'updateOrCancel' => '{update} ou appuyez sur {esc} au {cancel}',
@@ -184,7 +208,7 @@ return [
             'humidity' => 'nébulosité',
             'pressure' => 'humidité',
         ],
-        'postAdd' => [
+        'pinboardAdd' => [
             'visibility' => [
                 'address' => 'faire pression',
                 'quarter' => 'Trimestre',

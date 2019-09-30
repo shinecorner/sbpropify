@@ -51,7 +51,7 @@
             type: {
                 type: String,
                 required: true,
-                validator: type => ['post', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
+                validator: type => ['pinboard', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
             },
             autofocus: {
                 type: Boolean,

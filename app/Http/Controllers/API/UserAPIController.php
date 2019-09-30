@@ -127,7 +127,7 @@ class UserAPIController extends AppBaseController
      */
     public function requestManagers(ListRequest $request)
     {
-        $request->request->set('roles', ['administrator', 'super_admin', 'manager']);
+        $request->request->set('roles', ['administrator', 'manager']);
         $this->userRepository->pushCriteria(new RequestCriteria($request));
         $this->userRepository->pushCriteria(new FilterByRolesCriteria($request));
         $this->userRepository->pushCriteria(new LimitOffsetCriteria($request));

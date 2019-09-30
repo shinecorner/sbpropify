@@ -11,7 +11,7 @@ return [
             'myRecentContract' => 'Mietvertrag',
             'myDocuments' => 'Objekt-Dokumentation',
             'myContactPersons' => 'Kontaktpersonen',
-            'posts' => 'Pinnwand',
+            'pinboard' => 'Pinnwand',
             'requests' => 'Anfragen',
             'products' => 'Marktplatz',
             'settings' => 'Einstellungen',

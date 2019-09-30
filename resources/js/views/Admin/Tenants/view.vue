@@ -292,12 +292,12 @@
                             <el-card class="chart-card">
                                 <h3 class="right-card">
                                     <i class="icon-megaphone-1 icon"/>
-                                    {{ $t('models.tenant.posts') }}
+                                    {{ $t('models.tenant.pinboard') }}
                                 </h3>
                                 <Timeline
                                         :filterValue="user.id"
-                                        :noDataMessage="$t('general.no_posts')"
-                                        fetchAction="getPostsTruncated"
+                                        :noDataMessage="$t('general.no_pinboard')"
+                                        fetchAction="getPinboardTruncated"
                                         filter="user_id"
                                         v-if="!_.isEmpty(user)"
                                 />
@@ -353,7 +353,7 @@
         data() {
             return {
                 requests: [],
-                posts: [],
+                pinboard: [],
                 products: [],
 
             };

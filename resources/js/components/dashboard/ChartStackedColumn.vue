@@ -51,9 +51,9 @@ export default {
       if(this.type === 'request_by_creation_date'){
         url = 'admin/chartRequestByCreationDate';
       }
-      else if (this.type === 'news_by_creation_date') {
-        url = 'admin/chartByCreationDate?table=posts';
-        langPrefix = 'models.post.status.';
+      else if (this.type === 'pinboard_by_creation_date') {
+        url = 'admin/chartByCreationDate?table=pinboard';
+        langPrefix = 'models.pinboard.status.';
       }
       else if (this.type === 'products_by_creation_date') {
         url = 'admin/chartByCreationDate?table=products';

@@ -92,7 +92,7 @@
             },
             type: {
                 type: String,
-                validator: type => ['posts', 'requests', 'products'].includes(type),
+                validator: type => ['pinboard', 'requests', 'products'].includes(type),
                 required: true
             },
             layout: {
@@ -266,8 +266,8 @@
                     merge_in_audit: this.audit_id
                 }))
                 .then(data => {
-                    if(this.type == "posts") {
-                        this.$store.dispatch('newPosts/addMedia', {
+                    if(this.type == "pinboard") {
+                        this.$store.dispatch('newPinboard/addMedia', {
                             id : this.id, media: data.response.data
                         })  
                     }

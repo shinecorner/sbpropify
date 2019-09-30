@@ -14,7 +14,7 @@ class CreateRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('add-service_request_category');
+        return $this->can('add-request');
     }
 
     /**

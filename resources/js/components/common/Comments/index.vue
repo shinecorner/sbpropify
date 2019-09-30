@@ -2,9 +2,27 @@
     <loader v-if="loading && !comments.data.length" />
     <div class="placeholder" v-else-if="!loading && !comments.data.length">
         <template v-if="usePlaceholder">
-            <img class="image" :src="require('img/5c98b47a97050.png')" />
-            <div class="title">{{$t('components.common.commentsList.emptyPlaceholder.title')}}</div>
-            <div class="description">{{$t('components.common.commentsList.emptyPlaceholder.description')}}</div>
+            <img class="image" :src="require('img/5c98b47a97050.png')" />            
+            <template v-if="type === 'internalNotices'">
+                <div class="title">{{$t('components.common.internalnoticesList.emptyPlaceholder.title')}}</div>
+                <div class="description">{{$t('components.common.internalnoticesList.emptyPlaceholder.description')}}</div>
+            </template>            
+            <template v-else-if="type === 'conversation'">
+                <div class="title">{{$t('components.common.serviceproviderconversationsList.emptyPlaceholder.title')}}</div>
+                <div class="description">{{$t('components.common.serviceproviderconversationsList.emptyPlaceholder.description')}}</div>
+            </template>            
+            <template v-else-if="((type === 'request') && ($store.getters.loggedInUser.roles.findIndex(({name}) => name === 'super_admin') > -1))">
+                <div class="title">{{$t('components.common.tenantconversationsList.emptyPlaceholder.title')}}</div>
+                <div class="description">{{$t('components.common.tenantconversationsList.emptyPlaceholder.description')}}</div>
+            </template>
+            <template v-else-if="((type === 'product') && ($store.getters.loggedInUser.roles.findIndex(({name}) => name === 'registered') > -1))">
+                <div class="title">{{$t('components.common.listingcommentsList.emptyPlaceholder.title')}}</div>
+                <div class="description">{{$t('components.common.listingcommentsList.emptyPlaceholder.description')}}</div>
+            </template>            
+            <template v-else>
+                <div class="title">{{$t('components.common.commentsList.emptyPlaceholder.title')}}</div>
+                <div class="description">{{$t('components.common.commentsList.emptyPlaceholder.description')}}</div>
+            </template>        
         </template>
     </div>
     <div class="comments-list" v-else>
@@ -13,8 +31,8 @@
                 <template #before>
                     <el-divider v-if="comments.current_page !== comments.last_page">
                         <el-button icon="el-icon-top" size="mini" :loading="loading" round @click="fetch">
-                            <template v-if="loading">{{$t('components.common.commentsList.loading')}}</template>
-                            <template v-else>{{$t('components.common.commentsList.loadMore.simple', {count: comments.total - comments.data.length})}}</template>
+                            <template v-if="loading">{{$t('general.loading')}}</template>
+                            <template v-else>{{$t('general.load_more_count', {count: comments.total - comments.data.length})}}</template>
                         </el-button>
                     </el-divider>
                 </template>
@@ -31,7 +49,7 @@
         </template>
         <template v-else>
             <el-button type="text" @click="fetch" :loading="loading" v-if="!data && comments.current_page !== comments.last_page">
-                {{$t('components.common.commentsList.loadMore.detailed', {count: comments.total - comments.data.length})}}
+                {{$t('components.common.commentsList.loadMore', {count: comments.total - comments.data.length})}}
             </el-button>            
             <comment v-bind="commentComponentProps" :show-children="showChildren" v-for="comment in comments.data" :key="comment.id" :data="comment" :reversed="isCommentReversed(comment)" />
         </template>
@@ -52,7 +70,7 @@
             },
             type: {
                 type: String,
-                validator: type => ['post', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
+                validator: type => ['pinboard', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
             },
             data: {
                 type: Object

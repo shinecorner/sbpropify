@@ -6,10 +6,6 @@ Route::group([
     Route::post('login', 'AuthController@login')->name('login');
     Route::post('autologin', 'AuthController@autologin');
 
-    Route::post('forgot_password', 'PasswordResetController@forgot');
-    Route::get('forgot_password/{token}', 'PasswordResetController@find');
-    Route::post('reset_password', 'PasswordResetController@reset');
-
     // private routes
     Route::middleware('auth:api')->group(function () {
         Route::get('/logout', 'AuthController@logout')->name('logout');

@@ -11,7 +11,7 @@ import RequestsStore from 'store/modules/requests'
 import RequestCategoriesStore from 'store/modules/requestCategories'
 import PropertyManagersStore from 'store/modules/propertyManagers'
 import ProductsStore from 'store/modules/products'
-import PostsStore from 'store/modules/posts'
+import PinboardStore from 'store/modules/pinboard'
 import NotificationsStore from 'store/modules/notifications'
 import MediaStore from 'store/modules/media'
 import QuartersStore from 'store/modules/quarters'
@@ -22,11 +22,11 @@ import BuildingsStore from 'store/modules/buildings'
 import ApplicationStore from 'store/modules/application'
 import AddressesStore from 'store/modules/addresses'
 import Products2Store from 'store/modules/products2' // :(
-import Posts2Store from 'store/modules/posts2' // :(
+import Pinboard2Store from 'store/modules/pinboard2' // :(
 import TagsStore from 'store/modules/tags'
 
 // new ones - this will stay in the future, the above one will be removed at some point
-import NewPostsStore from 'store/modules/newPosts'
+import NewPinboardStore from 'store/modules/newPinboard'
 import NewRequestsStore from 'store/modules/newRequests'
 import NewProductsStore from 'store/modules/newProducts'
 import rentContractsStore from 'store/modules/rentContracts'
@@ -55,7 +55,7 @@ export default new Vuex.Store({
         units: UnitsStore,
         addresses: AddressesStore,
         services: ServicesStore,
-        posts: PostsStore,
+        pinboard: PinboardStore,
         quarters: QuartersStore,
         requests: RequestsStore,
         requestCategories: RequestCategoriesStore,
@@ -72,9 +72,9 @@ export default new Vuex.Store({
             namespaced: true,
             ...MediaStore
         },
-        posts2: {
+        pinboard2: {
             namespaced: true,
-            ...Posts2Store
+            ...Pinboard2Store
         },
         products2: {
             namespaced: true,
@@ -84,7 +84,7 @@ export default new Vuex.Store({
 
         // this will stay in the future only
         comments: CommentsStore,
-        newPosts: NewPostsStore,
+        newPinboard: NewPinboardStore,
         newProducts: NewProductsStore,
         newRequests: NewRequestsStore,
         rentContracts: rentContractsStore

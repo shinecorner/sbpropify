@@ -1,5 +1,5 @@
 <template>
-    <div class="post-media">
+    <div class="pinboard-media">
         <gallery :images="images" :index="image" :options="options" @close="close">
             <template slot="close">
                 <i class="el-icon-close"></i>
@@ -45,7 +45,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .post-media {
+    .pinboard-media {
         .blueimp-gallery {
             > :global(.prev),
             > :global(.next) {

@@ -92,9 +92,9 @@
                 tenant_logo_src: '',
                 quickLinks: [{
                     icon: 'icon-megaphone-1',
-                    title: 'tenant.add_post',
+                    title: 'tenant.add_pinboard',
                     route: {
-                        name: 'tenantPosts'
+                        name: 'tenantPinboards'
                     }
                 }, {
                     icon: 'icon-chat-empty',
@@ -160,9 +160,9 @@
                     }]
                 }, {
                     icon: 'icon-megaphone-1',
-                    title: 'layouts.tenant.sidebar.posts',
+                    title: 'layouts.tenant.sidebar.pinboard',
                     route: {
-                        name: 'tenantPosts'
+                        name: 'tenantPinboards'
                     }
                 }, {
                     icon: 'icon-chat-empty',

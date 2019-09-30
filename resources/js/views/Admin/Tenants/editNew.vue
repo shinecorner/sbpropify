@@ -546,11 +546,11 @@
                     }
                 })
             },
-            postEditView(post) {
+            pinboardEditView(pinboard) {
                 this.$router.push({
-                    name: 'adminPostsEdit',
+                    name: 'adminPinboardEdit',
                     params: {
-                        id: post.id
+                        id: pinboard.id
                     }
                 })
             },

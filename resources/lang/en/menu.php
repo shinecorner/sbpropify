@@ -1,7 +1,6 @@
 <?php
 return [
     'dashboard' => 'Dashboard',
-    'news' => 'News',
     'requests' => 'Requests',
     'all_requests' => 'All requests',
     'myRequests' => 'My Requests',
@@ -26,7 +25,7 @@ return [
     'all_buildings' => 'All buildings',
     'units' => 'Units',
     'addresses' => 'Addresses',
-    'posts' => 'News',
+    'pinboard' => 'Pinboard',
     'quarters' => 'Quarters',
     'products' => 'Products',
     'requestCategories' => 'Request categories',

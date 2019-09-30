@@ -12,6 +12,7 @@ use App\Models\InternalNotice;
 use App\Repositories\InternalNoticeRepository;
 use App\Transformers\InternalNotesTransformer;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class InternalNoticeController
@@ -140,6 +141,7 @@ class InternalNoticeAPIController extends AppBaseController
     {
         $input = $request->all();
 
+        $input['user_id'] = Auth::id();
         $internalNotice = $this->internalNoticeRepository->create($input);
         $internalNotice->load('user');
         return $this->sendResponse($internalNotice->toArray(), __('models.request.internal_notice_saved'));
