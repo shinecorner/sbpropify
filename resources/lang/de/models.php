@@ -153,9 +153,9 @@ return [
             'other' => 'Sonstiges',
         ],
         'net_rent' => 'Nettomiete',
-        'heating_operating_costs_installment' => 'Heizungs-/Betriebskostenrate',
-        'maintenance' => 'Wartung',
-        'parking_price' => 'Parkplatz Preis',
+        'heating_operating_costs_installment' => 'Heiz- und Nebenkosten',
+        'maintenance' => 'Heiz- und Nebenkosten',
+        'parking_price' => 'Miete',
         'gross_rent' => 'Bruttomiete',
         'deposit_status' => [
             'label' => 'Einzahlungsstatus',
@@ -204,12 +204,12 @@ return [
         ]
     ],
     'rent_contract' => [
-        'saved' => 'Mietvertrag gesichert',
-        'deleted' => 'Mietvertrag gelöscht',
+        'saved' => 'Mietvertrag wurde gespeichert.',
+        'deleted' => 'Mietvertrag wurde gelöscht.',
         'errors' => [
-            'not_found' => 'Mieter Mietvertrag nicht gefunden',
+            'not_found' => 'Mieter Mietvertrag nicht gefunden.',
             'create' => 'Mietvertrag des Mieters erstellt Fehler: ',
-            'deleted' => 'Mieter Mietvertrag Löschfehler: ',
+            'deleted' => 'Mietvertrag Löschfehler: ',
         ],
         'filename' => 'Dateiname',
     ],
@@ -218,9 +218,9 @@ return [
         'edit_title' => 'Liegenschaft bearbeiten',
         'add' => 'Liegenschaft hinzufügen',
         'cancel' => 'Schliessen',
-        'deleted' => 'Liegenschaft erfolgreich gelöscht',
+        'deleted' => 'Liegenschaft wurde gelöscht.',
         'units' => 'Einheiten',
-        'saved' => 'Liegenschaft gespeichert',
+        'saved' => 'Liegenschaft wurde gespeichert.',
         'floors' => 'Etagen',
         'under_floor' => 'Untergeschoss',
         'basement' => 'Erdgeschoss',
@@ -238,7 +238,7 @@ return [
         'add_files' => 'Dokumente hinzufügen',
         'add_companies' => 'Dienstleister hinzufügen',
         'companies' => 'Dienstleister',
-        'no_services' => 'Keine Partnerfirmen gewählt.',
+        'no_services' => 'Keine Dienstleister hunzugefügt.',
         'select_media_category' => 'Kategorie der Mediendatei wählen',
         'quarter' => 'Überbauung',
         'managers' => 'Bewirtschafter',
@@ -648,6 +648,8 @@ return [
         'reset_sort' => 'Reset Sort de',
         'creation_date' => 'Creation Date de',
         'ago' => 'ago de',
+        'not_set' => 'Not set de',
+        'today' => 'Today de',
         'media' => [
             'added' => 'Mediendatei hinzugefügt',
             'removed' => 'Mediendatei entfernt.',
@@ -933,7 +935,7 @@ return [
         'terms_text' => 'Terms text here, long text',
     ],
     'editor' => [
-        'bold' => 'Fett gedruckt',
+        'bold' => 'Fett',
         'underline' => 'Unterstreichen',
         'italic' => 'Kursiv',
         'forecolor' => 'Farbe',
@@ -998,7 +1000,7 @@ return [
             'gray' => 'Grau',
             'silver' => 'Silber',
             'black' => 'Schwarz',
-            'white' => 'Weiß',
+            'white' => 'Weiss',
         ]
     ],
 ];

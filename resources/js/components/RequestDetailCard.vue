@@ -123,7 +123,7 @@
                 </el-col>
                 <el-col :span="3">
                     <span>{{ $t(due.label) }}</span>
-                    <p>{{ due.date }}</p>
+                    <p :style="{fontWeight: due.fontWeight}">{{ due.date }}</p>
                 </el-col>
             </el-row>    
         </div>
@@ -176,7 +176,8 @@ export default {
             var currentDate = new Date();
             var label = 'models.request.due_on';
             var date = '';
-            if(this.item.due_date !==undefined) {
+            var fontWeight = 700;
+            if(this.item.due_date !==undefined && this.item.due_date) {
                 let due_date_formatted = format(this.item.due_date, 'DD.MM.YYYY');
                 var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
                 var days = differenceInCalendarDays(updated_date, new Date()) ;
@@ -184,15 +185,21 @@ export default {
                 if(days < 0) {
                     label = 'models.request.was_due_on';
                     date = due_date_formatted;
-                }
-                else if(days <= 30) {
+                } else if(days <= 30) {
                     label = 'models.request.due_in';
                     date = Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`);
+                    if(days == 0) 
+                        date = this.$t('models.request.today');
                 }
+            } else {
+                label= 'models.request.due_date';
+                date = this.$t('models.request.not_set');
+                fontWeight = 900;
             }
             return {
                 label: label,
-                date: date
+                date: date,
+                fontWeight: fontWeight
             };
             
         },

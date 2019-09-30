@@ -122,13 +122,11 @@
             breakpoints () {
                 return {
                     sm: el => {
-                        if (el.width <= 640) {
-                            console.log('y')
+                        if (el.width <= 640) {                            
                             this.labelPosition = 'top'
 
                             return true
-                        } else {
-                            console.log('n')
+                        } else {                            
                             this.labelPosition = 'left'
 
                             return false

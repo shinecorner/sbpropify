@@ -673,12 +673,7 @@
                 this.toggleShow();
 
                 // this.saveLangParamsInLocalStorage();
-            },
-
-            init(){                
-                console.log(this.$store.state.application.locale);
-                
-            },
+            },            
 
             /*saveLangParamsInLocalStorage(){
                 localStorage.setItem('locale', this.$i18n.locale);
@@ -704,10 +699,7 @@
             document.getElementById('viewport').setAttribute('content', 'width=920, initial-scale=1.0');
         },
 
-        mounted(){
-            console.log('1211121');
-            this.init();
-
+        mounted(){            
             EventBus.$on('profile-username-change', () => {
                 this.dropdownwidth = this.$refs.prev.clientWidth;
             });
@@ -737,8 +729,7 @@
             
         },
         
-        async created(){
-            console.log('rtrtrtrt');
+        async created(){            
             const requestsCounts = await this.axios.get('requestsCounts');
             this.all_request_count = requestsCounts.data.data.all_request_count;
             this.all_pending_count = requestsCounts.data.data.all_pending_request_count;

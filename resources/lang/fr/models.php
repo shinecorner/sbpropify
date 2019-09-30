@@ -648,6 +648,8 @@ return [
         'reset_sort' => 'Reset Sort fr',
         'creation_date' => 'Creation Date fr',
         'ago' => 'ago fr',
+        'not_set' => 'Not set fr',
+        'today' => 'Today fr',
         'media' => [
             "added" => "Document ajouté",
             "removed" => "Suppression du support",
