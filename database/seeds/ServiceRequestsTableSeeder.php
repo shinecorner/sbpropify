@@ -21,7 +21,7 @@ class ServiceRequestsTableSeeder extends Seeder
         $this->faker = Faker::create();
         if (App::environment('local')) {
             $admins = User::whereHas('roles', function ($query) {
-                $query->where('name', 'super_admin');
+                $query->where('name', 'administrator');
             })->get();
 
             $serviceRequests = [];

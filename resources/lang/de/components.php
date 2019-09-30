@@ -3,17 +3,17 @@ return [
     'common' => [
         'audit' => [
             'type' => [
-                'post' => 'Pinnwand',
+                'pinboard' => 'Pinnwand',
                 'product' => 'Markplatz',
                 'request' => 'Anfragen'
             ],
             'filter' => [
                 'type' => [
-                    'post' => 'Pinnwand',
+                    'pinboard' => 'Pinnwand',
                     'product' => 'Markplatz',
                     'request' => 'Anfragen'
                 ],
-                'post' => [
+                'pinboard' => [
                     'created' => 'Erstellt',
                     'updated' => 'Aktualisiert',
                     'provider_assigned' => 'Dienstleister wurde zugewiesen',
@@ -35,7 +35,7 @@ return [
             ],
             'content' => [
                 'withId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} hat diesen Beitrag erstellt.',
                         'updated' => [
                             'status' => 'Der Status wurde von "{old}" zu "{new}" geändert.',
@@ -81,7 +81,7 @@ return [
                     ]
                 ],
                 'withNoId' => [
-                    'post' => [
+                    'pinboard' => [
                         'created' => '{userName} hat folgende Anfrage erstellt: {auditable_type} im {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'status' => 'Der Status wurde von "{old}" zu "{new}" im {auditable_type} #{auditable_id} geändert.',
@@ -118,7 +118,6 @@ return [
                         'provider_assigned' => '{providerName} wurde als Dienstleister zugewiesen.',
                         //'provider_unassigned' => 'Dienstleisterin {providerName} wurde nicht beauftragt im {auditable_type} #{auditable_id}.',
                         'provider_unassigned' => '{providerName} wurde als Dienstleister entfernt.',
-
                         'manager_assigned' => '{propertyManagerFirstName} {propertyManagerLastName} wurde als zuständige Person zugewiesen.',
                         'manager_unassigned' => '{propertyManagerFirstName} {propertyManagerLastName} als zusätinge Person wurde entfernt.',
                         'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
@@ -128,17 +127,41 @@ return [
                 ]
             ],
         ],
-        'commentsList' => [
-            'loading' => 'Ladet...',
-            'loadMore' => [
-                'simple' => 'Weitere {count} laden',
-                'detailed' => 'Lade {count} weitere Kommentare',
-            ],
+        'commentsList' => [                        
+            'loadMore' => 'Lade {count} weitere Kommentare',
             'emptyPlaceholder' => [
                 'title' => 'Bislang wurde kein Beitrag geteilt...',
                 'description' => 'Verfasse den ersten Post in dem du auf den unten stehenden Button klickst.',
             ],
         ],
+        'internalnoticesList' => [            
+            'loadMore' => 'Lade {count} weitere Interne Notizen',            
+            'emptyPlaceholder' => [
+                'title' => 'Es gibt noch keine Interne Notizen.',
+                'description' => 'Fügen Sie einen internen Notiz hinzu, indem Sie das untenstehende Formular verwenden und die Eingabetaste drücken.',
+            ],
+        ],
+        'serviceproviderconversationsList' => [            
+            'loadMore' => 'Lade {count} weitere Dienstleister Gespräche',
+            'emptyPlaceholder' => [
+                'title' => 'Es gibt noch keine Gespräch mit dem Dienstleister.',
+                'description' => 'Fügen Sie dem Dienstanbieter ein Gespräch hinzu, indem Sie das untenstehende Formular verwenden und auf Enter drücken.',
+            ],
+        ],
+        'tenantconversationsList' => [
+            'loadMore' => 'Lade {count} weitere Mieterin Gespräche',
+            'emptyPlaceholder' => [
+                'title' => 'Es werden keine Gespräche mit dem Mieter geführt.',
+                'description' => 'Fügen Sie über das untenstehende Formular eine Nachricht an den Mieter hinzu und drücken Sie die Eingabetaste.',
+            ],
+        ],
+        'listingcommentsList' => [
+            'loadMore' => 'Lade {count} weitere Kommentare auflisten',
+            'emptyPlaceholder' => [
+                'title' => 'Es gibt keine Kommentare für die Auflistung',
+                'description' => 'Fragen Sie nach dem Auflistung, indem Sie Nachrichten über das folgende Formular senden und drücken Sie Enter.',
+            ],
+        ],  
         'comment' => [
             'updateShortcut' => 'oder Verwendung {shortcut} Abkürzung',
             'updateOrCancel' => '{update} oder drücke {esc} um {cancel}',
@@ -186,7 +209,7 @@ return [
             'humidity' => 'Luftfeuchte',
             'pressure' => 'Druck',
         ],
-        'postAdd' => [
+        'pinboardAdd' => [
             'visibility' => [
                 'address' => 'Nachbarn',
                 'quarter' => 'Überbauung',

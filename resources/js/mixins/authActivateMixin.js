@@ -3,7 +3,7 @@ import {displaySuccess, displayError} from 'helpers/messages';
 import axios from '@/axios';
 
 
-// TODO make a common mixin for posts and products mixins(media upload at least)
+// TODO make a common mixin for pinboard and products mixins(media upload at least)
 export default  {
     data() {
         return {

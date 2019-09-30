@@ -11,7 +11,7 @@ return [
             'myRecentContract' => 'Il mio recente contratto',
             'myDocuments' => 'Documenti',
             'myContactPersons' => 'Persone di contatto',
-            'posts' => 'Notizie',
+            'pinboard' => 'Bacheca',
             'requests' => 'Richieste',
             'products' => 'Mercato',
             'settings' => 'Impostazioni',

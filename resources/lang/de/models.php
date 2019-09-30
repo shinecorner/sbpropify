@@ -75,7 +75,7 @@ return [
         'private_phone' => 'Telefon privat',
         'created_date' => 'Erstelldatum',
         'contract' => 'Mietvertrag',
-        'posts' => 'Beiträge',
+        'pinboard' => 'Beiträge',
         'products' => 'Marktplatz',
         'company' => 'Firmenname',
         'no_building' => 'Keine Liegenschaft(en) zugewiesen.',
@@ -385,7 +385,7 @@ return [
             ],
         ],
     ],
-    'post' => [
+    'pinboard' => [
         'title' => 'Pinnwand',
         'title_label' => 'Betreff',
         'content' => 'Inhalt',
@@ -538,8 +538,8 @@ return [
         'blank_pdf' => 'PDF ohne Briefkopf verwenden',
         'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
         'font_family' => 'Schriftfamilie',
-        'news_approval_enable' => 'Pinnwand-Beiträge zuerst prüfen',
-        'news_approval_enable_desc' => 'Beiträge werden zuerst durch den Admin geprüft und dann freigeschaltet.',
+        'pinboard_approval_enable' => 'Pinnwand-Beiträge zuerst prüfen',
+        'pinboard_approval_enable_desc' => 'Beiträge werden zuerst durch den Admin geprüft und dann freigeschaltet.',
         'comment_update_timeout' => 'Comment update timeout',
         'closed' => 'Geschlossen',
         'saved' => 'Gespeichert!',

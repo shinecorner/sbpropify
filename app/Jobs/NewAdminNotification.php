@@ -40,8 +40,7 @@ class NewAdminNotification implements ShouldQueue
     {
         $admins = User::where('id', '!=', $this->user->id)
             ->whereHas('roles', function ($query) {
-                $query->where('name', 'super_admin');
-                $query->orWhere('name', 'administrator');
+                $query->where('name', 'administrator');
             })->get();
 
         $templateRepo = app()->make(TemplateRepository::class);

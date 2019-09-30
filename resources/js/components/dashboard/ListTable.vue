@@ -54,7 +54,7 @@
                             {{ scope.row['name'] }}
                         </div>
                     </div>
-                    <div v-if="column.type == 'news-title'" class="user-details">
+                    <div v-if="column.type == 'pinboard-title'" class="user-details">
                         <!-- <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
                         <div class="image" v-else :style="{backgroundImage: `url(${userMaleDefaultImg})`}"></div> -->
                         <div class="image">

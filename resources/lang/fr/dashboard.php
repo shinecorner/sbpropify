@@ -9,9 +9,9 @@ return [
     'average_request_duration' => 'Temps de résolution',
     'week_hour' => 'Semaine vs Heure',
     'month_date' => 'Mois vs Date',
-    'news_by_creation_date' => 'Actualités par date de création',
-    'news_by_status' => 'Actualités par statut',
-    'news_by_type' => 'Actualités par type',
+    'pinbord_by_creation_date' => 'Tableau par date de création',
+    'pinbord_by_status' => 'Tableau d\'affichage par statut',
+    'pinbord_by_type' => 'Panneau d\'affichage par type',
     'latest_products' => 'Derniers produits',
     'products_by_creation_date' => 'Marché des produits par date de création',
     'products_by_type' => 'Produits du marché par type',
@@ -58,9 +58,9 @@ return [
     'marketplace' => [
         'go_to_marketplace' => 'Aller au marché'
     ],
-    'news' => [
-        'latest_news' => 'Dernières nouvelles',
-        'go_to_news' => 'Aller aux actualités',
+    'pinbord' => [
+        'latest_pinbord' => 'Dernier panneau d\'affichage',
+        'go_to_pinbord' => 'aller au tableau d\'affichage',
         'counts' => 'Comptants'
     ]
 ];

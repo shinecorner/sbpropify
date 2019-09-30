@@ -1,7 +1,6 @@
 <?php
 return [
     'dashboard' => 'Cruscotto',
-    'news' => 'Notizie',
     'requests' => 'Richieste',
     'all_requests' => 'Tutte le richieste',
     'myRequests' => 'Le mie richieste',
@@ -26,7 +25,7 @@ return [
     'all_buildings' => 'Tutti gli edifici',
     'units' => 'Unità',
     'addresses' => 'Indirizzi',
-    'posts' => 'Notizie',
+    'pinboard' => 'Bacheca',
     'quarters' => 'Quartieri',
     'products' => 'Prodotti',
     'requestCategories' => 'Richiesta categorie',

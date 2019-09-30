@@ -10,8 +10,8 @@
             <el-form-item :label="$t('settings.service')">
                 <el-switch v-model="user.settings.service_notification"></el-switch>
             </el-form-item>
-            <el-form-item :label="$t('settings.news')">
-                <el-switch v-model="user.settings.news_notification"></el-switch>
+            <el-form-item :label="$t('settings.pinboard')">
+                <el-switch v-model="user.settings.pinboard_notification"></el-switch>
             </el-form-item>
             <el-form-item :label="$t('settings.admin')">
                 <el-switch v-model="user.settings.admin_notification"></el-switch>

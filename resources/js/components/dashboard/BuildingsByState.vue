@@ -80,15 +80,15 @@ export default {
                 url = 'admin/pieChartBuildingByState';
                 langPrefix = '';
             }
-            else if (this.type === 'news_by_status') {
+            else if (this.type === 'pinboard_by_status') {
                 this.chartType = 'donut';
-                url = 'admin/donutChart?table=posts&column=status';
-                langPrefix = 'models.post.status.';
+                url = 'admin/donutChart?table=pinboard&column=status';
+                langPrefix = 'models.pinboard.status.';
             }
-            else if (this.type === 'news_by_type') {
+            else if (this.type === 'pinboard_by_type') {
                 this.chartType = 'donut';
-                url = 'admin/donutChart?table=posts&column=type';
-                langPrefix = 'models.post.type.';
+                url = 'admin/donutChart?table=pinboard&column=type';
+                langPrefix = 'models.pinboard.type.';
             }
             else if (this.type === 'products_by_type') {
                 this.chartType = 'donut';

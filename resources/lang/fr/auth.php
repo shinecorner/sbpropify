@@ -27,7 +27,7 @@ return [
 	],
 	'benefit_3' => [
 		'title' => 'Rester en contact avec le quartier',
-		'description' => "Dans la section News, vous pouvez poster des articles qui sont visibles pour vos voisins. Par exemple, si l'on peut s'attendre à un bruit dû à un événement..."
+		'description' => "Dans la section Pinboard, vous pouvez poster des articles qui sont visibles pour vos voisins. Par exemple, si l'on peut s'attendre à un bruit dû à un événement..."
 	],
 	'benefit_4' => [
 		'title' => 'Location et marché en ligne',

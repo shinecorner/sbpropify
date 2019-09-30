@@ -1,6 +1,6 @@
 import Layout from 'layouts/TenantLayout'
 import MyRoutes from 'routes/tenant/my'
-import PostsRoutes from 'routes/tenant/posts'
+import PinboardRoutes from 'routes/tenant/pinboard'
 import RequestsRoutes from 'routes/tenant/requests'
 import SettingsRoutes from 'routes/tenant/settings'
 import DashboardRoutes from 'routes/tenant/dashboard'
@@ -14,7 +14,7 @@ export default [{
     component: Layout,
     children: [
         MyRoutes,
-        PostsRoutes,
+        PinboardRoutes,
         RequestsRoutes,
         SettingsRoutes,
         DashboardRoutes,

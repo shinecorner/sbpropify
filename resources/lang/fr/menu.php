@@ -1,7 +1,6 @@
 <?php
 return [
     'dashboard' => 'Tableau de bord',
-    'news' => 'Actualités',
     'requests' => 'Demandes',
     'all_requests' => 'Toutes les demandes',
     'myRequests' => 'Mes demandes',
@@ -26,7 +25,7 @@ return [
     'all_buildings' => 'Tous les bâtiments',
     'units' => 'Unités',
     'addresses' => 'Adresses',
-    'posts' => 'Actualités',
+    'pinboard' => 'Panneau d\'affichage',
     'quarters' => 'Trimestres',
     'products' => 'Produits',
     'requestCategories' => 'Catégories de demandes',

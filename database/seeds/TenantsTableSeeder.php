@@ -62,9 +62,9 @@ class TenantsTableSeeder extends Seeder
             ];
             $userData = array_merge($userData, $this->getDateColumns($date));
 
-            $registeredRole = Role::where('name', 'registered')->first();
+            $tenantRole = Role::where('name', 'tenant')->first();
             $user = factory(User::class)->create($userData);
-            $user->attachRole($registeredRole);
+            $user->attachRole($tenantRole);
             $settings = $this->getSettings();
             $user->settings()->save($settings->replicate());
 
