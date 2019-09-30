@@ -3,26 +3,8 @@
     <div class="placeholder" v-else-if="!loading && !comments.data.length">
         <template v-if="usePlaceholder">
             <img class="image" :src="require('img/5c98b47a97050.png')" />            
-            <template v-if="type === 'internalNotices'">
-                <div class="title">{{$t('components.common.internalnoticesList.emptyPlaceholder.title')}}</div>
-                <div class="description">{{$t('components.common.internalnoticesList.emptyPlaceholder.description')}}</div>
-            </template>            
-            <template v-else-if="type === 'conversation'">
-                <div class="title">{{$t('components.common.serviceproviderconversationsList.emptyPlaceholder.title')}}</div>
-                <div class="description">{{$t('components.common.serviceproviderconversationsList.emptyPlaceholder.description')}}</div>
-            </template>            
-            <template v-else-if="((type === 'request') && ($store.getters.loggedInUser.roles.findIndex(({name}) => name === 'super_admin') > -1))">
-                <div class="title">{{$t('components.common.tenantconversationsList.emptyPlaceholder.title')}}</div>
-                <div class="description">{{$t('components.common.tenantconversationsList.emptyPlaceholder.description')}}</div>
-            </template>
-            <template v-else-if="((type === 'product') && ($store.getters.loggedInUser.roles.findIndex(({name}) => name === 'registered') > -1))">
-                <div class="title">{{$t('components.common.listingcommentsList.emptyPlaceholder.title')}}</div>
-                <div class="description">{{$t('components.common.listingcommentsList.emptyPlaceholder.description')}}</div>
-            </template>            
-            <template v-else>
-                <div class="title">{{$t('components.common.commentsList.emptyPlaceholder.title')}}</div>
-                <div class="description">{{$t('components.common.commentsList.emptyPlaceholder.description')}}</div>
-            </template>        
+                <div class="title">{{$t(no_data_info.title)}}</div>
+                <div class="description">{{$t(no_data_info.description)}}</div>       
         </template>
     </div>
     <div class="comments-list" v-else>
@@ -203,7 +185,30 @@
                     'cancel-edit': this.forceUpdate,
                     'size-changed': this.forceUpdate
                 }
-            }
+            },
+            no_data_info(){
+                let macros = {
+                    title: 'components.common.commentsList.emptyPlaceholder.title',
+                    description: 'components.common.commentsList.emptyPlaceholder.description'
+                }
+                if(this.type === 'internalNotices'){                    
+                    macros.title = 'components.common.internalnoticesList.emptyPlaceholder.title';
+                    macros.description = 'components.common.internalnoticesList.emptyPlaceholder.description';                    
+                }
+                else if(this.type === 'conversation'){                    
+                    macros.title = 'components.common.serviceproviderconversationsList.emptyPlaceholder.title';
+                    macros.description = 'components.common.serviceproviderconversationsList.emptyPlaceholder.description';                    
+                }
+                else if((this.type === 'request') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'tenant') == -1)){ 
+                    macros.title = 'components.common.tenantconversationsList.emptyPlaceholder.title';
+                    macros.description = 'components.common.tenantconversationsList.emptyPlaceholder.description';                    
+                }
+                else if((this.type === 'product') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'tenant') > -1)){ 
+                    macros.title = 'components.common.listingcommentsList.emptyPlaceholder.title';
+                    macros.description = 'components.common.listingcommentsList.emptyPlaceholder.description';                    
+                }
+                return macros;
+            } 
         },
         watch: {
             'comments.total' () {
