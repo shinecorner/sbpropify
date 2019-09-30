@@ -179,7 +179,7 @@ class PinboardAPIController extends AppBaseController
         $input = $request->only(Pinboard::Fillable);
         $input['user_id'] = \Auth::id();
 
-        if (! Auth::user()->hasRole('super_admin')) {
+        if (! Auth::user()->hasRole('administrator')) {
             $input['status'] = Pinboard::StatusNew;
         } else {
             $input['status'] = $input['status'] ?? Pinboard::StatusNew;
@@ -192,7 +192,7 @@ class PinboardAPIController extends AppBaseController
         }
 
         //$input['needs_approval'] = true; // @TODO
-        $input['needs_approval'] = ! Auth::user()->hasRole('super_admin');
+        $input['needs_approval'] = ! Auth::user()->hasRole('administrator');
         if (! empty($input['type']) && $input['type'] == Pinboard::TypePost) {
             $input['notify_email'] = true;
             $realEstate = $reRepo->first();

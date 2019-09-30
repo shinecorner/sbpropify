@@ -21,7 +21,7 @@ class ServiceProvidersTableSeeder extends Seeder
         }
 
         $faker = Faker::create();
-        $serviceRole = Role::where('name', 'service')->first();
+        $serviceRole = Role::where('name', 'provider')->first();
         $settings = $this->getSettings();
 
         $serviceCategories = [

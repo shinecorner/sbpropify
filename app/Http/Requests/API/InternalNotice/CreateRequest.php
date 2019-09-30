@@ -4,6 +4,7 @@ namespace App\Http\Requests\API\InternalNotice;
 
 use App\Http\Requests\BaseRequest;
 use App\Models\InternalNotice;
+use Illuminate\Support\Facades\Auth;
 
 class CreateRequest extends BaseRequest
 {
@@ -14,8 +15,7 @@ class CreateRequest extends BaseRequest
      */
     public function authorize()
     {
-        //TODO ROLE RELATED is need create add-internal_notice
-        return true;
+        return $this->can('add-internal_notice');
     }
 
     /**

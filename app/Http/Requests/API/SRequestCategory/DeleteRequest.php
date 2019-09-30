@@ -13,6 +13,6 @@ class DeleteRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('delete-service_request_category');
+        return $this->can('delete-request');
     }
 }

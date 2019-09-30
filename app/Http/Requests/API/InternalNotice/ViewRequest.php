@@ -13,7 +13,6 @@ class ViewRequest extends BaseRequest
      */
     public function authorize()
     {
-        //TODO ROLE RELATED is need create view-internal_notice
-        return true;
+        return $this->can('view-internal_notice');
     }
 }
