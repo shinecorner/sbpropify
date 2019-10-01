@@ -1628,26 +1628,26 @@ class ServiceRequestAPIController extends AppBaseController
 
         $user = $request->user();
         if ($user->propertyManager()->exists()) {
-            $response = $this->getLoggedRequestCount($user, $response, 'propertyManager', 'managers');
+            $response = $this->getLoggedRequestCount($user->propertyManager->id, $response, 'propertyManager', 'managers');
         } elseif ($user->serviceProvider()->exists()) {
-            $response = $this->getLoggedRequestCount($user, $response, 'serviceProvider', 'providers');
+            $response = $this->getLoggedRequestCount($user->serviceProvider->id, $response, 'serviceProvider', 'providers');
+        } elseif ($user->hasRole('administrator')) {
+            $response = $this->getLoggedRequestCount($user->id, $response, 'users', 'users');
         }
 
         return $this->sendResponse($response, 'Request countes');
     }
 
     /**
-     * @param $user
+     * @param $relationId
      * @param $response
      * @param $userRelation
      * @param $requestRelation
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    protected function getLoggedRequestCount($user, $response, $userRelation, $requestRelation)
+    protected function getLoggedRequestCount($relationId, $response, $userRelation, $requestRelation)
     {
-
-        $relationId = $user->{$userRelation}->id;
         $this->serviceRequestRepository->resetCriteria();
         $this->serviceRequestRepository->whereHas($requestRelation, function ($q) use ($relationId) {
             $q->where('assignee_id', $relationId);
