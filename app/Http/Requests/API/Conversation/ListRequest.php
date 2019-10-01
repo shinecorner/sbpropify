@@ -4,7 +4,7 @@ namespace App\Http\Requests\API\Conversation;
 
 use App\Http\Requests\BaseRequest;
 
-class ViewRequest extends BaseRequest
+class ListRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,8 +13,8 @@ class ViewRequest extends BaseRequest
      */
     public function authorize()
     {
-        //TODO ROLE RELATED is need create view-conversation like other
         return true;
+        return $this->can('list-conversation'); // @TODO
     }
 }
 

@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Mail\MailServiceProvider;
-use App\Models\RealEstate;
+use App\Models\Settings;
 
 class DBConfigMailServiceProvider extends MailServiceProvider
 {
@@ -18,15 +18,15 @@ class DBConfigMailServiceProvider extends MailServiceProvider
         if ('cli' == php_sapi_name() && isset($_SERVER['argv']) && array_diff($queueWork, $_SERVER['argv'])) {
             return;
         }
-        $re = RealEstate::first();
+        $settings = Settings::first();
 
-        if ($re) {
+        if ($settings) {
             // Swift transport is not concerned about the `from` details
-            config(['mail.from.address' => $re->mail_from_address]);
-            config(['mail.from.name' => $re->mail_from_name]);
+            config(['mail.from.address' => $settings->mail_from_address]);
+            config(['mail.from.name' => $settings->mail_from_name]);
 
-            $this->app->singleton('swift.transport', function ($app) use ($re){
-                return new CustomTransportManager($app, $re);
+            $this->app->singleton('swift.transport', function ($app) use ($settings){
+                return new CustomTransportManager($app, $settings);
             });
         }
     }

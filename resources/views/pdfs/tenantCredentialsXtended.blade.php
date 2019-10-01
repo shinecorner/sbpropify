@@ -23,16 +23,16 @@
       @endif
     </td>
     <td id="real-estate">
-      <img class="logo" src="{{ $re->logo ? asset($re->logo) : asset('images/logo3.png') }}"/>
-      <p>{{ $re->name }}</p>
+      <img class="logo" src="{{ $settings->logo ? asset($settings->logo) : asset('images/logo3.png') }}"/>
+      <p>{{ $settings->name }}</p>
       <p>
-        {{ $re->address->street }}<br />
-        {{ $re->address->zip }} {{ $re->address->city }}
+        {{ $settings->address->street }}<br />
+        {{ $settings->address->zip }} {{ $settings->address->city }}
       </p>
       <p>
-        @lang('models.tenant.credentials_pdf.telephone', [], $language): {{ $re->phone }}
+        @lang('models.tenant.credentials_pdf.telephone', [], $language): {{ $settings->phone }}
         <br>
-        @lang('models.tenant.credentials_pdf.email', [], $language): {{ $re->email }}</p>
+        @lang('models.tenant.credentials_pdf.email', [], $language): {{ $settings->email }}</p>
     </td>
   </tr>
   <tr>
@@ -40,11 +40,11 @@
       <br>
       <br>
       <br>
-      {{ $re->address->city }}, {{now()->format('d.m.Y')}}
+      {{ $settings->address->city }}, {{now()->format('d.m.Y')}}
       <br>
       <br>
       <br>
-      <b>@lang('models.tenant.credentials_pdf.welcome', [], $language) {{ $re->name }}</b>
+      <b>@lang('models.tenant.credentials_pdf.welcome', [], $language) {{ $settings->name }}</b>
       <br>
       <br>
       @if(\App\Models\Tenant::TitleCompany == $tenant->title)

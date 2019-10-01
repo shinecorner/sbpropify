@@ -17,7 +17,7 @@ use App\Notifications\ProductCommented;
 use App\Repositories\CommentRepository;
 use App\Repositories\PinboardRepository;
 use App\Repositories\ProductRepository;
-use App\Repositories\RealEstateRepository;
+use App\Repositories\SettingsRepository;
 use App\Repositories\ServiceRequestRepository;
 use App\Transformers\CommentTransformer;
 use Illuminate\Http\Response;
@@ -45,9 +45,9 @@ class CommentAPIController extends AppBaseController
      */
     private $commentRepository;
     /**
-     * @var RealEstateRepository
+     * @var SettingsRepository
      */
-    private $reRepository;
+    private $settingsRepository;
     /**
      * @var CommentTransformer
      */
@@ -59,7 +59,7 @@ class CommentAPIController extends AppBaseController
      * @param CommentRepository $commRepo
      * @param ProductRepository $prodRepo
      * @param ServiceRequestRepository $sr
-     * @param RealEstateRepository $reRepo
+     * @param SettingsRepository $setRepo
      * @param CommentTransformer $pt
      */
     public function __construct(
@@ -67,7 +67,7 @@ class CommentAPIController extends AppBaseController
         CommentRepository $commRepo,
         ProductRepository $prodRepo,
         ServiceRequestRepository $sr,
-        RealEstateRepository $reRepo,
+        SettingsRepository $setRepo,
         CommentTransformer $pt
     )
     {
@@ -75,7 +75,7 @@ class CommentAPIController extends AppBaseController
         $this->productRepository = $prodRepo;
         $this->serviceRequestRepository = $sr;
         $this->commentRepository = $commRepo;
-        $this->reRepository = $reRepo;
+        $this->settingsRepository = $setRepo;
         $this->transformer = $pt;
     }
 
@@ -424,8 +424,8 @@ class CommentAPIController extends AppBaseController
         }
 
         $timeout = 120;
-        if ($realEstate = $this->reRepository->first()) {
-            $timeout = $realEstate->comment_update_timeout;
+        if ($settings = $this->settingsRepository->first()) {
+            $timeout = $settings->comment_update_timeout;
         }
         $isAdmin = $request->user()->hasRole('administrator') ||
             $request->user()->hasRole('administrator');

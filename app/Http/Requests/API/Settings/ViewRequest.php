@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\API\RealEstate;
+namespace App\Http\Requests\API\Settings;
 
 use App\Http\Requests\BaseRequest;
 
@@ -13,6 +13,6 @@ class ViewRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('view-real_estate');
+        return $this->can('view-settings');
     }
 }

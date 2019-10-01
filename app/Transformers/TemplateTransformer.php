@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Models\Template;
 
 /**
@@ -40,9 +40,9 @@ class TemplateTransformer extends BaseTransformer
             return $response;
         }
 
-        $rlSettings = (new RealEstate())->first();
-        $response['translations'][$rlSettings->language]['subject'] = $response['subject'];
-        $response['translations'][$rlSettings->language]['body'] = $response['body'];
+        $settings = (new Settings())->first();
+        $response['translations'][$settings->language]['subject'] = $response['subject'];
+        $response['translations'][$settings->language]['body'] = $response['body'];
 
         foreach ($model->translations as $tr) {
             if (!isset($response['translations'][$tr->language])) {

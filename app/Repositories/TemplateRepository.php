@@ -7,7 +7,7 @@ use App\Models\Comment;
 use App\Models\PasswordReset;
 use App\Models\Pinboard;
 use App\Models\Product;
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Models\ServiceRequest;
 use App\Models\Template;
 use App\Models\TemplateCategory;
@@ -34,12 +34,19 @@ class TemplateRepository extends BaseRepository
         'description' => 'like',
     ];
 
-    protected $realEstate;
+    /**
+     * @var
+     */
+    protected $settings;
 
+    /**
+     * TemplateRepository constructor.
+     * @param Application $app
+     */
     public function __construct(Application $app)
     {
         parent::__construct($app);
-        $this->realEstate = RealEstate::first();
+        $this->settings = Settings::first();
     }
 
     /**
@@ -174,7 +181,7 @@ class TemplateRepository extends BaseRepository
     private function button($url, $text)
     {
         $linkClass = 'button button-primary';
-        $bgColor = $this->realEstate->primary_color ?? '#3490DC';
+        $bgColor = $this->settings->primary_color ?? '#3490DC';
         $linkStyle = 'font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif, \'Apple Color Emoji\', \'Segoe UI Emoji\', \'Segoe UI Symbol\'; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #FFF; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: {color}; border-top: 10px solid {color}; border-right: 18px solid {color}; border-bottom: 10px solid {color}; border-left: 18px solid {color};';
         $linkStyle = str_replace('{color}', $bgColor, $linkStyle);
         return sprintf('<a class="%s" style="%s" href="%s">%s</a>', $linkClass, $linkStyle, $url, $text);
@@ -235,25 +242,25 @@ class TemplateRepository extends BaseRepository
             ];
         }
 
-        $company = $this->realEstate;
+        $settings = $this->settings;
         $appUrl = env('APP_URL', '');
         $companyAddress = [
-            $company->address->street,
-            $company->address->house_num . ',',
-            $company->address->zip,
-            $company->address->city,
+            $settings->address->street,
+            $settings->address->house_num . ',',
+            $settings->address->zip,
+            $settings->address->city,
         ];
 
-        $tagMap['primaryColor'] = $company->primary_color;
-        $tagMap['realEstateCompany'] = $company->name;
+        $tagMap['primaryColor'] = $settings->primary_color;
+        $tagMap['settingsCompany'] = $settings->name;
         $template = self::getParsedTemplate($template, $tagMap, $lang);
 
         return [
             'subject' => $template->subject,
             'body' => $template->body,
-            'company' => $company,
-            'companyLogo' => $appUrl . '/' . $company->logo,
-            'companyName' => $company->name,
+            'company' => $settings,
+            'companyLogo' => $appUrl . '/' . $settings->logo,
+            'companyName' => $settings->name,
             'companyAddress' => implode(' ', $companyAddress),
             'linkContact' => env('APP_URL', '#'),
             'linkTermsOfUse' => env('APP_URL', '#'),

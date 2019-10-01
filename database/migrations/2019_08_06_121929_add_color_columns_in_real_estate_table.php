@@ -17,7 +17,7 @@ class AddColorColumnsInRealEstateTable extends Migration
             $table->string('primary_color', 60)->after('logo')->nullable();
             $table->string('accent_color', 60)->after('logo')->nullable();
         });
-        \App\Models\RealEstate::where('id', '!=', 0)->update([
+        \App\Models\Settings::where('id', '!=', 0)->update([
             'primary_color' => '#6AC06F',
             'accent_color' => '#F7CA18'
         ]);

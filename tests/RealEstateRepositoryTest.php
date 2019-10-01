@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\RealEstate;
-use App\Repositories\RealEstateRepository;
+use App\Models\Settings;
+use App\Repositories\SettingsRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RealEstateRepositoryTest extends TestCase
@@ -9,14 +9,14 @@ class RealEstateRepositoryTest extends TestCase
     use MakeRealEstateTrait, ApiTestTrait, DatabaseTransactions;
 
     /**
-     * @var RealEstateRepository
+     * @var SettingsRepository
      */
     protected $realEstateRepo;
 
     public function setUp()
     {
         parent::setUp();
-        $this->realEstateRepo = App::make(RealEstateRepository::class);
+        $this->realEstateRepo = App::make(SettingsRepository::class);
     }
 
     /**
@@ -28,8 +28,8 @@ class RealEstateRepositoryTest extends TestCase
         $createdRealEstate = $this->realEstateRepo->create($realEstate);
         $createdRealEstate = $createdRealEstate->toArray();
         $this->assertArrayHasKey('id', $createdRealEstate);
-        $this->assertNotNull($createdRealEstate['id'], 'Created RealEstate must have id specified');
-        $this->assertNotNull(RealEstate::find($createdRealEstate['id']), 'RealEstate with given id must be in DB');
+        $this->assertNotNull($createdRealEstate['id'], 'Created Settings must have id specified');
+        $this->assertNotNull(Settings::find($createdRealEstate['id']), 'Settings with given id must be in DB');
         $this->assertModelData($realEstate, $createdRealEstate);
     }
 
@@ -65,6 +65,6 @@ class RealEstateRepositoryTest extends TestCase
         $realEstate = $this->makeRealEstate();
         $resp = $this->realEstateRepo->delete($realEstate->id);
         $this->assertTrue($resp);
-        $this->assertNull(RealEstate::find($realEstate->id), 'RealEstate should not exist in DB');
+        $this->assertNull(Settings::find($realEstate->id), 'Settings should not exist in DB');
     }
 }
