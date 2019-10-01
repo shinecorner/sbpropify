@@ -177,7 +177,7 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
         'visibility',
         'category',
         'quarter_id',
-        'pinned',
+        'announcement',
         'execution_start',
         'execution_end',
         'title',
@@ -210,7 +210,7 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
         'visibility' => 'integer',
         'execution_period' => 'integer',
         'content' => 'string',
-        'pinned' => 'boolean',
+        'announcement' => 'boolean',
         'notify_email' => 'boolean',
         'category_image' => 'boolean',
         'is_execution_time' => 'boolean',
@@ -245,8 +245,8 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
             'content' => 'required',
             'visibility' => ['required', Rule::in(array_keys($visibilities))],
             'category' => [Rule::in($categories)],
-            'pinned' => function ($attribute, $value, $fail) {
-                if ($value && !\Auth::user()->can('pin-pinboard')) {
+            'announcement' => function ($attribute, $value, $fail) {
+                if ($value && !\Auth::user()->can('announcement-pinboard')) {
                     $fail($attribute.' must be false.');
                 }
             },
@@ -296,9 +296,9 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
         return $this->hasMany(PinboardView::class);
     }
 
-    public function pinned_email_receptionists()
+    public function announcement_email_receptionists()
     {
-        return $this->hasMany(PinnedEmailReceptionist::class);
+        return $this->hasMany(AnnouncementEmailReceptionist::class);
     }
 
     public function registerMediaCollections()
