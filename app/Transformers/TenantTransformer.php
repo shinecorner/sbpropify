@@ -52,23 +52,24 @@ class TenantTransformer extends BaseTransformer
         $response['media'] = [];
         if ($model->relationExists('rent_contracts')) {
             $response['rent_contracts'] = (new RentContractTransformer())->transformCollection($model->rent_contracts);
+
+            if (!empty($response['rent_contracts'][0]['building'])) {
+                $response['building'] = $response['rent_contracts'][0]['building'];
+            }
+
+            if (!empty($response['rent_contracts'][0]['unit'])) {
+                $response['unit'] = $response['rent_contracts'][0]['unit'];
+            }
+
+            if (!empty($response['rent_contracts'][0]['media'])) {
+                $response['media'] = $response['rent_contracts'][0]['media'];
+            }
+
+            if (!empty($response['rent_contracts'][0]['address'])) {
+                $response['address'] = $response['rent_contracts'][0]['address'];
+            }
         }
 
-        if ($model->relationExists('building')) {
-            $response['building'] = (new BuildingTransformer)->transform($model->building);
-        }
-
-        if ($model->relationExists('unit')) {
-            $response['unit'] = (new UnitTransformer)->transform($model->unit);
-        }
-
-        if ($model->relationExists('media')) {
-            $response['media'] = (new MediaTransformer)->transformCollection($model->media);
-        }
-
-        if ($model->relationExists('address')) {
-            $response['address'] = (new AddressTransformer)->transform($model->address);
-        }
 
         return $response;
     }

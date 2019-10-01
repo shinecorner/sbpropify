@@ -145,6 +145,9 @@ class ServiceRequestAPIController extends AppBaseController
                 'media',
                 'tenant.user',
                 'tenant.building.address',
+                'tenant.rent_contracts' => function ($q) {
+                    $q->with('building.address', 'unit');
+                },
                 'category',
                 'comments.user',
                 'providers.address:id,country_id,state_id,city,street,zip',
@@ -290,6 +293,9 @@ class ServiceRequestAPIController extends AppBaseController
         $serviceRequest->load([
             'media', 'tenant.user', 'tenant.building', 'category', 'managers', 'users', 'remainder_user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers',
+            'tenant.rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit');
+            },
         ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, 'Service Request retrieved successfully');
