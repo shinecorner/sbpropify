@@ -20,7 +20,7 @@
                     </template>
                     <template v-slot="{item, index, active}">
                         <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
-                            <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @toggle-drawer="toggleDrawer(item)" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
+                            <request-card  :categories="categories" :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @toggle-drawer="toggleDrawer(item)" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
                                 <template #tab-overview-after-for-mobile>
                                     <div class="tab-overview-after-for-mobile">
                                     <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
@@ -152,7 +152,7 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+    import {mapActions, mapState} from 'vuex'
     import Loader from 'components/tenant/RequestCard/Loader'
     import GalleryList from 'components/MediaGalleryList'
 
@@ -165,6 +165,7 @@
             return {
                 loading: false,
                 media: [],
+                categories: [],                
                 openedRequest: null,
                 visibleDrawer: false,
                 activeDrawerTab: 'chat',
@@ -249,6 +250,30 @@
             }
         },
         methods: {
+            ...mapActions(['getRequestCategoriesTree']),
+            async getFilterCategories() {
+                const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
+                
+                this.categories = [];
+                categories.map((category) => {
+                    this.categories[category.id] = {
+                        'en' : category.name_en,
+                        'fr' : category.name_fr,
+                        'it' : category.name_it,
+                        'de' : category.name_de,
+                    };
+                    if(category.categories.length > 0) {
+                        category.categories.map((subCategory) => {
+                            this.categories[subCategory.id] = {
+                                'en' : subCategory.name_en,
+                                'fr' : subCategory.name_fr,
+                                'it' : subCategory.name_it,
+                                'de' : subCategory.name_de,
+                            }
+                        });
+                    }
+                });
+            },
             async get (params = {}) {
                 if (this.loading) {
                     return
@@ -353,6 +378,7 @@
         },
         mounted () {
             //this.$refs['dynamic-scroller'].forceUpdate()
+            this.getFilterCategories();
         }
     }
 </script>
