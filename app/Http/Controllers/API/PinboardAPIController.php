@@ -6,7 +6,7 @@ use App\Criteria\Pinboard\FeedCriteria;
 use App\Criteria\Pinboard\FilterByBuildingCriteria;
 use App\Criteria\Pinboard\FilterByQuarterCriteria;
 use App\Criteria\Pinboard\FilterByLocationCriteria;
-use App\Criteria\Pinboard\FilterByPinnedCriteria;
+use App\Criteria\Pinboard\FilterByAnnouncementCriteria;
 use App\Criteria\Pinboard\FilterByStatusCriteria;
 use App\Criteria\Pinboard\FilterByTypeCriteria;
 use App\Criteria\Pinboard\FilterByUserCriteria;
@@ -112,7 +112,7 @@ class PinboardAPIController extends AppBaseController
         $this->pinboardRepository->pushCriteria(new FilterByUserCriteria($request));
         $this->pinboardRepository->pushCriteria(new FilterByQuarterCriteria($request));
         $this->pinboardRepository->pushCriteria(new FilterByBuildingCriteria($request));
-        $this->pinboardRepository->pushCriteria(new FilterByPinnedCriteria($request));
+        $this->pinboardRepository->pushCriteria(new FilterByAnnouncementCriteria($request));
         $this->pinboardRepository->pushCriteria(new FilterByTenantCriteria($request));
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
@@ -186,7 +186,7 @@ class PinboardAPIController extends AppBaseController
             $input['status'] = $input['status'] ?? Pinboard::StatusNew;
         }
 
-        if ($request->pinned == 'true' || $request->pinned  == true) {
+        if ($request->announcement  == true || $request->pinned  == true) { // @TODO delete pinned
             $input['type'] = Pinboard::TypeAnnouncement;
         } else {
             $input['type'] =  $input['type'] ?? Pinboard::TypePost;
@@ -256,9 +256,11 @@ class PinboardAPIController extends AppBaseController
      *      )
      * )
      *
+     *
      * @param $id
      * @param ShowRequest $request
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function show($id, ShowRequest $request)
     {
@@ -282,8 +284,8 @@ class PinboardAPIController extends AppBaseController
         }
         $pinboard->likers = $pinboard->collectLikers();
         $this->fixPinboardViews($pinboard);
-        if ($pinboard->pinned) {
-            $pinboard->load('pinned_email_receptionists');
+        if ($pinboard->announcement) {
+            $pinboard->load('announcement_email_receptionists');
         }
         $data = $this->transformer->transform($pinboard);
         return $this->sendResponse($data, 'Pinboard retrieved successfully');
@@ -351,12 +353,13 @@ class PinboardAPIController extends AppBaseController
      * @param $id
      * @param UpdateRequest $request
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function update($id, UpdateRequest $request)
     {
         $input = $request->only(Pinboard::Fillable);
-        if ($request->pinned) {
+        if ($request->announcement || $request->pinned) { // @TODO delete
             $input['type'] = Pinboard::TypeAnnouncement;
         } else {
             $input['type'] =  $input['type'] ?? Pinboard::TypePost;
