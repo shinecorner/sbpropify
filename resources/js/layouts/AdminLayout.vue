@@ -146,20 +146,25 @@
             ...mapState('application', {
                 locale: ({locale}) => locale
             }),
-            selectedFlag(){
-                if(this.$store.state.application.locale){
-                    if(this.$store.state.application.locale === 'en'){
-                        return `flag-icon flag-icon-us`;
-                    }else {
-                        return  `flag-icon flag-icon-${this.$store.state.application.locale}`;
-                    }                    
-                } else {                                        
-                    if(this.user.settings.language === 'en'){
-                        return  `flag-icon flag-icon-us`;
-                    }else {
-                        return `flag-icon flag-icon-${this.user.settings.language}`;
+            selectedFlag: {
+                get: function () {
+                    if(this.$store.state.application.locale){
+                        if(this.$store.state.application.locale === 'en'){
+                            return `flag-icon flag-icon-us`;
+                        }else {
+                            return  `flag-icon flag-icon-${this.$store.state.application.locale}`;
+                        }                    
+                    } else {                                        
+                        if(this.user.settings.language === 'en'){
+                            return  `flag-icon flag-icon-us`;
+                        }else {
+                            return `flag-icon flag-icon-${this.user.settings.language}`;
+                        }
                     }
-                }
+                },
+                set: function (newValue) {
+                    this.value = newValue;
+                }                
             },
             links() {
                 let links = [];
@@ -537,7 +542,7 @@
             },
 
             onClick(language, flag){                
-                this.setLocale(language)
+                this.setLocale(language);
                 this.selectedFlag = flag;
                 this.$root.$emit('changeLanguage');
 
