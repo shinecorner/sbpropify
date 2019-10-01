@@ -238,9 +238,9 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
     {
         $categories = array_keys(self::Category);
         $categories[] = null;
-        $re = RealEstate::first();
+        $settings = Settings::first();
         $visibilities = self::Visibility;
-        if (!$re->quarter_enable) {
+        if (!$settings->quarter_enable) {
             unset($visibilities[self::VisibilityQuarter]);
         }
         return [

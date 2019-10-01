@@ -6,11 +6,10 @@ use App\Criteria\CleanifyRequests\FilterByUserCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CleanifyRequest\CreateRequest;
 use App\Http\Requests\API\CleanifyRequest\ListRequest;
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Repositories\CleanifyRequestRepository;
 use App\Repositories\TemplateRepository;
 use App\Transformers\CleanifyRequestTransformer;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /**
@@ -127,12 +126,12 @@ class CleanifyRequestAPIController extends AppBaseController
             'user_id' => \Auth::id(),
             'form' => $request->all(),
         ]);
-        $re = RealEstate::first();
-        if (empty($re)) {
+        $settings = Settings::first();
+        if (empty($settings)) {
             return $this->sendError('Real estate settings not found');
         }
 
-        $this->repo->notify($creq, $re->cleanify_email);
+        $this->repo->notify($creq, $settings->cleanify_email);
         $out = $this->transformer->transform($creq);
         return $this->sendResponse($out, __('models.cleanify.saved'));
     }

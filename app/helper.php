@@ -56,7 +56,7 @@ function update_district_to_quarter($class, $fields)
     }
 }
 
-function update_db_fileds($class, $fields, $replace, $to, $isUcFirst = true)
+function update_db_fileds($class, $fields, $replace, $to, $isUcFirst = false)
 {
     $model = new $class();
     $query = $model->newQuery();
@@ -70,14 +70,15 @@ function update_db_fileds($class, $fields, $replace, $to, $isUcFirst = true)
 
             $oldValue = $item->{$field};
             if ($isUcFirst) {
-                $value = str_replace(ucfirst($replace), ucfirst($to), $item->{$field});
+                $value = str_ireplace(ucfirst($replace), ucfirst($to), $oldValue);
             } else {
                 $value = $oldValue;
             }
 
             $value = str_replace($replace, $to, $value);
-            $item->{$field} = $value;
+
             if ($oldValue != $value) {
+                $item->{$field} = $value;
                 echo 'In filed: ' . $field . ' of ' . $model->getTable() . ': ' . $item->id .   PHP_EOL;
                 if (is_array($oldValue)) {
                     foreach ($oldValue as $i => $_val) {

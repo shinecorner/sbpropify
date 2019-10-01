@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class FillRealEstatePdfFontFamilyTable extends Migration
+class RenameRealEstateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,7 @@ class FillRealEstatePdfFontFamilyTable extends Migration
      */
     public function up()
     {
-        $realEstate = \App\Models\Settings::first();
-        if ($realEstate) {
-            $realEstate->pdf_font_family = 'Arial';
-            $realEstate->save();
-        }
+        Schema::rename('real_estates', 'settings');
     }
 
     /**
@@ -27,6 +23,6 @@ class FillRealEstatePdfFontFamilyTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::rename('settings', 'real_estates');
     }
 }

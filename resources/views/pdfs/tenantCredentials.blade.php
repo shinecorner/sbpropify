@@ -30,11 +30,11 @@
                 <br>
                 <br>
                 <br>
-                {{ $re->address->city }}, {{now()->format('d.m.Y')}}
+                {{ $settings->address->city }}, {{now()->format('d.m.Y')}}
                 <br>
                 <br>
                 <br>
-                <b>@lang('models.tenant.credentials_pdf.welcome', [], $language) {{ $re->name }}</b>
+                <b>@lang('models.tenant.credentials_pdf.welcome', [], $language) {{ $settings->name }}</b>
                 <br>
                 <br>
                 @if(\App\Models\Tenant::TitleCompany == $tenant->title)

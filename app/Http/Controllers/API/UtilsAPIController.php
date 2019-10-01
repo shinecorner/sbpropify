@@ -85,14 +85,14 @@ class UtilsAPIController extends AppBaseController
             'languages' => $languages,
         ];
 
-        $re = App\Models\RealEstate::first(['login_variation', 'login_variation_2_slider', 'primary_color', 'primary_color_lighter', 'accent_color', 'logo', 'circle_logo', 'tenant_logo', 'favicon_icon']);
+        $settings = App\Models\Settings::first(['login_variation', 'login_variation_2_slider', 'primary_color', 'primary_color_lighter', 'accent_color', 'logo', 'circle_logo', 'tenant_logo', 'favicon_icon']);
 
-        if ($re) {
-            $colors = $re->only(['primary_color', 'accent_color', 'primary_color_lighter']);
-            $logo = $re->only(['logo', 'circle_logo', 'favicon_icon', 'tenant_logo']);
+        if ($settings) {
+            $colors = $settings->only(['primary_color', 'accent_color', 'primary_color_lighter']);
+            $logo = $settings->only(['logo', 'circle_logo', 'favicon_icon', 'tenant_logo']);
             $login = [
-                'variation' => $re->login_variation,
-                'variation_2_slider' => (bool) $re->login_variation_2_slider,
+                'variation' => $settings->login_variation,
+                'variation_2_slider' => (bool) $settings->login_variation_2_slider,
             ];
         } else {
             $colors = [
