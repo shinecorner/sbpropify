@@ -643,6 +643,7 @@ return [
         'send_person' => 'Welche Person soll benachrichtigt werden?',
         'add_rent_contract' => 'Neuen Mietvertrag hinzufügen',
         'delete_rent_contract' => 'Mietvertrag löschen',
+        'pdf_only_desc' => 'Bitte beachten Sie, dass nur PDF-Dateien hochgeladen werden können.',
         'sort' => 'Sortierung',
         'reset_sort' => 'Sortierung zurücksetzen',
         'creation_date' => 'Erstellungsdatum',

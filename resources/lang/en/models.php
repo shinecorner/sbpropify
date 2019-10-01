@@ -643,6 +643,7 @@ return [
         'send_person' => 'Which person should be notified?',
         'add_rent_contract' => 'Add new rent contract',
         'delete_rent_contract' => 'Delete rent contract', 
+        'pdf_only_desc' => 'Please note that only PDF files can be uploaded',
         'sort' => 'Sort',
         'reset_sort' => 'Reset Sort',
         'creation_date' => 'Creation Date',
