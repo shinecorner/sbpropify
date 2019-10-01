@@ -482,7 +482,7 @@
         },
         methods: {
             ...mapActions([
-                'getRealEstate',
+                'getSettings',
                 "uploadBuildingFile",
                 "deleteBuildingFile",
                 "deleteBuildingService",
@@ -498,8 +498,8 @@
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
-            fetchRealEstate() {
-                this.getRealEstate().then((resp) => {
+            fetchSettings() {
+                this.getSettings().then((resp) => {
                     this.contactUseGlobalAddition = resp.data.contact_enable ? this.$t('settings.contact_enable.show') : this.$t('settings.contact_enable.hide');
                 }).catch((error) => {
                     displayError(error);
@@ -742,7 +742,7 @@
                 return this.constants.tenants.status
             },
             contactEnableValues() {
-                this.fetchRealEstate();
+                this.fetchSettings();
                 return [{
                     value: 1,
                     label: `${this.$t('settings.contact_enable.use_global')} (${this.contactUseGlobalAddition})`,

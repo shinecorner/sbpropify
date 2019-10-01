@@ -131,7 +131,7 @@ export default {
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    updateSettings({commit}, payload) {
+    updateUserSettings({commit}, payload) {
         return new Promise((resolve, reject) =>
             axios.put('users/me/settings', payload.settings)
                 .then(({data: r}) => {
@@ -170,18 +170,18 @@ export default {
                 .catch(({response: {data: err}}) => reject(err)));
     },
 
-    getRealEstate({commit}, payload) {
+    getSettings({commit}, payload) {
         return new Promise((resolve, reject) =>
-            axios.get('realEstate')
+            axios.get('settings')
                 .then(r => {
                     commit('SET_REAL_ESTATE', r.data.data);
                     resolve(r.data)
                 })
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    updateRealEstate(_, payload) {
+    updateSettings(_, payload) {
         return new Promise((resolve, reject) =>
-            axios.put('realEstate', payload)
+            axios.put('settings', payload)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },

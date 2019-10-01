@@ -96,7 +96,7 @@
         async mounted () {
             this.loading = this.$loading({
                 target: this.$el.parentElement,
-                text: 'Fetching your contract...'
+                text: this.$t('tenant.fetching_message.contract')
             })
 
             try {

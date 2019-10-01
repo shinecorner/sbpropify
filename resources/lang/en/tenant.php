@@ -33,6 +33,12 @@ return [
         "done" => "Done",
         "archived" => "Archived",
     ],
+    "fetching_message" => [
+        "contact" => "Fetching the contacts...",
+        "contract" => "Fetching your contract...",
+        "document" => "Fetching the documents...",
+        "personal_data" => "Fetching your personal data...",
+    ],
     "placeholder" => [
         "publish" => "What do you want to publish?",
         "rate" => "How would you rate us?",
@@ -49,6 +55,7 @@ return [
     ],
     "no_data" => [
         "message" => "There are no messages yet",
+        "notification" => "You have no notifications yet.",
         "media" => "There are no media files available.",
         "product" => "No products available yet",
         "contact" => "No contacts available yet",        
@@ -61,6 +68,7 @@ return [
     ],
     "no_data_info" => [
         "product" => "All of them will be listed here.",
+        "notification" => "All of them will be listed here.",
         "contract" => "All of them will be listed here.",
         "property_manager" => "All of them will be listed here.",
         "neighbour" => "All of them will be listed here.",
@@ -91,6 +99,8 @@ return [
         "my_contract" => "My contract",
         "my_contact" => "My contact",
     ],
+    "you" => "You",
+    "and" => "and",
     "media_info" => "All of them will be listed here in columns and can be seen in fullsize by hovering on any of them.",
     "created_date" => "Created date",
     "due_date" => "Due date",

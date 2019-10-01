@@ -38,7 +38,7 @@ class FeedCriteria implements CriteriaInterface
     {
         if ($this->request->get('feed')) {
             return $model
-                ->whereRaw("(pinboard.pinned = ? or (pinboard.pinned_to is not null and pinboard.pinned_to > now()))", false)
+                ->whereRaw("(pinboard.pinned = ?)", false)
                 ->orderBy('pinboard.pinned', 'desc')
                 ->orderBy('pinboard.execution_start', 'asc')
                 ->orderBy('pinboard.published_at', 'desc')

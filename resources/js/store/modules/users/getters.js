@@ -17,7 +17,7 @@ export default {
     isTenant({loggedInUser}) {
         return !!loggedInUser.tenant;
     },
-    realEstate({realEstate}) {
-        return realEstate;
+    Settings({Settings}) {
+        return Settings;
     }
 }

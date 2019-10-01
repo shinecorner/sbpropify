@@ -125,9 +125,9 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/units/{id}/assignees/{assignee_id}', 'UnitAPIController@assignTenant');
     Route::delete('/units/{id}/assignees/{assignee_id}', 'UnitAPIController@unassignTenant');
 
-    // Real Estate
-    Route::get('/realEstate', 'RealEstateAPIController@show')->name('units.show');
-    Route::put('/realEstate', 'RealEstateAPIController@update')->name('units.update');
+    // Settings
+    Route::get('/settings', 'SettingsAPIController@show')->name('settings.show');
+    Route::put('/settings', 'SettingsAPIController@update')->name('settings.update');
 
     // Services
     Route::get('/services', 'ServiceProviderAPIController@index')->name('services');
@@ -226,7 +226,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/notifications', 'NotificationAPIController@index')->name('notifications');
     Route::post('/notifications', 'NotificationAPIController@markAllAsRead')->name('notifications.markAll');
     Route::post('/notifications/{id}', 'NotificationAPIController@markAsReadUnRead')->name('notifications.mark');
-    Route::get('/conversations', 'ConversationAPIController@show');
+    Route::get('/conversations', 'ConversationAPIController@index');
     Route::post('/conversations/{id}/comments', 'ConversationAPIController@storeComment');
 
     // Cleanify Request

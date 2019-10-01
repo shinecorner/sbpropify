@@ -72,10 +72,10 @@
             }
         },
         methods: {
-            ...mapActions(['updateSettings']),
+            ...mapActions(['updateUserSettings']),
 
             async save () {
-                await this.updateSettings(this.loggedInUser)
+                await this.updateUserSettings(this.loggedInUser)
             }
         }
     }

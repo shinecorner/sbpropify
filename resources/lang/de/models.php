@@ -24,7 +24,7 @@ return [
         'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
         'font_family' => 'Schriftfamilie',
         'notificationSaved' => 'Benachrichtigungseinstellung gespeichert',
-        'realEstateSaved' => 'Einstellungen gespeichert.',
+        'SettingsSaved' => 'Einstellungen gespeichert.',
         'serviceRequestCategorySaved' => 'Anfrage-Kategorie gespeichert',
         'serviceRequestCategoryDeleted' => 'Anfrage-Kategorie gelöscht',
         'setting_saved' => "Einstellung(en) gespeichert",
@@ -520,7 +520,7 @@ return [
             'deleted' => "Fehler beim Löschen der Überbauung: ",
         ],
     ],
-    'realEstate' => [
+    'Settings' => [
         'title' => 'Einstellungen Liegenschaftsverwaltung',
         'settings' => 'Einstellungen',
         'tenants_portal' => 'Mieterportal',
@@ -528,6 +528,7 @@ return [
         'micro_apps' => 'Micro-Apps',
         'theme' => 'Design',
         'smtp' => 'SMTP',
+        'email' => 'EMAIL',
         'pdf' => 'PDF',
         'login_variations' => 'Login-Varianten',
         'login_variation' => 'Login-Variante',

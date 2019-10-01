@@ -3,6 +3,7 @@
 namespace App\Http\Requests\API\Media;
 
 use App\Http\Requests\BaseRequest;
+use App\Models\Building;
 
 class BuildingUploadRequest extends BaseRequest
 {
@@ -23,8 +24,13 @@ class BuildingUploadRequest extends BaseRequest
      */
     public function rules()
     {
-        return [
-            'media' => 'required|string',
-        ];
+        $categories = Building::BuildingMediaCategories;
+        $rules = [];
+        foreach ($categories as $category) {
+            $requiredWithout = implode('_upload,', array_diff($categories, [$category])) . '_upload';
+            $rules[$category . '_upload'] = sprintf('required_without_all:%s|string', $requiredWithout);
+        }
+
+        return $rules;
     }
 }

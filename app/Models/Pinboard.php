@@ -107,7 +107,7 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
 
     const TypePost = 1;
     const TypeNewNeighbour = 2;
-    const TypePinned = 3;
+    const TypeAnnouncement = 3;
     const TypeArticle = 4;
 
     const SubTypeImportant = 1;
@@ -135,11 +135,11 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
     const Type = [
         self::TypePost => 'post',
         self::TypeNewNeighbour => 'new_neighbour',
-        self::TypePinned => 'pinned',
+        self::TypeAnnouncement => 'announcement',
         self::TypeArticle => 'article',
     ];
     const SubType = [
-        self::TypePinned => [
+        self::TypeAnnouncement => [
             self::SubTypeImportant => 'important',
             self::SubTypeCritical => 'critical',
             self::SubTypeMaintenance => 'maintenance',
@@ -178,7 +178,6 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
         'category',
         'quarter_id',
         'pinned',
-        'pinned_to',
         'execution_start',
         'execution_end',
         'title',
@@ -195,7 +194,6 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
     protected $dates = [
         'deleted_at',
         'published_at',
-        'pinned_to',
         'execution_start',
         'execution_end'
     ];
@@ -238,9 +236,9 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
     {
         $categories = array_keys(self::Category);
         $categories[] = null;
-        $re = RealEstate::first();
+        $settings = Settings::first();
         $visibilities = self::Visibility;
-        if (!$re->quarter_enable) {
+        if (!$settings->quarter_enable) {
             unset($visibilities[self::VisibilityQuarter]);
         }
         return [
@@ -252,7 +250,6 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
                     $fail($attribute.' must be false.');
                 }
             },
-            'pinned_to' => Rule::requiredIf(request()->pinned),
             'execution_start' => 'nullable|date',
             'execution_end' => 'nullable|date|after_or_equal:execution_start',
         ];

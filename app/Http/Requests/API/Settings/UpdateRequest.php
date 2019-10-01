@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\API\RealEstate;
+namespace App\Http\Requests\API\Settings;
 
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Http\Requests\BaseRequest;
 
 class UpdateRequest extends BaseRequest
@@ -14,7 +14,7 @@ class UpdateRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('edit-real_estate');
+        return $this->can('edit-settings');
     }
 
     /**
@@ -24,6 +24,6 @@ class UpdateRequest extends BaseRequest
      */
     public function rules()
     {
-        return RealEstate::rules();
+        return Settings::rules();
     }
 }

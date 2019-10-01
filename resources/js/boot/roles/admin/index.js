@@ -27,7 +27,7 @@ export default {
         unit: 'view-unit',
         propertyManager: 'view-property_manager',
         quarter: 'view-quarter',
-        realEstate: 'view-real_estate',
+        settings: 'view-settings',
         template: 'view-template',
         requestCategory: 'view-service_request_category'
     },
@@ -67,7 +67,7 @@ export default {
         unit: 'edit-unit',
         propertyManager: 'edit-property_manager',
         quarter: 'edit-quarter',
-        realEstate: 'edit-real_estate',
+        settings: 'edit-settings',
         template: 'edit-template',
         requestCategory: 'edit-service_request_category'
     },

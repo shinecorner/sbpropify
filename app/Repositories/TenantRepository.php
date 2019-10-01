@@ -209,7 +209,7 @@ class TenantRepository extends BaseRepository
             unset($attributes['company']);
         }
 
-        if ($attributes['status'] != $model->status && $attributes['status'] == Tenant::StatusNotActive) {
+        if (! empty($attributes['status']) && $attributes['status'] != $model->status && $attributes['status'] == Tenant::StatusNotActive) {
             $model->rent_contracts()
                 ->where('status', RentContract::StatusActive)
                 ->update(['status' =>  RentContract::StatusInactive]);

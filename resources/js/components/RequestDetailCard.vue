@@ -160,11 +160,14 @@ export default {
                 icon: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.8)'
             })
+        },
+        categories: {
+            type: Array,
+            default: () => ([])
         }
     },
     data() {
         return {
-            categories: []
         }
     },
     components: {
@@ -230,30 +233,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getRequestCategoriesTree']),
-        async getFilterCategories() {
-            const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
-            
-            this.categories = [];
-            categories.map((category) => {
-                this.categories[category.id] = {
-                    'en' : category.name_en,
-                    'fr' : category.name_fr,
-                    'it' : category.name_it,
-                    'de' : category.name_de,
-                };
-                if(category.categories.length > 0) {
-                    category.categories.map((subCategory) => {
-                        this.categories[subCategory.id] = {
-                            'en' : subCategory.name_en,
-                            'fr' : subCategory.name_fr,
-                            'it' : subCategory.name_it,
-                            'de' : subCategory.name_de,
-                        }
-                    });
-                }
-            });
-        },
+      
         handleSelectionChanged(val) {
             this.$emit('selectionChanged', this.item);
         },
@@ -264,9 +244,6 @@ export default {
             var res = date.split(" ");
             return res[0];
         }
-    },
-    async created() {
-        this.getFilterCategories();
     },
 }
 </script>

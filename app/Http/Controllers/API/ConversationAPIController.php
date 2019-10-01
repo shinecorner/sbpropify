@@ -6,7 +6,7 @@ use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Conversations\FilterModelCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Conversation\CommentRequest;
-use App\Http\Requests\API\Conversation\ViewRequest;
+use App\Http\Requests\API\Conversation\ListRequest;
 use App\Models\Conversation;
 use App\Repositories\ConversationRepository;
 use App\Transformers\ConversationTransformer;
@@ -79,11 +79,11 @@ class ConversationAPIController extends AppBaseController
      *      )
      * )
      *
-     * @param ViewRequest $request
+     * @param ListRequest $request
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function show(ViewRequest $request)
+    public function index(ListRequest $request)
     {
         $this->repo->pushCriteria(new RequestCriteria($request));
         $this->repo->pushCriteria(new LimitOffsetCriteria($request));

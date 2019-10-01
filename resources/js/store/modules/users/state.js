@@ -9,5 +9,5 @@ export default {
     roles: [
         "administrator"
     ],
-    realEstate: {}
+    Settings: {}
 }

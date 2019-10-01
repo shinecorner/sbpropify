@@ -24,7 +24,7 @@ return [
         'blank_pdf_desc' => 'Generate PDF files without letterhead so that they can be printed on your own stationery.',
         'font_family' => 'Font family',
         'notificationSaved' => 'Notificatin setting saved',
-        'realEstateSaved' => 'Real Estate settings saved',
+        'SettingsSaved' => 'Real Estate settings saved',
         'serviceRequestCategorySaved' => 'Service request category saved',
         'serviceRequestCategoryDeleted' => 'Service request category deleted',
         'setting_saved' => "user setting saved",
@@ -520,7 +520,7 @@ return [
             'deleted' => "Quarter deleted error: ",
         ],
     ],
-    'realEstate' => [
+    'Settings' => [
         'title' => 'Settings real estate',
         'settings' => 'Settings',
         'tenants_portal' => 'Tenants portal',
@@ -528,6 +528,7 @@ return [
         'micro_apps' => 'Micro-Apps',
         'theme' => 'Theme',
         'smtp' => 'SMTP',
+        'email' => 'EMAIL',
         'pdf' => 'PDF',
         'login_variations' => 'Login variations',
         'login_variation' => 'Login variation',

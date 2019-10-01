@@ -15,7 +15,7 @@ use App\Http\Requests\API\User\UpdateLoggedInRequest;
 use App\Http\Requests\API\User\UpdateRequest;
 use App\Http\Requests\API\User\UploadImageRequest;
 use App\Models\Building;
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Transformers\UserTransformer;
@@ -729,9 +729,9 @@ class UserAPIController extends AppBaseController
         $default = true;
         $building = $tenant->building;
 
-        if ( ! $building || Building::ContactEnablesBasedRealEstate == $building->contact_enable) {
-            $re = RealEstate::first('contact_enable');
-            return $re->contact_enable ?? $default;
+        if ( ! $building || Building::ContactEnablesBasedSettings == $building->contact_enable) {
+            $settings = Settings::first('contact_enable');
+            return $settings->contact_enable ?? $default;
         }
 
 

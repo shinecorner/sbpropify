@@ -24,7 +24,7 @@ return [
         'blank_pdf_desc' => 'Genera file PDF senza carta intestata in modo che possano essere stampati sulla tua carta intestata.',
         'font_family' => 'Famiglia di font',
         "notificationSaved" => "Impostazione della notifica salvata",
-        "realEstateSaved" => "Impostazioni immobiliari salvate",
+        "SettingsSaved" => "Impostazioni immobiliari salvate",
         "serviceRequestCategorySaved" => "Categoria della richiesta di servizio salvata",
         "serviceRequestCategoryDeleted" => "Categoria della richiesta di servizio cancellata",
         'setting_saved' => "impostazioni utente salvate",
@@ -520,7 +520,7 @@ return [
             'deleted' => "Errore al quarto eliminato: ",
         ],
     ],
-    'realEstate' => [
+    'Settings' => [
         "title" => "Impostazioni immobiliari",
         "settings" => "Impostazioni",
         'tenants_portal' => 'Portale inquilini',
@@ -528,6 +528,7 @@ return [
         'micro_apps' => 'Micro-Apps',
         'theme' => 'Tema',
         'smtp' => 'SMTP',
+        'email' => 'EMAIL',
         'pdf' => 'PDF',
         'login_variations' => 'Variazioni del login',
         'login_variation' => 'Variazione del login',

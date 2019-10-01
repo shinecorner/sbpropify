@@ -8,7 +8,7 @@ use App\Models\Quarter;
 use App\Models\Pinboard;
 use App\Models\RentContract;
 use App\Models\Tenant;
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Models\User;
 use App\Notifications\NewTenantInNeighbour;
 use App\Notifications\NewTenantPinboard;
@@ -324,8 +324,8 @@ class PinboardRepository extends BaseRepository
             return collect([$newTenantPinboard => collect()]);
         }
 
-        $re = RealEstate::firstOrFail();
-        $admins = User::whereIn('id', $re->news_receiver_ids)->get();
+        $settings = Settings::firstOrFail();
+        $admins = User::whereIn('id', $settings->news_receiver_ids)->get();
         $i = 0;
         foreach ($admins as $admin) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
