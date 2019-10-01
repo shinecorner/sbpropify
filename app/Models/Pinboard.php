@@ -107,7 +107,7 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
 
     const TypePost = 1;
     const TypeNewNeighbour = 2;
-    const TypePinned = 3;
+    const TypeAnnouncement = 3;
     const TypeArticle = 4;
 
     const SubTypeImportant = 1;
@@ -135,11 +135,11 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
     const Type = [
         self::TypePost => 'post',
         self::TypeNewNeighbour => 'new_neighbour',
-        self::TypePinned => 'pinned',
+        self::TypeAnnouncement => 'announcement',
         self::TypeArticle => 'article',
     ];
     const SubType = [
-        self::TypePinned => [
+        self::TypeAnnouncement => [
             self::SubTypeImportant => 'important',
             self::SubTypeCritical => 'critical',
             self::SubTypeMaintenance => 'maintenance',
