@@ -33,6 +33,12 @@ return [
         "done" => "Fatto",
         "archived" => "Archiviato",
     ],
+    "fetching_message" => [
+        "contact" => "Recupero dei contatti",
+        "contract" => "Recupero del contratto",
+        "document" => "Recupero dei documenti",
+        "personal_data" => "Recupero dei dati personali",
+    ],
     "placeholder" => [
         "publish" => "Cosa vuoi pubblicare?",
         "rate" => "Come ci giudicheresti? ",
@@ -49,6 +55,7 @@ return [
     ],
     "no_data" => [
         "message" => "Non ci sono ancora messaggi",
+        "notification" => "Non hai ancora nessuna notifica",
         "media" => "Non ci sono file multimediali disponibili.",
         "product" => "Non sono ancora disponibili prodotti",
         "contact" => "Non ci sono ancora contatti disponibili",
@@ -61,6 +68,7 @@ return [
     ],
     "no_data_info" => [
         "product" => "Tutti loro saranno elencati qui.",
+        "notification" => "Tutti loro saranno elencati qui.",
         "contract" => "Tutti loro saranno elencati qui.",
         "property_manager" => "Tutti loro saranno elencati qui.",
         "neighbour" => "Tutti loro saranno elencati qui.",
@@ -91,6 +99,8 @@ return [
         "my_contract" => "Il mio contratto",
         "my_contact" => "Il mio contatto",
     ],
+    "you" => "Voi",
+    "and" => "e",
     "media_info" => "Tutti loro saranno elencati qui in colonne e possono essere visti a grandezza naturale passandovi sopra.",
     "created_date" => "Data di creazione",
     "due_date" => "Scadenza",

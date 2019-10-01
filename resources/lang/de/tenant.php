@@ -33,6 +33,12 @@ return [
         "done" => "Erledigt",
         "archived" => "Archiviert",
     ],
+    "fetching_message" => [
+        "contact" => "Abrufen der Kontakte...",
+        "contract" => "Holen Sie sich Ihren Vertrag...",
+        "document" => "Abholen der Dokumente...",
+        "personal_data" => "Abruf Ihrer personenbezogenen Daten...",
+    ],
     "placeholder" => [
         "publish" => "Was möchten Sie veröffentlichen?",
         "rate" => "Wie würden Sie uns bewerten?",
@@ -49,6 +55,7 @@ return [
     ],
     "no_data" => [
         "message" => "Es sind noch keine Nachrichten vorhanden.",
+        "notification" => "Du hast noch keine Benachrichtigungen.",
         "media" => "Es sind keine Mediendateien verfügbar.",
         "product" => "Es sind keine Produkte verfügbar",
         "contact" => "Es sind keine Kontakte verfügbar",
@@ -61,6 +68,7 @@ return [
     ],
     "no_data_info" => [
         "product" => "Alle werden hier aufgelistet.",
+        "notification" => "Alle werden hier aufgelistet.",
         "contract" => "Alle werden hier aufgelistet.",
         "property_manager" => "Alle werden hier aufgelistet.",
         "neighbour" => "Alle werden hier aufgelistet.",
@@ -90,7 +98,9 @@ return [
         "document_listed_by_category" => "Alle werden hier in Spalten nach Kategorien aufgelistet.",
         "my_contract" => "Mein Mietvertrag",
         "my_contact" => "Mein Kontakt",
-    ],    
+    ],
+    "you" => "Du",
+    "and" => "und",
     "media_info" => "Alle werden hier in Spalten aufgelistet und sind in voller Größe zu sehen, wenn Sie mit der Maus über eine von ihnen fahren.",
     "created_date" => "Erstelldatum",
     "due_date" => "Fälligkeitsdatum",
