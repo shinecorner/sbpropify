@@ -302,6 +302,9 @@
                                 .el-alert__icon
                                     padding-top: 2px
 
+                        .ui-media-uploader 
+                            flex-grow: 1
+                            
                         // .ui-media-gallery
                         //     height: 100%
                         //     padding: 16px
