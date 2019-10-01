@@ -56,10 +56,6 @@ export default (config = {}) => {
                     }, {
                         required: true,
                         message: 'This field is required'
-                    }],
-                    role: [{
-                        required: true,
-                        message: 'This field is required'
                     }]
                 },
                 loading: {
@@ -70,14 +66,9 @@ export default (config = {}) => {
             };
         },
         computed: {
-            ...mapGetters(['allRoles']),
-
             form() {
                 return this.$refs.form;
             },
-            queryParams(){
-                return {role: this.model.role}
-            }            
         },
         methods: {
             async checkavailabilityEmail(rule, value, callback) {
@@ -113,7 +104,7 @@ export default (config = {}) => {
                             return false;
                         }
                         this.loading.state = true;
-
+                        this.model.role = 'administrator';
                         try {
                             const resp = await this.createUser(this.model);
                             displaySuccess(resp);
@@ -155,6 +146,7 @@ export default (config = {}) => {
                                 }
                                 this.isFormSubmission = false;
                                 this.loading.state = true;
+                                this.model.role = 'administrator';
 
                                 let params = this.model;
 
@@ -196,7 +188,7 @@ export default (config = {}) => {
                         this.model.email = data.email;
                         this.original_email = data.email;
                         this.model.phone = data.phone;
-                        this.model.role = data.roles[0].name; // what if returns no roles?
+                        this.model.role = 'administrator';
                         this.model.settings = data.settings;
                     } catch (err) {
                         // TODO - probably a better alternative, will do later
