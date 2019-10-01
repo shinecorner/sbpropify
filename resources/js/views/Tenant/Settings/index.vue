@@ -193,7 +193,7 @@
             ...mapGetters(["getAllAvailableLanguages", "loggedInUser"])
         },
         methods: {
-            ...mapActions(['updateSettings', 'changeUserPassword', 'changeDetails', 'uploadAvatar', 'me']),
+            ...mapActions(['updateUserSettings', 'changeUserPassword', 'changeDetails', 'uploadAvatar', 'me']),
             cropped(e) {
                 this.image = e;
             },
@@ -265,7 +265,7 @@
                 this.$refs.changePasswordForm.resetFields();
             },
             settingsUpdated() {
-                this.updateSettings(this.loggedInUser).then((resp) => {
+                this.updateUserSettings(this.loggedInUser).then((resp) => {
                     this.$i18n.locale = this.loggedInUser.settings.language;
                     displaySuccess({
                         success: true,

@@ -131,7 +131,7 @@ export default {
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    updateSettings({commit}, payload) {
+    updateUserSettings({commit}, payload) {
         return new Promise((resolve, reject) =>
             axios.put('users/me/settings', payload.settings)
                 .then(({data: r}) => {

@@ -71,10 +71,10 @@
         },
 
         methods: {
-            ...mapActions(['updateSettings']),
+            ...mapActions(['updateUserSettings']),
 
             async settingsUpdated() {
-                const resp = await this.updateSettings(this.user);                 
+                const resp = await this.updateUserSettings(this.user);
                 displaySuccess(resp);
             },
         }
