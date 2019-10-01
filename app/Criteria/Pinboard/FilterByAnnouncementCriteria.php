@@ -9,10 +9,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByPinnedCriteria
- * @package Prettus\Repository\Criteria
+ * Class FilterByAnnouncementCriteria
+ * @package App\Criteria\Pinboard
  */
-class FilterByPinnedCriteria implements CriteriaInterface
+class FilterByAnnouncementCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -36,9 +36,14 @@ class FilterByPinnedCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        if (!$this->request->has('pinned')) {
+        if ($this->request->has('announcement')) {
+            $announcement = $this->request->get('announcement');
+        } elseif ($this->request->has('pinned')) {
+            $announcement = $this->request->get('pinned');
+        } else {
             return $model;
         }
-        return $model->where('pinned', $this->request->get('pinned'));
+
+        return $model->where('announcement', $announcement);
     }
 }
