@@ -59,13 +59,13 @@
                 if (this.data.length) {
                     return [[...this.sortedUsers.slice(0, this.limit)], [...this.sortedUsers.slice(this.limit)]].reduce((text, users, index) => {
                         if (index === 0) {
-                            text += users.map(({id, name}) => id === this.loggedInUser.id ? 'You' : name.split(' ')[0]).join(', ')
+                            text += users.map(({id, name}) => id === this.loggedInUser.id ? this.$t('tenant.you') : name.split(' ')[0]).join(', ')
                         } else if (users.length > 1) {
-                            text += ` and ${users.length} ` + this.$t('tenant.welcome_others')
+                            text += ` ${this.$t('tenant.and')} ${users.length} ` + this.$t('tenant.welcome_others')
                         } else if (users.length) {
-                            text += ` and ${users.length} ` + this.$t('tenant.welcome_other')
+                            text += ` ${this.$t('tenant.and')} ${users.length} ` + this.$t('tenant.welcome_other')
                         } else {
-                            text = text.replace(/,(?=[^,]*$)/, ' and')
+                            text = text.replace(/,(?=[^,]*$)/, ' ' + this.$t('tenant.and'))
                         }
 
                         return text
