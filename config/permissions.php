@@ -129,7 +129,7 @@ return [
         ['edit-pinboard', 'Edit Pinboard', 'edit existing pinboard'],
         ['delete-pinboard', 'Delete Pinboard', 'delete existing pinboard'],
         ['(un)publish-pinboard', 'Publish Pinboard', 'publish pinboard'],
-        ['pin-pinboard', 'Pin Pinboard', 'pin pinboard'],
+        ['announcement-pinboard', 'Announcement Pinboard', 'announcement pinboard'],
         ['assign-pinboard', 'Assign Pinboard', 'assign pinboard'],
         ['list_views-pinboard', 'List views of Pinboard', 'list views of pinboard'],
         // Product

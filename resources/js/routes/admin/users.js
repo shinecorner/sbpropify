@@ -3,7 +3,7 @@ import hasPermissionGuard from 'guards/hasPermissionGuard'
 import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
-    path: 'users',
+    path: 'administrators',
     component: {
         template: '<router-view />'
     },
@@ -13,7 +13,7 @@ export default [{
         component: () => import ( /* webpackChunkName: "admin/users/index */ 'views/Admin/Users'),
         beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.user)]),
         meta: {
-            title: 'Users'
+            title: 'Administrators'
         }
     }, {
         name: 'adminUsersAdd',
@@ -21,10 +21,10 @@ export default [{
         component: () => import ( /* webpackChunkName: "admin/users/add" */ 'views/Admin/Users/Add'),
         beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.user)]),
         props: {
-            title: 'Add Administrator/Super admin'
+            title: 'Add Administrator'
         },
         meta: {
-            title: 'Add User'
+            title: 'Add Administrator'
         }
     }, {
         name: 'adminUsersEdit',
@@ -32,10 +32,10 @@ export default [{
         component: () => import ( /* webpackChunkName: "admin/users/edit" */ 'views/Admin/Users/Edit'),
         beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.user)]),
         props: {
-            title: 'Edit user'
+            title: 'Edit Administrator'
         },
         meta: {
-            title: 'Edit User'
+            title: 'Edit Administrator'
         }
     }]
 }]

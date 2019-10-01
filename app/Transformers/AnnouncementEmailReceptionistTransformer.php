@@ -2,26 +2,26 @@
 
 namespace App\Transformers;
 
-use App\Models\PinnedEmailReceptionist;
+use App\Models\AnnouncementEmailReceptionist;
 use App\Models\Tenant;
 
 /**
- * Class PinnedEmailReceptionistTransformer.
+ * Class AnnouncementEmailReceptionistTransformer.
  *
  * @package namespace App\Transformers;
  */
-class PinnedEmailReceptionistTransformer extends BaseTransformer
+class AnnouncementEmailReceptionistTransformer extends BaseTransformer
 {
     protected $defaultIncludes = [];
 
     /**
      * Transform the Pinboard entity.
      *
-     * @param \App\Models\PinnedEmailReceptionist $model
+     * @param \App\Models\AnnouncementEmailReceptionist $model
      *
      * @return array
      */
-    public function transform(PinnedEmailReceptionist $model)
+    public function transform(AnnouncementEmailReceptionist $model)
     {
         $response = [
             'pinboard_id' => $model->pinboard_id,
