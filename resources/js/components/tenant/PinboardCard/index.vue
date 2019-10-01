@@ -1,7 +1,7 @@
 <template>
-    <el-card  :class="{pinned: data.pinned}">
+    <el-card  :class="{announcement: data.announcement}">
         <div ref="container">
-        <div class="pinned" v-if="data.pinned"><span>pinned</span></div>
+        <div class="announcement" v-if="data.announcement"><span>announcement</span></div>
         <div class="user">
             <ui-avatar :name="data.user.name" :size="42" :src="data.user.avatar" />
             <div class="name">
@@ -20,21 +20,21 @@
                 
             </div>
         </div>
-        <div class="title" v-if="data.pinned">
+        <div class="title" v-if="data.announcement">
             <small>{{$t('tenant.category')}}:
                 {{$t(`models.pinboard.category.${$store.getters['application/constants'].pinboard.category[data.category]}`)}}
             </small>
             <strong>{{data.title}}</strong>
         </div>
         
-        <hr v-if="data.pinned" />
+        <hr v-if="data.announcement" />
         <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
         
-        <hr v-if="data.pinned"/>
-        <div class="execution" v-if="data.pinned">
+        <hr v-if="data.announcement"/>
+        <div class="execution" v-if="data.announcement">
             {{$t('tenant.execution')}} {{execution}}
         </div>
-        <div class="providers" v-if="data.pinned && data.providers && data.providers.length">
+        <div class="providers" v-if="data.announcement && data.providers && data.providers.length">
             {{$t('tenant.providers')}}: {{data.providers.map(provider => provider.name).join(', ')}}
         </div>
         <div class="gallery" v-if="data.media.length">
@@ -44,7 +44,7 @@
         <likes type="pinboard" :data="data.likes" layout="row" />
         <like :id="data.id" type="pinboard">
             <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text"> &nbsp;{{$t('tenant.comment')}}</el-button>
-            <el-button icon="icon-picture" type="text" v-if="data.pinned === false && data.media.length">                 
+            <el-button icon="icon-picture" type="text" v-if="data.announcement === false && data.media.length">
                 <template v-if="data.media.length">
                     {{data.media.length}} {{data.media.length > 1 ? $t('tenant.images') : $t('tenant.image')}}
                 </template>
@@ -143,7 +143,7 @@
 
 <style lang="scss" scoped>
     .el-card {
-        &.pinned {
+        &.announcement {
             :global(.el-card__body) {
                 border-width: 8px;
                 border-style: solid;
@@ -258,7 +258,7 @@
             }
         }
 
-        .pinned {
+        .announcement {
             position: absolute;
             right: 2px;
             top: 2px;

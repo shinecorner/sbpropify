@@ -72,8 +72,8 @@
                                         <el-card :header="$t('models.Settings.pdf')">
                                             <el-form-item class="switcher" prop="blank_pdf">
                                                 <label class="switcher__label">
-                                                    {{$t('models.Settings.blank_pdf')}}
-                                                    <span class="switcher__desc">{{$t('models.Settings.blank_pdf_desc')}}</span>
+                                                    <span class="switcher__label-title">{{$t('models.Settings.blank_pdf')}}</span>
+                                                    <span class="switcher__label-desc">{{$t('models.Settings.blank_pdf_desc')}}</span>
                                                 </label>
                                                 <el-switch v-model="model.blank_pdf"/>
                                             </el-form-item>
@@ -132,16 +132,16 @@
                                         <el-form-item class="switcher"
                                                       prop="pinboard_approval_enable">
                                             <label class="switcher__label">
-                                                {{$t('models.Settings.pinboard_approval_enable')}}
-                                                <span class="switcher__desc">{{$t('models.Settings.pinboard_approval_enable_desc')}}</span>
+                                                <span class="switcher__label-title">{{$t('models.Settings.pinboard_approval_enable')}}</span>
+                                                <span class="switcher__label-desc">{{$t('models.Settings.pinboard_approval_enable_desc')}}</span>
                                             </label>
                                             <el-switch v-model="model.pinboard_approval_enable"/>
                                         </el-form-item>
                                         <el-form-item class="switcher"
                                                       prop="contact_enable">
                                             <label class="switcher__label">
-                                                {{$t('models.Settings.contact_enable')}}
-                                                <span class="switcher__desc">{{$t('models.Settings.contact_enable_desc')}}</span>
+                                                <span class="switcher__label-title">{{$t('models.Settings.contact_enable')}}</span>
+                                                <span class="switcher__label-desc">{{$t('models.Settings.contact_enable_desc')}}</span>
                                             </label>
                                             <el-switch v-model="model.contact_enable"/>
                                         </el-form-item>
@@ -260,9 +260,8 @@
                                             <span @click="Iframe_drawer" class="icon-cog"></span>
                                             <el-form-item class="switcher switcher-frist" prop="contact_enable">
                                                 <label class="switcher__label">
-                                                    <p>{{$t('models.Settings.iframe_enable')}}</p>
-                                                    
-                                                    <span class="switcher__desc">{{$t('models.Settings.iframe_enable_desc')}}</span>
+                                                    <span class="switcher__label-title">{{$t('models.Settings.iframe_enable')}}</span>
+                                                    <span class="switcher__label-desc">{{$t('models.Settings.iframe_enable_desc')}}</span>
                                                     <el-switch 
                                                         v-model="model.iframe_enable"
                                                         />
@@ -437,7 +436,9 @@
                                                           class="switcher mt-20"
                                                           prop="login_variation_2_slider"
                                             >
-                                                <label class="switcher__label">{{$t('models.Settings.login_variation_slider')}}</label>
+                                                <label class="switcher__label">
+                                                    <span class="switcher__label-title">{{$t('models.Settings.login_variation_slider')}}</span>
+                                                </label>
                                                 <el-switch v-model="model.login_variation_2_slider"/>
                                             </el-form-item>
                                             
@@ -1069,18 +1070,23 @@
     .switcher {
         .el-form-item__content {
             display: flex;
-            align-items: center;
         }
         &__label {
             line-height: 1.4em;
             color: #606266;
         }
-        &__desc {
+        &__label-title {
+            display: flex;
+            align-items: center;
+            min-height: 40px;
+        }
+        &__label-desc {
             margin-top: 0.5em;
             display: block;
             font-size: 0.9em;
         }
         .el-switch {
+            margin-top: 10px;
             margin-left: auto;
         }
     }
