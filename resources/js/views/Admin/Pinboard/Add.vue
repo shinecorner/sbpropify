@@ -24,7 +24,7 @@
                                     </el-select> -->
                                     <el-select style="display: block" v-model="model.type" @change="() => {changePinned(); changePinboardTitle()}">
                                         <el-option
-                                            :label="$t(`models.pinboard.type.pinboard`)"
+                                            :label="$t(`models.pinboard.type.post`)"
                                             :value="1"
                                         >
                                         </el-option>
@@ -319,10 +319,10 @@
             changePinboardTitle() {
                 switch (+this.model.type) {
                     case 1:
-                        this.$route.meta.title = 'Add Pinboard';
+                        this.$route.meta.title = 'Add Post';
                         break;
                     case 3:
-                        this.$route.meta.title = 'Add Pinned Pinboard';
+                        this.$route.meta.title = 'Add Announcements Pinboard';
                         break;
                     case 4:
                         this.$route.meta.title = 'Add Article';

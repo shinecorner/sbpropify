@@ -13,10 +13,10 @@ export default [{
         component: () => import ( /* webpackChunkName: "admin/services/index" */ 'views/Admin/Services'),
         beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.provider)]),
         props: {
-            title: 'Add service'
+            title: 'Services'
         },
         meta: {
-            title: 'Users'
+            title: 'Services'
         }
     }, {
         name: 'adminServicesAdd',
