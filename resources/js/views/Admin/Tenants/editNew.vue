@@ -444,7 +444,7 @@
                                         </el-col>
                                     </el-row>
 
-                                    <el-row :gutter="20">
+                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
                                         <el-col :md="12">
                                             <el-form-item :label="$t('models.tenant.deposit_status.label')"
                                                             class="label-block">
@@ -474,7 +474,7 @@
                                         </el-col>
                                     </el-row>
 
-                                    <el-row :gutter="20">
+                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
                                         <el-col :md="12">
                                             <el-form-item :label="$t('models.tenant.rentcontract_id')"
                                                             class="label-block">
