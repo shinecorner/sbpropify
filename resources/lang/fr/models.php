@@ -528,6 +528,7 @@ return [
         'micro_apps' => 'Micro-Applications',
         'theme' => 'Thème',
         'smtp' => 'SMTP',
+        'email' => 'EMAIL',
         'pdf' => 'PDF',
         'login_variations' => 'Variations d\'ouverture de session',
         'login_variation' => 'Modification de l\'ouverture de session',
