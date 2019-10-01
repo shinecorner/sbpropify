@@ -383,25 +383,30 @@ class ServiceRequest extends AuditableModel implements HasMedia
         $propertyManager = $this->auditData['propertyManager'];
         $mailDetails = $this->auditData['mailDetails'];
         unset($this->auditData);
+        $newValues = [
+            'service_provider' => [
+                'id' => $sp->id,
+                'name' => $sp->name
+            ],
+            'email_title' => $mailDetails['title'],
+            'email_cc' => $mailDetails['cc'],
+            'email_bcc' => $mailDetails['bcc'],
+            'email_to' => $mailDetails['to'],
+            'email_body' => $mailDetails['body'],
+        ];
+
+        if ($propertyManager) {
+            $newValues['property_manager'] = [
+                'id' => $propertyManager->id,
+                'first_name' => $propertyManager->first_name,
+                'last_name' => $propertyManager->last_name,
+            ];
+        }
+
 
         return [
             [],
-            [
-                'service_provider' => [
-                    'id' => $sp->id,
-                    'name' => $sp->name
-                ],
-                'property_manager' => [
-                    'id' => $propertyManager->id,
-                    'first_name' => $propertyManager->first_name,
-                    'last_name' => $propertyManager->last_name,
-                ],
-                'email_title' => $mailDetails['title'],
-                'email_cc' => $mailDetails['cc'],
-                'email_bcc' => $mailDetails['bcc'],
-                'email_to' => $mailDetails['to'],
-                'email_body' => $mailDetails['body'],
-            ]
+            $newValues
         ];
     }
 

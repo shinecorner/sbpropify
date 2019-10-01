@@ -322,7 +322,7 @@ class ServiceRequestRepository extends BaseRepository
     /**
      * @param ServiceRequest $sr
      * @param ServiceProvider $sp
-     * @param $propertyManagers
+     * @param $propertyManager
      * @param $mailDetails
      */
     public function notifyProvider(ServiceRequest $sr, ServiceProvider $sp, $propertyManager, $mailDetails)
@@ -332,13 +332,12 @@ class ServiceRequestRepository extends BaseRepository
             $toEmails[] = $mailDetails['to'];
         }
 
-        $ccEmails = [$propertyManager->user->email];
+        $ccEmails = $propertyManager ? [$propertyManager->user->email] : [];
         if (!empty($mailDetails['cc']) && is_array($mailDetails['cc'])) {
             $ccEmails = array_merge($ccEmails, $mailDetails['cc']);
         }
 
         $bccEmails = $mailDetails['bcc'] ?? [];
-
         \Mail::to($toEmails)
             ->cc($ccEmails)
             ->bcc($bccEmails)
@@ -356,7 +355,7 @@ class ServiceRequestRepository extends BaseRepository
         $comment = $mailDetails['title'] . "\n\n" . strip_tags($mailDetails['body']);
         $conv->comment($comment);
 
-        if ($propertyManager->user) {
+        if ($propertyManager && $propertyManager->user) {
             $conv = $sr->conversationFor($u, $propertyManager->user);
             if ($conv) {
                 $conv->comment($comment);

@@ -611,15 +611,17 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $providerId = $request->service_provider_id ?? $request->provider_id; // @TODO delete provider_id
+        $providerId = $request->service_provider_id;
         $sp = $spRepo->findWithoutFail($providerId);
         if (empty($sp)) {
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
-        $managerId = $request->property_manager_id ?? $request->manager_id ?? $request->assignee_id ?? []; // @TODO delete manager_id, assignee_id
-        $propertyManager = $pmRepo->with('user:email,id')->find($managerId);
+        $managerId = $request->property_manager_id;
+
+        $propertyManager = $managerId ? $pmRepo->with('user:email,id')->find($managerId) : null;
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
+
         $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManager, $mailDetails);
         $sr->touch();
         $sp->touch();
