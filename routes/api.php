@@ -128,8 +128,6 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     // Settings
     Route::get('/settings', 'SettingsAPIController@show')->name('settings.show');
     Route::put('/settings', 'SettingsAPIController@update')->name('settings.update');
-    Route::get('/realEstate', 'SettingsAPIController@show')->name('settings.show');
-    Route::put('/realEstate', 'SettingsAPIController@update')->name('settings.update');
 
     // Services
     Route::get('/services', 'ServiceProviderAPIController@index')->name('services');
