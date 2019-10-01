@@ -11,7 +11,7 @@
                         <i class="icon-ellipsis-vert"></i>
                     </el-button>
                 </el-tooltip>
-                <el-dropdown-menu v-if="type !== 'internalNotices'" slot="dropdown">
+                <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item v-for="(template, idx) in templates" :key="template.id" :command="template" :divided="!!idx">
                         {{template.name}}
                         <small style="display: block;color: #A9A9A9;width: 280px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
@@ -24,27 +24,6 @@
                     <el-dropdown-item disabled v-else-if="!loadingTemplates && !templates.length">
                         {{$t('components.common.addComment.emptyTemplatesPlaceholder')}}
                     </el-dropdown-item>
-                </el-dropdown-menu>
-                <el-dropdown-menu v-else slot="dropdown" style="padding: 5px">
-                        Property maneger
-                        <el-select
-                            v-model="value"
-                            multiple
-                            filterable
-                            remote
-                            reserve-keyword
-                            placeholder="Please enter a keyword"
-                            :remote-method="remoteSearch"
-                            :loading="loading"
-                            style="width: 100%;"
-                            :popper-append-to-body="false">
-                            <el-option
-                                v-for="item in options"
-                                :key="item.id"
-                                :label="item.name"
-                                :value="item.id">
-                            </el-option>
-                        </el-select>
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
@@ -59,7 +38,6 @@
     import ErrorFallback from 'components/common/AddComment/Error'
     import {displaySuccess, displayError} from 'helpers/messages'
     import { EventBus } from '../../../event-bus.js';
-    import RelationList from '../../RelationListing';
 
     export default {
         props: {
@@ -96,21 +74,11 @@
                 loadingTemplates: false,
                 dropdownTemplatesVisible: false,
                 errorFallback: ErrorFallback,
-                managerList: [],
-                toAssign: '',
-                toAssignList: [],
-                
-                options: [],
-                value: [],
-                list: [],
-                loading: false,
             }
         },
         methods: {
             ...mapActions({
                 getTemplates: 'getRequestTemplates',
-                getPropertyManagers: 'getPropertyManagers',
-                getAssignees: 'getAssignees'
             }),
 
             focus () {
@@ -162,34 +130,6 @@
                     this.content = ''
                     this.loading = false
                 }
-            },
-            async remoteSearch(search) {
-                if (search === '') {
-                    this.options = [];
-                    this.value = [];
-                } else {
-                    this.loading = true;
-                    try {
-                        let resp = [];
-                        const respAssignee = await this.getPropertyManagers({request_id: this.$route.params.id});                        
-                        let exclude_ids = [];                                                
-                            respAssignee.data.data.map(item => {
-                                if(item.type === 'manager'){
-                                    exclude_ids.push(item.edit_id);
-                                }                                
-                            })
-                            resp = await this.getPropertyManagers({
-                                get_all: true,
-                                search,
-                                exclude_ids
-                            });
-                        this.options = resp.data;
-                    } catch (err) {
-                        displayError(err);
-                    } finally {
-                        this.loading = false;
-                    }
-                }           
             },
         },
         computed: {
