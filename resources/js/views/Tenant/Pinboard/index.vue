@@ -342,7 +342,7 @@
                 left: 0
                 width: 100%
                 height: 100%
-                background-image: url('~img/5d619aede1e3c.png')
+                // background-image: url('~img/5d619aede1e3c.png')
                 background-repeat: no-repeat
                 background-position: top center
                 width: 100%

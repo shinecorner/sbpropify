@@ -20,13 +20,13 @@
                     </template>
                     <template v-slot="{item, index, active}">
                         <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
-                            <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
+                            <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @toggle-drawer="toggleDrawer(item)" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
                                 <template #tab-overview-after-for-mobile>
                                     <div class="tab-overview-after-for-mobile">
                                     <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
                                     <el-tooltip :content="$t('tenant.tooltips.status_change_requeset')">
-                                        <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
-                                        <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
+                                        <el-button icon="icon-ok" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
+                                        <el-button icon="icon-right-1" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
                                     </el-tooltip>
                                     </div>
                                 </template>
@@ -34,8 +34,8 @@
                                     <div class="tab-overview-after">
                                     <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
                                     <el-tooltip :content="$t('tenant.tooltips.status_change_requeset')">
-                                        <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
-                                        <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
+                                        <el-button icon="icon-ok" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
+                                        <el-button icon="icon-right-1" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
                                     </el-tooltip>
                                     </div>
                                 </template>
@@ -96,7 +96,6 @@
                             :closable="false"
                         >
                         </el-alert>
-                        
                     </div>
                     <ui-media-uploader v-model="media" 
                                     :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" 
@@ -144,7 +143,7 @@
             <template v-if="!openedRequest">
                 <ui-divider content-position="left">{{$t('tenant.add_request')}}</ui-divider>
                 <div class="content">
-                    <request-add-form ref="request-add-form" />
+                    <request-add-form :visible.sync="visibleDrawer" ref="request-add-form" />
                 </div>
             </template>
         </ui-drawer>

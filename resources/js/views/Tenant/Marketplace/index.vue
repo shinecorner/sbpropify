@@ -41,7 +41,7 @@
             <ui-divider content-position="left" v-else>{{$t('tenant.add_product')}}</ui-divider>
             <div class="content">
                 <product-edit-form :data="editingProduct" @delete-product="deleteProduct" v-if="editingProduct"/>
-                <product-add-form v-else/>
+                <product-add-form :visible.sync="visibleDrawer" v-else/>
             </div>
         </ui-drawer>
     </div>
@@ -310,6 +310,9 @@
                     display: flex
                     align-items: center
 
+                    .el-input 
+                        width: 300px
+
                     .el-button
                         margin: 0
 
@@ -364,7 +367,7 @@
                 left: 0
                 width: 100%
                 height: 100%
-                background-image: url('~img/5d619aede1e3c.png')
+                // background-image: url('~img/5d619aede1e3c.png')
                 background-repeat: no-repeat
                 background-position: top center
                 width: 100%
