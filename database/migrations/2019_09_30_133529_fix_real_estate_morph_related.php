@@ -33,7 +33,7 @@ class FixRealEstateMorphRelated extends Migration
             'description' => 'edit settings'
         ]);
 
-        update_db_fileds(\App\Models\Media::class, ['disk'], 'post', 'pinboard');
+        update_db_fileds(\App\Models\Media::class, ['disk'], 'posts', 'pinboard');
     }
 
     /**
