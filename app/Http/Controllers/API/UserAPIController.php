@@ -729,7 +729,7 @@ class UserAPIController extends AppBaseController
         $default = true;
         $building = $tenant->building;
 
-        if ( ! $building || Building::ContactEnablesBasedRealEstate == $building->contact_enable) {
+        if ( ! $building || Building::ContactEnablesBasedSettings == $building->contact_enable) {
             $settings = Settings::first('contact_enable');
             return $settings->contact_enable ?? $default;
         }

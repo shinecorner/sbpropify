@@ -91,12 +91,12 @@ class Building extends AuditableModel implements HasMedia
         'other',
     ];
 
-    const ContactEnablesBasedRealEstate = 1;
+    const ContactEnablesBasedSettings = 1;
     const ContactEnablesShow = 2;
     const ContactEnablesHide = 3;
 
     const BuildingContactEnables = [
-        self::ContactEnablesBasedRealEstate => 'reference_settings',
+        self::ContactEnablesBasedSettings => 'reference_settings',
         self::ContactEnablesShow => 'show',
         self::ContactEnablesHide => 'hide',
     ];
