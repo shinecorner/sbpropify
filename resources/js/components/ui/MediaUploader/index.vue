@@ -252,18 +252,18 @@
     .ui-media-uploader
         display: flex
         flex-direction: column
+        min-height: 190px
 
         &__list
+            flex-grow: 1
             display: grid
             grid-gap: 8px
             grid-template-columns: repeat(auto-fill, minmax(112px, 1fr))
             grid-auto-rows: min-content
 
             & + .el-button
-                width: 96%
-                position: absolute
+                width: 100%
                 bottom: 10px
-                left: 2%
 
         &__item
             position: relative

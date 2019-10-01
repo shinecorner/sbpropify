@@ -339,6 +339,13 @@
                                                 </el-table-column>
                                             </el-table>
                                             <upload-rent-contract :rentContractIndex="c_index" @fileUploaded="addPDFtoRentContract" class="upload-custom" acceptType=".pdf" drag multiple/>
+                                            <el-alert
+                                                :title="$t('models.request.pdf_only_desc')"
+                                                type="info"
+                                                show-icon
+                                                :closable="false"
+                                            >
+                                            </el-alert>
                                             </el-form-item>
                                         </el-col>
                                     
@@ -798,6 +805,10 @@
                     }
                 }
             }
+        }
+
+        .el-alert {
+            margin-top: 10px;
         }
     }
 </style>

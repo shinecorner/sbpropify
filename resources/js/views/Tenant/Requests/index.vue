@@ -487,6 +487,11 @@
                                 padding-right: 0
                                 .el-alert__icon
                                     padding-top: 2px
+                        
+                        .ui-media-uploader 
+                            flex-grow: 1
+
+                            
 
                         // .ui-media-gallery
                         //     height: 100%

@@ -643,6 +643,7 @@ return [
         'send_person' => 'Quelle personne doit être notifiée ?',
         'add_rent_contract' => 'Ajouter un nouveau contrat de location',
         'delete_rent_contract' => 'Supprimer le contrat de location',
+        'pdf_only_desc' => 'Veuillez noter que seuls les fichiers PDF peuvent être téléchargés.',
         'sort' => 'Trier',
         'reset_sort' => 'Réinitialiser le tri',
         'creation_date' => 'Date de création',
