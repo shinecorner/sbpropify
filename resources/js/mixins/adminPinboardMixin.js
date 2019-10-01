@@ -391,7 +391,6 @@ export default (config = {}) => {
                         });
                     },
                     async fetchCurrentPinboard() {
-                        console.log(this.model)
                         const {
                             execution_period,
                             is_execution_time,
@@ -411,7 +410,6 @@ export default (config = {}) => {
                         };
 
                         this.showdefaultimage = this.model.category != null ? true : false;
-                        console.log(this.model)
 
                         return this.model;
                     }
