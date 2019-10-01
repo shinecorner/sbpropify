@@ -22,9 +22,7 @@ class ListRequest extends BaseRequest
         }
 
         if (Relation::$morphMap[$this->commentable] == Conversation::class) {
-            return Conversation::where('conversationable_id', $this->id)->where('conversationable_type', $this->commentable)
-                ->ofLoggedInUser()
-                ->exists();
+            return Conversation::where('id', $this->id)->ofLoggedInUser()->exists();
         }
 
         // and comments from all other models
