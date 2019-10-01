@@ -157,7 +157,7 @@
                                         </el-row>
                                     </el-card>
 
-                                    <el-card :header="$t('models.realEstate.smtp')">
+                                    <el-card :header="$t('models.realEstate.email')">
                                         <el-row :gutter="20">
                                             <el-col :md="12">
                                                 <el-form-item :label="$t('models.realEstate.mail_from_name.label')"
