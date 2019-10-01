@@ -4,7 +4,7 @@
             <ui-heading icon="icon-megaphone-1" :title="$t('tenant.pinboard')" :description="$t('tenant.heading_info.pinboard')" />
             
                 <ui-divider />
-            <div class="container" >
+            <div class="container">
                 
                 <div class="content">
                     <pinboard-add-card />
@@ -16,14 +16,14 @@
                             <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                         </el-popover> -->
                     </el-divider>
-                    <dynamic-scroller ref="dynamic-scroller" :items="filteredPinboards" :min-item-size="131" v-if="!loading && filteredPinboards.length">
+                    <dynamic-scroller ref="dynamic-scroller" heightField="height" :items="filteredPinboards" :min-item-size="131" v-if="!loading && filteredPinboards.length">
                         <!-- <template #before v-if="loading && !filteredPinboards.length">
                             <loader v-for="idx in 5" :key="idx" />
                         </template> -->
                         <template v-slot="{item, index, active}">
                             <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" page-mode v-if="!loading">
                                 <pinboard-new-tenant-card :data="item" v-if="$constants.pinboard.type[item.type] === 'new_neighbour' && item.user_id != $store.getters.loggedInUser.id"/>
-                                <pinboard-card :data="item" @edit-pinboard="editPinboard" @delete-pinboard="deletePinboard" v-else-if="$constants.pinboard.type[item.type] !== 'new_neighbour'"/>
+                                <pinboard-card :data="item" @edit-pinboard="editPinboard" @delete-pinboard="deletePinboard" v-else-if="$constants.pinboard.type[item.type] !== 'new_neighbour'" @hook:mounted="$refs['dynamic-scroller'].forceUpdate"/>
                             </dynamic-scroller-item>
                         </template>
                         <!-- <template #after v-if="loading && !filteredPinboards.length">
@@ -209,6 +209,7 @@
         },
         async mounted() {
             await this.$store.dispatch('newPinboard/reset')
+            await this.$store.dispatch('comments/reset')
             await this.getPinboards()
         }
     }
@@ -300,7 +301,7 @@
             }
 
             .vue-recycle-scroller {
-                overflow-x: hidden;
+                overflow: hidden;
 
                 :global(.vue-recycle-scroller__item-wrapper) {
                     overflow: visible;

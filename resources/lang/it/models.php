@@ -644,6 +644,7 @@ return [
         'send_person' => 'Quale persona deve essere informata?',
         'add_rent_contract' => 'Aggiungere un nuovo contratto di affitto',
         'delete_rent_contract' => 'Cancellare il contratto di affitto',
+        'pdf_only_desc' => 'Si prega di notare che solo i file PDF possono essere caricati',
         'sort' => 'In scadenza il',
         'reset_sort' => 'Ripristina ordinamento',
         'creation_date' => 'Data di creazione',

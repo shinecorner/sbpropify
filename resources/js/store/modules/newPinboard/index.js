@@ -136,7 +136,7 @@ export default {
     mutations: {
         reset: state => Object.assign(state, {
             data: [],
-            current_page: 0
+            current_page: 0,
         }),
         set: (state, payload) => Object.assign(state, payload),
         update: ({data}, payload) => { Object.assign(data.find(({id}) => id === payload.id), payload);

@@ -121,10 +121,13 @@ export default {
         },
         clear ({commit}, commentable) {
             commit('clear', commentable)
-        }
+        },
+        reset ({commit}) {
+            commit('reset')
+        },
     },
     getters: {
-        get: state => (id, commentable) => state[commentable][id]
+        get: state => (id, commentable) => state[commentable][id] ? state[commentable][id] : { data : [], total : 0}
     },
     mutations: {
         set (state, {id, data, parent_id, commentable}) {
@@ -216,7 +219,13 @@ export default {
             }
         },
         clear (state, {commentable}) {
-            state[commentable] = {}
-        }
+            Object.assign(state[commentable], {})
+        },
+        reset: state => Object.assign(state, {
+            pinboard: {},
+            request: {},
+            product: {},
+            internalNotices: {}
+        })
     }
 }
