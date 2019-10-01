@@ -187,8 +187,8 @@ HTML
             [
                 'parent_id' => 3,
                 'system' => 1,
-                'name' => 'pinned_pinboard',
-                'description' => 'Email sent to tenants when admin publishes a pinned pinboard',
+                'name' => 'announcement_pinboard',
+                'description' => 'Email sent to tenants when admin publishes a announcement pinboard',
                 'tag_map' => [
                     'salutation' => 'user.title',
                     'name' => 'user.name',
