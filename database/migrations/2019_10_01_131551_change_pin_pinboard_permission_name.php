@@ -18,6 +18,12 @@ class ChangePinPinboardPermissionName extends Migration
             'display_name' => 'Announcement Pinboard',
             'description' => 'announcement pinboard'
         ]);
+        \App\Models\TemplateCategory::where('name', 'pinned_pinboard')->update([
+            'name' => 'announcement_pinboard'
+        ]);
+        \App\Models\Template::where('name', 'Pinboard - pinned_pinboard')->update([
+            'name' => 'Pinboard - announcement_pinboard'
+        ]);
     }
 
     /**
