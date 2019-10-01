@@ -4,6 +4,7 @@
                 :visible="statusChangeModalVisible"
                 width="40%"
                 class="request-status-change-modal"
+                @close="closeModal()"
                 :modalAppendToBody="false">
         <el-form ref="form" :model="model" label-position="top" :rules="validationRules">
             <el-row>
@@ -68,7 +69,7 @@
         methods: {
             close() {
                 this.closeModal();
-            }          
+            }
         },  
     };
 </script>
