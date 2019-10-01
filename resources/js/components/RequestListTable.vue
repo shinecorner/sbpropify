@@ -39,7 +39,7 @@
                                     <el-option :label="`${$t('general.placeholders.select')+' '+filter.name}`" value=""></el-option>
                                     <el-option
                                         :key="item.id + item.name"
-                                        :label="item.name"
+                                        :label="filter.key == 'category_id'?item['name_'+$i18n.locale]:item.name"
                                         :value="item.id"
                                         v-for="item in filter.data">
                                     </el-option>

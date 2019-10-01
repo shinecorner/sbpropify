@@ -102,8 +102,9 @@
                 </el-col> 
                 <el-col :span="4" class="request-category">
                     <span>{{ $t('models.request.category') }}</span>
-                    <p>{{ item.category.parent_id==null?'': categories[item.category.parentCategory.id] + ' > ' }}
-                        {{ categories[item.category.id] }}
+                    <p>{{ item.category.parent_id==null?'': categories[item.category.parentCategory.id] == undefined? '':
+                        categories[item.category.parentCategory.id][$i18n.locale]+ ' > ' }}
+                        {{ categories[item.category.id] == undefined? '':categories[item.category.id][$i18n.locale]}}
                     </p>
                 </el-col>
                 <el-col :span="3">
@@ -118,12 +119,13 @@
                     <div v-else style="display: flex">
                         <p v-if="updated_at.h">{{ updated_at.h }}h&nbsp;</p>
                         <p v-else-if="updated_at.m">{{  updated_at.m }}m&nbsp;</p>
-                        <p>{{ $t('models.request.ago') }}</p>
+                        <p v-if="updated_at.h || updated_at.m">{{ $t('models.request.ago') }}</p>
+                        <p v-else>{{ $t('models.request.just_now') }}</p>
                     </div>
                 </el-col>
                 <el-col :span="3">
                     <span>{{ $t(due.label) }}</span>
-                    <p :style="{fontWeight: due.fontWeight}">{{ due.date }}</p>
+                    <p>{{ due.date }}</p>
                 </el-col>
             </el-row>    
         </div>
@@ -176,7 +178,6 @@ export default {
             var currentDate = new Date();
             var label = 'models.request.due_on';
             var date = '';
-            var fontWeight = 700;
             if(this.item.due_date !==undefined && this.item.due_date) {
                 let due_date_formatted = format(this.item.due_date, 'DD.MM.YYYY');
                 var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
@@ -185,21 +186,22 @@ export default {
                 if(days < 0) {
                     label = 'models.request.was_due_on';
                     date = due_date_formatted;
+                    if(days == -1)
+                        date = this.$t('models.request.yesterday');
                 } else if(days <= 30) {
-                    label = 'models.request.due_in';
                     date = Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`);
                     if(days == 0) 
                         date = this.$t('models.request.today');
+                    else if(days == 1) 
+                        date = this.$t('models.request.tomorrow');
                 }
             } else {
                 label= 'models.request.due_date';
                 date = this.$t('models.request.not_set');
-                fontWeight = 900;
             }
             return {
                 label: label,
-                date: date,
-                fontWeight: fontWeight
+                date: date
             };
             
         },
@@ -234,10 +236,20 @@ export default {
             
             this.categories = [];
             categories.map((category) => {
-                this.categories[category.id] = category.name;
+                this.categories[category.id] = {
+                    'en' : category.name_en,
+                    'fr' : category.name_fr,
+                    'it' : category.name_it,
+                    'de' : category.name_de,
+                };
                 if(category.categories.length > 0) {
                     category.categories.map((subCategory) => {
-                        this.categories[subCategory.id] = subCategory.name;
+                        this.categories[subCategory.id] = {
+                            'en' : subCategory.name_en,
+                            'fr' : subCategory.name_fr,
+                            'it' : subCategory.name_it,
+                            'de' : subCategory.name_de,
+                        }
                     });
                 }
             });
@@ -255,12 +267,6 @@ export default {
     },
     async created() {
         this.getFilterCategories();
-    },
-    async mounted() {
-        this.$root.$on('changeLanguage', () => {
-            this.getFilterCategories();
-        });
-        
     },
 }
 </script>
