@@ -160,7 +160,14 @@ return [
                 'title' => "Non ci sono commenti per l'inserimento nell'elenco",
                 'description' => "Chiedere l'annuncio inviando messaggi utilizzando il modulo sottostante e premere Invio.",
             ],
-        ], 
+        ],
+        'pinboardcommentsList' => [
+	        'loadMore' => 'Scarica {count} altri commenti sul Muro.',
+	        'emptyPlaceholder' => [
+		        'title' => "Non ci sono commenti per Pinnwand.",
+		        'description' => "Richiedi la bacheca inviando messaggi utilizzando il modulo sottostante e premendo Invio.",
+	        ],
+        ],
         'comment' => [
             'updateShortcut' => "o l'uso {shortcut} scorciatoia",
             'updateOrCancel' => '{update} o premere {esc} al {cancel}',

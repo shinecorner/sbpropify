@@ -160,7 +160,14 @@ return [
                 'title' => 'There are no comments for listing',
                 'description' => 'Ask about listing by sending messaging using the below form and press enter.',
             ],
-        ],        
+        ],
+        'pinboardcommentsList' => [
+	        'loadMore' => 'Load {count} more pinboard comments',
+	        'emptyPlaceholder' => [
+		        'title' => 'There are no comments for pinboard',
+		        'description' => 'Ask about pinboard by sending messaging using the below form and press enter.',
+	        ],
+        ],
         'comment' => [
             'updateShortcut' => 'or use {shortcut} shortcut',
             'updateOrCancel' => '{update} or press {esc} to {cancel}',
