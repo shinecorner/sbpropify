@@ -147,4 +147,10 @@
 
                 &:hover
                     filter: opacity(1)
+
+        .el-icon-loading
+            height: 15px
+            position: absolute
+            top: 40%
+            left: 45%
 </style>

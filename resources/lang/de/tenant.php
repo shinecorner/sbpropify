@@ -226,5 +226,6 @@ return [
     "emergency" => [
         "title" => "Notfallnummer",
         "desc" => "Wenn Sie ausserhalb der Bürozeiten einen Notfall haben, so bitten wir Sie folgende Nummer anzurufen"
-    ]
+    ],
+    "message" => "Nachricht",
 ];

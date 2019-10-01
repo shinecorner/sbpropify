@@ -36,10 +36,10 @@
             <media-uploader ref="media" :id="product_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
         <el-form-item v-if="!hideSubmit" style="grid-column: span 3">
-            <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
+            <el-button class="submit is-round" icon="ti-save" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
         <el-form-item v-if="!hideSubmit" style="grid-column: span 3">
-            <el-button class="submit" type="danger" :disabled="loading" @click.stop="$emit('delete-product', $event, data)">{{$t('general.actions.delete')}}</el-button>
+            <el-button class="is-round" icon="ti-trash" type="danger" :disabled="loading" @click.stop="$emit('delete-product', $event, data)">{{$t('general.actions.delete')}}</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -217,4 +217,7 @@
 
                 .el-button, .el-select
                     width: 100%
+
+                .el-button i
+                    padding-right: 5px
 </style>
