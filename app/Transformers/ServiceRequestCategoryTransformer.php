@@ -23,7 +23,12 @@ class ServiceRequestCategoryTransformer extends BaseTransformer
         $response = [
             'id' => $model->id,
             'parent_id' => $model->parent_id,
-            'name' => get_translated_filed($model, 'name'),
+            'name' => $model->name,
+            'name' => $model->name,
+            'name_en' => $model->name,
+            'name_de' => $model->name_de,
+            'name_fr' => $model->name_fr,
+            'name_it' => $model->name_it,
             'description' => $model->description,
             'has_qualifications' => $model->has_qualifications,
             'acquisition' => $model->acquisition,

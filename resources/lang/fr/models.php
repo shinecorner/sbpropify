@@ -135,6 +135,7 @@ return [
             'private' => 'Privé',
             'business' => 'Affaires',
             'parking_lot' => 'Terrain de stationnement',
+            'parking_slot' => 'Emplacement de stationnement',
         ],
         'rent_duration' => 'Durée du loyer',
         'rent_durations' => [
@@ -146,13 +147,25 @@ return [
         'type_of_deposit' => 'Type de dépôt',
         'deposit_types' => [
             'bank_deposit' => 'Dépôt bancaire',
+            'bank_deposit' => 'Dépôt bancaire',
             'bank_guarantee' => 'Garantie bancaire',
             'insurance' => 'Assurance',
             'other' => 'Autre',
         ],
-        'net_rent' => 'Loyer net',
         'heating_operating_costs_installment' => "Versement des frais de chauffage et d'exploitation",
+        'maintenance' => 'Maintenance',
+        'parking_price' => 'Prix Parking',
         'gross_rent' => 'Loyer brut',
+        'deposit_status' => [
+            'label' => 'Statut des dépôts',
+            'yes' => 'Oui',
+            'no' => 'Non',
+        ],
+        'rentcontract_id' => 'ID du contrat de location',
+        'rent_status' => [
+            'active' => 'Actif',
+            'inactive' => 'Inactif',
+        ],
         'contact' => [
             "category" => "Catégorie",
         ],
@@ -291,7 +304,6 @@ return [
         "floor" => "L'étage",
         "sq_meter" => "Mètre carré",
         "room_no" => "Nombre de pièces",
-        "monthly_rent_net" => "Loyer mensuel",
         "building_search" => "Veuillez entrer le nom d'un bâtiment et le sélectionner",
         "building" => "Bâtiment",
         "basement" => "Sous-sol",
@@ -634,6 +646,8 @@ return [
         'reset_sort' => 'Reset Sort fr',
         'creation_date' => 'Creation Date fr',
         'ago' => 'ago fr',
+        'not_set' => 'Not set fr',
+        'today' => 'Today fr',
         'media' => [
             "added" => "Document ajouté",
             "removed" => "Suppression du support",

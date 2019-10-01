@@ -22,7 +22,7 @@ class CreateTenantRentContractsTable extends Migration
             $table->smallInteger('duration')->nullable()->default(\App\Models\RentContract::DurationUnlimited);
             $table->smallInteger('status')->nullable()->default(\App\Models\RentContract::StatusActive);
             $table->string('tenant_rent_contract_format')->nullable();
-            $table->smallInteger('deposit_type')->nullable()->default(\App\Models\RentContract::DepositTypeBankDepot);
+            $table->smallInteger('deposit_type')->nullable()->default(\App\Models\RentContract::DepositTypeBankDepositt);
             $table->smallInteger('deposit_status')->nullable()->default(\App\Models\RentContract::DepositStatusYes);
             $table->integer('deposit_amount')->nullable()->default(0);
             $table->integer('net_rent')->nullable()->default(0);

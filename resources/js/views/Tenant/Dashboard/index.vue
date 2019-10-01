@@ -7,10 +7,10 @@
         <ui-heading icon="ti-home" :title="$t('tenant.my_dashboard')">
             <greeting ref="greeting" class="description" slot="description" />
         </ui-heading>
-        <ui-divider />
+        <ui-divider />        
         <div class="row" name="fade" tag="div" ref="widgets">
             <div class="column">
-                <emergency-card />
+                <emergency-card class="widget" />
                 <weather-card class="widget" />
                 <latest-property-managers-card class="widget" />
                 <latest-my-neighbours-card class="widget" />
@@ -34,7 +34,7 @@
                 <el-tab-pane name="chat" lazy>
                     <div slot="label">
                         <i class="ti-comments"></i>
-                        Chat
+                        {{$t('tenant.chat')}}
                     </div>
                     <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
                 </el-tab-pane>
@@ -182,7 +182,6 @@
             }
         },
         mounted () {
-//            console.log('tenant', this.loggedInUser.tenant)
             // TweenMax.staggerFrom(, 2, {scale:0.5, opacity:0, delay:0.5, ease:Elastic.easeOut, force3D:true}, 0.2)
         }
     }

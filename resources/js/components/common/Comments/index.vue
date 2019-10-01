@@ -221,7 +221,7 @@
             width: 128px
 
         .title
-            font-size: 20px
+            font-size: 19px
             font-weight: 800
             color: var(--color-primary)
 
