@@ -24,7 +24,7 @@ return [
         'blank_pdf_desc' => 'Générez des fichiers PDF sans papier à en-tête afin qu\'ils puissent être imprimés sur votre propre papeterie.',
         'font_family' => 'Font family',
         "notificationSaved" => "Réglage de la notification sauvegardé",
-        "realEstateSaved" => "Options des biens immobiliers sauvegardées",
+        "SettingsSaved" => "Options des biens immobiliers sauvegardées",
         "serviceRequestCategorySaved" => "Catégorie de demande de service sauvegardée",
         "serviceRequestCategoryDeleted" => "Catégorie de demande de service supprimée",
         'setting_saved' => "réglage utilisateur sauvegardé",
@@ -520,7 +520,7 @@ return [
             'deleted' => "Erreur d'effacement trimestriel : ",
         ],
     ],
-    'realEstate' => [
+    'Settings' => [
         "title" => "Réglages de l'immobilier",
         "settings" => "Réglages",
         'tenants_portal' => 'Portail locataires',

@@ -82,7 +82,7 @@
                 visibleSidebar: true,
                 visibleDrawer: false,
                 drawerTabsModel: 'notifications',
-                realEstate: {},
+                Settings: {},
                 loading: true,
                 showFirst: true,
                 sidebarDirection: 'vertical',
@@ -144,7 +144,7 @@
                         route: {
                             name: 'tenantMyContacts'
                         },
-                        visible: this.realEstate && this.realEstate.contact_enable // OR no service partners for the building
+                        visible: this.Settings && this.Settings.contact_enable // OR no service partners for the building
                     }, {
                         icon: 'icon-users',
                         title: 'tenant.property_managers',
@@ -300,8 +300,8 @@
         async mounted () {
             this.loading = true
             this.tenant_logo_src = "/" + this.$constants.logo.tenant_logo;
-            await this.$store.dispatch('getRealEstate').then((resp) => {
-                this.realEstate = resp.data;
+            await this.$store.dispatch('getSettings').then((resp) => {
+                this.Settings = resp.data;
                     if( resp.data.cleanify_enable == false )
                     {
                         this.routes = this.routes.filter((item) => { 

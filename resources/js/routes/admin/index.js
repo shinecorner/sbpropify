@@ -51,7 +51,7 @@ export default [{
         name: 'adminSettings',
         component: Settings,
         meta: {
-            permission: permissions.view.realEstate,
+            permission: permissions.view.Settings,
             breadcrumb: 'Settings',
             title: 'Settings'
         },

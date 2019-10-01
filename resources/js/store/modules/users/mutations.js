@@ -11,7 +11,7 @@ export default {
     SET_USERS_META(state, meta) {
         state.usersMeta = meta;
     },
-    SET_REAL_ESTATE(state, realEstate) {
-        state.realEstate = realEstate;
+    SET_REAL_ESTATE(state, Settings) {
+        state.Settings = Settings;
     }
 }
