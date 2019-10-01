@@ -4,8 +4,8 @@
         <div class="placeholder" v-else-if="!loading && !groupedTenants">
             <img class="image" :src="require('img/5d4c33211edfc.png')" />
             <div class="content">
-                <div class="title">You have no neighbours yet.</div>
-                <div class="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
+                <div class="title">{{$t('tenant.no_data.neighbour')}}</div>
+                <div class="description">{{$t('tenant.no_data_info.neighbour')}}</div>
             </div>
         </div>
         <div class="my-neighbours" v-else>
