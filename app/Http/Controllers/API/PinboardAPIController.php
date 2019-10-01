@@ -187,7 +187,7 @@ class PinboardAPIController extends AppBaseController
         }
 
         if ($request->pinned == 'true' || $request->pinned  == true) {
-            $input['type'] = Pinboard::TypePinned;
+            $input['type'] = Pinboard::TypeAnnouncement;
         } else {
             $input['type'] =  $input['type'] ?? Pinboard::TypePost;
         }
@@ -357,7 +357,7 @@ class PinboardAPIController extends AppBaseController
     {
         $input = $request->only(Pinboard::Fillable);
         if ($request->pinned) {
-            $input['type'] = Pinboard::TypePinned;
+            $input['type'] = Pinboard::TypeAnnouncement;
         } else {
             $input['type'] =  $input['type'] ?? Pinboard::TypePost;
         }
