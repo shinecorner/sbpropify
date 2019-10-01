@@ -16,7 +16,7 @@ use App\Models\Media;
 use App\Models\Permission;
 use App\Models\Pinboard;
 use App\Models\PinboardView;
-use App\Models\PinnedEmailReceptionist;
+use App\Models\AnnouncementEmailReceptionist;
 use App\Models\Product;
 use App\Models\PropertyManager;
 use App\Models\Quarter;
@@ -257,7 +257,7 @@ class CleanDB extends Command
             Permission::class,
             Pinboard::class,
             PinboardView::class,
-            PinnedEmailReceptionist::class,
+            AnnouncementEmailReceptionist::class,
             ServiceRequest::class,
             Product::class,
             PropertyManager::class,

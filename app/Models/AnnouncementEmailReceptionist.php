@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Validation\Rule;
 
 /**
  * @SWG\Definition(
- *      definition="PinnedEmailReceptionist",
+ *      definition="AnnouncementEmailReceptionist",
  *      required={"content"},
  *      @SWG\Property(
  *          property="id",
@@ -50,7 +49,7 @@ use Illuminate\Validation\Rule;
  *      )
  * )
  */
-class PinnedEmailReceptionist extends Model
+class AnnouncementEmailReceptionist extends Model
 {
     public $fillable = [
         'pinboard_id',

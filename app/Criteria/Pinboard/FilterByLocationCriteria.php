@@ -60,7 +60,7 @@ class FilterByLocationCriteria implements CriteriaInterface
             Pinboard::VisibilityAll,
             $t->building_id,
         ];
-        // If the tenant building is in a quarter, show the pinned pinboard from that quarter
+        // If the tenant building is in a quarter, show the announcement pinboard from that quarter
         if ($t->building && $t->building->quarter_id) {
             $conds[] = "quarter_pinboard.quarter_id = ?";
             $args[] = $t->building->quarter_id;
