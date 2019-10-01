@@ -44,7 +44,7 @@ class PinboardTransformer extends BaseTransformer
             'liked' => $model->liked,
             'likes_count' => $model->likesCount,
             'comments_count' => $model->all_comments_count,
-            'pinned' => $model->pinned,
+            'announcement' => $model->announcement,
             'notify_email' => $model->notify_email,
         ];
         if ($model->relationExists('audit')) {
@@ -53,7 +53,7 @@ class PinboardTransformer extends BaseTransformer
                 $ret['audit_id'] = $audit->id;
             }
         }
-        if ($model->pinned) {
+        if ($model->announcement) {
             $ret['execution_start'] = $this->formatExecutionTime($model, 'execution_start');
             $ret['execution_end'] = $this->formatExecutionTime($model, 'execution_end');
             $ret['is_execution_time'] = $model->is_execution_time;
@@ -82,9 +82,9 @@ class PinboardTransformer extends BaseTransformer
         if ($model->relationExists('views')) {
             $ret['views'] = $model->views->sum('views');
         }
-        if ($model->relationExists('pinned_email_receptionists')) {
-            $ret['pinned_email_receptionists'] = (new PinnedEmailReceptionistTransformer())
-                ->transformCollection($model->pinned_email_receptionists);
+        if ($model->relationExists('announcement_email_receptionists')) {
+            $ret['announcement_email_receptionists'] = (new AnnouncementEmailReceptionistTransformer())
+                ->transformCollection($model->announcement_email_receptionists);
         }
 
         return $ret;

@@ -393,7 +393,7 @@ class TemplateRepository extends BaseRepository
      */
     public function getPinnedPinboardParsedTemplate(Pinboard $pinboard, User $user): array
     {
-        $template = $this->getByCategoryName('pinned_pinboard');
+        $template = $this->getByCategoryName('announcement_pinboard');
 
         $user->redirect = '/news/' . $pinboard->id;
         $context = [

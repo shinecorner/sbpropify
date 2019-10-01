@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 /**
- * Class PinnedPinboardPublished
+ * Class AnnouncementPinboardPublished
  * @package App\Notifications
  */
-class PinnedPinboardPublished extends Notification implements ShouldQueue
+class AnnouncementPinboardPublished extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -25,7 +25,7 @@ class PinnedPinboardPublished extends Notification implements ShouldQueue
     protected $pinboard;
 
     /**
-     * PinnedPinboardPublished constructor.
+     * AnnouncementPinboardPublished constructor.
      * @param Pinboard $pinboard
      */
     public function __construct(Pinboard $pinboard)
@@ -57,7 +57,7 @@ class PinnedPinboardPublished extends Notification implements ShouldQueue
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
-        return (new MailMessage)->view('mails.pinnedPinboardPublished', $data)->subject($data['subject']);
+        return (new MailMessage)->view('mails.announcementPinboardPublished', $data)->subject($data['subject']);
     }
 
     /**

@@ -18,7 +18,7 @@ use App\Models\User;
 use App\Notifications\NewTenantInNeighbour;
 use App\Notifications\NewTenantPinboard;
 use App\Notifications\NewTenantRequest;
-use App\Notifications\PinnedPinboardPublished;
+use App\Notifications\AnnouncementPinboardPublished;
 use App\Notifications\PinboardPublished;
 use App\Notifications\ProductPublished;
 use App\Notifications\StatusChangedRequest;
@@ -66,7 +66,7 @@ class AppServiceProvider extends ServiceProvider
 
             'pinboard_published' => PinboardPublished::class,
             'new_tenant_pinboard' => NewTenantPinboard::class,
-            'pinned_pinboard_published' => PinnedPinboardPublished::class,
+            'announcement_pinboard_published' => AnnouncementPinboardPublished::class,
             'new_tenant_in_neighbour' => NewTenantInNeighbour::class,
             'product_published' => ProductPublished::class,
             'new_tenant_request' => NewTenantRequest::class,

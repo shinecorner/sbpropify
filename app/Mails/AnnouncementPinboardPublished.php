@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 
 use App\Models\Pinboard;
 
-class PinnedPinboardPublished extends Mailable
+class AnnouncementPinboardPublished extends Mailable
 {
     use Queueable, SerializesModels;
 
