@@ -47,7 +47,7 @@
                                         {{$t('menu.profile')}}
                                     </el-dropdown-item>
                                 </router-link>
-                                <template v-if="$can($permissions.view.realEstate) && this.user.roles[0].name != 'manager'">
+                                <template v-if="$can($permissions.view.settings) && this.user.roles[0].name != 'manager'">
                                     <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
                                         <el-dropdown-item>
                                             <i class="icon-cog"/>
