@@ -160,7 +160,14 @@ return [
                 'title' => "Il n'y a pas de commentaires pour l'inscription",
                 'description' => "Renseignez-vous sur l'inscription en envoyant un message à l'aide du formulaire ci-dessous et appuyez sur Entrée.",
             ],
-        ], 
+        ],
+        'pinboardcommentsList' => [
+	        'loadMore' => 'Télécharger {count} plus de commentaires sur le Mur.',
+	        'emptyPlaceholder' => [
+		        'title' => "Il n'y a aucun commentaire pour Pinnwand.",
+		        'description' => "Demandez le tableau d'affichage en envoyant des messages à l'aide du formulaire ci-dessous et en appuyant sur Entrée.",
+	        ],
+        ],
         'comment' => [
             'updateShortcut' => 'ou utiliser {shortcut} raccourci',
             'updateOrCancel' => '{update} ou appuyez sur {esc} au {cancel}',

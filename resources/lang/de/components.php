@@ -161,7 +161,14 @@ return [
                 'title' => 'Es gibt keine Kommentare für die Auflistung',
                 'description' => 'Fragen Sie nach dem Auflistung, indem Sie Nachrichten über das folgende Formular senden und drücken Sie Enter.',
             ],
-        ],  
+        ],
+        'pinboardcommentsList' => [
+	        'loadMore' => 'Lade {count} weitere Kommentare zur Pinnwand.',
+	        'emptyPlaceholder' => [
+		        'title' => 'Das Spiel Pinnwand wurde noch nie kommentiert.',
+		        'description' => 'Fragen Sie nach der Pinnwand, indem Sie Nachrichten über das untenstehende Formular senden und Enter drücken.',
+	        ],
+        ],
         'comment' => [
             'updateShortcut' => 'oder Verwendung {shortcut} Abkürzung',
             'updateOrCancel' => '{update} oder drücke {esc} um {cancel}',
