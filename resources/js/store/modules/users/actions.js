@@ -172,7 +172,7 @@ export default {
 
     getSettings({commit}, payload) {
         return new Promise((resolve, reject) =>
-            axios.get('Settings')
+            axios.get('settings')
                 .then(r => {
                     commit('SET_REAL_ESTATE', r.data.data);
                     resolve(r.data)
@@ -181,7 +181,7 @@ export default {
     },
     updateSettings(_, payload) {
         return new Promise((resolve, reject) =>
-            axios.put('Settings', payload)
+            axios.put('settings', payload)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
