@@ -338,7 +338,7 @@
                                                     </template>
                                                 </el-table-column>
                                             </el-table>
-                                            <upload-rent-contract :rentContractIndex="c_index" @fileUploaded="addPDFtoRentContract" class="upload-custom" drag multiple/>
+                                            <upload-rent-contract :rentContractIndex="c_index" @fileUploaded="addPDFtoRentContract" class="upload-custom" acceptType=".pdf" drag multiple/>
                                             </el-form-item>
                                         </el-col>
                                     
