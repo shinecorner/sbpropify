@@ -30,7 +30,7 @@ class PinnedPinboardPublished extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.pinnedPinboardPublished')
+        return $this->view('mails.announcementPinboardPublished')
             ->subject($this->pinboard->title)
             ->with([
                 'pinboard' => $this->pinboard,
