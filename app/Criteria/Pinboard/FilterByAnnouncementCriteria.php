@@ -38,8 +38,8 @@ class FilterByAnnouncementCriteria implements CriteriaInterface
     {
         if ($this->request->has('announcement')) {
             $announcement = $this->request->get('announcement');
-        } elseif ($this->request->has('pinned')) {
-            $announcement = $this->request->get('pinned');
+        } elseif ($this->request->has('pinned')) { // @TODO delete
+            $announcement = $this->request->get('pinned');// @TODO delete
         } else {
             return $model;
         }

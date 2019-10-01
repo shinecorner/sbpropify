@@ -53,7 +53,7 @@ class AnnouncementPinboardPublished extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $data = $tRepo->getPinnedPinboardParsedTemplate($this->pinboard, $notifiable);
+        $data = $tRepo->getAnnouncementPinboardParsedTemplate($this->pinboard, $notifiable);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 

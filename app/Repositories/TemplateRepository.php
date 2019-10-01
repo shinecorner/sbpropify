@@ -391,7 +391,7 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public function getPinnedPinboardParsedTemplate(Pinboard $pinboard, User $user): array
+    public function getAnnouncementPinboardParsedTemplate(Pinboard $pinboard, User $user): array
     {
         $template = $this->getByCategoryName('announcement_pinboard');
 
