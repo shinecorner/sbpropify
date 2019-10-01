@@ -648,6 +648,9 @@ return [
         'ago' => 'ago',
         'not_set' => 'Not set',
         'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'tomorrow' => 'Tomorrow',
+        'just_now' => 'Just now',
         'media'  => [
             'added' => 'Document added',
             'removed' => 'Document removed',

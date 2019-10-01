@@ -19,7 +19,7 @@
                                             @change="changeCategory">
                                     <el-option
                                         :key="category.id"
-                                        :label="category.name"
+                                        :label="category['name_'+$i18n.locale]"
                                         :value="category.id"
                                         v-for="category in categories">
                                     </el-option>
@@ -298,6 +298,7 @@
     import {displayError} from "helpers/messages";
     import AddActions from 'components/EditViewActions';
     import EditorConfig from 'mixins/adminEditorConfig';
+    import { mapActions } from 'vuex';
 
     export default {
         name: 'AdminRequestsEdit',
@@ -315,6 +316,7 @@
             }
         },
         methods: {
+            ...mapActions(['getRequestCategoriesTree']),
             async saveWithService(serviceAttachModel) {
                 try {
                     const resp = await this.saveRequest();
@@ -336,12 +338,14 @@
                     this.model.visibility = 1;
             },
         },
-        created(){
+        async created(){
             this.model['priority'] = '';
             this.validationRules['priority'] = [{
                 required: true,
                 message: this.$t('validation.general.required')
             }];
+            const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
+            this.categories = categories;
         }
         
     };
