@@ -35,9 +35,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="category">{{getCompleteCategory(data.category)}}</div>
-                <div class="title">{{data.title}}</div>
-                <ui-readmore class="description" :text="data.description" :max="512" />
+                <div class="category" @click="$emit('toggle-drawer')">{{getCompleteCategory(data.category)}}</div>
+                <div class="title" @click="$emit('toggle-drawer')">{{data.title}}</div>
+                <ui-readmore class="description" @click="$emit('toggle-drawer')" :text="data.description" :max="512" />
                 <div class="assignees" v-if="assignees.length">
                     {{$t('tenant.assignees')}}
                     <div :key="assignee.id" class="assignee" v-for="assignee in visibleAssignees">

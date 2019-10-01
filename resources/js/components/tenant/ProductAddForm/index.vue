@@ -1,19 +1,25 @@
 <template>
     <el-form ref="form" :model="model" :rules="validationRules" label-position="top" v-loading="loading">
-        <el-form-item prop="title" :label="$t('tenant.title')" style="grid-column: span 6">
+        <el-form-item prop="title" :label="$t('tenant.title')">
             <el-input v-model="model.title" />
         </el-form-item>
-        <el-form-item prop="type" :label="$t('tenant.type')" style="grid-column: span 3">
-            <el-select v-model="model.type">
-                <el-option v-for="category in types" :key="category.value" :label="$t(`models.product.type.${category.label}`)" :value="category.value" />
-            </el-select>
-        </el-form-item>
-        <el-form-item prop="visibility" :label="$t('tenant.visibility')" style="grid-column: span 3">
-            <el-select v-model="model.visibility">
-                <el-option v-for="visibility in visibilities" :key="visibility.value" :label="$t(`models.product.visibility.${visibility.label}`)" :value="visibility.value" />
-            </el-select>
-        </el-form-item>
-        <el-form-item prop="price" :label="$t('tenant.price')" v-if="isPriceVisible" style="grid-column: span 3">
+        <el-row type="flex" :gutter="16">
+            <el-col>
+                <el-form-item prop="type" :label="$t('tenant.type')">
+                    <el-select v-model="model.type">
+                        <el-option v-for="category in types" :key="category.value" :label="$t(`models.product.type.${category.label}`)" :value="category.value" />
+                    </el-select>
+                </el-form-item>
+            </el-col>
+            <el-col>
+                <el-form-item prop="visibility" :label="$t('tenant.visibility')">
+                    <el-select v-model="model.visibility">
+                        <el-option v-for="visibility in visibilities" :key="visibility.value" :label="$t(`models.product.visibility.${visibility.label}`)" :value="visibility.value" />
+                    </el-select>
+                </el-form-item>
+            </el-col>
+        </el-row>
+        <el-form-item prop="price" :label="$t('tenant.price')" v-if="isPriceVisible">
             <div style="display: flex">
                 <el-input v-model="model.price.integer">
                     <template slot="prepend">CHF</template>
@@ -22,20 +28,41 @@
                 <el-input v-model="model.price.decimals" style="width: 50%" />
             </div>
         </el-form-item>
-        <el-form-item prop="content" :label="$t('tenant.content')" style="grid-column: span 6">
+        <el-form-item prop="content" :label="$t('tenant.content')">
             <el-input type="textarea" resize="none" v-model="model.content" :autosize="{minRows: 4, maxRows: 16}" />
         </el-form-item>
-        <el-form-item prop="tenant_name" :label="$t('tenant.contact_name')" style="grid-column: span 3">
-            <el-input v-model="model.tenant_name" />
-        </el-form-item>
-        <el-form-item prop="tenant_phone" :label="$t('tenant.contact_phone')" style="grid-column: span 3">
-            <el-input v-model="model.tenant_phone" />
-        </el-form-item>
-        <el-form-item style="grid-column: span 6">
+        <el-row type="flex" :gutter="16">
+            <el-col>
+                <el-form-item prop="tenant_name" :label="$t('tenant.contact_name')">
+                    <el-input v-model="model.tenant_name" />
+                </el-form-item>
+            </el-col>
+            <el-col>
+                <el-form-item prop="tenant_phone" :label="$t('tenant.contact_phone')">
+                    <el-input v-model="model.tenant_phone" />
+                </el-form-item>
+            </el-col>
+        </el-row>
+
+        <ui-divider class="upload-divider" content-position="left">
+            <i class="el-icon-upload"></i>
+            {{$t('tenant.request_upload_title')}}
+        </ui-divider>
+        
+        <div class="upload-description">
+            <el-alert
+                :title="$t('tenant.request_upload_desc')"
+                type="info"
+                show-icon
+                :closable="false"
+            >
+            </el-alert>
+        </div>
+        <el-form-item>
             <media-uploader ref="media" :id="product_id" :audit_id="audit_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
-        <el-form-item v-if="!hideSubmit" style="grid-column: span 6">
-            <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
+        <el-form-item v-if="!hideSubmit" class="submitBtnDiv">
+            <el-button class="submit is-round" icon="ti-save" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -49,7 +76,11 @@
             hideSubmit: {
                 type: Boolean,
                 default: false
-            }
+            },
+            visible: {
+                type: Boolean,
+                default: false
+            },
         },
         data () {
             return {
@@ -131,6 +162,7 @@
                             }
                         }
                         
+                        this.$emit('update:visible', false)
 
                         this.loading = false
                         this.$refs.form.resetFields()
@@ -182,19 +214,19 @@
 
 <style lang="sass" scoped>
     .el-form
-        display: grid
-        grid-gap: 8px
-        grid-auto-columns: 6fr
+        display: flex
+        flex-direction: column
 
         .el-form-item
-            margin-bottom: 16px
+            // margin-bottom: 16px
+            margin-bottom: 0
 
             &:last-child
                 margin-bottom: 0
 
             /deep/ .el-form-item__label
                 padding: 0
-                line-height: 32px
+                // line-height: 32px
 
             /deep/ .el-form-item__content
                 .el-input.el-input-group
@@ -203,4 +235,49 @@
 
                 .el-button, .el-select
                     width: 100%
+
+                .el-button i
+                    padding-right: 5px
+        .upload-divider 
+            padding: 0
+
+            /deep/ .ui-divider__content 
+                left: 0
+                z-index: 1
+                padding-left: 0
+                font-size: 20px
+                font-weight: 700
+                color: var(--color-primary)
+                transform: translate(calc(208px - 50%), -50%)
+                padding-left: 16px
+            
+        .upload-description
+            padding: 0
+
+            .el-alert
+                align-items: flex-start
+                padding-right: 0
+
+                .el-alert__icon
+                    padding-top: 2px
+        
+
+        .submitBtnDiv 
+            // position: absolute
+            width: 100%
+            grid-column: span 6 / auto
+            display: flex
+            flex-direction: column
+            flex-grow: 1
+            justify-content: flex-end
+            margin-bottom: 30px
+
+        
+        .el-button.submit 
+            margin-top: 1em
+            width: 100%
+            /deep/ i 
+                padding-right: 5px
+                
+            
 </style>
