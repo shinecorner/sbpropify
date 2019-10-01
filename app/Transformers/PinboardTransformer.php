@@ -45,7 +45,6 @@ class PinboardTransformer extends BaseTransformer
             'likes_count' => $model->likesCount,
             'comments_count' => $model->all_comments_count,
             'pinned' => $model->pinned,
-            'pinned_to' => $model->pinned_to ? $model->pinned_to->toDateTimeString() : null,
             'notify_email' => $model->notify_email,
         ];
         if ($model->relationExists('audit')) {

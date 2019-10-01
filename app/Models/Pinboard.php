@@ -178,7 +178,6 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
         'category',
         'quarter_id',
         'pinned',
-        'pinned_to',
         'execution_start',
         'execution_end',
         'title',
@@ -195,7 +194,6 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
     protected $dates = [
         'deleted_at',
         'published_at',
-        'pinned_to',
         'execution_start',
         'execution_end'
     ];
@@ -252,7 +250,6 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
                     $fail($attribute.' must be false.');
                 }
             },
-            'pinned_to' => Rule::requiredIf(request()->pinned),
             'execution_start' => 'nullable|date',
             'execution_end' => 'nullable|date|after_or_equal:execution_start',
         ];
