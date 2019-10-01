@@ -44,6 +44,20 @@
             </el-col>
         </el-row>
 
+        <ui-divider class="upload-divider" content-position="left">
+            <i class="el-icon-upload"></i>
+            {{$t('tenant.request_upload_title')}}
+        </ui-divider>
+        
+        <div class="upload-description">
+            <el-alert
+                :title="$t('tenant.request_upload_desc')"
+                type="info"
+                show-icon
+                :closable="false"
+            >
+            </el-alert>
+        </div>
         <el-form-item>
             <media-uploader ref="media" :id="product_id" :audit_id="audit_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
@@ -224,6 +238,30 @@
 
                 .el-button i
                     padding-right: 5px
+        .upload-divider 
+            padding: 0
+
+            /deep/ .ui-divider__content 
+                left: 0
+                z-index: 1
+                padding-left: 0
+                font-size: 20px
+                font-weight: 700
+                color: var(--color-primary)
+                transform: translate(calc(208px - 50%), -50%)
+                padding-left: 16px
+            
+        .upload-description
+            padding: 0
+
+            .el-alert
+                align-items: flex-start
+                padding-right: 0
+
+                .el-alert__icon
+                    padding-top: 2px
+        
+
         .submitBtnDiv 
             // position: absolute
             width: 100%
