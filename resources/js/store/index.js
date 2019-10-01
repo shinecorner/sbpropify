@@ -22,7 +22,7 @@ import BuildingsStore from 'store/modules/buildings'
 import ApplicationStore from 'store/modules/application'
 import AddressesStore from 'store/modules/addresses'
 import Products2Store from 'store/modules/products2' // :(
-import Pinboard2Store from 'store/modules/pinboard2' // :(
+// import Pinboard2Store from 'store/modules/pinboard2' // :(
 import TagsStore from 'store/modules/tags'
 
 // new ones - this will stay in the future, the above one will be removed at some point
@@ -72,10 +72,10 @@ export default new Vuex.Store({
             namespaced: true,
             ...MediaStore
         },
-        pinboard2: {
-            namespaced: true,
-            ...Pinboard2Store
-        },
+        // pinboard2: {
+        //     namespaced: true,
+        //     ...Pinboard2Store
+        // },
         products2: {
             namespaced: true,
             ...Products2Store

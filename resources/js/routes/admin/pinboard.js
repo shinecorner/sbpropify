@@ -25,7 +25,7 @@ export default [{
         }
     }, {
         name: 'adminPinboardEdit',
-        path: ':id',
+        path: ':type/:id',
         component: () => import ( /* webpackChunkName: "admin/pinboard/edit" */ 'views/Admin/Pinboard/Edit'),
         beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.pinboard)]),
         meta: {

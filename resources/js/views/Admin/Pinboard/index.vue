@@ -111,7 +111,6 @@
                         {
                             type: '', 
                             title: 'general.actions.edit',
-                            onClick: this.edit,
                             editUrl: 'adminPinboardEdit',
                             permissions: [
                                 this.$permissions.update.pinboard
@@ -204,14 +203,6 @@
             add() {
                 this.$router.push({
                     name: 'adminPinboardAdd'
-                });
-            },
-            edit({id}) {
-                this.$router.push({
-                    name: 'adminPinboardEdit',
-                    params: {
-                        id
-                    }
                 });
             },
             show(pinboard) {

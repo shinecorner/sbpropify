@@ -227,5 +227,6 @@ return [
     "emergency" => [
         "title" => "Emergency Number",
         "desc" => "If you have an emergency outside of office hours, please call the following number"
-    ]
+    ],
+    "message" => "Message",
 ];
