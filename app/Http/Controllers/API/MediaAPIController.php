@@ -126,44 +126,20 @@ class MediaAPIController extends AppBaseController
      */
     public function buildingUpload(int $id, BuildingUploadRequest $request)
     {
-        $categories = Building::BuildingMediaCategories;
-        $rules = [];
-        foreach ($categories as $category) {
-            $requiredWithout = implode('_upload,', array_diff($categories, [$category])) . '_upload';
-            $rules[$category . '_upload'] = sprintf('required_without_all:%s|string', $requiredWithout);
-        }
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->sendError($validator->errors());
-        }
-
         /** @var Building $building */
         $building = $this->buildingRepository->findWithoutFail($id);
         if (empty($building)) {
             return $this->sendError(__('models.building.not_found'));
         }
 
+        Building::BuildingMediaCategories;
         $collectionName = '';
         $data = '';
-        if ($request->has('house_rules_upload')) {
-            $collectionName = 'house_rules';
-            $data = $request->get('house_rules_upload', '');
-        }
-
-        if ($request->has('operating_instructions_upload')) {
-            $collectionName = 'operating_instructions';
-            $data = $request->get('operating_instructions_upload', '');
-        }
-
-        if ($request->has('care_instructions_upload')) {
-            $collectionName = 'care_instructions';
-            $data = $request->get('care_instructions_upload', '');
-        }
-
-        if ($request->has('other_upload')) {
-            $collectionName = 'other';
-            $data = $request->get('other_upload', '');
+        foreach (Building::BuildingMediaCategories as $mediaCategory) {
+            if ($request->has($mediaCategory . '_upload')) {
+                $collectionName = $mediaCategory;
+                $data = $request->get($mediaCategory . '_upload', '');
+            }
         }
 
         if (!$media = $this->buildingRepository->uploadFile($collectionName, $data, $building, $request->merge_in_audit)) {
