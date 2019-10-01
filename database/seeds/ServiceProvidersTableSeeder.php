@@ -21,18 +21,10 @@ class ServiceProvidersTableSeeder extends Seeder
         }
 
         $faker = Faker::create();
-        $serviceRole = Role::where('name', 'service')->first();
+        $serviceRole = Role::where('name', 'provider')->first();
         $settings = $this->getSettings();
 
-        $serviceCategories = [
-            'electrician',
-            'heating_company',
-            'lift',
-            'sanitary',
-            'key_service',
-            'caretaker',
-            'real_estate_service',
-        ];
+        $serviceCategories = \App\Models\ServiceProvider::ServiceProviderCategory;
 
         $providerCount = 200;
         $categoryCount = floor($providerCount / count($serviceCategories));

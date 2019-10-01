@@ -1,6 +1,6 @@
 <template>
     <div class="users-add">
-        <heading :title="this.$route.params.role == 'administrator' ? $t('models.user.add_admin') : $t('models.user.add_super_admin')" icon="icon-user" shadow="heavy">
+        <heading :title="$t('models.user.add_admin')" icon="icon-user" shadow="heavy">
             <add-actions :saveAction="submit" :role="this.$route.params.role" route="adminUsers" editRoute="adminUsersEdit"/>
         </heading>
         <div class="crud-view">
@@ -32,11 +32,7 @@
                     <el-form-item :label="$t('general.phone')" prop="phone">
                         <el-input type="text" v-model="model.phone"/>
                     </el-form-item>
-                    <el-form-item :label="$t('general.roles.label')" :rules="validationRules.role" prop="role">
-                        <el-select style="width: 100%;" v-model="model.role">
-                            <el-option :key="role" :label="$t('general.roles.' + role )" :value="role" v-for="role in allRoles"/>
-                        </el-select>
-                    </el-form-item>
+
                     <el-form-item :label="$t('general.language')" :rules="validationRules.language" prop="settings.language">
                         <select-language :activeLanguage.sync="model.settings.language"/>
                     </el-form-item>
@@ -63,13 +59,6 @@
             Card,
             AddActions,
             SelectLanguage
-        },
-        beforeCreate() {
-            if(this.$route.params.role == 'administrator')
-                document.title = 'Add Administrator';
-            else if(this.$route.params.role == 'super_admin')
-                document.title = 'Add Super admin'
-
         },
        
     }

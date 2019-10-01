@@ -13,7 +13,7 @@ class FillRealEstatePdfFontFamilyTable extends Migration
      */
     public function up()
     {
-        $realEstate = \App\Models\RealEstate::first();
+        $realEstate = \App\Models\Settings::first();
         if ($realEstate) {
             $realEstate->pdf_font_family = 'Arial';
             $realEstate->save();

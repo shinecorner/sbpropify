@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $superAdminRole = Role::where('name', 'super_admin')->first();
+        $superAdminRole = Role::where('name', 'administrator')->first();
 
         $attr = [
             'name' => 'Super Admin',
@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder
         $user->attachRole($superAdminRole);
 
         if (App::environment('local')) {
-            $roles = Role::where('name', '!=', 'super_admin')->get();
+            $roles = Role::where('name', '!=', 'administrator')->get();
             factory(App\Models\User::class, 20)->create()->each(function ($user) use ($roles, $settings) {
                 $settings->id = 0;
                 $user->settings()->save($settings->replicate());

@@ -47,7 +47,7 @@
                                         {{$t('menu.profile')}}
                                     </el-dropdown-item>
                                 </router-link>
-                                <template v-if="$can($permissions.view.realEstate) && this.user.roles[0].name != 'manager'">
+                                <template v-if="$can($permissions.view.settings) && this.user.roles[0].name != 'manager'">
                                     <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
                                         <el-dropdown-item>
                                             <i class="icon-cog"/>
@@ -146,153 +146,29 @@
             ...mapState('application', {
                 locale: ({locale}) => locale
             }),
-            selectedFlag(){
-                if(this.$store.state.application.locale){
-                    if(this.$store.state.application.locale === 'en'){
-                        return `flag-icon flag-icon-us`;
-                    }else {
-                        return  `flag-icon flag-icon-${this.$store.state.application.locale}`;
-                    }                    
-                } else {                                        
-                    if(this.user.settings.language === 'en'){
-                        return  `flag-icon flag-icon-us`;
-                    }else {
-                        return `flag-icon flag-icon-${this.user.settings.language}`;
+            selectedFlag: {
+                get: function () {
+                    if(this.$store.state.application.locale){
+                        if(this.$store.state.application.locale === 'en'){
+                            return `flag-icon flag-icon-us`;
+                        }else {
+                            return  `flag-icon flag-icon-${this.$store.state.application.locale}`;
+                        }                    
+                    } else {                                        
+                        if(this.user.settings.language === 'en'){
+                            return  `flag-icon flag-icon-us`;
+                        }else {
+                            return `flag-icon flag-icon-${this.user.settings.language}`;
+                        }
                     }
-                }
+                },
+                set: function (newValue) {
+                    this.value = newValue;
+                }                
             },
             links() {
                 let links = [];
-                if(this.rolename == 'super_admin') {
-                    links = [{
-                            icon: 'icon-chart-bar',
-                            title: 'Dashboard',
-                            route: {
-                                name: 'adminDashboard'
-                            }
-                        }, {
-                            icon: 'icon-commerical-building',
-                            title: this.$t('menu.buildings'),
-                            permission: this.$permissions.list.user,
-                            children: [
-                            {
-                                title: this.$t('menu.quarters'),
-                                permission: this.$permissions.list.quarter,
-                                route: {
-                                    name: 'adminQuarters'
-                                }
-                            },{
-                                title: this.$t('menu.all_buildings'),
-                                permission: this.$permissions.list.building,
-                                route: {
-                                    name: 'adminBuildings'
-                                }
-                            }, {
-                                title: this.$t('menu.units'),
-                                permission: this.$permissions.list.unit,
-                                route: {
-                                    name: 'adminUnits'
-                                }
-                            }]
-                        }, {
-                            icon: 'icon-chat-empty',
-                            title: this.$t('menu.requests'),
-                            permission: this.$permissions.list.request,
-                            children: [{
-                                title: this.$t('menu.all_requests'),
-                                permission: this.$permissions.list.request,
-                                value: this.all_request_count,
-                                route: {
-                                    name: 'adminRequests'
-                                }
-                            },  {
-                                title: this.$t('menu.notAssigned'),
-                                permission: this.$permissions.list.request,
-                                value: this.all_unassigned_count,
-                                route: {
-                                    name: 'adminUnassignedRequests'
-                                }
-                            },  {
-                                title: this.$t('menu.allPendingRequests'),
-                                permission: this.$permissions.list.request,
-                                value: this.all_pending_count,
-                                route: {
-                                    name: 'adminAllpendingRequests'
-                                }
-                            }]
-                        }, {
-                            icon: 'icon-gauge-1',
-                            title: this.$t('menu.activity'),
-                            permission: this.$permissions.list.audit,
-                            route: {
-                                name: 'adminRequestsActivity'
-                            }
-                        },
-                        {
-                            title: this.$t('menu.tenants'),
-                            icon: 'icon-group',
-                            permission: this.$permissions.list.tenant,
-                            route: {
-                                name: 'adminTenants'
-                            }
-                        }, {
-                            icon: 'icon-users',
-                            title: this.$t('menu.propertyManagers'),
-                            permission: this.$permissions.list.propertyManager,
-                            route: {
-                                name: 'adminPropertyManagers'
-                            }
-                        }, {
-                            icon: 'icon-tools',
-                            title: this.$t('menu.services'),
-                            permission: this.$permissions.list.provider,
-                            route: {
-                                name: 'adminServices'
-                            }
-                        }, {
-                            title: this.$t('menu.posts'),
-                            icon: 'icon-megaphone-1',
-                            permission: this.$permissions.list.post,
-                            route: {
-                                name: 'adminPosts'
-                            }
-                        }, {
-                            title: this.$t('menu.products'),
-                            icon: 'icon-basket',
-                            permission: this.$permissions.list.product,
-                            route: {
-                                name: 'adminProducts'
-                            }
-                        }, {
-                            icon: 'icon-user',
-                            title: this.$t('menu.admins'),
-                            permission: this.$permissions.list.user,
-                            route: {
-                                name: 'adminUsers',
-                                query: {
-                                    roles: ['super_admin', 'administrator'],
-                                }
-                            }
-                            // children: [{
-                            //     title: this.$t('menu.admins'),
-                            //     route: {
-                            //         name: 'adminUsers',
-                            //         query: {
-                            //             role: 'administrator'
-                            //         }
-                            //     }
-                            // }, {
-                            //     title: this.$t('menu.super_admins'),
-                            //     route: {
-                            //         name: 'adminUsers',
-                            //         query: {
-                            //             role: 'super_admin'
-                            //         }
-                            //     }
-                            // }]
-                        }];
-                }
-                else if (this.rolename == 'administrator') {
+                if (this.rolename == 'administrator') {
                     links = [{
                             icon: 'icon-chart-bar',
                             title: 'Dashboard',
@@ -393,11 +269,11 @@
                                 name: 'adminServices'
                             }
                         }, {
-                            title: this.$t('menu.posts'),
+                            title: this.$t('menu.pinboard'),
                             icon: 'icon-megaphone-1',
-                            permission: this.$permissions.list.post,
+                            permission: this.$permissions.list.pinboard,
                             route: {
-                                name: 'adminPosts'
+                                name: 'adminPinboard'
                             }
                         }, {
                             title: this.$t('menu.products'),
@@ -527,11 +403,11 @@
                                 name: 'adminServices'
                             }
                         }, {
-                            title: this.$t('menu.posts'),
+                            title: this.$t('menu.pinboard'),
                             icon: 'icon-megaphone-1',
-                            permission: this.$permissions.list.post,
+                            permission: this.$permissions.list.pinboard,
                             route: {
-                                name: 'adminPosts'
+                                name: 'adminPinboard'
                             }
                         }, {
                             title: this.$t('menu.products'),
@@ -596,7 +472,7 @@
 
         methods: {
             ...mapActions(['logout']),
-            ...mapActions(['updateSettings', 'getRequestCategoriesTree']),
+            ...mapActions(['updateUserSettings', 'getRequestCategoriesTree']),
             ...mapActions('application', ['setLocale']),
             toggleFullscreen() {
                 if (document.fullscreenElement) {
@@ -666,7 +542,7 @@
             },
 
             onClick(language, flag){                
-                this.setLocale(language)
+                this.setLocale(language);
                 this.selectedFlag = flag;
                 this.$root.$emit('changeLanguage');
 

@@ -6,7 +6,7 @@ use App\Criteria\Pinboard\FeedCriteria;
 use App\Criteria\Pinboard\FilterByBuildingCriteria;
 use App\Criteria\Pinboard\FilterByQuarterCriteria;
 use App\Criteria\Pinboard\FilterByLocationCriteria;
-use App\Criteria\Pinboard\FilterByPinnedCriteria;
+use App\Criteria\Pinboard\FilterByAnnouncementCriteria;
 use App\Criteria\Pinboard\FilterByStatusCriteria;
 use App\Criteria\Pinboard\FilterByTypeCriteria;
 use App\Criteria\Pinboard\FilterByUserCriteria;
@@ -28,7 +28,7 @@ use App\Notifications\PinboardLiked;
 use App\Repositories\BuildingRepository;
 use App\Repositories\QuarterRepository;
 use App\Repositories\PinboardRepository;
-use App\Repositories\RealEstateRepository;
+use App\Repositories\SettingsRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Transformers\PinboardTransformer;
 use App\Transformers\PinboardViewTransformer;
@@ -112,7 +112,7 @@ class PinboardAPIController extends AppBaseController
         $this->pinboardRepository->pushCriteria(new FilterByUserCriteria($request));
         $this->pinboardRepository->pushCriteria(new FilterByQuarterCriteria($request));
         $this->pinboardRepository->pushCriteria(new FilterByBuildingCriteria($request));
-        $this->pinboardRepository->pushCriteria(new FilterByPinnedCriteria($request));
+        $this->pinboardRepository->pushCriteria(new FilterByAnnouncementCriteria($request));
         $this->pinboardRepository->pushCriteria(new FilterByTenantCriteria($request));
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
@@ -170,34 +170,35 @@ class PinboardAPIController extends AppBaseController
      * )
      *
      * @param CreateRequest $request
-     * @param RealEstateRepository $reRepo
+     * @param SettingsRepository $settingsRepository
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(CreateRequest $request, RealEstateRepository $reRepo)
+    public function store(CreateRequest $request, SettingsRepository $settingsRepository)
     {
         $input = $request->only(Pinboard::Fillable);
         $input['user_id'] = \Auth::id();
 
-        if (! Auth::user()->hasRole('super_admin')) {
+        if (! Auth::user()->hasRole('administrator')) {
             $input['status'] = Pinboard::StatusNew;
         } else {
             $input['status'] = $input['status'] ?? Pinboard::StatusNew;
         }
 
-        if ($request->pinned == 'true' || $request->pinned  == true) {
-            $input['type'] = Pinboard::TypePinned;
+        if ($request->announcement  == true || $request->pinned  == true) { // @TODO delete pinned
+            $input['type'] = Pinboard::TypeAnnouncement;
         } else {
             $input['type'] =  $input['type'] ?? Pinboard::TypePost;
         }
 
         //$input['needs_approval'] = true; // @TODO
-        $input['needs_approval'] = ! Auth::user()->hasRole('super_admin');
+        $input['needs_approval'] = ! Auth::user()->hasRole('administrator');
         if (! empty($input['type']) && $input['type'] == Pinboard::TypePost) {
             $input['notify_email'] = true;
-            $realEstate = $reRepo->first();
-            if ($realEstate) {
-                $input['needs_approval'] = $realEstate->news_approval_enable;
+            $settings = $settingsRepository->first();
+            if ($settings) {
+                $input['needs_approval'] = $settings->news_approval_enable;
             }
         }
 
@@ -255,9 +256,11 @@ class PinboardAPIController extends AppBaseController
      *      )
      * )
      *
+     *
      * @param $id
      * @param ShowRequest $request
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function show($id, ShowRequest $request)
     {
@@ -281,8 +284,8 @@ class PinboardAPIController extends AppBaseController
         }
         $pinboard->likers = $pinboard->collectLikers();
         $this->fixPinboardViews($pinboard);
-        if ($pinboard->pinned) {
-            $pinboard->load('pinned_email_receptionists');
+        if ($pinboard->announcement) {
+            $pinboard->load('announcement_email_receptionists');
         }
         $data = $this->transformer->transform($pinboard);
         return $this->sendResponse($data, 'Pinboard retrieved successfully');
@@ -350,13 +353,14 @@ class PinboardAPIController extends AppBaseController
      * @param $id
      * @param UpdateRequest $request
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function update($id, UpdateRequest $request)
     {
         $input = $request->only(Pinboard::Fillable);
-        if ($request->pinned) {
-            $input['type'] = Pinboard::TypePinned;
+        if ($request->announcement || $request->pinned) { // @TODO delete
+            $input['type'] = Pinboard::TypeAnnouncement;
         } else {
             $input['type'] =  $input['type'] ?? Pinboard::TypePost;
         }
@@ -1183,13 +1187,13 @@ class PinboardAPIController extends AppBaseController
      *      )
      * )
      *
-     * @param RealEstateRepository $reRepo
+     * @param SettingsRepository $settingsRepository
      * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
      */
-    public function showWeatherJSON(RealEstateRepository $reRepo)
+    public function showWeatherJSON(SettingsRepository $settingsRepository)
     {
-        $zip = $this->getZip($reRepo);
-        $feed = Cache::remember('weather_at_' . $zip, 60*60, function() use ($reRepo, $zip) {
+        $zip = $this->getZip($settingsRepository);
+        $feed = Cache::remember('weather_at_' . $zip, 60*60, function() use ($settingsRepository, $zip) {
             $appid = env('OPENWEATHERMAP_API_KEY');
             $countryCode = env('OPENWEATHERMAP_COUNTRY_CODE', 'ch');
             $zipCountry = $zip . ',' . $countryCode;
@@ -1204,24 +1208,24 @@ class PinboardAPIController extends AppBaseController
     }
 
     /**
-     * @param $reRepo
+     * @param $settingRepository
      * @return int
      */
-    private function getZip($reRepo)
+    private function getZip($settingRepository)
     {
         $u = \Auth::user();
         if ($u->tenant && $u->tenant->address && $u->tenant->address->zip) {
             return $u->tenant->address->zip;
         }
         $defaultZip = 3172;
-        $realEstate = $reRepo->first();
-        if (empty($realEstate)) {
+        $settings = $settingRepository->first();
+        if (empty($settings)) {
             return $defaultZip;
         }
-        if (!isset($realEstate->address)) {
+        if (!isset($settings->address)) {
             return $defaultZip;
         }
 
-        return $realEstate->address->zip;
+        return $settings->address->zip;
     }
 }

@@ -32,7 +32,7 @@
                                                    @change="changeCategory">
                                             <el-option
                                                 :key="category.id"
-                                                :label="category.name"
+                                                :label="category['name_'+$i18n.locale]"
                                                 :value="category.id"
                                                 v-for="category in categories">
                                             </el-option>
@@ -592,7 +592,6 @@
         async mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             this.$root.$on('changeLanguage', () => {
-                this.getRealCategories();
                 this.fetchCurrentRequest();
             });
             EventBus.$on('comments-get-counted', comment_count => {

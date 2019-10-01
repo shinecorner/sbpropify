@@ -1,19 +1,19 @@
 <template>
     <div class="settings">
-        <heading :title="$t('models.realEstate.title')" class="custom-heading" icon="ti-settings" shadow="heavy" />
+        <heading :title="$t('models.Settings.title')" class="custom-heading" icon="ti-settings" shadow="heavy" />
 
         <el-tabs class="settings-tabs" tab-position="left" v-model="activeName">
             <el-tab-pane name="settings">
-                <template slot="label"><i class="icon icon-cog"></i>{{$t('models.realEstate.settings')}}</template>
+                <template slot="label"><i class="icon icon-cog"></i>{{$t('models.Settings.settings')}}</template>
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeSettingsName">
-                        <el-tab-pane :label="$t('models.realEstate.settings')" name="settings_settings">
-                            <el-button class="save-tab" @click="saveRealEstate('realEstateSettingsForm')" icon="ti-save" type="primary">
+                        <el-tab-pane :label="$t('models.Settings.settings')" name="settings_settings">
+                            <el-button class="save-tab" @click="saveSettings('SettingsSettingsForm')" icon="ti-save" type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
                             <el-form :model="model" :rules="validationRules"
-                                     ref="realEstateSettingsForm">
+                                     ref="SettingsSettingsForm">
                                 <el-row :gutter="20">
                                     <el-col :md="12">
 
@@ -69,17 +69,17 @@
                                             </el-row>
                                         </el-card>
 
-                                        <el-card :header="$t('models.realEstate.pdf')">
+                                        <el-card :header="$t('models.Settings.pdf')">
                                             <el-form-item class="switcher" prop="blank_pdf">
                                                 <label class="switcher__label">
-                                                    {{$t('models.realEstate.blank_pdf')}}
-                                                    <span class="switcher__desc">{{$t('models.realEstate.blank_pdf_desc')}}</span>
+                                                    {{$t('models.Settings.blank_pdf')}}
+                                                    <span class="switcher__desc">{{$t('models.Settings.blank_pdf_desc')}}</span>
                                                 </label>
                                                 <el-switch v-model="model.blank_pdf"/>
                                             </el-form-item>
                                             <el-form-item prop="pdf_font_family">
                                                 <label class="card-label">
-                                                    {{$t('models.realEstate.font_family')}}
+                                                    {{$t('models.Settings.font_family')}}
                                                 </label>
                                                 <el-select
                                                            style="display: block"
@@ -108,9 +108,9 @@
                                     <!--                                        </el-switch>-->
                                     <!--                                    </div>-->
                                     <!--                                    <el-time-picker-->
-                                    <!--                                        :end-placeholder="$t('models.realEstate.endTime')"-->
-                                    <!--                                        :range-separator="$t('models.realEstate.to')"-->
-                                    <!--                                        :start-placeholder="$t('models.realEstate.startTime')"-->
+                                    <!--                                        :end-placeholder="$t('models.Settings.endTime')"-->
+                                    <!--                                        :range-separator="$t('models.Settings.to')"-->
+                                    <!--                                        :start-placeholder="$t('models.Settings.startTime')"-->
                                     <!--                                        format="HH:mm"-->
                                     <!--                                        is-range-->
                                     <!--                                        style="width: 100%"-->
@@ -121,33 +121,33 @@
                                     <!--                            </el-form>-->
                                     <!--                        </el-card>-->
 
-                                    <el-card :header="$t('models.realEstate.settings')">
-                                        <!-- <el-form-item :label="$t('models.realEstate.quarter_enable')" prop="quarter_enable">
+                                    <el-card :header="$t('models.Settings.settings')">
+                                        <!-- <el-form-item :label="$t('models.Settings.quarter_enable')" prop="quarter_enable">
                                             <el-switch v-model="model.quarter_enable"/>
                                         </el-form-item>
-                                        <el-form-item :label="$t('models.realEstate.marketplace_approval_enable')"
+                                        <el-form-item :label="$t('models.Settings.marketplace_approval_enable')"
                                                       prop="marketplace_approval_enable">
                                             <el-switch v-model="model.marketplace_approval_enable"/>
                                         </el-form-item> -->
                                         <el-form-item class="switcher"
-                                                      prop="news_approval_enable">
+                                                      prop="pinboard_approval_enable">
                                             <label class="switcher__label">
-                                                {{$t('models.realEstate.news_approval_enable')}}
-                                                <span class="switcher__desc">{{$t('models.realEstate.news_approval_enable_desc')}}</span>
+                                                {{$t('models.Settings.pinboard_approval_enable')}}
+                                                <span class="switcher__desc">{{$t('models.Settings.pinboard_approval_enable_desc')}}</span>
                                             </label>
-                                            <el-switch v-model="model.news_approval_enable"/>
+                                            <el-switch v-model="model.pinboard_approval_enable"/>
                                         </el-form-item>
                                         <el-form-item class="switcher"
                                                       prop="contact_enable">
                                             <label class="switcher__label">
-                                                {{$t('models.realEstate.contact_enable')}}
-                                                <span class="switcher__desc">{{$t('models.realEstate.contact_enable_desc')}}</span>
+                                                {{$t('models.Settings.contact_enable')}}
+                                                <span class="switcher__desc">{{$t('models.Settings.contact_enable_desc')}}</span>
                                             </label>
                                             <el-switch v-model="model.contact_enable"/>
                                         </el-form-item>
                                         <el-row :gutter="20">
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.realEstate.comment_update_timeout')"
+                                                <el-form-item :label="$t('models.Settings.comment_update_timeout')"
                                                               :rules="validationRules.comment_update_timeout"
                                                               prop="comment_update_timeout">
                                                     <el-input autocomplete="off" type="number"
@@ -157,10 +157,10 @@
                                         </el-row>
                                     </el-card>
 
-                                    <el-card :header="$t('models.realEstate.smtp')">
+                                    <el-card :header="$t('models.Settings.email')">
                                         <el-row :gutter="20">
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.realEstate.mail_from_name.label')"
+                                                <el-form-item :label="$t('models.Settings.mail_from_name.label')"
                                                               prop="mail_from_name"
                                                               :rules="validationRules.mail_from_name"
                                                 >
@@ -169,7 +169,7 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.realEstate.mail_from_address.label')"
+                                                <el-form-item :label="$t('models.Settings.mail_from_address.label')"
                                                               prop="mail_from_address"
                                                               :rules="validationRules.mail_from_address"
                                                 >
@@ -180,7 +180,7 @@
                                         </el-row>
                                         <el-row :gutter="20">
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.realEstate.mail_host.label')"
+                                                <el-form-item :label="$t('models.Settings.mail_host.label')"
                                                               prop="mail_host"
                                                               :rules="validationRules.mail_host"
                                                 >
@@ -194,7 +194,7 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.realEstate.mail_port.label')"
+                                                <el-form-item :label="$t('models.Settings.mail_port.label')"
                                                               prop="mail_port"
                                                               :rules="validationRules.mail_port"
                                                 >
@@ -207,8 +207,8 @@
                                             <el-col :md="12">
                                                 <el-form-item required
                                                 >
-                                                    <label class="card-label">{{$t('models.realEstate.mail_encryption')}}</label>
-                                                    <el-select :placeholder="$t('models.realEstate.mail_encryption')" style="display: block"
+                                                    <label class="card-label">{{$t('models.Settings.mail_encryption')}}</label>
+                                                    <el-select :placeholder="$t('models.Settings.mail_encryption')" style="display: block"
                                                                v-model="model.mail_encryption">
                                                         <el-option :key="item.id"
                                                                    :label="item"
@@ -218,7 +218,7 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.realEstate.mail_username.label')"
+                                                <el-form-item :label="$t('models.Settings.mail_username.label')"
                                                               prop="mail_username"
                                                               :rules="validationRules.mail_username"
                                                 >
@@ -229,7 +229,7 @@
                                         </el-row>
                                         <el-row :gutter="20">
                                                 <el-col :md="12">
-                                                    <el-form-item :label="$t('models.realEstate.mail_password.label')"
+                                                    <el-form-item :label="$t('models.Settings.mail_password.label')"
                                                                   :rules="validationRules.mail_password"
                                                                   prop="mail_password"
                                                     >
@@ -247,8 +247,8 @@
                                 </el-row>
                             </el-form>
                         </el-tab-pane>
-                        <el-tab-pane :label="$t('models.realEstate.micro_apps')" name="microApps">
-                            <el-button class="save-tab" @click="saveRealEstate('microAppsSettingsForm')" icon="ti-save"
+                        <el-tab-pane :label="$t('models.Settings.micro_apps')" name="microApps">
+                            <el-button class="save-tab" @click="saveSettings('microAppsSettingsForm')" icon="ti-save"
                                        type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
@@ -260,9 +260,9 @@
                                             <span @click="Iframe_drawer" class="icon-cog"></span>
                                             <el-form-item class="switcher switcher-frist" prop="contact_enable">
                                                 <label class="switcher__label">
-                                                    <p>{{$t('models.realEstate.iframe_enable')}}</p>
+                                                    <p>{{$t('models.Settings.iframe_enable')}}</p>
                                                     
-                                                    <span class="switcher__desc">{{$t('models.realEstate.iframe_enable_desc')}}</span>
+                                                    <span class="switcher__desc">{{$t('models.Settings.iframe_enable_desc')}}</span>
                                                     <el-switch 
                                                         v-model="model.iframe_enable"
                                                         />
@@ -274,8 +274,8 @@
                                     <el-col :md="8">
                                         <el-card class="marketplace-card card-boxs">
                                             <span @click="Gocaution_drawer" class="icon-cog"></span>
-                                            <el-form-item :label="$t('models.realEstate.gocaution')">
-                                                <span class="switcher__desc">{{$t('models.realEstate.gocaution_desc')}}</span>
+                                            <el-form-item :label="$t('models.Settings.gocaution')">
+                                                <span class="switcher__desc">{{$t('models.Settings.gocaution_desc')}}</span>
                                                 <el-switch 
                                                 v-model="model.gocaution_enable"
                                                 />
@@ -285,9 +285,9 @@
                                     <el-col :md="8">
                                         <el-card class="marketplace-card card-boxs">
                                             <span @click="Cleanify_drawer" class="icon-cog"></span>
-                                           <el-form-item :label="$t('models.realEstate.cleanify_email')"
+                                           <el-form-item :label="$t('models.Settings.cleanify_email')"
                                                         :rules="validationRules.cleanify_email" prop="cleanify_email">
-                                                <span class="switcher__desc">{{$t('models.realEstate.cleanify_email_desc')}}</span>        
+                                                <span class="switcher__desc">{{$t('models.Settings.cleanify_email_desc')}}</span>
                                                 <el-switch 
                                                 v-model="model.cleanify_enable"
                                                 />
@@ -298,8 +298,8 @@
                                 </el-row>
                             </el-form>
                         </el-tab-pane>
-                        <el-tab-pane :label="$t('models.realEstate.theme')" name="theme">
-                            <el-button class="save-tab" @click="saveRealEstate('themeSettingsForm')" icon="ti-save"
+                        <el-tab-pane :label="$t('models.Settings.theme')" name="theme">
+                            <el-button class="save-tab" @click="saveSettings('themeSettingsForm')" icon="ti-save"
                                        type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
@@ -310,15 +310,15 @@
                                         <el-card>
                                             <el-form-item :label="$t('models.user.logo')">
                                                 <!-- <cropper @cropped="setLogoUpload"/> -->
-                                                <!-- <img :src="realEstateLogo" ref="realEstateLogo"
-                                                     v-show="realEstateLogo || model.logo_upload"
+                                                <!-- <img :src="SettingsLogo" ref="SettingsLogo"
+                                                     v-show="SettingsLogo || model.logo_upload"
                                                      width="300px"> -->
                                                 <upload-avatar @imageUploaded="setAvatarLogoUpload"/>
                                                 <img :src="logo_upload_img"
                                                      v-show="logo_upload_img"
                                                      >
-                                                <img :src="realEstateLogo" ref="realEstateLogo"
-                                                     v-show="realEstateLogo && !logo_upload_img"
+                                                <img :src="SettingsLogo" ref="SettingsLogo"
+                                                     v-show="SettingsLogo && !logo_upload_img"
                                                     >
                                                 
                                             </el-form-item>
@@ -327,8 +327,8 @@
                                                 <img :src="circle_logo_upload_img"
                                                      v-show="circle_logo_upload_img"
                                                     >
-                                                <img :src="realEstateCircleLogo" ref="realEstateCircleLogo"
-                                                     v-show="realEstateCircleLogo && !circle_logo_upload_img"
+                                                <img :src="SettingsCircleLogo" ref="SettingsCircleLogo"
+                                                     v-show="SettingsCircleLogo && !circle_logo_upload_img"
                                                     >
                                             </el-form-item>
                                             <!-- <el-form-item :label="$t('models.user.favicon_icon')">
@@ -336,8 +336,8 @@
                                                 <img :src="favicon_icon_upload_img"
                                                      v-show="favicon_icon_upload_img"
                                                     >
-                                                <img :src="realEstateFaviconIcon" ref="realEstateFaviconIcon"
-                                                     v-show="realEstateFaviconIcon && !favicon_icon_upload_img"
+                                                <img :src="SettingsFaviconIcon" ref="SettingsFaviconIcon"
+                                                     v-show="SettingsFaviconIcon && !favicon_icon_upload_img"
                                                     >
                                             </el-form-item> -->
                                             <el-form-item :label="$t('models.user.tenant_logo')">
@@ -345,16 +345,16 @@
                                                 <img :src="tenant_logo_upload_img"
                                                      v-show="tenant_logo_upload_img"
                                                     >
-                                                <img :src="realEstateTenantLogo" ref="realEstateTenantLogo"
-                                                     v-show="realEstateTenantLogo && !tenant_logo_upload_img"
+                                                <img :src="SettingsTenantLogo" ref="SettingsTenantLogo"
+                                                     v-show="SettingsTenantLogo && !tenant_logo_upload_img"
                                                      >
                                             </el-form-item>
-                                            <el-form-item :label="$t('models.realEstate.primary_color')">
+                                            <el-form-item :label="$t('models.Settings.primary_color')">
                                                 <el-color-picker
                                                         size="medium"
                                                         v-model="model.primary_color"></el-color-picker>
                                             </el-form-item>
-                                            <!-- <el-form-item :label="$t('models.realEstate.accent_color')">
+                                            <!-- <el-form-item :label="$t('models.Settings.accent_color')">
                                                 <el-color-picker
                                                         size="medium"
                                                         v-model="model.accent_color">
@@ -376,22 +376,22 @@
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeRequestName">
-<!--                        <el-tab-pane :label="$t('models.realEstate.categories')" name="categories">-->
+<!--                        <el-tab-pane :label="$t('models.Settings.categories')" name="categories">-->
 <!--                            <CategoriesListing/>-->
 <!--                        </el-tab-pane>-->
-                        <el-tab-pane :label="$t('models.realEstate.templates')" name="templates">
+                        <el-tab-pane :label="$t('models.Settings.templates')" name="templates">
                             <TemplatesListing/>
                         </el-tab-pane>
                     </el-tabs>
                 </div>
             </el-tab-pane>
             <el-tab-pane name="tenants">
-                <template slot="label"><i class="icon icon-group"></i>{{$t('models.realEstate.tenants_portal')}}</template>
+                <template slot="label"><i class="icon icon-group"></i>{{$t('models.Settings.tenants_portal')}}</template>
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeTenantsName">
-                        <el-tab-pane :label="$t('models.realEstate.login_variations')" name="login_variations">
-                            <el-button class="save-tab" @click="saveRealEstate('tenantsLoginVariationsForm')" icon="ti-save"
+                        <el-tab-pane :label="$t('models.Settings.login_variations')" name="login_variations">
+                            <el-button class="save-tab" @click="saveSettings('tenantsLoginVariationsForm')" icon="ti-save"
                                        type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
@@ -409,7 +409,7 @@
                                                             <div class="login-card">
                                                                 <div class="login-card__img"></div>
                                                                 <div class="login-card__content">
-                                                                    <div class="login-card__title">{{$t('models.realEstate.login_variation')}} 1</div>
+                                                                    <div class="login-card__title">{{$t('models.Settings.login_variation')}} 1</div>
                                                                 </div>
                                                             </div>
                                                         </el-radio>
@@ -419,7 +419,7 @@
                                                             <div class="login-card">
                                                                 <div class="login-card__img"></div>
                                                                 <div class="login-card__content">
-                                                                    <div class="login-card__title">{{$t('models.realEstate.login_variation')}} 2</div>
+                                                                    <div class="login-card__title">{{$t('models.Settings.login_variation')}} 2</div>
                                                                 </div>
                                                             </div>
                                                         </el-radio>
@@ -430,14 +430,14 @@
                                                           class="switcher mt-20"
                                                           prop="login_variation_1_slider"
                                             >
-                                                <label class="switcher__label">{{$t('models.realEstate.login_variation_slider')}}</label>
+                                                <label class="switcher__label">{{$t('models.Settings.login_variation_slider')}}</label>
                                                 <el-switch v-model="model.login_variation_1_slider"/>
                                             </el-form-item>
                                             <el-form-item v-if="model.login_variation === 2"
                                                           class="switcher mt-20"
                                                           prop="login_variation_2_slider"
                                             >
-                                                <label class="switcher__label">{{$t('models.realEstate.login_variation_slider')}}</label>
+                                                <label class="switcher__label">{{$t('models.Settings.login_variation_slider')}}</label>
                                                 <el-switch v-model="model.login_variation_2_slider"/>
                                             </el-form-item>
                                             
@@ -453,14 +453,14 @@
         <ui-drawer :visible.sync="main_drawer" :z-index="1" direction="right" docked>
             <el-tabs type="card" stretch>
                 <el-tab-pane  name="iframe" v-if="Iframe_drawer_val">
-                    <div slot="label"><i class="icon-cog"></i> <label class="switcher__label">{{$t('models.realEstate.iframe_enable')}}</label> </div>
+                    <div slot="label"><i class="icon-cog"></i> <label class="switcher__label">{{$t('models.Settings.iframe_enable')}}</label> </div>
                 </el-tab-pane>
                 <el-tab-pane name="gocaution" v-if="Gocaution_drawer_val">
-                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.realEstate.gocaution')}}</label> </div>
+                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.Settings.gocaution')}}</label> </div>
                     
                 </el-tab-pane>
                 <el-tab-pane name="cleanify" v-if="Cleanify_drawer_val">
-                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.realEstate.cleanify_email')}}</label> </div>
+                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.Settings.cleanify_email')}}</label> </div>
                     <!-- <el-input type="email" v-model="model.cleanify_email"></el-input> -->
                 </el-tab-pane>
                 <div v-if="Iframe_drawer_val">
@@ -478,7 +478,7 @@
                         </el-form>
                 </div> 
                 <div class="drawer-btn-sec"> 
-                    <el-button class="save-tab drawer-save" @click="saveRealEstate('microAppsSettingsForm')" icon="ti-save"
+                    <el-button class="save-tab drawer-save" @click="saveSettings('microAppsSettingsForm')" icon="ti-save"
                             type="primary">
                         {{$t('general.actions.save')}}
                     </el-button> 
@@ -526,7 +526,7 @@
                     tenant_logo_upload: '',
                     tenant_logo_upload: '',
                     marketplace_approval_enable: true,
-                    news_approval_enable: false,
+                    pinboard_approval_enable: false,
                     comment_update_timeout: 60,
                     iframe_url: '',
                     mail_from_name: '',
@@ -588,7 +588,7 @@
             }
         },
         async created() {
-            await this.fetchRealEstate();
+            await this.fetchSettings();
             
 
             if (this.$route.query.tab) {
@@ -604,23 +604,23 @@
                 this.model.primary_color :
                 this.$constants.colors.primary_color;
 
-            this.$root.$on('changeLanguage', () => this.fetchRealEstate());
+            this.$root.$on('changeLanguage', () => this.fetchSettings());
         },
         computed: {
-            realEstateLogo() {
+            SettingsLogo() {
                 return this.model.logo ? `/${this.model.logo}?${Date.now()}` : '';
             },
-            realEstateCircleLogo() {
+            SettingsCircleLogo() {
                 return this.model.circle_logo ? `/${this.model.circle_logo}?${Date.now()}` : '';
             },
-            realEstateFaviconIcon() {
+            SettingsFaviconIcon() {
                 return this.model.favicon_icon ? `/${this.model.favicon_icon}?${Date.now()}` : '';
             },
-            realEstateTenantLogo() {
+            SettingsTenantLogo() {
                 return this.model.tenant_logo ? `/${this.model.tenant_logo}?${Date.now()}` : '';
             },
             validationRules() {
-                setTimeout(() => {this.validateForm('realEstateSettingsForm')}, 0);
+                setTimeout(() => {this.validateForm('SettingsSettingsForm')}, 0);
                 return {
                     email: [{
                         required: true,
@@ -637,7 +637,7 @@
                     }],
                     // iframe_url: [{
                     //     type: 'url',
-                    //     message: this.$t("models.realEstate.iframe_url.validation")
+                    //     message: this.$t("models.Settings.iframe_url.validation")
                     // }],
                     cleanify_email: [{
                         type: 'email',
@@ -645,49 +645,49 @@
                     }],
                     mail_from_name: [{
                         required: true,
-                        message: this.$t("models.realEstate.mail_from_name.validation")
+                        message: this.$t("models.Settings.mail_from_name.validation")
                     }],
                     mail_from_address: [{
                         required: true,
-                        message: this.$t("models.realEstate.mail_from_address.required")
+                        message: this.$t("models.Settings.mail_from_address.required")
                     },
                         {
                             type: 'email',
-                            message: this.$t("models.realEstate.mail_from_address.email")
+                            message: this.$t("models.Settings.mail_from_address.email")
                         }
                     ],
                     mail_host: [{
                         required: true,
-                        message: this.$t("models.realEstate.mail_host.validation")
+                        message: this.$t("models.Settings.mail_host.validation")
                     }],
                     mail_port: [{
                         required: true,
-                        message: this.$t("models.realEstate.mail_port.validation")
+                        message: this.$t("models.Settings.mail_port.validation")
                     }],
                     mail_username: [{
                         required: true,
-                        message: this.$t("models.realEstate.mail_username.validation")
+                        message: this.$t("models.Settings.mail_username.validation")
                     }],
                     mail_password: [{
                         required: true,
-                        message: this.$t("models.realEstate.mail_password.validation")
+                        message: this.$t("models.Settings.mail_password.validation")
                     }]
                 }
             }
         },
         methods: {
-            ...mapActions(['getRealEstate', 'updateRealEstate', 'getStates']),
+            ...mapActions(['getSettings', 'updateSettings', 'getStates']),
             goToTab(tabName) {
                 this.activeName = tabName;
             },
             validateForm(formName) {
                 this.$refs[formName].clearValidate();
             },
-            fetchRealEstate() {
+            fetchSettings() {
                 this.getStates().then((resp) => {
                     this.states = resp.data;
                 });
-                this.getRealEstate().then((resp) => {
+                this.getSettings().then((resp) => {
                     this.model = Object.assign({}, this.model, resp.data);
                     this.$root.$emit('fetch_logo', this.model.logo);
                     try {
@@ -700,7 +700,7 @@
                     displayError(error);
                 });
             },
-            saveRealEstate(form) {
+            saveSettings(form) {
                 // this.main_drawer = false;
                 // console.log("assas");
                 // return;
@@ -708,9 +708,9 @@
                 this.$refs[form].validate((valid) => {
                     if (valid) {
                         this.model.primary_color_lighter = this.getLightenDarkenColor(this.model.primary_color, 90) + '59'
-                        this.updateRealEstate(this.model).then((resp) => {
+                        this.updateSettings(this.model).then((resp) => {
                             
-                            this.fetchRealEstate();
+                            this.fetchSettings();
                             displaySuccess(resp);
                             //this.main_drawer = false;
                             var v = this;

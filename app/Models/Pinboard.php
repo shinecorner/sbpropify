@@ -107,7 +107,7 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
 
     const TypePost = 1;
     const TypeNewNeighbour = 2;
-    const TypePinned = 3;
+    const TypeAnnouncement = 3;
     const TypeArticle = 4;
 
     const SubTypeImportant = 1;
@@ -135,11 +135,11 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
     const Type = [
         self::TypePost => 'post',
         self::TypeNewNeighbour => 'new_neighbour',
-        self::TypePinned => 'pinned',
+        self::TypeAnnouncement => 'announcement',
         self::TypeArticle => 'article',
     ];
     const SubType = [
-        self::TypePinned => [
+        self::TypeAnnouncement => [
             self::SubTypeImportant => 'important',
             self::SubTypeCritical => 'critical',
             self::SubTypeMaintenance => 'maintenance',
@@ -177,8 +177,7 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
         'visibility',
         'category',
         'quarter_id',
-        'pinned',
-        'pinned_to',
+        'announcement',
         'execution_start',
         'execution_end',
         'title',
@@ -195,7 +194,6 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
     protected $dates = [
         'deleted_at',
         'published_at',
-        'pinned_to',
         'execution_start',
         'execution_end'
     ];
@@ -212,7 +210,7 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
         'visibility' => 'integer',
         'execution_period' => 'integer',
         'content' => 'string',
-        'pinned' => 'boolean',
+        'announcement' => 'boolean',
         'notify_email' => 'boolean',
         'category_image' => 'boolean',
         'is_execution_time' => 'boolean',
@@ -238,21 +236,25 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
     {
         $categories = array_keys(self::Category);
         $categories[] = null;
-        $re = RealEstate::first();
+        $settings = Settings::first();
         $visibilities = self::Visibility;
-        if (!$re->quarter_enable) {
+        if (!$settings->quarter_enable) {
             unset($visibilities[self::VisibilityQuarter]);
         }
         return [
             'content' => 'required',
             'visibility' => ['required', Rule::in(array_keys($visibilities))],
             'category' => [Rule::in($categories)],
-            'pinned' => function ($attribute, $value, $fail) {
-                if ($value && !\Auth::user()->can('pin-pinboard')) {
+            'announcement' => function ($attribute, $value, $fail) {
+                if ($value && !\Auth::user()->can('announcement-pinboard')) {
                     $fail($attribute.' must be false.');
                 }
             },
-            'pinned_to' => Rule::requiredIf(request()->pinned),
+            'pinned' => function ($attribute, $value, $fail) {      // @TODO delete
+                if ($value && !\Auth::user()->can('announcement-pinboard')) {
+                    $fail($attribute.' must be false.');
+                }
+            },
             'execution_start' => 'nullable|date',
             'execution_end' => 'nullable|date|after_or_equal:execution_start',
         ];
@@ -299,9 +301,9 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
         return $this->hasMany(PinboardView::class);
     }
 
-    public function pinned_email_receptionists()
+    public function announcement_email_receptionists()
     {
-        return $this->hasMany(PinnedEmailReceptionist::class);
+        return $this->hasMany(AnnouncementEmailReceptionist::class);
     }
 
     public function registerMediaCollections()

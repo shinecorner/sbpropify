@@ -192,14 +192,6 @@ class DashboardAPIController extends AppBaseController
                 'type'
             ]
         ],
-        // @TODO delete
-        'posts' => [
-            'class' => Pinboard::class,
-            'columns' => [
-                'status',
-                'type'
-            ]
-        ],
     ];
 
     /**
@@ -219,13 +211,6 @@ class DashboardAPIController extends AppBaseController
             ]
         ],
         'pinboard' => [
-            'class' => Pinboard::class,
-            'columns' => [
-                'status',
-            ]
-        ],
-        // @TODO delete
-        'posts' => [
             'class' => Pinboard::class,
             'columns' => [
                 'status',
@@ -868,13 +853,11 @@ class DashboardAPIController extends AppBaseController
         ];
         $timeDifInSeconds = ServiceRequest::where('status', ServiceRequest::StatusDone)->avg('resolution_time');
         $allStartDates = [
-
             'requests' => $this->timeFormat(ServiceRequest::min('created_at')),
             'tenants' => $this->timeFormat(Tenant::min('created_at')),
             'buildings' => $this->timeFormat(Building::min('created_at')),
             'products' => $this->timeFormat(Product::min('created_at')),
             'pinboard' => $this->timeFormat(Pinboard::min('created_at')),
-            'posts' => $this->timeFormat(Pinboard::min('created_at')),
         ];
 
         $ret = [
@@ -896,9 +879,7 @@ class DashboardAPIController extends AppBaseController
             'products_per_status' => $this->donutChartByTable($request, $optionalArgs, 'products'),
 
             'total_pinboard' => $this->thousandsFormat(Pinboard::count('id')),
-            'total_posts' => $this->thousandsFormat(Pinboard::count('id')),
             'pinboard_per_status' => $this->donutChartByTable($request, $optionalArgs, 'pinboard'),
-            'posts_per_status' => $this->donutChartByTable($request, $optionalArgs, 'pinboard'),
             'all_start_dates' => $allStartDates
         ];
 
@@ -2224,7 +2205,6 @@ class DashboardAPIController extends AppBaseController
         $table = $optionalArgs['table'] ?? null;
         $table = $table ?? $request->{self::QUERY_PARAMS['table']};
         $table = key_exists($table, $permissions) ? $table : Arr::first(array_keys($permissions));
-        $table = ('posts' == $table) ? 'pinboard' : $table; // @TODO delete
         $class = $permissions[$table]['class'];
 
         $permittedColumns = [];

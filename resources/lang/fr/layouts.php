@@ -11,7 +11,7 @@ return [
             'myRecentContract' => 'Mon récent contrat',
             'myDocuments' => 'Les documents',
             'myContactPersons' => 'Personnes de contact',
-            'posts' => 'Actualités',
+            'pinboard' => 'Panneau d\'affichage',
             'requests' => 'Demandes',
             'products' => 'Marché en ligne',
             'settings' => 'Réglages',

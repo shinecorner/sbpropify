@@ -27,7 +27,7 @@ return [
 	],
 	'benefit_3' => [
 		'title' => 'Staying in touch with the neighbourhood',
-		'description' => 'In the News section you can post articles that are visible to your neighbours. For example, if noise is to be expected due to an event.'
+		'description' => 'In the Pinboard section you can post articles that are visible to your neighbours. For example, if noise is to be expected due to an event.'
 	],
 	'benefit_4' => [
 		'title' => 'Online rental and marketplace',

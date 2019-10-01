@@ -8,11 +8,11 @@ use App\Models\Quarter;
 use App\Models\Pinboard;
 use App\Models\RentContract;
 use App\Models\Tenant;
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Models\User;
 use App\Notifications\NewTenantInNeighbour;
 use App\Notifications\NewTenantPinboard;
-use App\Notifications\PinnedPinboardPublished;
+use App\Notifications\AnnouncementPinboardPublished;
 use App\Notifications\PinboardPublished;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -118,11 +118,11 @@ class PinboardRepository extends BaseRepository
 
     protected function saveNotificationAuditsAndLogs(Pinboard $pinboard, $notificationsData)
     {
-        $pinnedPinboardPublished = get_morph_type_of(PinnedPinboardPublished::class);
-        $pinnedPinboardtPublishedUsers = $notificationsData[$pinnedPinboardPublished] ?? collect();
-        if ($pinnedPinboardtPublishedUsers->isNotEmpty()) {
-            $pinboard->pinned_email_receptionists()->create([
-                'tenant_ids' => $pinnedPinboardtPublishedUsers->pluck('tenant.id'),
+        $announcementPinboardPublished = get_morph_type_of(AnnouncementPinboardPublished::class);
+        $announcementPinboardPublishedUsers = $notificationsData[$announcementPinboardPublished] ?? collect();
+        if ($announcementPinboardPublishedUsers->isNotEmpty()) {
+            $pinboard->announcement_email_receptionists()->create([
+                'tenant_ids' => $announcementPinboardPublishedUsers->pluck('tenant.id'),
                 'failed_tenant_ids' => []
             ]);
         }
@@ -207,11 +207,11 @@ class PinboardRepository extends BaseRepository
 
         $usersToNotify = $this->getNotifiedTenantUsers($pinboard);
 
-        $pinnedPinboardPublished = get_morph_type_of(PinnedPinboardPublished::class);
+        $announcementPinboardPublished = get_morph_type_of(AnnouncementPinboardPublished::class);
         $pinboardPublished = get_morph_type_of(PinboardPublished::class);
         $pinboardNewTenantNeighbor = get_morph_type_of(NewTenantInNeighbour::class);
         $notificationsData = collect([
-            $pinnedPinboardPublished => collect(),
+            $announcementPinboardPublished => collect(),
             $pinboardPublished => collect(),
             $pinboardNewTenantNeighbor => collect(),
         ]);
@@ -225,13 +225,13 @@ class PinboardRepository extends BaseRepository
         foreach ($usersToNotify as $u) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
             $u->redirect = '/news';
-            if ($u->settings && $u->settings->admin_notification && $pinboard->pinned) {
-                $notificationsData[$pinnedPinboardPublished]->push($u);
-                $u->notify((new PinnedPinboardPublished($pinboard))
+            if ($u->settings && $u->settings->admin_notification && $pinboard->announcement) {
+                $notificationsData[$announcementPinboardPublished]->push($u);
+                $u->notify((new AnnouncementPinboardPublished($pinboard))
                     ->delay(now()->addSeconds($delay)));
                 continue;
             }
-            if ($u->settings && $u->settings->news_notification && ! $pinboard->pinned) {
+            if ($u->settings && $u->settings->news_notification && ! $pinboard->announcement) {
                 if ($pinboard->type == Pinboard::TypePost) {
                     $notificationsData[$pinboardPublished]->push($u);
                     $u->notify(new PinboardPublished($pinboard));
@@ -261,11 +261,11 @@ class PinboardRepository extends BaseRepository
         }
 
         $quarterIds = $buildingIds = [];
-        if ($pinboard->visibility == Pinboard::VisibilityQuarter || $pinboard->pinned) {
+        if ($pinboard->visibility == Pinboard::VisibilityQuarter || $pinboard->announcement) {
             $quarterIds = $pinboard->quarters()->pluck('id')->toArray();
         }
 
-        if ($pinboard->visibility == Pinboard::VisibilityAddress  || $pinboard->pinned) {
+        if ($pinboard->visibility == Pinboard::VisibilityAddress  || $pinboard->announcement) {
             $buildingIds = $pinboard->buildings()->pluck('id')->toArray();
         }
         if (empty($quarterIds) && empty($buildingIds)) {
@@ -311,7 +311,7 @@ class PinboardRepository extends BaseRepository
      */
     public function notifyAdminActions(Pinboard $pinboard)
     {
-        if (! Auth::user()->hasRole('super_admin')) {
+        if (! Auth::user()->hasRole('administrator')) {
             return;
         }
         // @TODO
@@ -324,8 +324,8 @@ class PinboardRepository extends BaseRepository
             return collect([$newTenantPinboard => collect()]);
         }
 
-        $re = RealEstate::firstOrFail();
-        $admins = User::whereIn('id', $re->news_receiver_ids)->get();
+        $settings = Settings::firstOrFail();
+        $admins = User::whereIn('id', $settings->news_receiver_ids)->get();
         $i = 0;
         foreach ($admins as $admin) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);

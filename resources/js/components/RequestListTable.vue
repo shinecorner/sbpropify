@@ -39,7 +39,7 @@
                                     <el-option :label="`${$t('general.placeholders.select')+' '+filter.name}`" value=""></el-option>
                                     <el-option
                                         :key="item.id + item.name"
-                                        :label="item.name"
+                                        :label="filter.key == 'category_id'?item['name_'+$i18n.locale]:item.name"
                                         :value="item.id"
                                         v-for="item in filter.data">
                                     </el-option>
@@ -160,6 +160,7 @@
                         @selectionChanged="handleRequestSelectionChange"
                         @editAction="column.editAction(scope.row)"
                         @onChange="scope.row['status']=$event,column.onChange(scope.row)"
+                        :categories="categories"
                     >
 
                     </request-detail-card>
@@ -186,6 +187,7 @@
     import tableAvatar from 'components/Avatar';
     import RequestDetailCard from 'components/RequestDetailCard';
     import filters from 'components/Filters';
+    import { mapActions } from 'vuex';
     
     import {ResponsiveMixin} from 'vue-responsive-components'
 
@@ -299,7 +301,8 @@
                         type: 'el-button',
                         key: 'sortedBy',
                     }
-                ]
+                ],
+                categories: []
             }
         },
         computed: {
@@ -323,6 +326,30 @@
             }
         },
         methods: {
+            ...mapActions(['getRequestCategoriesTree']),
+            async getFilterCategories() {
+                const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
+                
+                this.categories = [];
+                categories.map((category) => {
+                    this.categories[category.id] = {
+                        'en' : category.name_en,
+                        'fr' : category.name_fr,
+                        'it' : category.name_it,
+                        'de' : category.name_de,
+                    };
+                    if(category.categories.length > 0) {
+                        category.categories.map((subCategory) => {
+                            this.categories[subCategory.id] = {
+                                'en' : subCategory.name_en,
+                                'fr' : subCategory.name_fr,
+                                'it' : subCategory.name_it,
+                                'de' : subCategory.name_de,
+                            }
+                        });
+                    }
+                });
+            },
             clearSearch() {
                 this.search = '';
             },
@@ -577,6 +604,8 @@
                     this.filterChanged(filter, true);
                 }
             });
+            
+            this.getFilterCategories();
         }
     }
 </script>

@@ -1,7 +1,6 @@
 <?php
 return [
     'dashboard' => 'Dashboard',
-    'news' => 'Pinnwand',
     'requests' => 'Service-Center',
     'all_requests' => 'Alle Anfragen',
     'myRequests' => 'Meine Anfragen',
@@ -26,7 +25,7 @@ return [
     'all_buildings' => 'Objekte',
     'units' => 'Einheiten',
     'addresses' => 'Liegenschaften',
-    'posts' => 'Pinnwand',
+    'pinboard' => 'Pinnwand',
     'quarters' => 'Überbauungen',
     'products' => 'Marktplatz',
     'requestCategories' => 'Kategorien',

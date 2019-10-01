@@ -2,7 +2,7 @@
 return [
     "notifications" => "Notifiche e lingua",
     "admin" => "Notifiche dell'amministrazione",
-    "news" => "Notifiche di notizie",
+    "pinboard" => "Notifiche su bacheca",
     "marketplace" => "Notifiche di mercato",
     "service" => "Notifiche di servizio",
     "updated" => "Impostazioni aggiornate",

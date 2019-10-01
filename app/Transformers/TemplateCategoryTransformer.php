@@ -21,7 +21,7 @@ class TemplateCategoryTransformer extends BaseTransformer
     public function transform(TemplateCategory $model)
     {
         $tags = is_array($model->tag_map) ? array_keys($model->tag_map) : [];
-        $tags[] = 'realEstateCompany';
+        $tags[] = 'settingsCompany';
         $tags[] = 'primaryColor';
         $response = [
             'id' => $model->id,

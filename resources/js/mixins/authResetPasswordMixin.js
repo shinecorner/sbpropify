@@ -1,6 +1,6 @@
 import {mapActions, mapState} from 'vuex';
 import {displaySuccess, displayError} from 'helpers/messages';
-// TODO make a common mixin for posts and products mixins(media upload at least)
+// TODO make a common mixin for pinboard and products mixins(media upload at least)
 export default {
     name: 'ForgotPassword',
     data() {

@@ -38,15 +38,13 @@ export default (config = {}) => {
                     work_phone: '',
                     title: '',
                     company: '',
-                    building_id: '',
-                    unit_id: '',
-                    media: [],
                     settings: {
                         language: '',
                     },
                     nation: '',
                     rent_contracts: [],
                 },
+                rent_row: [1],
                 activeRentContractIndex: 0,
                 rent_contract: {
                     type: '',
@@ -57,8 +55,8 @@ export default (config = {}) => {
                     deposit_type: '',
                     monthly_rent_net: '',
                     monthly_maintenance: '',
-                    status: '1',
-                    deposit_status: '1',
+                    status: 1,
+                    deposit_status: 1,
                     monthly_rent_gross: '',
                     parking_price: 0,
                     unit_id: '',
@@ -301,7 +299,7 @@ export default (config = {}) => {
                             this.loading.state = true;
                             
                             this.model.rent_contracts.forEach(rent_contract => {
-                                rent_contract.monthly_rent_gross = rent_contract.monthly_rent_net + rent_contract.monthly_maintenance
+                                rent_contract.monthly_rent_gross = Number(rent_contract.monthly_rent_net) + Number(rent_contract.monthly_maintenance)
                             })
 
                             let {email, password, password_confirmation, ...tenant} = this.model;

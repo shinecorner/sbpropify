@@ -26,8 +26,8 @@
         <div class="placeholder" v-else-if="!loading.notifications && !notifications.data.length">
             <img :src="require('img/4as334da63xc.png')" />
             <div class="content">
-                <div class="title">You have no notifications yet.</div>
-                <div class="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
+                <div class="title">{{$t('tenant.no_data.notification')}}</div>
+                <div class="description">{{$t('tenant.no_data_info.notification')}}</div>
             </div>
         </div>
     </div>
@@ -105,7 +105,7 @@
             },
             getTypeColor (type) {
                 return {
-                    'pinned_post_published': '#BF55EC'
+                    'pinned_pinbord_published': '#BF55EC'
                 }[type]
             }
         },

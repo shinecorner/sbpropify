@@ -7,7 +7,7 @@ use App\Models\Quarter;
 use App\Models\Pinboard;
 use App\Models\Product;
 use App\Models\PropertyManager;
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Models\ServiceRequest;
 use App\Models\Template;
 use App\Models\Conversation;
@@ -18,7 +18,7 @@ use App\Models\User;
 use App\Notifications\NewTenantInNeighbour;
 use App\Notifications\NewTenantPinboard;
 use App\Notifications\NewTenantRequest;
-use App\Notifications\PinnedPinboardPublished;
+use App\Notifications\AnnouncementPinboardPublished;
 use App\Notifications\PinboardPublished;
 use App\Notifications\ProductPublished;
 use App\Notifications\StatusChangedRequest;
@@ -57,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
             'building' => Building::class,
             'templates' => Template::class,
             'request' => ServiceRequest::class,
-            'real_estate' => RealEstate::class,
+            'settings' => Settings::class,
             'manager' => PropertyManager::class,
             'translation' => \App\Models\Translation::class,
             'provider' => \App\Models\ServiceProvider::class,
@@ -66,7 +66,7 @@ class AppServiceProvider extends ServiceProvider
 
             'pinboard_published' => PinboardPublished::class,
             'new_tenant_pinboard' => NewTenantPinboard::class,
-            'pinned_pinboard_published' => PinnedPinboardPublished::class,
+            'announcement_pinboard_published' => AnnouncementPinboardPublished::class,
             'new_tenant_in_neighbour' => NewTenantInNeighbour::class,
             'product_published' => ProductPublished::class,
             'new_tenant_request' => NewTenantRequest::class,

@@ -145,6 +145,9 @@ class ServiceRequestAPIController extends AppBaseController
                 'media',
                 'tenant.user',
                 'tenant.building.address',
+                'tenant.rent_contracts' => function ($q) {
+                    $q->with('building.address', 'unit');
+                },
                 'category',
                 'comments.user',
                 'providers.address:id,country_id,state_id,city,street,zip',
@@ -290,6 +293,9 @@ class ServiceRequestAPIController extends AppBaseController
         $serviceRequest->load([
             'media', 'tenant.user', 'tenant.building', 'category', 'managers', 'users', 'remainder_user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers',
+            'tenant.rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit');
+            },
         ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, 'Service Request retrieved successfully');
@@ -611,15 +617,17 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $providerId = $request->service_provider_id ?? $request->provider_id; // @TODO delete provider_id
+        $providerId = $request->service_provider_id;
         $sp = $spRepo->findWithoutFail($providerId);
         if (empty($sp)) {
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
-        $managerId = $request->property_manager_id ?? $request->manager_id ?? $request->assignee_id ?? []; // @TODO delete manager_id, assignee_id
-        $propertyManager = $pmRepo->with('user:email,id')->find($managerId);
+        $managerId = $request->property_manager_id;
+
+        $propertyManager = $managerId ? $pmRepo->with('user:email,id')->find($managerId) : null;
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
+
         $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManager, $mailDetails);
         $sr->touch();
         $sp->touch();
@@ -1620,26 +1628,26 @@ class ServiceRequestAPIController extends AppBaseController
 
         $user = $request->user();
         if ($user->propertyManager()->exists()) {
-            $response = $this->getLoggedRequestCount($user, $response, 'propertyManager', 'managers');
+            $response = $this->getLoggedRequestCount($user->propertyManager->id, $response, 'propertyManager', 'managers');
         } elseif ($user->serviceProvider()->exists()) {
-            $response = $this->getLoggedRequestCount($user, $response, 'serviceProvider', 'providers');
+            $response = $this->getLoggedRequestCount($user->serviceProvider->id, $response, 'serviceProvider', 'providers');
+        } elseif ($user->hasRole('administrator')) {
+            $response = $this->getLoggedRequestCount($user->id, $response, 'users', 'users');
         }
 
         return $this->sendResponse($response, 'Request countes');
     }
 
     /**
-     * @param $user
+     * @param $relationId
      * @param $response
      * @param $userRelation
      * @param $requestRelation
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    protected function getLoggedRequestCount($user, $response, $userRelation, $requestRelation)
+    protected function getLoggedRequestCount($relationId, $response, $userRelation, $requestRelation)
     {
-
-        $relationId = $user->{$userRelation}->id;
         $this->serviceRequestRepository->resetCriteria();
         $this->serviceRequestRepository->whereHas($requestRelation, function ($q) use ($relationId) {
             $q->where('assignee_id', $relationId);

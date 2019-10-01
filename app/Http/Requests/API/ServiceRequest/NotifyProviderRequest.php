@@ -24,8 +24,8 @@ class NotifyProviderRequest extends BaseRequest
     public function rules()
     {
         return [
-//            'provider_id' => 'required|exists:service_providers,id',
-  //          'assignee_ids' => 'array',
+            'service_provider_id' => 'required|exists:service_providers,id',
+            'property_manager_id' => 'nullable|exists:property_managers,id',
             'title' => 'string|required',
             'body' => 'string|required',
             'to' => 'nullable|email',

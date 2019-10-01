@@ -79,12 +79,26 @@
             </label>
             <el-switch v-model="model.is_public"/>
         </el-form-item>
-        <el-divider />
+
+        <ui-divider class="upload-divider" content-position="left">
+            <i class="el-icon-upload"></i>
+            {{$t('tenant.request_upload_title')}}
+        </ui-divider>
+        
+        <div class="upload-description">
+            <el-alert
+                :title="$t('tenant.request_upload_desc')"
+                type="info"
+                show-icon
+                :closable="false"
+            >
+            </el-alert>
+        </div>
         <media-uploader ref="media" :id="request_id" :audit_id="audit_id" type="requests" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
 
         <!-- <media-upload ref="upload" v-model="model.media" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="4" /> -->
         <el-form-item class="submitBtnDiv" v-if="showSubmit" style="grid-column: span 6">
-            <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
+            <el-button class="submit is-round" icon="ti-save" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -102,6 +116,10 @@
             ServicesTypes,
         ],
         props: {
+            visible: {
+                type: Boolean,
+                default: false
+            },
             showSubmit: {
                 type: Boolean,
                 default: true
@@ -237,7 +255,7 @@
                             //             async () => { 
                             //                 const mediaResp = await this.$store.dispatch('newRequests/uploadMedia', {
                             //                     id, media: file.src,
-                            //                     merge_audit: resp.data.audit_id
+                            //                     merge_in_audit: resp.data.audit_id
                             //                 }) 
                             //             }
                             //         )
@@ -246,6 +264,7 @@
                             //     await queue.onIdle()
                             // }
 
+                            this.$emit('update:visible', false)
                             this.$refs.form.resetFields()
                             //this.$refs.upload.clear()
                         } catch (err) {
@@ -327,6 +346,7 @@
                 
             }
 
+
             /deep/ .el-form-item__label {
                 padding: 0;
             }
@@ -356,6 +376,35 @@
             }
         }
 
+        .upload-divider {
+            padding: 0;
+
+            /deep/ .ui-divider__content {
+                left: 0;
+                z-index: 1;
+                padding-left: 0;
+                font-size: 20px;
+                font-weight: 700;
+                color: var(--color-primary);
+                transform: translate(calc(208px - 50%), -50%);
+                padding-left: 16px;
+            }
+
+        }
+
+        .upload-description {
+            padding: 0;
+
+            .el-alert {
+                align-items: flex-start;
+                padding-right: 0;
+
+                .el-alert__icon {
+                    padding-top: 2px;
+                }
+            }
+        }
+
         .submitBtnDiv {
             // position: absolute;
             width: 100%;
@@ -370,6 +419,9 @@
         .el-button.submit {
             margin-top: 1em;
             width: 100%;
+            /deep/ i {
+                padding-right: 5px;
+            }
         }
 
         .switcher-form-item {

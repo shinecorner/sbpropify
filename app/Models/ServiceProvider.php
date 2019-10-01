@@ -78,7 +78,7 @@ class ServiceProvider extends AuditableModel
     public static $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255',
-        'category' => 'required|string|max:255',
+        'category' => 'required|integer|max:255',
         'phone' => 'required|string|max:255',
         'user' => 'required',
         'address' => 'required',
@@ -87,7 +87,7 @@ class ServiceProvider extends AuditableModel
     public static $rulesUpdate = [
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255',
-        'category' => 'required|string|max:255',
+        'category' => 'required|integer|max:255',
         'phone' => 'required|string|max:255',
     ];
 

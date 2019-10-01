@@ -21,7 +21,7 @@ use App\Http\Requests\API\Tenant\ShowRequest;
 use App\Http\Requests\API\Tenant\UpdateLoggedInRequest;
 use App\Http\Requests\API\Tenant\UpdateRequest;
 use App\Http\Requests\API\Tenant\UpdateStatusRequest;
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\TenantCredentials;
@@ -271,7 +271,7 @@ class TenantAPIController extends AppBaseController
 
         DB::beginTransaction();
         try {
-            $input['user']['role'] = 'registered';
+            $input['user']['role'] = 'tenant';
             $input['user']['settings'] = Arr::pull($input, 'settings');
             User::disableAuditing();
             $user = $this->userRepository->create($input['user']);
@@ -823,10 +823,10 @@ class TenantAPIController extends AppBaseController
     {
         $tenant->setCredentialsPDF();
 
-        $re = RealEstate::firstOrFail();
+        $settings = Settings::firstOrFail();
 
         $pdfName = $tenant->pdfXFileName();
-        if ($re && $re->blank_pdf) {
+        if ($settings && $settings->blank_pdf) {
             $pdfName = $tenant->pdfFileName();
         }
 

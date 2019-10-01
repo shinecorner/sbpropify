@@ -1,6 +1,6 @@
 <template>
     <div class="users-edit">
-        <heading :title="this.$route.params.role == 'administrator' ? $t('general.actions.edit_admin')  : $t('models.user.edit_super_admin')" icon="icon-user">
+        <heading :title="$t('models.user.edit_admin')" icon="icon-user">
             <edit-actions :saveAction="submit" :deleteAction="deleteUser" :role="this.$route.params.role" route="adminUsers" :queryParams="queryParams" shadow="heavy"/>
         </heading>
         <el-row class="crud-view">
@@ -52,23 +52,14 @@
                                     <el-input type="text" v-model="model.phone"/>
                                 </el-form-item>
                             </el-col>
-                            <el-col :md="12">
-                                <el-form-item :label="$t('general.roles.label')" :rules="validationRules.role" prop="role">
-                                    <el-select style="width: 100%;" v-model="model.role">
-                                        <el-option :key="role" :label="$t('general.roles.' + role )" :value="role"
-                                                v-for="role in allRoles"/>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row :gutter="20">
                             <el-col :md="12" id="right_card">
                                 <el-form-item style="margin-bottom: 0;" :label="$t('general.language')" :rules="validationRules.language"
-                                    prop="settings.language">
+                                              prop="settings.language">
                                     <select-language :activeLanguage.sync="model.settings.language"/>
                                 </el-form-item>
                             </el-col>
                         </el-row>
+
                     </card>
                 </el-col>
             </el-form>

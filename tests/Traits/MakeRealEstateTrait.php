@@ -1,38 +1,38 @@
 <?php
 
 use Faker\Factory as Faker;
-use App\Models\RealEstate;
-use App\Repositories\RealEstateRepository;
+use App\Models\Settings;
+use App\Repositories\SettingsRepository;
 
 trait MakeRealEstateTrait
 {
     /**
-     * Create fake instance of RealEstate and save it in database
+     * Create fake instance of Settings and save it in database
      *
      * @param array $realEstateFields
-     * @return RealEstate
+     * @return Settings
      */
     public function makeRealEstate($realEstateFields = [])
     {
-        /** @var RealEstateRepository $realEstateRepo */
-        $realEstateRepo = App::make(RealEstateRepository::class);
+        /** @var SettingsRepository $realEstateRepo */
+        $realEstateRepo = App::make(SettingsRepository::class);
         $theme = $this->fakeRealEstateData($realEstateFields);
         return $realEstateRepo->create($theme);
     }
 
     /**
-     * Get fake instance of RealEstate
+     * Get fake instance of Settings
      *
      * @param array $realEstateFields
-     * @return RealEstate
+     * @return Settings
      */
     public function fakeRealEstate($realEstateFields = [])
     {
-        return new RealEstate($this->fakeRealEstateData($realEstateFields));
+        return new Settings($this->fakeRealEstateData($realEstateFields));
     }
 
     /**
-     * Get fake data of RealEstate
+     * Get fake data of Settings
      *
      * @param array $postFields
      * @return array

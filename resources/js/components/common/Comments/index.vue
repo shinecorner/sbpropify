@@ -2,19 +2,19 @@
     <loader v-if="loading && !comments.data.length" />
     <div class="placeholder" v-else-if="!loading && !comments.data.length">
         <template v-if="usePlaceholder">
-            <img class="image" :src="require('img/5c98b47a97050.png')" />
-            <div class="title">{{$t('components.common.commentsList.emptyPlaceholder.title')}}</div>
-            <div class="description">{{$t('components.common.commentsList.emptyPlaceholder.description')}}</div>
+            <img class="image" :src="require('img/5c98b47a97050.png')" />            
+                <div class="title">{{$t(no_data_info.title)}}</div>
+                <div class="description">{{$t(no_data_info.description)}}</div>       
         </template>
     </div>
-    <div class="comments-list" v-else>
+    <div class="comments-list" v-else-if="comments">
         <template v-if="withScroller" >
             <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom" v-if="!loading">
                 <template #before>
                     <el-divider v-if="comments.current_page !== comments.last_page">
                         <el-button icon="el-icon-top" size="mini" :loading="loading" round @click="fetch">
-                            <template v-if="loading">{{$t('components.common.commentsList.loading')}}</template>
-                            <template v-else>{{$t('components.common.commentsList.loadMore.simple', {count: comments.total - comments.data.length})}}</template>
+                            <template v-if="loading">{{$t('general.loading')}}</template>
+                            <template v-else>{{$t('general.load_more_count', {count: comments.total - comments.data.length})}}</template>
                         </el-button>
                     </el-divider>
                 </template>
@@ -31,7 +31,7 @@
         </template>
         <template v-else>
             <el-button type="text" @click="fetch" :loading="loading" v-if="!data && comments.current_page !== comments.last_page">
-                {{$t('components.common.commentsList.loadMore.detailed', {count: comments.total - comments.data.length})}}
+                {{$t('components.common.commentsList.loadMore', {count: comments.total - comments.data.length})}}
             </el-button>            
             <comment v-bind="commentComponentProps" :show-children="showChildren" v-for="comment in comments.data" :key="comment.id" :data="comment" :reversed="isCommentReversed(comment)" />
         </template>
@@ -52,7 +52,7 @@
             },
             type: {
                 type: String,
-                validator: type => ['post', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
+                validator: type => ['pinboard', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
             },
             data: {
                 type: Object
@@ -128,6 +128,7 @@
                     })
 
                     this.comments = this.$store.getters['comments/get'](this.id, this.type)
+
                     EventBus.$emit('comments-get-counted', this.comments.total);
 
                     if (this.$refs['dynamic-scroller'] && current_page >= 1) {
@@ -185,7 +186,30 @@
                     'cancel-edit': this.forceUpdate,
                     'size-changed': this.forceUpdate
                 }
-            }
+            },
+            no_data_info(){
+                let macros = {
+                    title: 'components.common.commentsList.emptyPlaceholder.title',
+                    description: 'components.common.commentsList.emptyPlaceholder.description'
+                }
+                if(this.type === 'internalNotices'){                    
+                    macros.title = 'components.common.internalnoticesList.emptyPlaceholder.title';
+                    macros.description = 'components.common.internalnoticesList.emptyPlaceholder.description';                    
+                }
+                else if(this.type === 'conversation'){                    
+                    macros.title = 'components.common.serviceproviderconversationsList.emptyPlaceholder.title';
+                    macros.description = 'components.common.serviceproviderconversationsList.emptyPlaceholder.description';                    
+                }
+                else if((this.type === 'request') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'tenant') == -1)){ 
+                    macros.title = 'components.common.tenantconversationsList.emptyPlaceholder.title';
+                    macros.description = 'components.common.tenantconversationsList.emptyPlaceholder.description';                    
+                }
+                else if((this.type === 'product') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'tenant') > -1)){ 
+                    macros.title = 'components.common.listingcommentsList.emptyPlaceholder.title';
+                    macros.description = 'components.common.listingcommentsList.emptyPlaceholder.description';                    
+                }
+                return macros;
+            } 
         },
         watch: {
             'comments.total' () {
@@ -200,7 +224,7 @@
                 this.comments = this.data;
             } else {
                 
-                this.$store.dispatch('comments/clear', {commentable: this.type})
+                //this.$store.dispatch('comments/clear', {commentable: this.type})
 
                 await this.fetch()
             }

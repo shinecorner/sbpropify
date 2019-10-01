@@ -14,7 +14,11 @@ class UpdateRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('edit-property_manager');
+        if ($this->can('edit-property_manager')) {
+            return true;
+        }
+
+        return PropertyManager::where('id', $this->route('id'))->where('user_id', $this->user()->id)->exists();
     }
 
     /**

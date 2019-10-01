@@ -9,9 +9,9 @@ return [
     'average_request_duration' => 'Tempo di risoluzione',
     'week_hour' => 'Settimana vs. Ora',
     'month_date' => 'Mese vs. data',
-    'news_by_creation_date' => 'Notizie per data di creazione',
-    'news_by_status' => 'Notizie per stato',
-    'news_by_type' => 'Notizie per tipo',
+    'pinboard_by_creation_date' => 'Pinboard per data di creazione',
+    'pinboard_by_status' => 'Pinboard per stato',
+    'pinboard_by_type' => 'Lavagna per tipo',
     'latest_products' => 'Ultimi prodotti',
     'products_by_creation_date' => 'Mercato dei prodotti per data di creazione',
     'products_by_type' => 'Piazza del mercato prodotti per tipologia',
@@ -58,9 +58,9 @@ return [
     'marketplace' => [
         'go_to_marketplace' => 'vai al mercato'
     ],
-    'news' => [
-        'latest_news' => 'Ultime notizie',
-        'go_to_news' => 'vai alle notizie',
+    'pinboard' => [
+        'latest_pinboard' => 'Ultima bacheca',
+        'go_to_pinboard' => 'vai alla bacheca',
         'counts' => 'Conta'
     ]
 ];

@@ -16,12 +16,12 @@ use App\Models\Media;
 use App\Models\Permission;
 use App\Models\Pinboard;
 use App\Models\PinboardView;
-use App\Models\PinnedEmailReceptionist;
+use App\Models\AnnouncementEmailReceptionist;
 use App\Models\Product;
 use App\Models\PropertyManager;
 use App\Models\Quarter;
 use App\Models\QuarterAssignee;
-use App\Models\RealEstate;
+use App\Models\Settings;
 use App\Models\RentContract;
 use App\Models\Role;
 use App\Models\ServiceProvider;
@@ -257,13 +257,13 @@ class CleanDB extends Command
             Permission::class,
             Pinboard::class,
             PinboardView::class,
-            PinnedEmailReceptionist::class,
+            AnnouncementEmailReceptionist::class,
             ServiceRequest::class,
             Product::class,
             PropertyManager::class,
             Quarter::class,
             QuarterAssignee::class,
-            RealEstate::class,
+            Settings::class,
             RentContract::class,
             Role::class,
             ServiceProvider::class,

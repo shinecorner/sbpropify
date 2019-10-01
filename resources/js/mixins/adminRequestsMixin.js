@@ -273,7 +273,7 @@ export default (config = {}) => {
                         await this.uploadRequestMedia({
                             id,
                             media: image.url.split('base64,')[1],
-                            merge_audit : audit_id
+                            merge_in_audit : audit_id
                         });
                     }
                 }

@@ -53,7 +53,7 @@
         async mounted () {
             this.loader = this.$loading({
                 target: this.$el.parentElement,
-                text: 'Fetching the documents...'
+                text: this.$t('tenant.fetching_message.document')
             })
 
             try {

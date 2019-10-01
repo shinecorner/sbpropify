@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Mail\TransportManager;
-use App\Models\RealEstate;
+use App\Models\Settings;
 
 class CustomTransportManager extends TransportManager {
 
@@ -13,16 +13,16 @@ class CustomTransportManager extends TransportManager {
      * @param \Illuminate\Foundation\Application $app
      * @return void
      */
-    public function __construct($app, RealEstate $re)
+    public function __construct($app, Settings $settings)
     {
-        $this->app = $app;
+        parent::__construct($app);
         $this->app['config']['mail'] = [
             'driver'        => env('MAIL_DRIVER', 'smtp'),
-            'host'          => $re->mail_host,
-            'port'          => $re->mail_port,
-            'encryption'    => $re->mail_encryption,
-            'username'      => $re->mail_username,
-            'password'      => $re->mail_password,
+            'host'          => $settings->mail_host,
+            'port'          => $settings->mail_port,
+            'encryption'    => $settings->mail_encryption,
+            'username'      => $settings->mail_username,
+            'password'      => $settings->mail_password,
         ];
     }
 }

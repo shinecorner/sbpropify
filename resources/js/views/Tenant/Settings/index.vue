@@ -69,8 +69,8 @@
                         <el-form-item :label="$t('settings.service')">
                             <el-switch v-model="loggedInUser.settings.service_notification"></el-switch>
                         </el-form-item>
-                        <el-form-item :label="$t('settings.news')">
-                            <el-switch v-model="loggedInUser.settings.news_notification"></el-switch>
+                        <el-form-item :label="$t('settings.pinboard')">
+                            <el-switch v-model="loggedInUser.settings.pinboard_notification"></el-switch>
                         </el-form-item>
                         <el-form-item :label="$t('settings.marketplace')">
                             <el-switch v-model="loggedInUser.settings.martketplace_notification"></el-switch>
@@ -193,7 +193,7 @@
             ...mapGetters(["getAllAvailableLanguages", "loggedInUser"])
         },
         methods: {
-            ...mapActions(['updateSettings', 'changeUserPassword', 'changeDetails', 'uploadAvatar', 'me']),
+            ...mapActions(['updateUserSettings', 'changeUserPassword', 'changeDetails', 'uploadAvatar', 'me']),
             cropped(e) {
                 this.image = e;
             },
@@ -265,7 +265,7 @@
                 this.$refs.changePasswordForm.resetFields();
             },
             settingsUpdated() {
-                this.updateSettings(this.loggedInUser).then((resp) => {
+                this.updateUserSettings(this.loggedInUser).then((resp) => {
                     this.$i18n.locale = this.loggedInUser.settings.language;
                     displaySuccess({
                         success: true,

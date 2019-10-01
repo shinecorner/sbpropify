@@ -11,7 +11,7 @@ return [
             'myRecentContract' => 'My recent contract',
             'myDocuments' => 'Documents',
             'myContactPersons' => 'Contact persons',
-            'posts' => 'News',
+            'pinboard' => 'Pinboard',
             'requests' => 'Requests',
             'products' => 'Marketplace',
             'settings' => 'Settings',

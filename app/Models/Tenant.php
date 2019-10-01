@@ -11,7 +11,7 @@ use OwenIt\Auditing\AuditableObserver;
 use PDF;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @SWG\Definition(
@@ -314,10 +314,10 @@ class Tenant extends AuditableModel implements HasMedia
      */
     public function setCredentialsPDF()
     {
-        $re = RealEstate::firstOrFail();
+        $settings = Settings::firstOrFail();
         $data = [
             'tenant' => $this,
-            're' => $re,
+            'settings' => $settings,
             'url' => url('/activate'),
             'code' => $this->activation_code,
             'language'  => $this->settings->language

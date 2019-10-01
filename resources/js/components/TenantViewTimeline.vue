@@ -9,7 +9,7 @@
                         <el-row :gutter="20" class="main-section">
                             <el-col :md="2" class="avatar-square" v-if="element.media.length > 0">
                                  <el-tooltip
-                                    :content="$t('models.post.images')"
+                                    :content="$t('models.pinboard.images')"
                                     class="item"
                                     effect="light" placement="top">
                                     <span>
@@ -17,13 +17,13 @@
                                     </span>
                                  </el-tooltip>
                             </el-col>
-                            <el-col :md="fetchAction == 'getPostsTruncated' && element.media.length > 0 ? 22 : 24">
+                            <el-col :md="fetchAction == 'getPinboardTruncated' && element.media.length > 0 ? 22 : 24">
                                 <h4>
                                     {{element.title}} 
                                     <TimelineStatus v-if="fetchAction == 'getRequests'" :status="element.status" />
-                                    <template v-if="fetchAction == 'getPostsTruncated'">
+                                    <template v-if="fetchAction == 'getPinboardTruncated'">
                                          <el-tooltip
-                                            :content="element.pinned ? $t('models.post.pinned') : $t('models.post.type.article')"
+                                            :content="element.pinned ? $t('models.pinboard.pinned') : $t('models.pinboard.type.article')"
                                             class="item"
                                             effect="light" placement="top">
                                             <span>
@@ -34,12 +34,12 @@
                                                     round
                                                     :style="{'padding': '2px 5px' ,'border-color': '#d2ecd4','color' : '#6AC06F','background-color': '#f0f9f1'}"
                                                 >
-                                                    {{element.pinned ? $t('models.post.pinned') : $t('models.post.type.article')}}
+                                                    {{element.pinned ? $t('models.pinboard.pinned') : $t('models.pinboard.type.article')}}
                                                 </el-button>
                                             </span>
                                          </el-tooltip>
                                     </template>
-                                     <template v-if="loggedInUser.roles[0].name === 'super_admin' || fetchAction === 'getRequests'">
+                                     <template v-if="loggedInUser.roles[0].name === 'administrator' || fetchAction === 'getRequests'">
                                         <span
                                             class="btn-view"
                                           >
@@ -58,7 +58,7 @@
                                 </h4>
                             <p class="subtitle text-secondary" v-if="element.category.name">
                                 <el-tooltip
-                                    :content="(element.category.parentCategory && element.category.parentCategory.name ? '' : '') + $t('models.post.category.label')"
+                                    :content="(element.category.parentCategory && element.category.parentCategory.name ? '' : '') + $t('models.pinboard.category.label')"
                                     class="item"
                                     effect="light" placement="top">
                                     <span>
@@ -162,9 +162,9 @@ import { mapGetters } from 'vuex';
                        }
                    });
                 }
-                if (action === 'getPostsTruncated') {
+                if (action === 'getPinboardTruncated') {
                     this.$router.push({
-                       name: 'adminPostsEdit',
+                       name: 'adminPinboardEdit',
                        params: {
                            id : data.id
                        }
@@ -183,7 +183,7 @@ import { mapGetters } from 'vuex';
                         switch (this.fetchAction) {
                             case 'getRequests':
                                 break;
-                            case 'getPostsTruncated':
+                            case 'getPinboardTruncated':
                                 data.title = data.preview
                                 data.category = {
                                     ...data.category,

@@ -19,10 +19,9 @@ use App\Http\Requests\API\Product\UpdateRequest;
 use App\Http\Requests\API\Product\ViewRequest;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
-use App\Repositories\RealEstateRepository;
+use App\Repositories\SettingsRepository;
 use App\Transformers\ProductTransformer;
 use App\Transformers\UserTransformer;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
@@ -35,9 +34,9 @@ class ProductAPIController extends AppBaseController
     /** @var  ProductRepository */
     private $productRepository;
     /**
-     * @var RealEstateRepository
+     * @var SettingsRepository
      */
-    private $realEstateRepository;
+    private $settingsRepository;
     /**
      * @var ProductTransformer
      */
@@ -50,19 +49,19 @@ class ProductAPIController extends AppBaseController
     /**
      * ProductAPIController constructor.
      * @param ProductRepository $productRepo
-     * @param RealEstateRepository $reRepo
+     * @param SettingsRepository $reRepo
      * @param ProductTransformer $t
      * @param UserTransformer $ut
      */
     public function __construct(
         ProductRepository $productRepo,
-        RealEstateRepository $reRepo,
+        SettingsRepository $reRepo,
         ProductTransformer $t,
         UserTransformer $ut
     )
     {
         $this->productRepository = $productRepo;
-        $this->realEstateRepository = $reRepo;
+        $this->settingsRepository = $reRepo;
         $this->transformer = $t;
         $this->uTransformer = $ut;
     }
@@ -170,10 +169,10 @@ class ProductAPIController extends AppBaseController
         $input['user_id'] = \Auth::id();
         $input['status'] = Product::StatusUnpublished;
 
-        $realEstate = $this->realEstateRepository->first();
+        $settings = $this->settingsRepository->first();
         $input['needs_approval'] = false;
-        if ($realEstate) {
-            $input['needs_approval'] = $realEstate->marketplace_approval_enable;
+        if ($settings) {
+            $input['needs_approval'] = $settings->marketplace_approval_enable;
         }
 
         $product = $this->productRepository->create($input);
