@@ -48,6 +48,12 @@ use Illuminate\Support\Facades\Storage;
  *          format="int32"
  *      ),
  *      @SWG\Property(
+ *          property="client_type",
+ *          description="client_type",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="title",
  *          description="title",
  *          type="string"
@@ -170,6 +176,7 @@ class Tenant extends AuditableModel implements HasMedia
         'rating',
         'nation',
         'country_id',
+        'client_type',
     ];
 
     protected $dates = ['deleted_at', 'rent_start', 'rent_end'];
@@ -199,6 +206,7 @@ class Tenant extends AuditableModel implements HasMedia
         'tenant_format' => 'string',
         'review' => 'string',
         'rating' => 'integer',
+        'client_type' => 'integer',
         'nation' => 'string',
     ];
 
