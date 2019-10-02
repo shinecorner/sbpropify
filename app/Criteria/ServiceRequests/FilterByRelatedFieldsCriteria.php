@@ -5,6 +5,7 @@ namespace App\Criteria\ServiceRequests;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
@@ -36,9 +37,10 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $categoryId = $this->request->get('category_id', null);
-        if ($categoryId) {
-            $model->where('category_id', $categoryId);
+        $categoryIds = $this->request->get('category_id', null);
+        if ($categoryIds) {
+            $categoryIds = Arr::wrap($categoryIds);
+            $model->whereIn('category_id', $categoryIds);
         }
 
         $tenantId = $this->request->get('tenant_id', null);
