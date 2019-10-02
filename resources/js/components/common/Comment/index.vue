@@ -189,8 +189,7 @@
                 }
 
                 try {
-                    await this.$store.dispatch('comments/delete', params)
-                    EventBus.$emit('comments-deleted');
+                    await this.$store.dispatch('comments/delete', params)                    
                 } catch (error) {
                     displayError(error)
                 } finally {

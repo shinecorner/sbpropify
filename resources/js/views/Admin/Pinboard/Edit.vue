@@ -151,7 +151,7 @@
                             </el-tab-pane>
                             <el-tab-pane name="comments">
                                 <span slot="label">
-                                    <el-badge :value="commentCount" :max="99" class="admin-layout">{{ $t('models.pinboard.comments') }}</el-badge>
+                                    <el-badge :value="pinboardCommentCount" :max="99" class="admin-layout">{{ $t('models.pinboard.comments') }}</el-badge>
                                 </span>
                                 <chat class="edit-pinboard-chat" :id="model.id" size="480px" type="pinboard"/>
                             </el-tab-pane>
@@ -509,7 +509,7 @@
         },
         data() {
             return {
-                commentCount: 0,
+                pinboardCommentCount: 0,
                 assignmentsColumns: [{
                     prop: 'name',
                     label: 'general.name'
@@ -543,14 +543,14 @@
         },
         mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
-            EventBus.$on('comments-get-counted', comment_count => {
-                this.commentCount = comment_count;
+            EventBus.$on('pinboard-comment-count', pinboard_comment_count => {
+                this.pinboardCommentCount = pinboard_comment_count;
             });
-            EventBus.$on('comments-deleted', () => {
-                this.commentCount--;
+            EventBus.$on('pinboard-comment-deleted', () => {
+                this.pinboardCommentCount--;
             });
-            EventBus.$on('comments-added', () => {
-                this.commentCount++;
+            EventBus.$on('pinboard-comment-added', () => {
+                this.pinboardCommentCount++;
             });
         },
         methods: {
