@@ -38,13 +38,13 @@ class FilterByRequestCriteria implements CriteriaInterface
         $rid = $this->request->get('request_id', null);
         $rs = $this->request->get('request_status', null);
         if ($rid || $rs) {
-            $model->join('service_requests', 'service_requests.tenant_id', '=', 'tenants.id');
+            $model->join('requests', 'requests.tenant_id', '=', 'tenants.id');
         }
         if ($rid) {
-            $model->where('service_requests.id', $rid);
+            $model->where('requests.id', $rid);
         }
         if ($rs) {
-            $model->where('service_requests.status', $rs);
+            $model->where('requests.status', $rs);
         }
 
         return $model;
