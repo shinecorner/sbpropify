@@ -208,6 +208,10 @@
                     macros.title = 'components.common.listingcommentsList.emptyPlaceholder.title';
                     macros.description = 'components.common.listingcommentsList.emptyPlaceholder.description';                    
                 }
+                else if((this.type === 'pinboard')){
+                    macros.title = 'components.common.pinboardcommentsList.emptyPlaceholder.title';
+                    macros.description = 'components.common.pinboardcommentsList.emptyPlaceholder.description';
+                }
                 return macros;
             } 
         },
