@@ -171,6 +171,7 @@ return [
         'close' => 'Schliessen',
         'saveAndClose' => 'Speichern & schliessen',
         'upload' => 'Herunterladen',
+        'update' => 'Bearbeiten',
     ],
     'swal' => [
         'confirmChange' => [
@@ -255,5 +256,5 @@ return [
     'to_homepage' => 'Zur Startseite',
     'assignment' => 'Zugewiesene Liegenschaften',
     'status_changed' => 'Status geändert',
-    'monthly_rent_net' => 'Monatsmiete',
+    'monthly_rent_net' => 'Monatsmiete',    
 ];

@@ -179,11 +179,17 @@ class PinboardAPIController extends AppBaseController
     {
         $input = $request->only(Pinboard::Fillable);
         $input['user_id'] = \Auth::id();
+        $input['building_ids'] = $request->building_ids ?? [];
+        $input['quarter_ids'] = $request->quarter_ids ?? [];
 
         if (! Auth::user()->hasRole('administrator')) {
             $input['status'] = Pinboard::StatusNew;
         } else {
             $input['status'] = $input['status'] ?? Pinboard::StatusNew;
+        }
+
+        if ($request->has('pinned')) {
+            $input['announcement'] = $request->pinned;
         }
 
         if ($request->announcement  == true || $request->pinned  == true) { // @TODO delete pinned

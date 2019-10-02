@@ -23,7 +23,7 @@
                                     <TimelineStatus v-if="fetchAction == 'getRequests'" :status="element.status" />
                                     <template v-if="fetchAction == 'getPinboardTruncated'">
                                          <el-tooltip
-                                            :content="element.pinned ? $t('models.pinboard.pinned') : $t('models.pinboard.type.article')"
+                                            :content="element.announcement ? $t('models.pinboard.announcement') : $t('models.pinboard.type.article')"
                                             class="item"
                                             effect="light" placement="top">
                                             <span>
@@ -34,7 +34,7 @@
                                                     round
                                                     :style="{'padding': '2px 5px' ,'border-color': '#d2ecd4','color' : '#6AC06F','background-color': '#f0f9f1'}"
                                                 >
-                                                    {{element.pinned ? $t('models.pinboard.pinned') : $t('models.pinboard.type.article')}}
+                                                    {{element.announcement ? $t('models.pinboard.announcement') : $t('models.pinboard.type.article')}}
                                                 </el-button>
                                             </span>
                                          </el-tooltip>
