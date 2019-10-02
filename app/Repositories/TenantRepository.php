@@ -141,7 +141,7 @@ class TenantRepository extends BaseRepository
             if (empty($existingRentContract)) {
                 continue;
             }
-            $rentContractSavedData->push($rentContractRepo->updateExisting($existingRentContract, $rentContractData));
+            $rentContractRepo->updateExisting($existingRentContract, $rentContractData);
         }
         RentContract::enableAuditing();
         Media::enableAuditing();
