@@ -52,7 +52,7 @@
         </like>
             
         
-        <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" />
+        <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" :with-scroller="true"/>
         <add-comment ref="addComment" :id="data.id" type="pinboard"/>
         </div>
     </el-card>
@@ -252,6 +252,10 @@
         :global(.comments-list) {
             margin: 16px 0;
             min-height: 30px;
+
+            :global(.vue-recycle-scroller) {
+                min-height: 30px;
+            }
 
             > :global(.el-button) {
                 padding-top: 0;

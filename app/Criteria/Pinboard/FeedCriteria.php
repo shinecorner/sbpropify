@@ -38,8 +38,8 @@ class FeedCriteria implements CriteriaInterface
     {
         if ($this->request->get('feed')) {
             return $model
-                ->whereRaw("(pinboard.pinned = ?)", false)
-                ->orderBy('pinboard.pinned', 'desc')
+                ->whereRaw("(pinboard.announcement = ?)", false) // @TODO check
+                ->orderBy('pinboard.announcement', 'desc')
                 ->orderBy('pinboard.execution_start', 'asc')
                 ->orderBy('pinboard.published_at', 'desc')
                 ->orderBy('pinboard.created_at', 'desc');

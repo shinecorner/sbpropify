@@ -7,7 +7,7 @@
                 <div class="description">{{$t(no_data_info.description)}}</div>       
         </template>
     </div>
-    <div class="comments-list" v-else>
+    <div class="comments-list" v-else-if="comments">
         <template v-if="withScroller" >
             <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom" v-if="!loading">
                 <template #before>
@@ -128,6 +128,7 @@
                     })
 
                     this.comments = this.$store.getters['comments/get'](this.id, this.type)
+
                     EventBus.$emit('comments-get-counted', this.comments.total);
 
                     if (this.$refs['dynamic-scroller'] && current_page >= 1) {
@@ -207,6 +208,10 @@
                     macros.title = 'components.common.listingcommentsList.emptyPlaceholder.title';
                     macros.description = 'components.common.listingcommentsList.emptyPlaceholder.description';                    
                 }
+                else if((this.type === 'pinboard')){
+                    macros.title = 'components.common.pinboardcommentsList.emptyPlaceholder.title';
+                    macros.description = 'components.common.pinboardcommentsList.emptyPlaceholder.description';
+                }
                 return macros;
             } 
         },
@@ -223,7 +228,7 @@
                 this.comments = this.data;
             } else {
                 
-                this.$store.dispatch('comments/clear', {commentable: this.type})
+                //this.$store.dispatch('comments/clear', {commentable: this.type})
 
                 await this.fetch()
             }

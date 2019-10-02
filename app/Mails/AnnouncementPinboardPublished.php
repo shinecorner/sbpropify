@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 
 use App\Models\Pinboard;
 
-class PinnedPinboardPublished extends Mailable
+class AnnouncementPinboardPublished extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class PinnedPinboardPublished extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.pinnedPinboardPublished')
+        return $this->view('mails.announcementPinboardPublished')
             ->subject($this->pinboard->title)
             ->with([
                 'pinboard' => $this->pinboard,
