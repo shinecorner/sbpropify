@@ -179,6 +179,6 @@ class SettingsAPIController extends AppBaseController
         $settings->news_receivers = User::whereIn('id', $settings->news_receiver_ids)->get();
 
         $response = (new SettingsTransformer)->transform($settings);
-        return $this->sendResponse($response, __('models.user.settingsSaved'));
+        return $this->sendResponse($response, __('models.settings.saved'));
     }
 }
