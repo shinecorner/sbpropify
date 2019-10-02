@@ -188,12 +188,12 @@ return [
         ],
         'to_done' => [
             'title' => 'Anfrage als erledigt markieren',
-            'desc' => 'Mit diesem Vorgang wir die Anfrage an erledigt markiert und der Fall abgeschlossen. Sie können diese Anfrage später reaktivieren, wenn Sie weitere Unterstützung zu diesem Fall benötigen sollten.',
+            'desc' => 'Mit diesem Vorgang wird die Anfrage an erledigt markiert und der Fall abgeschlossen. Sie können diese Anfrage später reaktivieren, wenn Sie weitere Unterstützung zu diesem Fall benötigen sollten.',
             'message' => 'Alternativ können Sie uns hier eine Nachricht hinterlassen.',
         ],
         'reactivate' => [
             'title' => 'Anfrage reaktivieren',
-            'text' => 'Bitte hinterlassen Sie eine Nachricht mit dem Begründung der Reaktivierung.',
+            'text' => 'Bitte hinterlassen Sie eine Nachricht mit dem Begründung der Reaktivierung. (Pflichtfeld)',
         ],
         'delete_listing' => [
             'title' => 'Inserat löschen',
@@ -214,7 +214,7 @@ return [
         'homeowner' => 'Eigentümer',
         'manager' => 'Bewirtschafter',
         'registered' => 'Registriert',
-        'service' => 'Partnerfirma',
+        'service' => 'Externe Diensteister',
         'super_admin' => 'Super Administrator',
     ],
     'placeholders' => [
