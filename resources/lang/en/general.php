@@ -171,6 +171,7 @@ return [
         'close' => 'Close',
         'saveAndClose' => 'Save & Close',
         'upload' => 'Upload',
+        'update' => 'Update',
     ],
     'swal' => [
         'confirmChange' => [
@@ -255,5 +256,5 @@ return [
     'to_homepage' => 'To Homepage',
     'assignment' => 'Assignment',
     'status_changed' => 'Status changed',
-    'monthly_rent_net' => 'Monthly rent',
+    'monthly_rent_net' => 'Monthly rent',    
 ];

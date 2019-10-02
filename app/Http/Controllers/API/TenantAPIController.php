@@ -283,24 +283,6 @@ class TenantAPIController extends AppBaseController
 
         $input['user_id'] = $user->id;
 
-        $rentData = [];
-        if (isset($input['rent_start'])) {
-            $rentData['start_date'] = $input['rent_start'];
-        }
-
-        if (isset($input['building_id'])) {
-            $rentData['building_id'] = $input['building_id'];
-        }
-
-        if (isset($input['unit_id'])) {
-            $rentData['unit_id'] = $input['unit_id'];
-        }
-
-        if ($rentData) {
-            if (empty($input['rent_contracts'])) {
-                $input['rent_contracts'][] = $rentData;
-            }
-        }
         try {
             $tenant = $this->tenantRepository->create($input);
         } catch (\Exception $e) {
@@ -495,6 +477,8 @@ class TenantAPIController extends AppBaseController
         }
 
         $input['user']['settings'] = Arr::pull($input, 'settings', []);
+
+        DB::beginTransaction();
         try {
             // for prevent user update log related tenant
             User::disableAuditing();
@@ -508,34 +492,8 @@ class TenantAPIController extends AppBaseController
         try {
             $tenant = $this->tenantRepository->updateExisting($tenant, $input);
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
-        }
-
-        $rentData = [];
-        if (isset($input['rent_start'])) {
-            $rentData['start_date'] = $input['rent_start'];
-        }
-
-        if (key_exists('building_id', $input)) {
-            $rentData['building_id'] = $input['building_id'];
-        }
-
-        if (key_exists('unit_id', $input)) {
-            $rentData['unit_id'] = $input['unit_id'];
-        }
-
-        $rentData['tenant_id'] = $tenant->id;
-        try {
-            $tenant->load('rent_contracts');
-            $rentContract = $tenant->rent_contracts->first();
-            $rentRepository = App::make(RentContractRepository::class);
-            if ($rentContract) {
-                $rentRepository->updateExisting($rentContract, $rentData);
-            } else {
-                $rentRepository->create($rentData);
-            }
-        } catch (\Exception $e) {
-            return $this->sendError(__('models.rent_contract.errors.create') . $e->getMessage());
         }
 
         $tenant->load(['settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
@@ -547,6 +505,8 @@ class TenantAPIController extends AppBaseController
         //if ($userPass) {
             //$tenant->setCredentialsPDF();
         //}
+        DB::commit();
+
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, __('models.tenant.saved'));
     }
