@@ -24,7 +24,7 @@ return [
         'blank_pdf_desc' => 'Generate PDF files without letterhead so that they can be printed on your own stationery.',
         'font_family' => 'Font family',
         'notificationSaved' => 'Notificatin setting saved',
-        'SettingsSaved' => 'Real Estate settings saved',
+        'settingsSaved' => 'Real Estate settings saved',
         'serviceRequestCategorySaved' => 'Service request category saved',
         'serviceRequestCategoryDeleted' => 'Service request category deleted',
         'setting_saved' => "user setting saved",

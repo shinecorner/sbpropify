@@ -24,7 +24,7 @@ return [
         'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
         'font_family' => 'Schriftfamilie',
         'notificationSaved' => 'Benachrichtigungseinstellung gespeichert',
-        'SettingsSaved' => 'Einstellungen gespeichert.',
+        'settingsSaved' => 'Einstellungen gespeichert.',
         'serviceRequestCategorySaved' => 'Anfrage-Kategorie gespeichert',
         'serviceRequestCategoryDeleted' => 'Anfrage-Kategorie gelöscht',
         'setting_saved' => "Einstellung(en) gespeichert",

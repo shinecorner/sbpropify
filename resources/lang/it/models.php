@@ -24,7 +24,7 @@ return [
         'blank_pdf_desc' => 'Genera file PDF senza carta intestata in modo che possano essere stampati sulla tua carta intestata.',
         'font_family' => 'Famiglia di font',
         "notificationSaved" => "Impostazione della notifica salvata",
-        "SettingsSaved" => "Impostazioni immobiliari salvate",
+        "settingsSaved" => "Impostazioni immobiliari salvate",
         "serviceRequestCategorySaved" => "Categoria della richiesta di servizio salvata",
         "serviceRequestCategoryDeleted" => "Categoria della richiesta di servizio cancellata",
         'setting_saved' => "impostazioni utente salvate",
