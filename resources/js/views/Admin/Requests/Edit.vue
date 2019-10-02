@@ -81,8 +81,8 @@
                                                    v-model="model.room">
                                             <el-option
                                                 :key="room.value"
-                                                :label="room.name"
                                                 :value="room.value"
+                                                :label="room.name"
                                                 v-for="room in rooms">
                                             </el-option>
                                         </el-select>
@@ -592,7 +592,7 @@
         async mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             this.$root.$on('changeLanguage', () => {
-                this.fetchCurrentRequest();
+                //this.fetchCurrentRequest();
             });
             EventBus.$on('comments-get-counted', comment_count => {
                 this.commentCount = comment_count;
