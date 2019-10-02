@@ -132,11 +132,19 @@ class Tenant extends AuditableModel implements HasMedia
         self::TitleMrs,
         self::TitleCompany
     ];
+
     const StatusActive = 1;
     const StatusNotActive = 2;
     const Status = [
         self::StatusActive => 'active',
         self::StatusNotActive => 'not_active',
+    ];
+
+    const ClientTypeTenant = 1;
+    const ClientTypeOwner = 2;
+    const ClientType = [
+        self::ClientTypeTenant => 'tenant',
+        self::ClientTypeOwner => 'owner',
     ];
     /**
      * Validation rules

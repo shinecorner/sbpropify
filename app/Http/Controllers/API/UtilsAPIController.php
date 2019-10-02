@@ -149,6 +149,7 @@ class UtilsAPIController extends AppBaseController
         $result = [
             'title' => Tenant::Title,
             'status' => Tenant::Status,
+            'client_type' => Tenant::ClientType,
         ];
 
         return $result;
