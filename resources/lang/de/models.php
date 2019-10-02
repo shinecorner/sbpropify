@@ -524,7 +524,7 @@ return [
         'title' => 'Einstellungen Liegenschaftsverwaltung',
         'settings' => 'Einstellungen',
         'tenants_portal' => 'Mieterportal',
-        'iframe' => 'Freie Objekte',
+        'iframe' => 'Freie Objekte',    
         'micro_apps' => 'Micro-Apps',
         'theme' => 'Design',
         'smtp' => 'SMTP',
@@ -536,6 +536,7 @@ return [
         'quarter_enable' => 'Überbauungen aktivieren',
         'marketplace_approval_enable' => 'Marktplatz aktivieren',
         'gocaution' => 'Vorsicht',
+        'gocaution_desc' => 'Vorsicht',
         'blank_pdf' => 'PDF ohne Briefkopf verwenden',
         'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
         'font_family' => 'Schriftfamilie',
@@ -547,12 +548,15 @@ return [
         'schedule' => 'Terminplanung',
         'endTime' => 'Ende',
         'startTime' => 'Start',
+        'powered_by' => 'Powered by',
         'to' => 'An',
         'categories' => 'Kategorien',
         'templates' => 'Vorlagen',
         'contact_enable' => 'Dienstleister-Kontakte für Mieter aktivieren',
         'contact_enable_desc' => 'Mieter können die Kontaktdaten der involvierten Dienstleister im Mieterportal sehen.',
         'cleanify_email' => 'Cleanify email',
+        'cleanify_email_desc' => 'Cleanify email',
+        'cleanify_email_url' => 'Cleanify Email URL',
         'mail_encryption' => 'Verschlüsselung',
         'primary_color' => 'Primärfarbe',
         'accent_color' => 'Akzentfarbe',
@@ -586,6 +590,10 @@ return [
         "mail_password" => [
             "label" => "Passwort",
             "validation" => "E-Mail-Passwort eingeben"
+        ],
+        "mail_powered_by" => [
+            "label" => "Email",
+            "validation" => "Email eingeben"
         ],
         'errors' => [
             'not_found' => "Liegenschaften nicht gefunden",
