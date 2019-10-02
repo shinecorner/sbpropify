@@ -208,6 +208,89 @@ class ServiceRequest extends AuditableModel implements HasMedia
         5 => 'cost_consequences',
     ];
 
+    const LocationHouseEntrance = 1;
+    const LocationStaircase = 2;
+    const LocationElevator = 3;
+    const LocationUndergroundCarPark = 4;
+    const LocationWashingDrying = 5;
+    const LocationTechnologyHeating = 6;
+    const LocationTechnologyElectro = 7;
+    const LocationFacade = 8;
+    const LocationRoof = 9;
+    const LocationOther = 10;
+    const Location = [
+        self::LocationHouseEntrance => 'house_entrance',
+        self::LocationStaircase => 'staircase',
+        self::LocationElevator => 'elevator',
+        self::LocationUndergroundCarPark => 'car_park',
+        self::LocationWashingDrying => 'washing',
+        self::LocationTechnologyHeating => 'heating',
+        self::LocationTechnologyElectro => 'electro',
+        self::LocationFacade => 'facade',
+        self::LocationRoof => 'roof',
+        self::LocationOther => 'other',
+    ];
+
+
+    const RoomBathroomWC = 1;
+    const RoomShowerWC = 2;
+    const RoomEntrance = 3;
+    const RoomPassage = 4;
+    const RoomBasement = 5;
+    const RoomKitchen = 6;
+    const RoomReduite = 7;
+    const RoomHabitation = 8;
+    const RoomRoom1 = 9;
+    const RoomRoom2 = 10;
+    const RoomRoom3 = 11;
+    const RoomRoom4 = 12;
+    const RoomAll = 13;
+    const RoomOther = 14;
+    
+    const Room = [
+        self::RoomBathroomWC => 'bath',
+        self::RoomShowerWC => 'shower',
+        self::RoomEntrance => 'entrance',
+        self::RoomPassage => 'passage',
+        self::RoomBasement => 'basement',
+        self::RoomKitchen => 'kitchen',
+        self::RoomReduite => 'storeroom',
+        self::RoomHabitation => 'habitation',
+        self::RoomRoom1 => 'room1',
+        self::RoomRoom2 => 'room2',
+        self::RoomRoom3 => 'room3',
+        self::RoomRoom4 => 'room4',
+        self::RoomAll => 'all',
+        self::RoomOther => 'other',
+    ];
+
+    const CapturePhaseOther = 1;
+    const CapturePhaseConstructionPhase = 2;
+    const CapturePhaseShellAcceptance = 3;
+    const CapturePhasePreliminaryAcceptance = 4;
+    const CapturePhaseAcceptanceOfWork = 5;
+    const CapturePhaseSurrender = 6;
+    const CapturePhaseAcceptance = 7;
+    
+    const CapturePhase = [
+        self::CapturePhaseOther => 'other',
+        self::CapturePhaseConstructionPhase => 'construction',
+        self::CapturePhaseShellAcceptance => 'shell',
+        self::CapturePhasePreliminaryAcceptance => 'preliminary',
+        self::CapturePhaseAcceptanceOfWork => 'work',
+        self::CapturePhaseSurrender => 'surrender',
+        self::CapturePhaseAcceptance => 'inspection',
+    ];
+
+    const PayerLandlord = 1;
+    const PayerTenant = 2;
+    const PayerTenantLandlord = 3;
+    const Payer = [
+        self::PayerLandlord => 'landlord',
+        self::PayerTenant => 'tenant',
+        self::PayerTenantLandlord => 'tenant/landlord',
+    ];
+
     protected $dates = ['deleted_at'];
 
     const Fillable = [

@@ -693,17 +693,8 @@ return [
             "solved" => "Risolte",
             "pending" => "Pendenti"
         ],
-        'category_options' => [
-            "disturbance" => "Perturbazione",
-            "defect" => "Difetto",
-            "other" => "Altro",
-            'room' => 'Camera',
-            'range' => 'Gamma',
-            'component' => 'Componente',
-            'acquisition' => 'Fase di acquisizione',
-            'cost' => 'Costo Impatto',
-            'keywords' => 'Parole chiave',
-            'building_locations' => [
+        'sub_category_fields' => [
+            'location' => [
                 'house_entrance' => 'Ingresso Casa',
                 'staircase' => 'Scala',
                 'elevator' => 'Ascensore',
@@ -715,7 +706,7 @@ return [
                 'roof' => 'Tetto',
                 'other' => 'Altro'
             ],
-            'apartment_rooms' => [
+            'room' => [
                 'bath' => 'Bagno/WC',
                 'shower' => 'Doccia/WC',
                 'entrance' => 'Ingresso',
@@ -731,7 +722,7 @@ return [
                 'all' => 'Tutti',
                 'other' => 'Altro'
             ],
-            'acquisitions' => [
+            'capture_phase' => [
                 'other' => 'Altro',
                 'construction' => 'Fase di costruzione',
                 'shell' => 'Accettazione Shell',
@@ -740,11 +731,22 @@ return [
                 'surrender' => 'Arrendersi',
                 'inspection' => 'Accettazione'
             ],
-            'costs' => [
+            'payer' => [
                 'landlord' => 'Padrone di casa',
                 'tenant' => 'Affittuario',
                 'tenant/landlord' => 'Affittuario/Padrone di casa'
             ]
+        ],
+        'category_options' => [
+            "disturbance" => "Perturbazione",
+            "defect" => "Difetto",
+            "other" => "Altro",
+            'room' => 'Camera',
+            'range' => 'Gamma',
+            'component' => 'Componente',
+            'acquisition' => 'Fase di acquisizione',
+            'cost' => 'Costo Impatto',
+            'keywords' => 'Parole chiave',
         ],
         'placeholders' => [
             "category" => "Selezionare la categoria",
