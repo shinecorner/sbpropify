@@ -534,6 +534,12 @@
             EventBus.$on('comments-get-counted', comment_count => {
                 this.commentCount = comment_count;
             });
+            EventBus.$on('comments-deleted', () => {
+                this.commentCount--;
+            });
+            EventBus.$on('comments-added', () => {
+                this.commentCount++;
+            });
         },
         methods: {
             ...mapActions(['unassignPinboardBuilding', 'unassignPinboardQuarter', 'unassignPinboardProvider', 'deletePinboard']),
