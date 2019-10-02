@@ -27,7 +27,6 @@ return [
         'settingsSaved' => 'Real Estate settings saved',
         'serviceRequestCategorySaved' => 'Service request category saved',
         'serviceRequestCategoryDeleted' => 'Service request category deleted',
-        'setting_saved' => "user setting saved",
         'setting_deleted' => "user setting deleted",
         'password_reset_request_sent' => "We have sent you an e-mail with further instructions. Please check your inbox.",
         'errors' => [
@@ -521,9 +520,10 @@ return [
             'deleted' => "Quarter deleted error: ",
         ],
     ],
-    'Settings' => [
+    'settings' => [
         'title' => 'Settings real estate',
         'settings' => 'Settings',
+        'saved' => "user setting saved",
         'tenants_portal' => 'Tenants portal',
         'iframe' => 'Iframe',
         'micro_apps' => 'Micro-Apps',

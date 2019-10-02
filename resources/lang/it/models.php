@@ -27,7 +27,6 @@ return [
         "settingsSaved" => "Impostazioni immobiliari salvate",
         "serviceRequestCategorySaved" => "Categoria della richiesta di servizio salvata",
         "serviceRequestCategoryDeleted" => "Categoria della richiesta di servizio cancellata",
-        'setting_saved' => "impostazioni utente salvate",
         'setting_deleted' => "l'impostazione dell'utente è stata cancellata",
         'password_reset_request_sent' => "Le abbiamo inviato un'e-mail con ulteriori istruzioni. Controlla la tua casella di posta in arrivo.",
         'errors' => [
@@ -521,9 +520,10 @@ return [
             'deleted' => "Errore al quarto eliminato: ",
         ],
     ],
-    'Settings' => [
+    'settings' => [
         "title" => "Impostazioni immobiliari",
         "settings" => "Impostazioni",
+        'saved' => "impostazioni utente salvate",
         'tenants_portal' => 'Portale inquilini',
         'iframe' => 'Iframe',
         'micro_apps' => 'Micro-Apps',
