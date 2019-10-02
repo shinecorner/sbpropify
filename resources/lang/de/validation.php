@@ -201,7 +201,7 @@ return [
         'required' => 'Die Ortschaft ist obligatorisch.',
     ],
     'title' => [
-        'required' => 'Anrede',
+        'required' => 'Anrede ist obligatorisch.',
     ],
     'terms' => [
         'required' => 'Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren.',
