@@ -537,6 +537,7 @@ return [
         "quarter_enable" => "Quartiere",
         "marketplace_approval_enable" => "Attivare il mercato",
         'gocaution' => 'Gocauzione',
+        'gocaution_desc' => 'Gocauzione',
         "blank_pdf" => "PDF in bianco",
         'blank_pdf_desc' => 'Genera file PDF senza carta intestata in modo che possano essere stampati sulla tua carta intestata.',
         'font_family' => 'Famiglia di font',
@@ -548,12 +549,15 @@ return [
         "schedule" => "Programmazione",
         "endTime" => "E' l'ora della fine",
         "startTime" => "Ora di inizio",
+        'powered_by' => 'Alimentato da',
         "to" => "A",
         "categories" => "Categorie",
         "templates" => "Modelli",
         "contact_enable" => "Attivare 'I miei contatti'",
         'contact_enable_desc' => 'Gli inquilini possono vedere i dati di contatto dei partner di servizio coinvolti nel portale degli inquilini.',
         "cleanify_email" => "Pulire le e-mail",
+        "cleanify_email_desc" => "Pulire le e-mail",
+        'cleanify_email_url' => 'Pulire le e-mail URL',
         "mail_encryption" => "Crittografia",
         'primary_color' => 'Colore primario',
         'accent_color' => 'Colore d\'accento',
@@ -587,6 +591,10 @@ return [
         "mail_password" => [
             "label" => "La password",
             "validation" => "Inserisci la password e-mail"
+        ],
+        "mail_powered_by" => [
+            "label" => "Email",
+            "validation" => "Inserisci e-mail"
         ],
         'errors' => [
             'not_found' => "Immobili non trovati",

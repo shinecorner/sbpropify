@@ -537,6 +537,7 @@ return [
         'quarter_enable' => 'Quarter',
         'marketplace_approval_enable' => 'Enable Market',
         'gocaution' => 'Gocaution',
+        'gocaution_desc' => 'Gocaution',
         'blank_pdf' => 'Blank pdf',
         'blank_pdf_desc' => 'Generate PDF files without letterhead so that they can be printed on your own stationery.',
         'font_family' => 'Font family',
@@ -548,17 +549,23 @@ return [
         'schedule' => 'Schedule',
         'endTime' => 'End time',
         'startTime' => 'Start time',
+        'powered_by' => 'Powered by',
         'to' => 'To',
         'categories' => 'Categories',
         'templates' => 'Templates',
         'contact_enable' => 'Enable \'My contacts\'',
         'contact_enable_desc' => 'Tenants can see the contact data of the service partners involved in the tenant portal.',
         'cleanify_email' => 'Cleanify email',
+        'cleanify_email_desc' => 'Cleanify email',
         'mail_encryption' => 'Encryption',
         'primary_color' => 'Primary color',
         'accent_color' => 'Accent color',
         'iframe_enable' => 'Iframe enable',
         'iframe_enable_desc' => 'In the tenant portal a page with your free renting objects is indicated.',
+        'cleanify_url' => [
+            'label' => 'Cleanify Email URL',
+            'validation' => 'Cleanify Email URL should be a valid URL',
+        ],
         'iframe_url' => [
             'label' => 'Iframe URL',
             'validation' => 'Iframe URL should be a valid URL',
@@ -587,6 +594,10 @@ return [
         "mail_password" => [
             "label" => "Password",
             "validation" => "Enter email password"
+        ],
+        "mail_powered_by" => [
+            "label" => "Email",
+            "validation" => "Enter email"
         ],
         'errors' => [
             'not_found' => "Real Estate not found",

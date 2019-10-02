@@ -239,7 +239,17 @@
                                                         ></el-input>
                                                     </el-form-item>
                                                 </el-col>
-                                                <el-col :md="12">
+                                                 <el-col :md="12">
+                                                    <el-form-item :rules="validationRules.mail_powered_by"
+                                                                  prop="email_powered_by">
+                                                        <label class="card-label">{{$t('models.Settings.mail_powered_by.label')}}</label>
+                                                        <el-select :placeholder="$t('models.address.state.label')" style="display: block"
+                                                                   v-model="model.email_powered_by">
+                                                            <el-option :label="$t('general.placeholders.select')" value=""></el-option>
+                                                            <el-option :key="item.label+item.value" :label="$t('models.Settings.powered_by')+' '+item.label" :value="item.value"
+                                                                       v-for="item in mail_powered_by"></el-option>
+                                                        </el-select>
+                                                    </el-form-item>
                                                 </el-col>
                                             </el-row>
                                     </el-card>
@@ -272,7 +282,7 @@
                                     </el-col>
                                     <el-col :md="8">
                                         <el-card class="marketplace-card card-boxs">
-                                            <span @click="Gocaution_drawer" class="icon-cog"></span>
+                                            <span @click="Gocaution_drawer" class="icon-cog" style="display:none"></span>
                                             <el-form-item :label="$t('models.Settings.gocaution')">
                                                 <span class="switcher__desc">{{$t('models.Settings.gocaution_desc')}}</span>
                                                 <el-switch 
@@ -464,26 +474,38 @@
                     <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.Settings.cleanify_email')}}</label> </div>
                     <!-- <el-input type="email" v-model="model.cleanify_email"></el-input> -->
                 </el-tab-pane>
-                <div v-if="Iframe_drawer_val">
-                        <el-form :model="model" :rules="iFrameRules" ref="microAppsSettingsForm" label-width="120px" class="demo-ruleForm">
-                            <el-form-item  prop="iframe_url">
+                <div :style="{'display':Iframe_drawer_val?'block':'none'}">
+                        <el-form :model="model" :rules="iFrameRules" ref="microAppsSettingsForm_iframe" class="demo-ruleForm">
+                            <el-form-item :label="$t('models.Settings.iframe_url.label')"  prop="iframe_url">
                                 <el-input v-model="model.iframe_url"></el-input>
                             </el-form-item>
                         </el-form>    
+                        <div class="drawer-btn-sec"> 
+                            <el-button class="save-tab" @click="saveSettings('microAppsSettingsForm_iframe')" icon="ti-save"
+                                    type="primary">
+                                {{$t('general.actions.save')}}
+                            </el-button> 
+                        </div> 
                 </div> 
-                <div v-if="Cleanify_drawer_val">
-                    <el-form :model="model" :rules="cleanifyRules" ref="microAppsSettingsForm" label-width="120px" class="demo-ruleForm">
-                            <el-form-item  prop="cleanify_email">
-                                <el-input type="email" v-model="model.cleanify_email"></el-input>
-                            </el-form-item>
-                        </el-form>
+                <div :style="{'display':Cleanify_drawer_val?'block':'none'}">
+                    <el-form :model="model" :rules="cleanifyRules" ref="microAppsSettingsForm_cleanify" class="demo-ruleForm">
+                        <el-form-item :label="$t('models.Settings.cleanify_url.label')"  prop="cleanify_email">
+                            <el-input type="email" v-model="model.cleanify_email"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div class="drawer-btn-sec"> 
+                        <el-button class="save-tab" @click="saveSettings('microAppsSettingsForm_cleanify')" icon="ti-save"
+                                type="primary">
+                            {{$t('general.actions.save')}}
+                        </el-button> 
+                    </div> 
                 </div> 
-                <div class="drawer-btn-sec"> 
-                    <el-button class="save-tab drawer-save" @click="saveSettings('microAppsSettingsForm')" icon="ti-save"
+                <!-- <div class="drawer-btn-sec"> 
+                    <el-button class="save-tab" @click="saveSettings('microAppsSettingsForm')" icon="ti-save"
                             type="primary">
                         {{$t('general.actions.save')}}
                     </el-button> 
-                </div> 
+                </div>  -->
             </el-tabs>
         </ui-drawer>
     </div>
@@ -536,6 +558,7 @@
                     mail_port: '',
                     mail_username: '',
                     mail_password: '',
+                    mail_powered_by: '',
                     cleanify_email: '',
                     address: {
                         state: {}
@@ -552,14 +575,14 @@
                 },
                 iFrameRules: {
                     iframe_url: [  
-                        { required: true, message: this.$t("general.iframeValidation.required"), trigger: 'blur' },
-                        { type: 'url', message: this.$t("general.iframeValidation.url") },
+                        { required: true, message: this.$t("models.Settings.iframe_url.validation"), trigger: 'blur' },
+                        { type: 'url', message: this.$t("models.Settings.iframe_url.label") },
                     ]
                 },    
                 cleanifyRules:{
                     cleanify_email:[
-                        { required: true, message: this.$t("general.email_validation.required"), trigger: 'blur' },
-                        { type: 'email', message: this.$t("general.email_validation.email") },
+                        { required: true, message: this.$t("models.Settings.cleanify_url.validation"), trigger: 'blur' },
+                        { type: 'email', message: this.$t("models.Settings.cleanify_url.label") },
                     ]
                 },
                 Iframe_drawer_val:false,
@@ -577,6 +600,15 @@
                 activeRequestName: 'templates',
                 activeTenantsName: 'login_variations',
                 states: [],
+                mail_powered_by: [
+                    {
+                        label: 'Propify (Propify AG)',
+                        value: 0
+                    }, {
+                        label: 'Fortimo (Fortimo AG)',
+                        value: 1
+                    }
+                ],
                 mailEncryption: [
                     'tls',
                     'ssl'
@@ -636,13 +668,13 @@
                         required: true,
                         message: this.$t("models.user.validation.name.required")
                     }],
-                    // iframe_url: [{
-                    //     type: 'url',
-                    //     message: this.$t("models.Settings.iframe_url.validation")
-                    // }],
+                    iframe_url: [{
+                        type: 'url',
+                        message: this.$t("models.Settings.iframe_url.validation")
+                    }],
                     cleanify_email: [{
                         type: 'email',
-                        message: this.$t("general.email_validation.email")
+                        message: this.$t("models.Settings.cleanify_email.validation")
                     }],
                     mail_from_name: [{
                         required: true,
@@ -672,7 +704,11 @@
                     mail_password: [{
                         required: true,
                         message: this.$t("models.Settings.mail_password.validation")
-                    }]
+                    }],
+                    mail_powered_by: [{
+                        required: true,
+                        message: this.$t("models.Settings.mail_powered_by.validation")
+                    }],
                 }
             }
         },
@@ -1019,14 +1055,14 @@
 
     .settings-tabs.el-tabs.el-tabs--left {
         overflow: auto;
-        height: calc(100% - 100px);
+        // height: calc(100% - 100px);
         > .el-tabs__header.is-left {
             margin-top: 20px;
             margin-left: 20px;
             position: sticky;
             top: 0;
             min-width: 200px;
-            height: 100%;
+            height: 840px;
             box-shadow: inset 7px 0 5px -7px rgba(0,0,0,0.2);
             border-radius: 10px;
             background: #fff;

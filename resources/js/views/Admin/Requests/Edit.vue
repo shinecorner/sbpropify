@@ -49,7 +49,7 @@
                                                    @change="changeSubCategory">
                                             <el-option
                                                 :key="category.id"
-                                                :label="category.name"
+                                                :label="category['name_'+$i18n.locale]"
                                                 :value="category.id"
                                                 v-for="category in defect_subcategories">
                                             </el-option>

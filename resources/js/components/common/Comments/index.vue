@@ -228,7 +228,7 @@
                 this.comments = this.data;
             } else {
                 
-                //this.$store.dispatch('comments/clear', {commentable: this.type})
+                this.$store.dispatch('comments/clear', {commentable: this.type})
 
                 await this.fetch()
             }
