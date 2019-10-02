@@ -20,6 +20,10 @@ class FilterByRelationsCriteria implements CriteriaInterface
      */
     protected $request;
 
+    /**
+     * FilterByRelationsCriteria constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -46,8 +50,8 @@ class FilterByRelationsCriteria implements CriteriaInterface
 
         $type = get_morph_type_of(ServiceProvider::class);
         $model->join('request_assignees as ra', 'ra.assignee_id', '=', 'service_providers.id')
-            ->join('service_requests as sr', 'sr.id', '=', 'ra.request_id')
-            ->join('tenants', 'tenants.id', '=', 'sr.tenant_id')
+            ->join('requests as r', 'r.id', '=', 'ra.request_id')
+            ->join('tenants', 'tenants.id', '=', 'r.tenant_id')
             ->join('buildings', 'tenants.building_id', '=', 'buildings.id')
             ->where('ra.assignee_type', $type)
             ->when($buildingId, function ($q) use ($buildingId) {
