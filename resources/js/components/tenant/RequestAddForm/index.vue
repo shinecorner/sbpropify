@@ -287,7 +287,7 @@
                         }
                     }
                 })
-            },
+            }
         },
         async mounted () {
             try {
@@ -301,8 +301,6 @@
                     return category.id === 1;
                 });
                 this.defect_subcategories = defect_cat.categories;
-
-                
 
             } catch (err) {
                 displayError(err)
