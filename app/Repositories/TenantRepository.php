@@ -126,7 +126,7 @@ class TenantRepository extends BaseRepository
         $deleteRentContracts->each(function ($rentContract) {
             $rentContract->delete();
         });
-
+dd($rentContracts, $deleteRentContracts);
         foreach ($data['rent_contracts'] as $rentContractData) {
             // @TODO if need validate this data
             if (!is_array($rentContractData)) {

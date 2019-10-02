@@ -514,34 +514,6 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
-        $rentData = [];
-        if (isset($input['rent_start'])) {
-            $rentData['start_date'] = $input['rent_start'];
-        }
-
-        if (key_exists('building_id', $input)) {
-            $rentData['building_id'] = $input['building_id'];
-        }
-
-        if (key_exists('unit_id', $input)) {
-            $rentData['unit_id'] = $input['unit_id'];
-        }
-
-        $rentData['tenant_id'] = $tenant->id;
-        try {
-            $tenant->load('rent_contracts');
-            $rentContract = $tenant->rent_contracts->first();
-            $rentRepository = App::make(RentContractRepository::class);
-            if ($rentContract) {
-                $rentRepository->updateExisting($rentContract, $rentData);
-            } else {
-                $rentRepository->create($rentData);
-            }
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->sendError(__('models.rent_contract.errors.create') . $e->getMessage());
-        }
-
         $tenant->load(['settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
