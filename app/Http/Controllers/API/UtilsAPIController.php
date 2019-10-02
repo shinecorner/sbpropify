@@ -149,6 +149,7 @@ class UtilsAPIController extends AppBaseController
         $result = [
             'title' => Tenant::Title,
             'status' => Tenant::Status,
+            'client_type' => Tenant::ClientType,
         ];
 
         return $result;
@@ -208,6 +209,12 @@ class UtilsAPIController extends AppBaseController
             'statusByService' => ServiceRequest::StatusByService,
             'statusByAgent' => ServiceRequest::StatusByAgent,
             'visibility' => ServiceRequest::Visibility,
+            'sub_category_fields' => [
+                'location' => ServiceRequest::Location,
+                'room' => ServiceRequest::Room,
+                'capture_phase' => ServiceRequest::CapturePhase,
+                'payer' => ServiceRequest::Payer,
+            ]
         ];
 
         return $result;

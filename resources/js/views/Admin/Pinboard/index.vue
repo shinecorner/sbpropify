@@ -202,6 +202,9 @@
             },
             add() {
                 this.$router.push({
+                    params: {
+                        type: 'new'
+                    },
                     name: 'adminPinboardAdd'
                 });
             },
@@ -249,14 +252,16 @@
                 });
             },
             async fetchRemoteTenants(search) {
-                const tenants = await this.getTenants({get_all: true, search});
+                if(search) {
+                    const tenants = await this.getTenants({get_all: true, search});
 
-                return tenants.data.map((tenant) => {
-                    return {
-                        name: `${tenant.first_name} ${tenant.last_name}`,
-                        id: tenant.id
-                    };
-                });
+                    return tenants.data.map((tenant) => {
+                        return {
+                            name: `${tenant.first_name} ${tenant.last_name}`,
+                            id: tenant.id
+                        };
+                    });
+                }
             },
         },
         async created(){

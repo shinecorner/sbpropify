@@ -24,10 +24,9 @@ return [
         'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
         'font_family' => 'Schriftfamilie',
         'notificationSaved' => 'Benachrichtigungseinstellung gespeichert',
-        'SettingsSaved' => 'Einstellungen gespeichert.',
+        'settingsSaved' => 'Einstellungen gespeichert.',
         'serviceRequestCategorySaved' => 'Anfrage-Kategorie gespeichert',
         'serviceRequestCategoryDeleted' => 'Anfrage-Kategorie gelöscht',
-        'setting_saved' => "Einstellung(en) gespeichert",
         'setting_deleted' => "Einstellung(en) gelöscht",
         'password_reset_request_sent' => "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang und schauen Sie ggf. auch in Ihrem Spam-Ordner nach.",
         'errors' => [
@@ -391,7 +390,7 @@ return [
         'content' => 'Inhalt',
         'preview' => 'Vorschau',
         'add' => 'Beitrag hinzufügen',
-        'add_pinned' => 'Ankündigung erstellen',
+        'add_announcement' => 'Ankündigung',
         'saved' => 'Beitrag wurde gespeichert',
         'view_incresead' => "Aufrufe erfolgreich gesteigert",
         'updated' => 'Beitrag wurde aktualisiert',
@@ -403,11 +402,12 @@ return [
         'publish' => 'Veröffentlicht',
         'unpublish' => 'Unpublish',
         'buildings' => 'Liegenschaften',
-        'pinned' => 'Ankündigung',
+        'announcement' => 'Ankündigung an',
         'notify_email' => 'Mieter benachrichtigen',
-        'pinned_to' => 'Hervorheben bis',
+        'announcement_to' => 'Ankündigung',
         'comments' => 'Kommentare',
         'images' => 'Fotos und Dokumente',
+        'attachments' => 'Anhänge',
         'category_default_image_label' => 'Möchten Sie dieses Bild verwenden?',
         'placeholders' => [
             'buildings' => 'Liegenschaft wählen',
@@ -418,7 +418,7 @@ return [
             'post' => 'Post',
             'article' => 'Artikel',
             'new_neighbour' => 'Neuer Nachbar',
-            'pinned' => 'Ankündigung',
+            'announcement' => 'Ankündigung',
         ],
         'sub_type' => [
             'label' => 'Subtyp',
@@ -520,11 +520,12 @@ return [
             'deleted' => "Fehler beim Löschen der Überbauung: ",
         ],
     ],
-    'Settings' => [
+    'settings' => [
         'title' => 'Einstellungen Liegenschaftsverwaltung',
         'settings' => 'Einstellungen',
+        'saved' => "Einstellung(en) gespeichert",
         'tenants_portal' => 'Mieterportal',
-        'iframe' => 'Freie Objekte',
+        'iframe' => 'Freie Objekte',    
         'micro_apps' => 'Micro-Apps',
         'theme' => 'Design',
         'smtp' => 'SMTP',
@@ -536,6 +537,7 @@ return [
         'quarter_enable' => 'Überbauungen aktivieren',
         'marketplace_approval_enable' => 'Marktplatz aktivieren',
         'gocaution' => 'Vorsicht',
+        'gocaution_desc' => 'Vorsicht',
         'blank_pdf' => 'PDF ohne Briefkopf verwenden',
         'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
         'font_family' => 'Schriftfamilie',
@@ -547,12 +549,15 @@ return [
         'schedule' => 'Terminplanung',
         'endTime' => 'Ende',
         'startTime' => 'Start',
+        'powered_by' => 'Powered by',
         'to' => 'An',
         'categories' => 'Kategorien',
         'templates' => 'Vorlagen',
         'contact_enable' => 'Dienstleister-Kontakte für Mieter aktivieren',
         'contact_enable_desc' => 'Mieter können die Kontaktdaten der involvierten Dienstleister im Mieterportal sehen.',
         'cleanify_email' => 'Cleanify email',
+        'cleanify_email_desc' => 'Cleanify email',
+        'cleanify_email_url' => 'Cleanify Email URL',
         'mail_encryption' => 'Verschlüsselung',
         'primary_color' => 'Primärfarbe',
         'accent_color' => 'Akzentfarbe',
@@ -586,6 +591,10 @@ return [
         "mail_password" => [
             "label" => "Passwort",
             "validation" => "E-Mail-Passwort eingeben"
+        ],
+        "mail_powered_by" => [
+            "label" => "Email",
+            "validation" => "Email eingeben"
         ],
         'errors' => [
             'not_found' => "Liegenschaften nicht gefunden",
@@ -696,17 +705,8 @@ return [
             'solved' => "Erledigte",
             'pending' => "Hängige??"
         ],
-        'category_options' => [
-            'disturbance' => 'Störung',
-            'defect' => 'Defekt/Mangel',
-            'other' => 'Sonstiges',
-            'room' => 'Raum',
-            'range' => 'Bereich',
-            'component' => 'Bauteil',
-            'acquisition' => 'Erfassungsphase',
-            'cost' => 'Zu Lasten von',
-            'keywords' => 'Stichworte',
-            'building_locations' => [
+        'sub_category_fields' => [
+            'location' => [
                 'house_entrance' => 'Hauseingang',
                 'staircase' => 'Treppenhaus',
                 'elevator' => 'Lift',
@@ -718,7 +718,7 @@ return [
                 'roof' => 'Dach',
                 'other' => 'Anderes'
             ],
-            'apartment_rooms' => [
+            'room' => [
                 'bath' => 'Bad/WC',
                 'shower' => 'Du/WC',
                 'entrance' => 'Entrée',
@@ -734,7 +734,7 @@ return [
                 'all' => 'Alle',
                 'other' => 'Anderes'
             ],
-            'acquisitions' => [
+            'capture_phase' => [
                 'other' => 'Andere',
                 'construction' => 'Bauphase (BP)',
                 'shell' => 'Rohbauabnahme (RA)',
@@ -743,11 +743,22 @@ return [
                 'surrender' => 'Übergabe (UEB)',
                 'inspection' => 'Abnahme (AB)'
             ],
-            'costs' => [
+            'payer' => [
                 'landlord' => 'Vermieter',
                 'tenant' => 'Mieter',
                 'tenant/landlord' => 'Mieter/Vermieter'
             ]
+        ],
+        'category_options' => [
+            'disturbance' => 'Störung',
+            'defect' => 'Defekt/Mangel',
+            'other' => 'Sonstiges',
+            'room' => 'Raum',
+            'range' => 'Bereich',
+            'component' => 'Bauteil',
+            'acquisition' => 'Erfassungsphase',
+            'cost' => 'Zu Lasten von',
+            'keywords' => 'Stichworte',
         ],
         'placeholders' => [
             'category' => 'Kategorie wählen',

@@ -40,7 +40,7 @@ export default (config = {}) => {
                     is_execution_time: false,
                     execution_start: null,
                     execution_end: null,
-                    pinned_category: true
+                    announcement_category: true
                 },
                 validationRules: {
                     content: [{
@@ -77,8 +77,9 @@ export default (config = {}) => {
                 toAssignProviderList: [],
                 types: [],
                 showdefaultimage: false,
-                rolename: ''
-
+                rolename: '',
+                datePickerKey: 0,
+                justBlurred: '',
             }
         },
         computed: {
@@ -276,6 +277,19 @@ export default (config = {}) => {
                     ? this.model.execution_end = this.model.execution_end.split(' ')[0] + ' 00:00:00'
                     : '';
             },
+            setJustBlurred(elementRef) {
+                this.justBlurred = elementRef;
+                setTimeout(() => {
+                    this.justBlurred = ''
+                }, 10);
+            },
+            reinitDatePickers() {
+                ++this.datePickerKey;
+
+                if(this.justBlurred !== '') {
+                    this.$nextTick(() => this.$refs[this.justBlurred].focus());
+                }
+            }
         }
     };
 
@@ -378,11 +392,6 @@ export default (config = {}) => {
                     },
                     async fetchCurrentPinboard() {
                         const {
-                            execution_period,
-                            is_execution_time,
-                            execution_start,
-                            execution_end,
-
                             ...restData
                         } = await this.getPinboard({id: this.$route.params.id});
 

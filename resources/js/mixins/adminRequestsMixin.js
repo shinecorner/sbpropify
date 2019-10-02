@@ -112,6 +112,14 @@ export default (config = {}) => {
                 return this.$refs.form;
             },
         },
+        watch: {
+            "$i18n.locale": {
+                immediate: true,
+                handler(val) {
+                    this.getLanguageI18n();
+                }
+            }
+        },
         methods: {
             ...mapActions(['getRequestCategoriesTree', 'getTenants', 'getServices', 'uploadRequestMedia', 'deleteRequestMedia', 'getPropertyManagers', 'assignProvider', 'assignManager', 'getUsers', 'assignAdministrator','getAssignees']),
             async remoteSearchTenants(search) {
@@ -528,7 +536,6 @@ export default (config = {}) => {
                     ...mapActions(['getRequest', 'updateRequest', 'getTenant', 'getRequestConversations', 'getAddress', 'getRequestTags',
                 'createRequestTags', 'getTags', 'deleteRequestTag']),
                     async fetchCurrentRequest() {
-                        
                         this.getLanguageI18n();
                         const resp = await this.getRequest({id: this.$route.params.id});
 
