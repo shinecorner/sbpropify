@@ -8,7 +8,7 @@
                                 @change="showSubcategory">
                         <el-option v-for="category in categories" 
                                     :key="category.id" 
-                                    :label="category.name" 
+                                    :label="category['name_'+$i18n.locale]" 
                                     :value="category.id" />
                     </el-select>
                 </el-form-item>
@@ -20,7 +20,7 @@
                                 @change="showLocationOrRoom">
                         <el-option v-for="category in defect_subcategories" 
                                     :key="category.id" 
-                                    :label="category.name" 
+                                    :label="category['name_'+$i18n.locale]" 
                                     :value="category.id" />
                     </el-select>
                 </el-form-item>

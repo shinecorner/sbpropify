@@ -39,6 +39,7 @@
                     {{ data.category.parent_id==null?'': categories[data.category.parentCategory.id] == undefined? '':
                         categories[data.category.parentCategory.id][$i18n.locale]+ ' / ' }}
                         {{ categories[data.category.id] == undefined? '':categories[data.category.id][$i18n.locale]}}
+                        {{categories[data.category.id]}}
                 </div>                
                 <div class="title" @click="$emit('toggle-drawer')">{{data.title}}</div>
                 <ui-readmore class="description" @click="$emit('toggle-drawer')" :text="data.description" :max="512" />
