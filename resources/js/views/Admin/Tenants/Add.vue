@@ -1,5 +1,6 @@
 <template>
     <div class="tenants-add">
+        <div>
         <heading :title="$t('models.tenant.add')" icon="icon-group" shadow="heavy">
             <add-actions :saveAction="submit" editRoute="adminTenantsEdit" route="adminTenants"/>
         </heading>
@@ -138,266 +139,60 @@
                         
                         
                         <card class="mt15" :header="$t('models.tenant.rent_contract')">
-                            <template  v-if="model.rent_contracts.length">
-                            <el-form :model="model" label-position="top" ref="form">
-                                <div v-for="(rent_contract, c_index) in model.rent_contracts"
-                                        :key="c_index">
-
-                                    <el-row :gutter="20">
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.building.name')" class="label-block">
-                                                <el-select
-                                                        :loading="remoteLoading"
-                                                        :placeholder="$t('models.tenant.search_building')"
-                                                        :remote-method="data => remoteRentContractdSearchBuildings(data, c_index) "
-                                                        :rules="validationRules.building_id"
-                                                        @change="searchRentContractUnits(c_index, false)"
-                                                        filterable
-                                                        remote
-                                                        reserve-keyword
-                                                        style="width: 100%;"
-                                                        v-model="rent_contract.building_id">
-                                                    <el-option
-                                                            :key="building.id"
-                                                            :label="building.name"
-                                                            :value="building.id"
-                                                            v-for="building in rent_contract.buildings"/>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.unit.name')"
-                                                        v-if="rent_contract.building_id" class="label-block">
-                                                <el-select :placeholder="$t('models.tenant.search_unit')" 
-                                                        style="display: block"
-                                                        v-model="rent_contract.unit_id"
-                                                        @change="changeRentContractUnit(c_index)">
-                                                    <el-option
-                                                            :key="unit.id"
-                                                            :label="unit.name"
-                                                            :value="unit.id"
-                                                            v-for="unit in rent_contract.units">
-                                                    </el-option>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.rent_type')"
-                                                        class="label-block">
-                                                <el-select placeholder="Select" style="display: block" 
-                                                            v-model="rent_contract.type">
-                                                    <el-option
-                                                            :key="type.value"
-                                                            :label="type.name"
-                                                            :value="type.value"
-                                                            v-for="type in rent_types">
-                                                    </el-option>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.rent_duration')"
-                                                        class="label-block">
-                                                <el-select placeholder="Select" style="display: block" 
-                                                            v-model="rent_contract.duration">
-                                                    <el-option
-                                                            :key="type.value"
-                                                            :label="type.name"
-                                                            :value="type.value"
-                                                            v-for="type in rent_durations">
-                                                    </el-option>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.rent_start')"
-                                                    prop="rent_start">
-                                                <el-date-picker
-                                                        :picker-options="{disabledDate: disabledRentStart}"
-                                                        :placeholder="$t('models.tenant.rent_start')"
-                                                        format="dd.MM.yyyy"
-                                                        style="width: 100%;"
-                                                        type="date"
-                                                        v-model="rent_contract.start_date"
-                                                        value-format="yyyy-MM-dd"
-                                                        @focus="selectRentContract(c_index)"/>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12" v-if="rent_contract.duration == 2">
-                                            <el-form-item :label="$t('models.tenant.rent_end')">
-                                                <el-date-picker
-                                                    :picker-options="{disabledDate: disabledRentEnd}"
-                                                    :placeholder="$t('models.tenant.rent_end')"
-                                                    format="dd.MM.yyyy"
-                                                    style="width: 100%;"
-                                                    type="date"
-                                                    v-model="rent_contract.end_date"
-                                                    value-format="yyyy-MM-dd"
-                                                    @focus="selectRentContract(c_index)"/>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
-                                        <el-col :md="24">
-                                            <el-form-item :label="$t('models.tenant.rent_contract_pdf')">
-
-                                            <el-table
-                                                :data="rent_contract.media"
-                                                style="width: 100%"
-                                                v-if="rent_contract.media.length"
-                                                class="rentcontract-file-table"
-                                                >
-                                                <el-table-column
-                                                    :label="$t('models.rent_contract.filename')"
-                                                    prop="name"
-                                                >
-                                                </el-table-column>
-                                                <el-table-column
-                                                    align="right"
-                                                >
-                                                    <template slot-scope="scope">
-                                                        <el-tooltip
-                                                            :content="$t('general.actions.delete')"
-                                                            class="item" effect="light" 
-                                                            placement="top-end">
-                                                                <el-button @click="deletePDFfromRentContract(c_index, scope.$index)" icon="ti-trash" size="mini" type="danger"/>
-                                                        </el-tooltip>
-                                                    </template>
-                                                </el-table-column>
-                                            </el-table>
-                                            <upload-rent-contract :rentContractIndex="c_index" @fileUploaded="addPDFtoRentContract" class="upload-custom" acceptType=".pdf" drag multiple/>
-                                            <el-alert
-                                                :title="$t('models.request.pdf_only_desc')"
-                                                type="info"
-                                                show-icon
-                                                :closable="false"
-                                            >
-                                            </el-alert>
-                                            </el-form-item>
-                                        </el-col>
-                                    
-                                    </el-row>
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.deposit_amount')"
-                                                            prop="deposit_amount">
-                                                <el-input type="text"
-                                                        v-model="rent_contract.deposit_amount"
-                                                        class="dis-autofill"
-                                                        @focus="selectRentContract(c_index)"
-                                                ></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.type_of_deposit')"
-                                                        class="label-block">
-                                                <el-select placeholder="Select" style="display: block" 
-                                                            v-model="rent_contract.deposit_type"
-                                                            @focus="selectRentContract(c_index)">
-                                                    <el-option
-                                                            :key="type.value"
-                                                            :label="type.name"
-                                                            :value="type.value"
-                                                            v-for="type in deposit_types">
-                                                    </el-option>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-
-                                    <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition rent-data" 
-                                            style="width: 100%;"
-                                            v-if="rent_contract.unit_id && rent_contract.type != 3">
-                                        <div class="el-table__header-wrapper">
-                                            <table cellspacing="0" cellpadding="0" border="0" class="el-table__header">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="data is-leaf">
-                                                            <div class="cell">Monthly rent</div>
-                                                        </th>
-                                                        <th class="symbol is-leaf">
-                                                            <div class="cell"></div>
-                                                        </th>
-                                                        <th class="data is-leaf">
-                                                            <div class="cell">Maintenance</div>
-                                                        </th>
-                                                        <th class="symbol is-leaf">
-                                                            <div class="cell"></div>
-                                                        </th>
-                                                        <th class="data is-leaf">
-                                                            <div class="cell">Gross rent</div>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                        <div class="el-table__body-wrapper is-scrolling-none">
-                                            <table cellspacing="0" cellpadding="0" border="0" class="el-table__body">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="data">
-                                                            <div class="cell">
-                                                                <el-input type="text"
-                                                                        v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
-                                                                ></el-input>
-                                                            </div>
-                                                        </td>
-                                                        <td class="symbol">
-                                                            <div class="cell">
-                                                                +
-                                                            </div>
-                                                        </td>
-                                                        <td class="data">
-                                                            <div class="cell">
-                                                                <el-input type="text"
-                                                                    v-model="rent_contract.monthly_maintenance" @focus="selectRentContract(c_index)"
-                                                            ></el-input>
-                                                            </div>
-                                                        </td>
-                                                        <td class="symbol">
-                                                            <div class="cell">
-                                                                =
-                                                            </div>
-                                                        </td>
-                                                        <td class="data">
-                                                            <div class="cell">
-                                                                {{Number(rent_contract.monthly_rent_net) + Number(rent_contract.monthly_maintenance)}}
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type == 3">
-                                        <el-col :md="8">
-                                            <el-form-item :label="$t('general.monthly_rent_net')" class="label-block">
-                                                <el-input type="text"
-                                                        v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
-                                                ></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                    <ui-divider></ui-divider>
-                                    <div class="rentcontract-actions">
-                                        <el-button type="primary" v-if="c_index == model.rent_contracts.length - 1" @click="addRentContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>
-                                        <el-button type="danger" @click="deleteRentContract(c_index)" icon="icon-minus" size="mini" round>{{$t('models.request.delete_rent_contract')}}</el-button>
-                                    </div>
-                                </div>
-                            </el-form>
-                            </template>
+                            <el-row :gutter="20" class="new-rentcontract-box">
+                                    <el-button type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>
+                                </el-row>
+                                <el-table
+                                    :data="model.rent_contracts"
+                                    style="width: 100%"
+                                    class="rentcontract-file-table"
+                                    >
+                                    <el-table-column
+                                        :label="$t('models.tenant.rentcontract_id')"
+                                        prop="id"
+                                    >
+                                    </el-table-column>
+                                    <el-table-column
+                                        :label="$t('models.tenant.building.name')"
+                                        prop="building.name"
+                                    >
+                                    </el-table-column>
+                                    <el-table-column
+                                        :label="$t('models.tenant.unit.name')"
+                                        prop="unit.name"
+                                    >
+                                    </el-table-column>
+                                    <el-table-column
+                                        align="right"
+                                    >
+                                        <template slot-scope="scope">
+                                            <el-tooltip
+                                                :content="$t('general.actions.edit')"
+                                                class="item" effect="light" 
+                                                placement="top-end">
+                                                    <el-button @click="editRentContract(scope.$index)" icon="ti-pencil" size="mini" type="success"/>
+                                            </el-tooltip>
+                                            <el-tooltip
+                                                :content="$t('general.actions.delete')"
+                                                class="item" effect="light" 
+                                                placement="top-end">
+                                                    <el-button @click="deleteRentContract(scope.$index)" icon="ti-trash" size="mini" type="danger"/>
+                                            </el-tooltip>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
                             
                         </card>
                     </el-col>
                 </el-row>
             </el-form>
         </div>
-
+        </div>
+        <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
+            <div class="content">
+                <rent-contract-form mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer"/>
+            </div>
+        </ui-drawer>
     </div>
 </template>
 
@@ -406,10 +201,9 @@
     import Card from 'components/Card';
     import AdminTenantsMixin from 'mixins/adminTenantsMixin';
     import Cropper from 'components/Cropper';
-    import UploadRentContract from 'components/UploadRentContract';
     import AddActions from 'components/EditViewActions';
     import SelectLanguage from 'components/SelectLanguage';
-
+    import RentContractForm from 'components/RentContractForm';
 
     export default {
         mixins: [AdminTenantsMixin({
@@ -419,7 +213,7 @@
             Heading,
             Card,
             Cropper,
-            UploadRentContract,
+            RentContractForm,
             AddActions,
             SelectLanguage,
         },
@@ -457,45 +251,37 @@
         margin-bottom: 15px;
     }
 
-    .rentcontract-actions {
-        text-align: right;
-    }
+    /deep/ .chart-card-header{
+        font-size: 16px;
+        font-weight: 400;
+        padding: 0 20px 16px;
+        margin: -4px -10px 10px;
+        border-bottom: 1px solid #EBEEF5;
 
-    .rentcontract-file-table {
-        margin-bottom: 10px;
-    }
-    .el-alert {
-        margin-top: 10px;
-    }
-
-    .rent-data {
-        table {
-            width: 100%;
-
-            thead, tbody {
-                width: 100%;
-
-                tr {
-                    display: flex;
-                    width: 100%;
-
-                    .data {
-                        flex: 1;
-                        display: flex;
-                        align-items: center;
-
-                        .cell {
-                            width: 100%;
-                        }
-                    }
-                    
-                    .symbol {
-                        display: flex;
-                        align-items: center;
-                        width: 30px;
-                    }
-                }
-            }
+        h3 {
+            font-size: 24px;
+            font-weight: 500;
         }
+
+    }
+    
+    .ui-drawer {
+        .content {
+            height: calc(100% - 32px);
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 16px;
+            overflow-y: auto;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            position: relative;
+        }
+    }
+
+    .new-rentcontract-box {
+        text-align: right;
     }
 </style>

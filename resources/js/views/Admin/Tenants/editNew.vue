@@ -1,516 +1,274 @@
 <template>
-    <div class="tenants-edit mb20 tenants-edit-new">
-        <heading :title="$t('models.tenant.edit_title')" icon="icon-group">
-            <template slot="description" v-if="model.tenant_format">
-                <div class="subtitle">{{model.tenant_format}}</div>
-            </template>
-            <edit-actions :saveAction="submit" route="adminTenants"/>
-        </heading>
-        <el-row :gutter="20" class="crud-view">
-                <el-form :model="model" label-position="top" label-width="192px" ref="form">
-                    <el-row  :gutter="20">
-                        <el-col>
-                          <el-card class="chart-card">
-                                <el-row :gutter="20">
-                                    <h3 class="chart-card-header">
-                                        <i class="ti-user"/>
-                                       {{ $t('models.tenant.personal_details_card') }}
-                                    </h3>
-                                </el-row>
-                                <el-row :gutter="20">
-                                    <el-col :md="4" class="tenant_avatar">
-                                        <cropper :resize="false" :viewportType="'circle'" @cropped="cropped"/>
-                                        <img
-                                            src="~img/man.png"
-                                            class="user-image"
-                                            v-if="model.avatar==null && model.title == 'mr'"/>
-                                        <img
-                                            src="~img/woman.png"
-                                            class="user-image"
-                                            v-else-if="model.avatar==null && model.title == 'mrs'"/>
-                                        <img
-                                            src="~img/company.png"
-                                            class="user-image"
-                                            v-else-if="model.avatar==null && model.title == 'company'"/>
-                                        <img :src="`/${user.avatar}?${Date.now()}`"
-                                             class="user-image"
-                                             v-if="avatar.length == 0 && user.avatar">
-
-                                    </el-col>
-                                    <el-col :md="20">
-                                            <el-col :md="6">
-                                                <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
-                                                              prop="title">
-                                                    <el-select placeholder="Select" style="display: block" v-model="model.title">
-                                                        <el-option
-                                                                :key="title"
-                                                                :label="$t(`general.salutation_option.${title}`)"
-                                                                :value="title"
-                                                                v-for="title in titles">
-                                                        </el-option>
-                                                    </el-select>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="6">
-                                                <el-form-item :label="$t('models.tenant.company')" :rules="validationRules.company"
-                                                              prop="company"
-                                                              v-if="model.title === titles.company">
-                                                    <el-input autocomplete="off" type="text" v-model="model.company"></el-input>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="6">
-                                                <el-form-item :label="$t('models.tenant.first_name')"
-                                                              :rules="validationRules.first_name"
-                                                              prop="first_name">
-                                                    <el-input autocomplete="off" type="text" v-model="model.first_name"></el-input>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="6">
-                                                <el-form-item :label="$t('models.tenant.last_name')"
-                                                              :rules="validationRules.last_name"
-                                                              prop="last_name">
-                                                    <el-input autocomplete="off" type="text" v-model="model.last_name"></el-input>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="6">
-                                                <el-form-item :label="$t('models.tenant.birth_date')"
-                                                              :rules="validationRules.birth_date"
-                                                              prop="birth_date">
-                                                    <el-date-picker
-                                                            :placeholder="$t('models.tenant.birth_date')"
-                                                            format="dd.MM.yyyy"
-                                                            style="width: 100%;"
-                                                            type="date"
-                                                            v-model="model.birth_date"
-                                                            value-format="yyyy-MM-dd"/>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="6">
-                                                <el-form-item :label="$t('general.language')" :rules="validationRules.language" 
-                                                        prop="settings.language">
-                                                    <select-language :activeLanguage.sync="model.settings.language" />
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="6">
-                                                <el-form-item :label="$t('models.tenant.nation')"
-                                                              prop="nation">
-                                                    <el-select filterable
-                                                               v-model="model.nation">
-                                                        <el-option :key="country.id"
-                                                                   :label="country.name"
-                                                                   :value="country.id"
-                                                                   v-for="country in countries"></el-option>
-                                                    </el-select>
-                                                </el-form-item>
-                                            </el-col>
-                                    </el-col>
-                                </el-row>
-                          </el-card>
-                        </el-col>
-                        <el-col :md="12">
-                           <el-card class="chart-card">
-                                <el-row :gutter="20">
-                                    <h3 class="chart-card-header">
-                                        <i class="ti-user"/>
-                                        {{ $t('models.tenant.contact_info_card') }}
-                                    </h3>
-                                    <el-col :md='12'>
-                                        <el-form-item :label="$t('models.tenant.mobile_phone')" prop="mobile_phone">
-                                            <el-input autocomplete="off" type="text"
-                                                      v-model="model.mobile_phone"></el-input>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :md='12'>
-                                        <el-form-item :label="$t('models.tenant.private_phone')" prop="private_phone">
-                                            <el-input autocomplete="off" type="text"
-                                                      v-model="model.private_phone"></el-input>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="last-form-row" :gutter="20">
-                                    <el-col :md='12'>
-                                        <el-form-item :label="$t('models.tenant.work_phone')" prop="work_phone">
-                                            <el-input autocomplete="off"
-                                                      type="text"
-                                                      v-model="model.work_phone"
-                                                      class="dis-autofill"
-                                                      readonly
-                                                      onfocus="this.removeAttribute('readonly');"
-                                            ></el-input>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :md='12'>
-
-                                    </el-col>
-                                </el-row>
-                           </el-card>
-                        </el-col>
-                        <el-col :md='12'>
+    
+        <div class="tenants-edit mb20 tenants-edit-new">
+            <div>
+            <heading :title="$t('models.tenant.edit_title')" icon="icon-group">
+                <template slot="description" v-if="model.tenant_format">
+                    <div class="subtitle">{{model.tenant_format}}</div>
+                </template>
+                <edit-actions :saveAction="submit" route="adminTenants"/>
+            </heading>
+            <el-row :gutter="20" class="crud-view">
+                <el-col>
+                    <el-form :model="model" label-position="top" label-width="192px" ref="form">
+                        <el-row  :gutter="20">
+                            <el-col>
                             <el-card class="chart-card">
-                                <el-row :gutter="20">
-                                    <h3 class="chart-card-header">
-                                        <i class="ti-user"/>
-                                        {{ $t('models.tenant.account_info_card') }}
-                                    </h3>
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email">
-                                            <el-input autocomplete="off" type="email" v-model="model.email"></el-input>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('models.tenant.status.label')"
-                                                      :rules="validationRules.status"
-                                                      prop="status">
-                                            <el-select style="display: block" v-model="model.status">
-                                                <el-option
-                                                        :key="k"
-                                                        :label="$t(`models.tenant.status.${status}`)"
-                                                        :value="parseInt(k)"
-                                                        v-for="(status, k) in constants.tenants.status">
-                                                </el-option>
-                                            </el-select>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="last-form-row" :gutter="20">
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('general.password')" :rules="validationRules.password"
-                                                      prop="password">
-                                            <el-input autocomplete="off"
-                                                      type="password"
-                                                      v-model="model.password"
-                                                      class="dis-autofill"
-                                                      readonly
-                                                      onfocus="this.removeAttribute('readonly');"
-                                            ></el-input>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('general.confirm_password')"
-                                                      :rules="validationRules.password_confirmation"
-                                                      prop="password_confirmation">
-                                            <el-input autocomplete="off" type="password"
-                                                      v-model="model.password_confirmation"></el-input>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
+                                    <el-row :gutter="20">
+                                        <h3 class="chart-card-header">
+                                            <i class="ti-user"/>
+                                        {{ $t('models.tenant.personal_details_card') }}
+                                        </h3>
+                                    </el-row>
+                                    <el-row :gutter="20">
+                                        <el-col :md="4" class="tenant_avatar">
+                                            <cropper :resize="false" :viewportType="'circle'" @cropped="cropped"/>
+                                            <img
+                                                src="~img/man.png"
+                                                class="user-image"
+                                                v-if="model.avatar==null && model.title == 'mr'"/>
+                                            <img
+                                                src="~img/woman.png"
+                                                class="user-image"
+                                                v-else-if="model.avatar==null && model.title == 'mrs'"/>
+                                            <img
+                                                src="~img/company.png"
+                                                class="user-image"
+                                                v-else-if="model.avatar==null && model.title == 'company'"/>
+                                            <img :src="`/${user.avatar}?${Date.now()}`"
+                                                class="user-image"
+                                                v-if="avatar.length == 0 && user.avatar">
+
+                                        </el-col>
+                                        <el-col :md="20">
+                                                <el-col :md="6">
+                                                    <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
+                                                                prop="title">
+                                                        <el-select placeholder="Select" style="display: block" v-model="model.title">
+                                                            <el-option
+                                                                    :key="title"
+                                                                    :label="$t(`general.salutation_option.${title}`)"
+                                                                    :value="title"
+                                                                    v-for="title in titles">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :md="6">
+                                                    <el-form-item :label="$t('models.tenant.company')" :rules="validationRules.company"
+                                                                prop="company"
+                                                                v-if="model.title === titles.company">
+                                                        <el-input autocomplete="off" type="text" v-model="model.company"></el-input>
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :md="6">
+                                                    <el-form-item :label="$t('models.tenant.first_name')"
+                                                                :rules="validationRules.first_name"
+                                                                prop="first_name">
+                                                        <el-input autocomplete="off" type="text" v-model="model.first_name"></el-input>
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :md="6">
+                                                    <el-form-item :label="$t('models.tenant.last_name')"
+                                                                :rules="validationRules.last_name"
+                                                                prop="last_name">
+                                                        <el-input autocomplete="off" type="text" v-model="model.last_name"></el-input>
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :md="6">
+                                                    <el-form-item :label="$t('models.tenant.birth_date')"
+                                                                :rules="validationRules.birth_date"
+                                                                prop="birth_date">
+                                                        <el-date-picker
+                                                                :placeholder="$t('models.tenant.birth_date')"
+                                                                format="dd.MM.yyyy"
+                                                                style="width: 100%;"
+                                                                type="date"
+                                                                v-model="model.birth_date"
+                                                                value-format="yyyy-MM-dd"/>
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :md="6">
+                                                    <el-form-item :label="$t('general.language')" :rules="validationRules.language" 
+                                                            prop="settings.language">
+                                                        <select-language :activeLanguage.sync="model.settings.language" />
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :md="6">
+                                                    <el-form-item :label="$t('models.tenant.nation')"
+                                                                prop="nation">
+                                                        <el-select filterable
+                                                                v-model="model.nation">
+                                                            <el-option :key="country.id"
+                                                                    :label="country.name"
+                                                                    :value="country.id"
+                                                                    v-for="country in countries"></el-option>
+                                                        </el-select>
+                                                    </el-form-item>
+                                                </el-col>
+                                        </el-col>
+                                    </el-row>
                             </el-card>
-                        </el-col>
-                    </el-row>
-                </el-form>
-                <el-row :gutter="20">
-                    <el-col :md="12">
-                       <el-card class="chart-card">
-                            <el-form :model="model" label-position="top" label-width="192px" ref="form">
+                            </el-col>
+                            <el-col :md="12">
+                            <el-card class="chart-card">
+                                    <el-row :gutter="20">
+                                        <h3 class="chart-card-header">
+                                            <i class="ti-user"/>
+                                            {{ $t('models.tenant.contact_info_card') }}
+                                        </h3>
+                                        <el-col :md='12'>
+                                            <el-form-item :label="$t('models.tenant.mobile_phone')" prop="mobile_phone">
+                                                <el-input autocomplete="off" type="text"
+                                                        v-model="model.mobile_phone"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md='12'>
+                                            <el-form-item :label="$t('models.tenant.private_phone')" prop="private_phone">
+                                                <el-input autocomplete="off" type="text"
+                                                        v-model="model.private_phone"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="last-form-row" :gutter="20">
+                                        <el-col :md='12'>
+                                            <el-form-item :label="$t('models.tenant.work_phone')" prop="work_phone">
+                                                <el-input autocomplete="off"
+                                                        type="text"
+                                                        v-model="model.work_phone"
+                                                        class="dis-autofill"
+                                                        readonly
+                                                        onfocus="this.removeAttribute('readonly');"
+                                                ></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md='12'>
+
+                                        </el-col>
+                                    </el-row>
+                            </el-card>
+                            </el-col>
+                            <el-col :md='12'>
+                                <el-card class="chart-card">
+                                    <el-row :gutter="20">
+                                        <h3 class="chart-card-header">
+                                            <i class="ti-user"/>
+                                            {{ $t('models.tenant.account_info_card') }}
+                                        </h3>
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email">
+                                                <el-input autocomplete="off" type="email" v-model="model.email"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.tenant.status.label')"
+                                                        :rules="validationRules.status"
+                                                        prop="status">
+                                                <el-select style="display: block" v-model="model.status">
+                                                    <el-option
+                                                            :key="k"
+                                                            :label="$t(`models.tenant.status.${status}`)"
+                                                            :value="parseInt(k)"
+                                                            v-for="(status, k) in constants.tenants.status">
+                                                    </el-option>
+                                                </el-select>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="last-form-row" :gutter="20">
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('general.password')" :rules="validationRules.password"
+                                                        prop="password">
+                                                <el-input autocomplete="off"
+                                                        type="password"
+                                                        v-model="model.password"
+                                                        class="dis-autofill"
+                                                        readonly
+                                                        onfocus="this.removeAttribute('readonly');"
+                                                ></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('general.confirm_password')"
+                                                        :rules="validationRules.password_confirmation"
+                                                        prop="password_confirmation">
+                                                <el-input autocomplete="off" type="password"
+                                                        v-model="model.password_confirmation"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                    </el-form>
+                    <el-row :gutter="20">
+                        <el-col :md="12">
+                        <el-card :loading="loading" class="chart-card">
                                 <el-row :gutter="20">
                                     <h3 class="chart-card-header">
                                         <i class="icon-handshake-o ti-user icon "/>
                                             &nbsp;{{ $t('models.tenant.rent_contract') }}
                                     </h3>
                                 </el-row>
-                                <div v-for="(rent_contract, c_index) in model.rent_contracts"
-                                        :key="c_index">
-
-                                    <el-row :gutter="20">
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.building.name')" class="label-block">
-                                                <el-select
-                                                        :loading="remoteLoading"
-                                                        :placeholder="$t('models.tenant.search_building')"
-                                                        :remote-method="data => remoteRentContractdSearchBuildings(data, c_index) "
-                                                        :rules="validationRules.building_id"
-                                                        @change="searchRentContractUnits(c_index, false)"
-                                                        filterable
-                                                        remote
-                                                        reserve-keyword
-                                                        style="width: 100%;"
-                                                        v-model="rent_contract.building_id">
-                                                    <el-option
-                                                            :key="building.id"
-                                                            :label="building.name"
-                                                            :value="building.id"
-                                                            v-for="building in rent_contract.buildings"/>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.unit.name')"
-                                                        v-if="rent_contract.building_id" class="label-block">
-                                                <el-select :placeholder="$t('models.tenant.search_unit')" 
-                                                        style="display: block"
-                                                        v-model="rent_contract.unit_id"
-                                                        @change="changeRentContractUnit(c_index)">
-                                                    <el-option
-                                                            :key="unit.id"
-                                                            :label="unit.name"
-                                                            :value="unit.id"
-                                                            v-for="unit in rent_contract.units">
-                                                    </el-option>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.rent_type')"
-                                                        class="label-block">
-                                                <el-select placeholder="Select" style="display: block" 
-                                                            v-model="rent_contract.type">
-                                                    <el-option
-                                                            :key="type.value"
-                                                            :label="type.name"
-                                                            :value="type.value"
-                                                            v-for="type in rent_types">
-                                                    </el-option>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.rent_duration')"
-                                                        class="label-block">
-                                                <el-select placeholder="Select" style="display: block" 
-                                                            v-model="rent_contract.duration">
-                                                    <el-option
-                                                            :key="type.value"
-                                                            :label="type.name"
-                                                            :value="type.value"
-                                                            v-for="type in rent_durations">
-                                                    </el-option>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.rent_start')"
-                                                    prop="rent_start">
-                                                <el-date-picker
-                                                        :picker-options="{disabledDate: disabledRentStart}"
-                                                        :placeholder="$t('models.tenant.rent_start')"
-                                                        format="dd.MM.yyyy"
-                                                        style="width: 100%;"
-                                                        type="date"
-                                                        v-model="rent_contract.start_date"
-                                                        value-format="yyyy-MM-dd"
-                                                        @focus="selectRentContract(c_index)"/>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12" v-if="rent_contract.duration == 2">
-                                            <el-form-item :label="$t('models.tenant.rent_end')">
-                                                <el-date-picker
-                                                    :picker-options="{disabledDate: disabledRentEnd}"
-                                                    :placeholder="$t('models.tenant.rent_end')"
-                                                    format="dd.MM.yyyy"
-                                                    style="width: 100%;"
-                                                    type="date"
-                                                    v-model="rent_contract.end_date"
-                                                    value-format="yyyy-MM-dd"
-                                                    @focus="selectRentContract(c_index)"/>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
-                                        <el-col :md="24">
-                                            <el-form-item :label="$t('models.tenant.rent_contract_pdf')">
-
-                                            <el-table
-                                                :data="rent_contract.media"
-                                                style="width: 100%"
-                                                v-if="rent_contract.media.length"
-                                                class="rentcontract-file-table"
-                                                >
-                                                <el-table-column
-                                                    :label="$t('models.rent_contract.filename')"
-                                                    prop="name"
-                                                >
-                                                </el-table-column>
-                                                <el-table-column
-                                                    align="right"
-                                                >
-                                                    <template slot-scope="scope">
-                                                        <el-tooltip
-                                                            :content="$t('general.actions.delete')"
-                                                            class="item" effect="light" 
-                                                            placement="top-end">
-                                                                <el-button @click="deletePDFfromRentContract(c_index, scope.$index)" icon="ti-trash" size="mini" type="danger"/>
-                                                        </el-tooltip>
-                                                    </template>
-                                                </el-table-column>
-                                            </el-table>
-                                            <upload-rent-contract :rentContractIndex="c_index" @fileUploaded="addPDFtoRentContract" class="upload-custom" acceptType=".pdf" drag multiple/>
-                                            <el-alert
-                                                :title="$t('models.request.pdf_only_desc')"
-                                                type="info"
-                                                show-icon
-                                                :closable="false"
-                                            >
-                                            </el-alert>
-                                            </el-form-item>
-                                        </el-col>
-                                    
-                                    </el-row>
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
-                                    <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.deposit_amount')"
-                                                            prop="deposit_amount">
-                                                <el-input type="text"
-                                                        v-model="rent_contract.deposit_amount"
-                                                        class="dis-autofill"
-                                                        @focus="selectRentContract(c_index)"
-                                                ></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.type_of_deposit')"
-                                                        class="label-block">
-                                                <el-select placeholder="Select" style="display: block" 
-                                                            v-model="rent_contract.deposit_type"
-                                                            @focus="selectRentContract(c_index)">
-                                                    <el-option
-                                                            :key="type.value"
-                                                            :label="type.name"
-                                                            :value="type.value"
-                                                            v-for="type in deposit_types">
-                                                    </el-option>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                    <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition rent-data" 
-                                            style="width: 100%;"
-                                            v-if="rent_contract.unit_id && rent_contract.type != 3">
-                                        <div class="el-table__header-wrapper">
-                                            <table cellspacing="0" cellpadding="0" border="0" class="el-table__header">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="data is-leaf">
-                                                            <div class="cell">Monthly rent</div>
-                                                        </th>
-                                                        <th class="symbol is-leaf">
-                                                            <div class="cell"></div>
-                                                        </th>
-                                                        <th class="data is-leaf">
-                                                            <div class="cell">Maintenance</div>
-                                                        </th>
-                                                        <th class="symbol is-leaf">
-                                                            <div class="cell"></div>
-                                                        </th>
-                                                        <th class="data is-leaf">
-                                                            <div class="cell">Gross rent</div>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                        <div class="el-table__body-wrapper is-scrolling-none">
-                                            <table cellspacing="0" cellpadding="0" border="0" class="el-table__body">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="data">
-                                                            <div class="cell">
-                                                                <el-input type="text"
-                                                                        v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
-                                                                ></el-input>
-                                                            </div>
-                                                        </td>
-                                                        <td class="symbol">
-                                                            <div class="cell">
-                                                                +
-                                                            </div>
-                                                        </td>
-                                                        <td class="data">
-                                                            <div class="cell">
-                                                                <el-input type="text"
-                                                                    v-model="rent_contract.monthly_maintenance" @focus="selectRentContract(c_index)"
-                                                            ></el-input>
-                                                            </div>
-                                                        </td>
-                                                        <td class="symbol">
-                                                            <div class="cell">
-                                                                =
-                                                            </div>
-                                                        </td>
-                                                        <td class="data">
-                                                            <div class="cell">
-                                                                {{Number(rent_contract.monthly_rent_net) + Number(rent_contract.monthly_maintenance)}}
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id && rent_contract.type == 3">
-                                        <el-col :md="8">
-                                            <el-form-item :label="$t('general.monthly_rent_net')" class="label-block">
-                                                <el-input type="text"
-                                                        v-model="rent_contract.monthly_rent_net" @focus="selectRentContract(c_index)"
-                                                ></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.deposit_status.label')"
-                                                            class="label-block">
-                                                <el-radio-group v-model="rent_contract.deposit_status">
-                                                    <el-radio-button 
-                                                        :key="status.value" 
-                                                        :label="status.value" 
-                                                        v-for="status in deposit_statuses"
-                                                    >
-                                                        {{status.name}}
-                                                    </el-radio-button>
-                                                </el-radio-group>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.status.label')" class="label-block">
-                                                <el-select placeholder="Select" style="display: block" 
-                                                            v-model="rent_contract.status">
-                                                    <el-option
-                                                            :key="status.value"
-                                                            :label="status.name"
-                                                            :value="status.value"
-                                                            v-for="status in rentcontract_statuses">
-                                                    </el-option>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-
-                                    <el-row :gutter="20" v-if="rent_contract.unit_id">
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.tenant.rentcontract_id')"
-                                                            class="label-block">
-                                                <el-input
-                                                    v-model="rent_contract.id"
-                                                    :disabled="true">
-                                                </el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-
-                                    <ui-divider></ui-divider>
-                                    <div class="rentcontract-actions">
-                                        <el-button type="primary" v-if="c_index == model.rent_contracts.length - 1" @click="addRentContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>
-                                        <el-button type="danger" @click="deleteRentContract(c_index)" icon="icon-minus" size="mini" round>{{$t('models.request.delete_rent_contract')}}</el-button>
-                                    </div>
-                                </div>
-
+                                <el-row :gutter="20" class="new-rentcontract-box">
+                                    <el-button type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>
+                                </el-row>
+                                <el-table
+                                    :data="model.rent_contracts"
+                                    style="width: 100%"
+                                    class="rentcontract-file-table"
+                                    >
+                                    <el-table-column
+                                        :label="$t('models.tenant.rentcontract_id')"
+                                        prop="id"
+                                    >
+                                    </el-table-column>
+                                    <el-table-column
+                                        :label="$t('models.tenant.building.name')"
+                                        prop="building.name"
+                                    >
+                                    </el-table-column>
+                                    <el-table-column
+                                        :label="$t('models.tenant.unit.name')"
+                                        prop="unit.name"
+                                    >
+                                    </el-table-column>
+                                    <el-table-column
+                                        align="right"
+                                    >
+                                        <template slot-scope="scope">
+                                            <el-tooltip
+                                                :content="$t('general.actions.edit')"
+                                                class="item" effect="light" 
+                                                placement="top-end">
+                                                    <el-button @click="editRentContract(scope.$index)" icon="ti-pencil" size="mini" type="success"/>
+                                            </el-tooltip>
+                                            <el-tooltip
+                                                :content="$t('general.actions.delete')"
+                                                class="item" effect="light" 
+                                                placement="top-end">
+                                                    <el-button @click="deleteRentContract(scope.$index)" icon="ti-trash" size="mini" type="danger"/>
+                                            </el-tooltip>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
                                 
+                        </el-card>
+                        </el-col>
 
-                            </el-form>
-                       </el-card>
-                    </el-col>
+                    </el-row>
 
-                </el-row>
-
-            </el-col>
-        </el-row>
-    </div>
+                </el-col>
+            </el-row>
+            </div>
+            <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
+                <div class="content">
+                    <rent-contract-form mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer"/>
+                </div>
+            </ui-drawer>
+        </div>
+        
+    
 </template>
 
 <script>
@@ -521,7 +279,7 @@
     import ColoredStatisticsCard from 'components/ColoredStatisticsCard.vue';
     import ProgressStatisticsCard from 'components/ProgressStatisticsCard.vue';
     import AdminTenantsMixin from 'mixins/adminTenantsMixin';
-    import UploadRentContract from 'components/UploadRentContract';
+    import RentContractForm from 'components/RentContractForm';
     import {mapActions, mapGetters} from 'vuex';
     import {displayError, displaySuccess} from "helpers/messages";
     import Cropper from 'components/Cropper';
@@ -541,10 +299,10 @@
             CircularProgressStatisticsCard,
             ColoredStatisticsCard,
             ProgressStatisticsCard,
-            UploadRentContract,
             Cropper,
             EditActions,
-            SelectLanguage
+            SelectLanguage,
+            RentContractForm
         },
         data() {
             return {
@@ -654,7 +412,7 @@
             },
             requestStatusLabel(status) {
                 return this.$t(`models.request.status.${this.requestStatusConstants[status]}`)
-            },
+            }
         },
         mounted() {
             this.$root.$on('changeLanguage', () => this.getCountries());
@@ -721,7 +479,10 @@
 </style>
 
 <style lang="scss" scoped>
+    
     .tenants-edit {
+        
+
         .heading {
             margin-bottom: 20px;
         }
@@ -768,47 +529,26 @@
             }
         }
 
-        .rentcontract-actions {
-            text-align: right;
-        }
 
-        .rentcontract-file-table {
-            margin-bottom: 10px;
-        }
 
-        .rent-data {
-            table {
-                width: 100%;
-
-                thead, tbody {
-                    width: 100%;
-
-                    tr {
-                        display: flex;
-                        width: 100%;
-
-                        .data {
-                            flex: 1;
-                            display: flex;
-                            align-items: center;
-
-                            .cell {
-                                width: 100%;
-                            }
-                        }
-                        
-                        .symbol {
-                            display: flex;
-                            align-items: center;
-                            width: 30px;
-                        }
-                    }
-                }
+        .ui-drawer {
+            .content {
+                height: calc(100% - 32px);
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                padding: 16px;
+                overflow-y: auto;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                position: relative;
             }
         }
 
-        .el-alert {
-            margin-top: 10px;
+        .new-rentcontract-box {
+            text-align: right;
         }
     }
 </style>
