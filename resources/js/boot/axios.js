@@ -4,6 +4,7 @@ import axiosCancel from 'axios-cancel'
 import router from 'routes'
 import {MAX_REQUESTS_COUNT, REQUESTS_INTERNAL_MS} from 'config'
 import {displaySuccess, displayError} from 'helpers/messages'
+import store from 'store'
 
 let PENDING_REQUESTS = 0
 
@@ -19,8 +20,8 @@ axiosCancel(Axios, {
 })
 
 Axios.interceptors.request.use(config => {
-    const token = localStorage.getItem('token')
-    const selectedLocale = localStorage.getItem('locale') || 'de';    
+    const token = localStorage.getItem('token')    
+    const selectedLocale = store.state.application.locale || 'de';
     if (token) {
         config.headers.Authorization = `Bearer ${token}`
     }
