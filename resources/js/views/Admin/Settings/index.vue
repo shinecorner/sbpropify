@@ -1,14 +1,14 @@
 <template>
     <div class="settings" :style="{'overflow': main_drawer?'hidden':'inherit'}">
-        <heading :title="$t('models.Settings.title')" class="custom-heading" icon="ti-settings" shadow="heavy" />
+        <heading :title="$t('models.settings.title')" class="custom-heading" icon="ti-settings" shadow="heavy" />
 
         <el-tabs class="settings-tabs" tab-position="left" v-model="activeName">
             <el-tab-pane name="settings">
-                <template slot="label"><i class="icon icon-cog"></i>{{$t('models.Settings.settings')}}</template>
+                <template slot="label"><i class="icon icon-cog"></i>{{$t('models.settings.settings')}}</template>
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeSettingsName">
-                        <el-tab-pane :label="$t('models.Settings.settings')" name="settings_settings">
+                        <el-tab-pane :label="$t('models.settings.settings')" name="settings_settings">
                             <el-button class="save-tab" @click="saveSettings('SettingsSettingsForm')" icon="ti-save" type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
@@ -69,17 +69,17 @@
                                             </el-row>
                                         </el-card>
 
-                                        <el-card :header="$t('models.Settings.pdf')">
+                                        <el-card :header="$t('models.settings.pdf')">
                                             <el-form-item class="switcher" prop="blank_pdf">
                                                 <label class="switcher__label">
-                                                    <span class="switcher__label-title">{{$t('models.Settings.blank_pdf')}}</span>
-                                                    <span class="switcher__label-desc">{{$t('models.Settings.blank_pdf_desc')}}</span>
+                                                    <span class="switcher__label-title">{{$t('models.settings.blank_pdf')}}</span>
+                                                    <span class="switcher__label-desc">{{$t('models.settings.blank_pdf_desc')}}</span>
                                                 </label>
                                                 <el-switch v-model="model.blank_pdf"/>
                                             </el-form-item>
                                             <el-form-item prop="pdf_font_family">
                                                 <label class="card-label">
-                                                    {{$t('models.Settings.font_family')}}
+                                                    {{$t('models.settings.font_family')}}
                                                 </label>
                                                 <el-select
                                                            style="display: block"
@@ -108,9 +108,9 @@
                                     <!--                                        </el-switch>-->
                                     <!--                                    </div>-->
                                     <!--                                    <el-time-picker-->
-                                    <!--                                        :end-placeholder="$t('models.Settings.endTime')"-->
-                                    <!--                                        :range-separator="$t('models.Settings.to')"-->
-                                    <!--                                        :start-placeholder="$t('models.Settings.startTime')"-->
+                                    <!--                                        :end-placeholder="$t('models.settings.endTime')"-->
+                                    <!--                                        :range-separator="$t('models.settings.to')"-->
+                                    <!--                                        :start-placeholder="$t('models.settings.startTime')"-->
                                     <!--                                        format="HH:mm"-->
                                     <!--                                        is-range-->
                                     <!--                                        style="width: 100%"-->
@@ -121,33 +121,33 @@
                                     <!--                            </el-form>-->
                                     <!--                        </el-card>-->
 
-                                    <el-card :header="$t('models.Settings.settings')">
-                                        <!-- <el-form-item :label="$t('models.Settings.quarter_enable')" prop="quarter_enable">
+                                    <el-card :header="$t('models.settings.settings')">
+                                        <!-- <el-form-item :label="$t('models.settings.quarter_enable')" prop="quarter_enable">
                                             <el-switch v-model="model.quarter_enable"/>
                                         </el-form-item>
-                                        <el-form-item :label="$t('models.Settings.marketplace_approval_enable')"
+                                        <el-form-item :label="$t('models.settings.marketplace_approval_enable')"
                                                       prop="marketplace_approval_enable">
                                             <el-switch v-model="model.marketplace_approval_enable"/>
                                         </el-form-item> -->
                                         <el-form-item class="switcher"
                                                       prop="pinboard_approval_enable">
                                             <label class="switcher__label">
-                                                <span class="switcher__label-title">{{$t('models.Settings.pinboard_approval_enable')}}</span>
-                                                <span class="switcher__label-desc">{{$t('models.Settings.pinboard_approval_enable_desc')}}</span>
+                                                <span class="switcher__label-title">{{$t('models.settings.pinboard_approval_enable')}}</span>
+                                                <span class="switcher__label-desc">{{$t('models.settings.pinboard_approval_enable_desc')}}</span>
                                             </label>
                                             <el-switch v-model="model.pinboard_approval_enable"/>
                                         </el-form-item>
                                         <el-form-item class="switcher"
                                                       prop="contact_enable">
                                             <label class="switcher__label">
-                                                <span class="switcher__label-title">{{$t('models.Settings.contact_enable')}}</span>
-                                                <span class="switcher__label-desc">{{$t('models.Settings.contact_enable_desc')}}</span>
+                                                <span class="switcher__label-title">{{$t('models.settings.contact_enable')}}</span>
+                                                <span class="switcher__label-desc">{{$t('models.settings.contact_enable_desc')}}</span>
                                             </label>
                                             <el-switch v-model="model.contact_enable"/>
                                         </el-form-item>
                                         <el-row :gutter="20">
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.Settings.comment_update_timeout')"
+                                                <el-form-item :label="$t('models.settings.comment_update_timeout')"
                                                               :rules="validationRules.comment_update_timeout"
                                                               prop="comment_update_timeout">
                                                     <el-input autocomplete="off" type="number"
@@ -157,10 +157,10 @@
                                         </el-row>
                                     </el-card>
 
-                                    <el-card :header="$t('models.Settings.email')">
+                                    <el-card :header="$t('models.settings.email')">
                                         <el-row :gutter="20">
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.Settings.mail_from_name.label')"
+                                                <el-form-item :label="$t('models.settings.mail_from_name.label')"
                                                               prop="mail_from_name"
                                                               :rules="validationRules.mail_from_name"
                                                 >
@@ -169,7 +169,7 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.Settings.mail_from_address.label')"
+                                                <el-form-item :label="$t('models.settings.mail_from_address.label')"
                                                               prop="mail_from_address"
                                                               :rules="validationRules.mail_from_address"
                                                 >
@@ -180,7 +180,7 @@
                                         </el-row>
                                         <el-row :gutter="20">
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.Settings.mail_host.label')"
+                                                <el-form-item :label="$t('models.settings.mail_host.label')"
                                                               prop="mail_host"
                                                               :rules="validationRules.mail_host"
                                                 >
@@ -194,7 +194,7 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.Settings.mail_port.label')"
+                                                <el-form-item :label="$t('models.settings.mail_port.label')"
                                                               prop="mail_port"
                                                               :rules="validationRules.mail_port"
                                                 >
@@ -207,8 +207,8 @@
                                             <el-col :md="12">
                                                 <el-form-item required
                                                 >
-                                                    <label class="card-label">{{$t('models.Settings.mail_encryption')}}</label>
-                                                    <el-select :placeholder="$t('models.Settings.mail_encryption')" style="display: block"
+                                                    <label class="card-label">{{$t('models.settings.mail_encryption')}}</label>
+                                                    <el-select :placeholder="$t('models.settings.mail_encryption')" style="display: block"
                                                                v-model="model.mail_encryption">
                                                         <el-option :key="item.id"
                                                                    :label="item"
@@ -218,7 +218,7 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :md="12">
-                                                <el-form-item :label="$t('models.Settings.mail_username.label')"
+                                                <el-form-item :label="$t('models.settings.mail_username.label')"
                                                               prop="mail_username"
                                                               :rules="validationRules.mail_username"
                                                 >
@@ -229,7 +229,7 @@
                                         </el-row>
                                         <el-row :gutter="20">
                                                 <el-col :md="12">
-                                                    <el-form-item :label="$t('models.Settings.mail_password.label')"
+                                                    <el-form-item :label="$t('models.settings.mail_password.label')"
                                                                   :rules="validationRules.mail_password"
                                                                   prop="mail_password"
                                                     >
@@ -242,11 +242,11 @@
                                                  <el-col :md="12">
                                                     <el-form-item :rules="validationRules.mail_powered_by"
                                                                   prop="email_powered_by">
-                                                        <label class="card-label">{{$t('models.Settings.mail_powered_by.label')}}</label>
+                                                        <label class="card-label">{{$t('models.settings.mail_powered_by.label')}}</label>
                                                         <el-select :placeholder="$t('models.address.state.label')" style="display: block"
                                                                    v-model="model.email_powered_by">
                                                             <el-option :label="$t('general.placeholders.select')" value=""></el-option>
-                                                            <el-option :key="item.label+item.value" :label="$t('models.Settings.powered_by')+' '+item.label" :value="item.value"
+                                                            <el-option :key="item.label+item.value" :label="$t('models.settings.powered_by')+' '+item.label" :value="item.value"
                                                                        v-for="item in mail_powered_by"></el-option>
                                                         </el-select>
                                                     </el-form-item>
