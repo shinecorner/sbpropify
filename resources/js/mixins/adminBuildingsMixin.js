@@ -280,7 +280,7 @@ export default (config = {}) => {
                                     });
 
                                     this.model.service_providers = data.data.service_providers;
-
+                                    EventBus.$emit('service-get-counted', this.model.service_providers.length);
                                     this.model.service_providers_ids = [];
 
                                     displaySuccess(data);
