@@ -202,6 +202,9 @@
             },
             add() {
                 this.$router.push({
+                    params: {
+                        type: 'new'
+                    },
                     name: 'adminPinboardAdd'
                 });
             },

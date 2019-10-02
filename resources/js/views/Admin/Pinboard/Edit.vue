@@ -25,7 +25,7 @@
                                         >
                                         </el-option>
                                         <el-option
-                                            :label="$t(`models.pinboard.type.pinned`)"
+                                            :label="$t(`models.pinboard.type.announcement`)"
                                             :value="3"
                                         >
                                         </el-option>
@@ -107,41 +107,41 @@
                                 </el-form-item>
                                 <el-form-item v-if="this.model.type == 3 && this.model.sub_type == 3 && this.showdefaultimage == true">
                                     <label>{{$t('models.pinboard.category_default_image_label')}}</label>
-                                    <el-switch v-model="model.pinned_category"/>
+                                    <el-switch v-model="model.announcement_category"/>
                                     <el-row :gutter="20">
                                         <img
-                                            src="~img/pinned_category/1.png"
+                                            src="~img/announcement_category/1.png"
                                             class="user-image"
                                             v-if="this.model.category == 1"
                                             width="50%" 
                                             height="50%"/>
                                         <img
-                                            src="~img/pinned_category/2.png"
+                                            src="~img/announcement_category/2.png"
                                             class="user-image"
                                             v-else-if="this.model.category == 2"
                                             width="50%" 
                                             height="50%"/>
                                         <img
-                                            src="~img/pinned_category/3.png"
+                                            src="~img/announcement_category/3.png"
                                             class="user-image"
                                             v-else-if="this.model.category == 3"
                                             width="50%" 
                                             height="50%"/>
                                         <img
-                                            src="~img/pinned_category/4.png"
+                                            src="~img/announcement_category/4.png"
                                             class="user-image"
                                             v-else-if="this.model.category == 4"
                                             width="50%" 
                                             height="50%"/>
                                         <img
-                                            src="~img/pinned_category/5.png"
+                                            src="~img/announcement_category/5.png"
                                             class="user-image"
                                             v-else-if="this.model.category == 5"
                                             width="50%" 
                                             height="50%"/>  
                                     </el-row>  
                                 </el-form-item> 
-                                <el-form-item :label="$t('models.pinboard.images')">
+                                <el-form-item :label="model.type == 3 ? $t('models.pinboard.attachments') : $t('models.pinboard.images')">
                                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple />   
                                     <div class="mt15" v-if="media.length || (model.media && model.media.length)">
                                         <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
@@ -297,7 +297,7 @@
                         </el-row>                                                    
                     </el-card>
 
-                    <el-card :header="$t('models.pinboard.pinned')" v-if="model.type == 3" :loading="loading" class="mt15">
+                    <el-card :header="$t('models.pinboard.announcement')" v-if="model.type == 3" :loading="loading" class="mt15">
                         <el-row :gutter="20" type="flex" align="bottom">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.pinboard.execution_period.label')">
@@ -316,11 +316,15 @@
                             <el-col :md="12">
                                 <el-form-item class="switcher">
                                     <label class="switcher__label">
-                                        {{$t('models.pinboard.specify_time_question')}}
-                                        <span class="switcher__desc">Lorem ipsum dolor sit amet.</span>
+                                        <span class="switcher__label-title">{{$t('models.pinboard.specify_time_question')}}</span>
+                                        <span class="switcher__label-desc">Lorem ipsum dolor sit amet.</span>
                                     </label>
                                     <el-switch v-model="model.is_execution_time"
-                                               @change="!model.is_execution_time ? resetExecutionTime() : ''"/>
+                                               @change="() => {
+                                                    !model.is_execution_time ? resetExecutionTime() : '';
+                                                    reinitDatePickers();
+                                                   }"
+                                    />
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -329,6 +333,9 @@
                                 <el-form-item :label="model.execution_period == 2 ? $t('models.pinboard.execution_interval.start') : $t('models.pinboard.execution_interval.date')"
                                               prop="execution_start">
                                     <el-date-picker
+                                        :key="datePickerKey"
+                                        ref="date1"
+                                        @blur="setJustBlurred('date1')"
                                         prefix-icon="el-icon-date"
                                         :picker-options="{disabledDate: disabledExecutionStart}"
                                         :format="model.is_execution_time ? 'dd.MM.yyyy HH:mm' : 'dd.MM.yyyy'"
@@ -344,6 +351,9 @@
                                 <el-form-item :label="$t('models.pinboard.execution_interval.end')"
                                               prop="execution_end">
                                     <el-date-picker
+                                        :key="datePickerKey"
+                                        ref="date2"
+                                        @blur="setJustBlurred('date2')"
                                         prefix-icon="el-icon-date"
                                         :picker-options="{disabledDate: disabledExecutionEnd}"
                                         :format="model.is_execution_time ? 'dd.MM.yyyy HH:mm' : 'dd.MM.yyyy'"
@@ -356,10 +366,12 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <el-form-item :label="$t('models.pinboard.notify_email')" prop="notify_email" v-if="model.notify_email == false"
-                                        style="display: flex">
-                            <el-switch style="margin-left: 10px" v-model="model.notify_email">
-                            </el-switch>
+                        <el-form-item class="switcher" prop="notify_email" v-if="model.notify_email == false">
+                            <label class="switcher__label">
+                                <span class="switcher__label-title">{{$t('models.pinboard.notify_email')}}</span>
+                                <span class="switcher__label-desc">Lorem ipsum dolor sit amet, consectetur adipisicing.</span>
+                            </label>
+                            <el-switch v-model="model.notify_email"/>
                         </el-form-item>
                     </el-card>
 
@@ -637,27 +649,6 @@
     }
 </script>
 
-<style lang="scss">
-    .switcher {
-        .el-form-item__content {
-            display: flex;
-            align-items: center;
-        }
-        &__label {
-            line-height: 1.4em;
-            color: #606266;
-        }
-        &__desc {
-            margin-top: 0.5em;
-            display: block;
-            font-size: 0.9em;
-        }
-        .el-switch {
-            margin-left: auto;
-        }
-    }
-</style>
-
 <style lang="scss" scoped>
     .custom-select {
         display: block;
@@ -738,6 +729,30 @@
 </style>
 
 <style lang="scss">
+    .switcher {
+        .el-form-item__content {
+            display: flex;
+        }
+        &__label {
+            line-height: 1.4em;
+            color: #606266;
+        }
+        &__label-title {
+            display: flex;
+            align-items: center;
+            min-height: 40px;
+        }
+        &__label-desc {
+            margin-top: 0.6em;
+            display: block;
+            font-size: 0.9em;
+        }
+        .el-switch {
+            margin-top: 10px;
+            margin-left: auto;
+        }
+    }
+
     #pinboard-edit-view .el-card__body .el-form-item:last-child {
         margin-bottom: 0;
     }
