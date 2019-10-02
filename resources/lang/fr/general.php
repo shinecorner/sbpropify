@@ -171,6 +171,7 @@ return [
         "close" => "Presque",
         "saveAndClose" => "Enregistrer et fermer",
         "upload" => "Télécharger",
+        "update" => "Mise à jour",
     ],
     'swal' => [
         'confirmChange' => [
