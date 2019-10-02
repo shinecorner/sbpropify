@@ -298,7 +298,7 @@
                     </el-card>
 
                     <el-card :header="$t('models.pinboard.announcement')" v-if="model.type == 3" :loading="loading" class="mt15">
-                        <el-row :gutter="20" type="flex" align="bottom">
+                        <el-row :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.pinboard.execution_period.label')">
                                     <el-select style="display: block"

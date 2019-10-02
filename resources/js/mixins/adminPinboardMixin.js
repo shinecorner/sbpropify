@@ -392,11 +392,6 @@ export default (config = {}) => {
                     },
                     async fetchCurrentPinboard() {
                         const {
-                            execution_period,
-                            is_execution_time,
-                            execution_start,
-                            execution_end,
-
                             ...restData
                         } = await this.getPinboard({id: this.$route.params.id});
 
