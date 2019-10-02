@@ -1,3 +1,4 @@
+import { EventBus } from '../../../event-bus.js';
 export default {
     namespaced: true,
     state: {
@@ -169,7 +170,13 @@ export default {
         },
         create (state, {id, data, parent_id, commentable}) {
             data.isNew = true
-    
+            if(commentable === 'internalNotices'){
+                EventBus.$emit('notice-comment-added');
+            } else if(commentable === 'pinboard'){
+                EventBus.$emit('pinboard-comment-added');
+            } else if(commentable === 'request'){
+                EventBus.$emit('request-comment-added');
+            }
             if (id && parent_id) {
                 let comment = state[commentable][id].data.find(({id}) => id === parent_id)
     
@@ -200,7 +207,14 @@ export default {
                 }
             }
         },
-        delete (state, {id, data, child_id, parent_id, commentable}) {
+        delete (state, {id, data, child_id, parent_id, commentable}) {            
+            if(commentable === 'internalNotices'){
+                EventBus.$emit('notice-comment-deleted');
+            } else if(commentable === 'pinboard'){
+                EventBus.$emit('pinboard-comment-deleted');
+            } else if(commentable === 'request'){
+                EventBus.$emit('request-comment-deleted');
+            }
             const idx = state[commentable][id].data.findIndex(c => c.id === parent_id)
     
             if (idx > -1) {

@@ -86,6 +86,7 @@ class Media extends SpatieMedia implements Auditable
         static::deleted(function ($model) {
             Auditor::execute($model->setAuditEvent(AuditableModel::EventMediaDeleted));
         });
+        // @TODO check deleted related file or not
     }
 
     /**
