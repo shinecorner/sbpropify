@@ -268,22 +268,18 @@
                                     <el-col :md="8">
                                         <el-card class="marketplace-card card-boxs">
                                             <span @click="Iframe_drawer" class="icon-cog"></span>
-                                            <el-form-item class="switcher switcher-frist" prop="contact_enable">
-                                                <label class="switcher__label">
-                                                    <span class="switcher__label-title">{{$t('models.settings.iframe_enable')}}</span>
-                                                    <span class="switcher__label-desc">{{$t('models.settings.iframe_enable_desc')}}</span>
-                                                    <el-switch 
-                                                        v-model="model.iframe_enable"
-                                                        />
-                                                </label>
-                                                
+                                            <el-form-item :label="$t('models.settings.iframe_enable')" class="switcher switcher-frist" prop="contact_enable">
+                                                <span class="switcher__desc">{{ $t('models.settings.iframe_enable_desc')}}</span>
+                                                <el-switch 
+                                                    v-model="model.iframe_enable"
+                                                    />
                                             </el-form-item>
                                         </el-card>
                                     </el-col>
                                     <el-col :md="8">
                                         <el-card class="marketplace-card card-boxs">
                                             <span @click="Gocaution_drawer" class="icon-cog" style="display:none"></span>
-                                            <el-form-item :label="$t('models.settings.gocaution')">
+                                            <el-form-item :label="$t('models.settings.gocaution')" class="switcher">
                                                 <span class="switcher__desc">{{$t('models.settings.gocaution_desc')}}</span>
                                                 <el-switch 
                                                 v-model="model.gocaution_enable"
@@ -295,7 +291,7 @@
                                         <el-card class="marketplace-card card-boxs">
                                             <span @click="Cleanify_drawer" class="icon-cog"></span>
                                            <el-form-item :label="$t('models.settings.cleanify_email')"
-                                                        :rules="validationRules.cleanify_email" prop="cleanify_email">
+                                                        :rules="validationRules.cleanify_email" prop="cleanify_email" class="switcher">
                                                 <span class="switcher__desc">{{$t('models.settings.cleanify_email_desc')}}</span>
                                                 <el-switch 
                                                 v-model="model.cleanify_enable"
@@ -1109,7 +1105,10 @@
 
     .switcher {
         .el-form-item__content {
-            display: flex;
+            display: block;
+        }
+        span {
+            display: block;
         }
         &__label {
             line-height: 1.4em;
