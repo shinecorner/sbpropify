@@ -24,10 +24,9 @@ return [
         'blank_pdf_desc' => 'Generate PDF files without letterhead so that they can be printed on your own stationery.',
         'font_family' => 'Font family',
         'notificationSaved' => 'Notificatin setting saved',
-        'SettingsSaved' => 'Real Estate settings saved',
+        'settingsSaved' => 'Real Estate settings saved',
         'serviceRequestCategorySaved' => 'Service request category saved',
         'serviceRequestCategoryDeleted' => 'Service request category deleted',
-        'setting_saved' => "user setting saved",
         'setting_deleted' => "user setting deleted",
         'password_reset_request_sent' => "We have sent you an e-mail with further instructions. Please check your inbox.",
         'errors' => [
@@ -391,7 +390,7 @@ return [
         'content' => 'Content',
         'preview' => 'Preview',
         'add' => 'Add Pinboard',
-        'add_pinned' => 'Add pinned pinboard',
+        'add_announcement' => 'Add announcement pinboard',
         'saved' => 'Pinboard saved',
         'view_incresead' => "Views increased successfully",
         'updated' => 'Pinboard updated',
@@ -403,11 +402,12 @@ return [
         'publish' => 'Publish',
         'unpublish' => 'Unpublish',
         'buildings' => 'Buildings',
-        'pinned' => 'Pinned',
+        'announcement' => 'Announcement',
         'notify_email' => 'Notify email',
-        'pinned_to' => 'Pinned to',
+        'announcement_to' => 'Announcement to',
         'comments' => 'Comments',
         'images' => 'Images',
+        'attachments' => 'Attachments',
         'category_default_image_label' => 'Do want to use this image?',
         'placeholders' => [
             'buildings' => 'Choose buildings',
@@ -418,7 +418,7 @@ return [
             'post' => 'Post',
             'article' => 'Article',
             'new_neighbour' => 'New neighbour',
-            'pinned' => 'Pinned',
+            'announcement' => 'Announcement',
         ],
         'sub_type' => [
             'label' => 'Subtype',
@@ -520,9 +520,10 @@ return [
             'deleted' => "Quarter deleted error: ",
         ],
     ],
-    'Settings' => [
+    'settings' => [
         'title' => 'Settings real estate',
         'settings' => 'Settings',
+        'saved' => "user setting saved",
         'tenants_portal' => 'Tenants portal',
         'iframe' => 'Iframe',
         'micro_apps' => 'Micro-Apps',
@@ -536,6 +537,7 @@ return [
         'quarter_enable' => 'Quarter',
         'marketplace_approval_enable' => 'Enable Market',
         'gocaution' => 'Gocaution',
+        'gocaution_desc' => 'Gocaution',
         'blank_pdf' => 'Blank pdf',
         'blank_pdf_desc' => 'Generate PDF files without letterhead so that they can be printed on your own stationery.',
         'font_family' => 'Font family',
@@ -547,17 +549,23 @@ return [
         'schedule' => 'Schedule',
         'endTime' => 'End time',
         'startTime' => 'Start time',
+        'powered_by' => 'Powered by',
         'to' => 'To',
         'categories' => 'Categories',
         'templates' => 'Templates',
         'contact_enable' => 'Enable \'My contacts\'',
         'contact_enable_desc' => 'Tenants can see the contact data of the service partners involved in the tenant portal.',
         'cleanify_email' => 'Cleanify email',
+        'cleanify_email_desc' => 'Cleanify email',
         'mail_encryption' => 'Encryption',
         'primary_color' => 'Primary color',
         'accent_color' => 'Accent color',
         'iframe_enable' => 'Iframe enable',
         'iframe_enable_desc' => 'In the tenant portal a page with your free renting objects is indicated.',
+        'cleanify_url' => [
+            'label' => 'Cleanify Email URL',
+            'validation' => 'Cleanify Email URL should be a valid URL',
+        ],
         'iframe_url' => [
             'label' => 'Iframe URL',
             'validation' => 'Iframe URL should be a valid URL',
@@ -586,6 +594,10 @@ return [
         "mail_password" => [
             "label" => "Password",
             "validation" => "Enter email password"
+        ],
+        "mail_powered_by" => [
+            "label" => "Email",
+            "validation" => "Enter email"
         ],
         'errors' => [
             'not_found' => "Real Estate not found",

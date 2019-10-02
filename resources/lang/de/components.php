@@ -130,43 +130,43 @@ return [
         'commentsList' => [                        
             'loadMore' => 'Lade {count} weitere Kommentare',
             'emptyPlaceholder' => [
-                'title' => 'Bislang wurde kein Beitrag geteilt...',
-                'description' => 'Verfasse den ersten Post in dem du auf den unten stehenden Button klickst.',
+                'title' => 'Bislang wurden keine Kommentare geteilt...',
+                'description' => 'Verfassen Sie den ersten Kommentar.',
             ],
         ],
         'internalnoticesList' => [            
-            'loadMore' => 'Lade {count} weitere Interne Notizen',            
+            'loadMore' => 'Lade {count} weitere interne Notizen',            
             'emptyPlaceholder' => [
-                'title' => 'Es gibt noch keine Interne Notizen.',
-                'description' => 'Fügen Sie einen internen Notiz hinzu, indem Sie das untenstehende Formular verwenden und die Eingabetaste drücken.',
+                'title' => 'Es existieren noch keine interne Notizen.',
+                'description' => 'Fügen Sie einen internen Notiz hinzu.',
             ],
         ],
         'serviceproviderconversationsList' => [            
-            'loadMore' => 'Lade {count} weitere Dienstleister Gespräche',
+            'loadMore' => 'Lade {count} weitere Nachrichten',
             'emptyPlaceholder' => [
-                'title' => 'Es gibt noch keine Gespräch mit dem Dienstleister.',
-                'description' => 'Fügen Sie dem Dienstanbieter ein Gespräch hinzu, indem Sie das untenstehende Formular verwenden und auf Enter drücken.',
+                'title' => 'Es gibt noch keine Nachrichten.',
+                'description' => 'Verfassen Sie die erste Nachricht.',
             ],
         ],
         'tenantconversationsList' => [
-            'loadMore' => 'Lade {count} weitere Mieterin Gespräche',
+            'loadMore' => 'Lade {count} weitere Nachrichten',
             'emptyPlaceholder' => [
-                'title' => 'Es werden keine Gespräche mit dem Mieter geführt.',
-                'description' => 'Fügen Sie über das untenstehende Formular eine Nachricht an den Mieter hinzu und drücken Sie die Eingabetaste.',
+                'title' => 'Es wurden keine Nachrichten mit dem Mieter ausgetauscht.',
+                'description' => 'Verfassen Sie die erste Nachricht.',
             ],
         ],
         'listingcommentsList' => [
-            'loadMore' => 'Lade {count} weitere Kommentare auflisten',
+            'loadMore' => 'Lade {count} weitere Kommentare',
             'emptyPlaceholder' => [
-                'title' => 'Es gibt keine Kommentare für die Auflistung',
-                'description' => 'Fragen Sie nach dem Auflistung, indem Sie Nachrichten über das folgende Formular senden und drücken Sie Enter.',
+                'title' => 'Es gibt keine Kommentare',
+                'description' => 'Verfassen Sie den ersten Kommentar.',
             ],
         ],
         'pinboardcommentsList' => [
-	        'loadMore' => 'Lade {count} weitere Kommentare zur Pinnwand.',
+	        'loadMore' => 'Lade {count} weitere Kommentare.',
 	        'emptyPlaceholder' => [
-		        'title' => 'Das Spiel Pinnwand wurde noch nie kommentiert.',
-		        'description' => 'Fragen Sie nach der Pinnwand, indem Sie Nachrichten über das untenstehende Formular senden und Enter drücken.',
+		        'title' => 'Es gibt keine Kommentare',
+		        'description' => 'Verfassen Sie den ersten Kommentar',
 	        ],
         ],
         'comment' => [

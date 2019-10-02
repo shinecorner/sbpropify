@@ -28,7 +28,7 @@
                             round
                             size="mini"
                             type="primary"
-                    ><span>&nbsp;</span>{{$t('general.actions.edit')}}
+                    ><span>&nbsp;</span>{{$t('general.actions.update')}}
                     </el-button>
                     <el-button
                             @click="goToListing"

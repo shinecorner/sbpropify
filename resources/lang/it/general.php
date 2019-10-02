@@ -171,6 +171,7 @@ return [
         "close" => "Chiuditi",
         "saveAndClose" => "Salva & Chiudi",
         "upload" => "Carica",
+        "update" => "Aggiorna",
     ],
     'swal' => [
         'confirmChange' => [
@@ -255,5 +256,5 @@ return [
     'to_homepage' => 'Alla Homepage',
     "assignment" => "Assegnazione",
     'status_changed' => "Stato cambiato",
-    "monthly_rent_net" => "Affitto mensile",
+    "monthly_rent_net" => "Affitto mensile",  
 ];
