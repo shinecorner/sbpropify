@@ -104,7 +104,7 @@ class TenantRepository extends BaseRepository
      */
     protected function saveRentContracts(Tenant $tenant, $data)
     {
-        $rentContracts =  $tenant->rent_contracts;
+        $rentContracts =  $tenant->rent_contracts; // TODO check created or updated
         if (empty($data['rent_contracts']) || ! is_array($data['rent_contracts']) || Arr::isAssoc($data['rent_contracts'])) {
             $rentContracts->each(function ($renContract) {
                 $renContract->delete();
@@ -126,7 +126,7 @@ class TenantRepository extends BaseRepository
         $deleteRentContracts->each(function ($rentContract) {
             $rentContract->delete();
         });
-dd($rentContracts, $deleteRentContracts);
+
         foreach ($data['rent_contracts'] as $rentContractData) {
             // @TODO if need validate this data
             if (!is_array($rentContractData)) {

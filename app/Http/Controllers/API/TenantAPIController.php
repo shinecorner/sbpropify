@@ -283,24 +283,6 @@ class TenantAPIController extends AppBaseController
 
         $input['user_id'] = $user->id;
 
-        $rentData = [];
-        if (isset($input['rent_start'])) {
-            $rentData['start_date'] = $input['rent_start'];
-        }
-
-        if (isset($input['building_id'])) {
-            $rentData['building_id'] = $input['building_id'];
-        }
-
-        if (isset($input['unit_id'])) {
-            $rentData['unit_id'] = $input['unit_id'];
-        }
-
-        if ($rentData) {
-            if (empty($input['rent_contracts'])) {
-                $input['rent_contracts'][] = $rentData;
-            }
-        }
         try {
             $tenant = $this->tenantRepository->create($input);
         } catch (\Exception $e) {
