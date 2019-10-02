@@ -20,6 +20,10 @@ class FilterPublicCriteria implements CriteriaInterface
      */
     protected $request;
 
+    /**
+     * FilterPublicCriteria constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -44,6 +48,6 @@ class FilterPublicCriteria implements CriteriaInterface
             ServiceRequest::VisibilityBuilding,
             ServiceRequest::VisibilityQuarter,
         ];
-        return $model->whereIn('service_requests.visibility', $vs);
+        return $model->whereIn('requests.visibility', $vs);
     }
 }

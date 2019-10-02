@@ -21,6 +21,10 @@ class FilterByInternalFieldsCriteria implements CriteriaInterface
      */
     protected $request;
 
+    /**
+     * FilterByInternalFieldsCriteria constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -39,8 +43,8 @@ class FilterByInternalFieldsCriteria implements CriteriaInterface
     {
         $created = $this->request->get('created', null);
         if ($created && $created !== "null") {
-            $model->where('service_requests.created_at', '>=', Carbon::parse($created)->format('Y-m-d 00:00:00'));
-            $model->where('service_requests.created_at', '<=', Carbon::parse($created)->format('Y-m-d 23:59:59'));
+            $model->where('requests.created_at', '>=', Carbon::parse($created)->format('Y-m-d 00:00:00'));
+            $model->where('requests.created_at', '<=', Carbon::parse($created)->format('Y-m-d 23:59:59'));
         }
 
         $dueDate = $this->request->get('due_date', null);
@@ -49,7 +53,7 @@ class FilterByInternalFieldsCriteria implements CriteriaInterface
         }
         $createdFrom = $this->request->get('created_from', null);
         if ($createdFrom && $createdFrom !== "null") {
-            $model->where('service_requests.created_at', '>=', Carbon::parse($createdFrom)->format('Y-m-d'));
+            $model->where('requests.created_at', '>=', Carbon::parse($createdFrom)->format('Y-m-d'));
         }
 
         $createdTo = $this->request->get('created_to', null);

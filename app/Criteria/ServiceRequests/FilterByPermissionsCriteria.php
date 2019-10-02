@@ -21,6 +21,10 @@ class FilterByPermissionsCriteria implements CriteriaInterface
      */
     protected $request;
 
+    /**
+     * FilterByPermissionsCriteria constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -42,11 +46,11 @@ class FilterByPermissionsCriteria implements CriteriaInterface
         if ($u->tenant) {
 
             $qs = [
-                '(service_requests.visibility = ? and service_requests.tenant_id = ?)',
-                '(service_requests.visibility = ? and buildings.quarter_id = ?)',
+                '(requests.visibility = ? and requests.tenant_id = ?)',
+                '(requests.visibility = ? and buildings.quarter_id = ?)',
             ];
-            $model->select('service_requests.*')
-                ->join('units', 'units.id', '=', 'service_requests.unit_id')
+            $model->select('requests.*')
+                ->join('units', 'units.id', '=', 'requests.unit_id')
                 ->join('buildings', 'units.building_id', '=', 'buildings.id');
             $vs = [
                 ServiceRequest::VisibilityTenant, $u->tenant->id,
@@ -55,7 +59,7 @@ class FilterByPermissionsCriteria implements CriteriaInterface
             if ($u->tenant->building) {
                 $vs[] = ServiceRequest::VisibilityQuarter;
                 $vs[] = $u->tenant->building->quarter_id;
-                $qs[] = '(service_requests.visibility = ? and units.building_id = ?)';
+                $qs[] = '(requests.visibility = ? and units.building_id = ?)';
             }
             return $model->whereRaw('(' . implode(' or ', $qs) . ')', $vs);
         }
