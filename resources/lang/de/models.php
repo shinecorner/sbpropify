@@ -27,7 +27,6 @@ return [
         'settingsSaved' => 'Einstellungen gespeichert.',
         'serviceRequestCategorySaved' => 'Anfrage-Kategorie gespeichert',
         'serviceRequestCategoryDeleted' => 'Anfrage-Kategorie gelöscht',
-        'setting_saved' => "Einstellung(en) gespeichert",
         'setting_deleted' => "Einstellung(en) gelöscht",
         'password_reset_request_sent' => "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang und schauen Sie ggf. auch in Ihrem Spam-Ordner nach.",
         'errors' => [
@@ -521,9 +520,10 @@ return [
             'deleted' => "Fehler beim Löschen der Überbauung: ",
         ],
     ],
-    'Settings' => [
+    'settings' => [
         'title' => 'Einstellungen Liegenschaftsverwaltung',
         'settings' => 'Einstellungen',
+        'saved' => "Einstellung(en) gespeichert",
         'tenants_portal' => 'Mieterportal',
         'iframe' => 'Freie Objekte',    
         'micro_apps' => 'Micro-Apps',

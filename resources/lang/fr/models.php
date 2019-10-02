@@ -27,7 +27,6 @@ return [
         "settingsSaved" => "Options des biens immobiliers sauvegardées",
         "serviceRequestCategorySaved" => "Catégorie de demande de service sauvegardée",
         "serviceRequestCategoryDeleted" => "Catégorie de demande de service supprimée",
-        'setting_saved' => "réglage utilisateur sauvegardé",
         'setting_deleted' => "Suppression du réglage utilisateur",
         'password_reset_request_sent' => "Nous vous avons envoyé un e-mail avec d'autres instructions. Veuillez vérifier votre boîte de réception.",
         'errors' => [
@@ -521,9 +520,10 @@ return [
             'deleted' => "Erreur d'effacement trimestriel : ",
         ],
     ],
-    'Settings' => [
+    'settings' => [
         "title" => "Réglages de l'immobilier",
         "settings" => "Réglages",
+        'saved' => "réglage utilisateur sauvegardé",
         'tenants_portal' => 'Portail locataires',
         'iframe' => 'Iframe',
         'micro_apps' => 'Micro-Applications',
