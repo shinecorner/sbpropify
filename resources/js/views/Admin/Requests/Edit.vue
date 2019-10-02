@@ -81,8 +81,8 @@
                                                    v-model="model.room">
                                             <el-option
                                                 :key="room.value"
-                                                :label="room.name"
                                                 :value="room.value"
+                                                :label="room.name"
                                                 v-for="room in rooms">
                                             </el-option>
                                         </el-select>
@@ -444,13 +444,13 @@
                             <el-tabs id="comments-card" v-model="activeTab2"  @tab-click="adjustAuditTabPadding">
                                 <el-tab-pane name="comments">
                                     <span slot="label">
-                                        <el-badge :value="commentCount" :max="99" class="admin-layout">{{ $t('models.request.comments') }}</el-badge>
+                                        <el-badge :value="requestCommentCount" :max="99" class="admin-layout">{{ $t('models.request.comments') }}</el-badge>
                                     </span>
                                     <chat :id="model.id" type="request" show-templates />
                                 </el-tab-pane>
                                 <el-tab-pane name="internal-notices">
                                     <span slot="label">
-                                        <el-badge value="0" :max="99" class="admin-layout">{{ $t('models.request.internal_notices') }}</el-badge>
+                                        <el-badge :value="noticeCommentCount" :max="99" class="admin-layout">{{ $t('models.request.internal_notices') }}</el-badge>
                                     </span>
                                     <chat :id="model.id" type="internalNotices" />
                                 </el-tab-pane>
@@ -520,8 +520,9 @@
         },
         data() {
             return {
-                commentCount: 0,
+                requestCommentCount: 0,
                 auditCount: 0,
+                noticeCommentCount: 0,
                 activeTab1: 'request_details',
                 activeTab2: 'comments',
                 activeActionTab: 'actions',
@@ -592,16 +593,25 @@
         async mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             this.$root.$on('changeLanguage', () => {
-                this.fetchCurrentRequest();
+                //this.fetchCurrentRequest();
             });
-            EventBus.$on('comments-get-counted', comment_count => {
-                this.commentCount = comment_count;
+            EventBus.$on('request-comment-count', request_comment_count => {
+                this.requestCommentCount = request_comment_count;
             });
-            EventBus.$on('comments-deleted', () => {
-                this.commentCount--;
+            EventBus.$on('request-comment-deleted', () => {
+                this.requestCommentCount--;
             });
-            EventBus.$on('comments-added', () => {
-                this.commentCount++;
+            EventBus.$on('request-comment-added', () => {
+                this.requestCommentCount++;
+            });
+            EventBus.$on('notice-comment-count', notice_comment_count => {
+                this.noticeCommentCount = notice_comment_count;
+            });
+            EventBus.$on('notice-comment-deleted', () => {
+                this.noticeCommentCount--;
+            });
+            EventBus.$on('notice-comment-added', () => {
+                this.noticeCommentCount++;
             });
             EventBus.$on('audit-get-counted', audit_count => {
                 this.auditCount = audit_count;

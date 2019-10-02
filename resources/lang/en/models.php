@@ -24,10 +24,9 @@ return [
         'blank_pdf_desc' => 'Generate PDF files without letterhead so that they can be printed on your own stationery.',
         'font_family' => 'Font family',
         'notificationSaved' => 'Notificatin setting saved',
-        'SettingsSaved' => 'Real Estate settings saved',
+        'settingsSaved' => 'Real Estate settings saved',
         'serviceRequestCategorySaved' => 'Service request category saved',
         'serviceRequestCategoryDeleted' => 'Service request category deleted',
-        'setting_saved' => "user setting saved",
         'setting_deleted' => "user setting deleted",
         'password_reset_request_sent' => "We have sent you an e-mail with further instructions. Please check your inbox.",
         'errors' => [
@@ -521,9 +520,10 @@ return [
             'deleted' => "Quarter deleted error: ",
         ],
     ],
-    'Settings' => [
+    'settings' => [
         'title' => 'Settings real estate',
         'settings' => 'Settings',
+        'saved' => "user setting saved",
         'tenants_portal' => 'Tenants portal',
         'iframe' => 'Iframe',
         'micro_apps' => 'Micro-Apps',
@@ -708,17 +708,8 @@ return [
             'solved' => 'Solved',
             'pending' => 'Pending'
         ],
-        'category_options' => [
-            'disturbance' => 'Disturbance',
-            'defect' => 'Defect',
-            'other' => 'Other',
-            'room' => 'Room',
-            'range' => 'Range',
-            'component' => 'Component',
-            'acquisition' => 'Acquisition Phase',
-            'cost' => 'Cost Impact',
-            'keywords' => 'Keywords',
-            'building_locations' => [
+        'sub_category_fields' => [
+            'location' => [
                 'house_entrance' => 'House Entrance',
                 'staircase' => 'Staircase',
                 'elevator' => 'Elevator',
@@ -730,7 +721,7 @@ return [
                 'roof' => 'Roof',
                 'other' => 'Other'
             ],
-            'apartment_rooms' => [
+            'room' => [
                 'bath' => 'Bathroom/WC',
                 'shower' => 'Shower/WC',
                 'entrance' => 'Entrance',
@@ -746,7 +737,7 @@ return [
                 'all' => 'All',
                 'other' => 'Other'
             ],
-            'acquisitions' => [
+            'capture_phase' => [
                 'other' => 'Other',
                 'construction' => 'Construction phase',
                 'shell' => 'Shell Acceptance',
@@ -755,11 +746,22 @@ return [
                 'surrender' => 'Surrender',
                 'inspection' => 'Acceptance'
             ],
-            'costs' => [
+            'payer' => [
                 'landlord' => 'Landlord',
                 'tenant' => 'Tenant',
                 'tenant/landlord' => 'Tenant/Landlord'
             ]
+        ],
+        'category_options' => [
+            'disturbance' => 'Disturbance',
+            'defect' => 'Defect',
+            'other' => 'Other',
+            'room' => 'Room',
+            'range' => 'Range',
+            'component' => 'Component',
+            'acquisition' => 'Acquisition Phase',
+            'cost' => 'Cost Impact',
+            'keywords' => 'Keywords',
         ],
         'placeholders' => [
             'category' => 'Select category',

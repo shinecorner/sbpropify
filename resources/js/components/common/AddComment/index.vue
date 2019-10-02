@@ -119,8 +119,7 @@
                         commentable: this.type,
                     }
 
-                    await this.$store.dispatch('comments/create', body);
-                    EventBus.$emit('comments-added')
+                    await this.$store.dispatch('comments/create', body);                    
 
                 } catch (error) {
                     displayError(error)

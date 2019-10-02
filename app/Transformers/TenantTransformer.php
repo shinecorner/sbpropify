@@ -33,6 +33,7 @@ class TenantTransformer extends BaseTransformer
             'status' => $model->status,
             'tenant_format' => $model->tenant_format,
             'nation' => $model->nation,
+            'client_type' => $model->client_type,
         ];
 
         if ($model->relationExists('settings')) {

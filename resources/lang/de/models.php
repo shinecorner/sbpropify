@@ -24,10 +24,9 @@ return [
         'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
         'font_family' => 'Schriftfamilie',
         'notificationSaved' => 'Benachrichtigungseinstellung gespeichert',
-        'SettingsSaved' => 'Einstellungen gespeichert.',
+        'settingsSaved' => 'Einstellungen gespeichert.',
         'serviceRequestCategorySaved' => 'Anfrage-Kategorie gespeichert',
         'serviceRequestCategoryDeleted' => 'Anfrage-Kategorie gelöscht',
-        'setting_saved' => "Einstellung(en) gespeichert",
         'setting_deleted' => "Einstellung(en) gelöscht",
         'password_reset_request_sent' => "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang und schauen Sie ggf. auch in Ihrem Spam-Ordner nach.",
         'errors' => [
@@ -521,9 +520,10 @@ return [
             'deleted' => "Fehler beim Löschen der Überbauung: ",
         ],
     ],
-    'Settings' => [
+    'settings' => [
         'title' => 'Einstellungen Liegenschaftsverwaltung',
         'settings' => 'Einstellungen',
+        'saved' => "Einstellung(en) gespeichert",
         'tenants_portal' => 'Mieterportal',
         'iframe' => 'Freie Objekte',    
         'micro_apps' => 'Micro-Apps',
@@ -705,17 +705,8 @@ return [
             'solved' => "Erledigte",
             'pending' => "Hängige??"
         ],
-        'category_options' => [
-            'disturbance' => 'Störung',
-            'defect' => 'Defekt/Mangel',
-            'other' => 'Sonstiges',
-            'room' => 'Raum',
-            'range' => 'Bereich',
-            'component' => 'Bauteil',
-            'acquisition' => 'Erfassungsphase',
-            'cost' => 'Zu Lasten von',
-            'keywords' => 'Stichworte',
-            'building_locations' => [
+        'sub_category_fields' => [
+            'location' => [
                 'house_entrance' => 'Hauseingang',
                 'staircase' => 'Treppenhaus',
                 'elevator' => 'Lift',
@@ -727,7 +718,7 @@ return [
                 'roof' => 'Dach',
                 'other' => 'Anderes'
             ],
-            'apartment_rooms' => [
+            'room' => [
                 'bath' => 'Bad/WC',
                 'shower' => 'Du/WC',
                 'entrance' => 'Entrée',
@@ -743,7 +734,7 @@ return [
                 'all' => 'Alle',
                 'other' => 'Anderes'
             ],
-            'acquisitions' => [
+            'capture_phase' => [
                 'other' => 'Andere',
                 'construction' => 'Bauphase (BP)',
                 'shell' => 'Rohbauabnahme (RA)',
@@ -752,11 +743,22 @@ return [
                 'surrender' => 'Übergabe (UEB)',
                 'inspection' => 'Abnahme (AB)'
             ],
-            'costs' => [
+            'payer' => [
                 'landlord' => 'Vermieter',
                 'tenant' => 'Mieter',
                 'tenant/landlord' => 'Mieter/Vermieter'
             ]
+        ],
+        'category_options' => [
+            'disturbance' => 'Störung',
+            'defect' => 'Defekt/Mangel',
+            'other' => 'Sonstiges',
+            'room' => 'Raum',
+            'range' => 'Bereich',
+            'component' => 'Bauteil',
+            'acquisition' => 'Erfassungsphase',
+            'cost' => 'Zu Lasten von',
+            'keywords' => 'Stichworte',
         ],
         'placeholders' => [
             'category' => 'Kategorie wählen',

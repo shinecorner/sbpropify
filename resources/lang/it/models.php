@@ -24,10 +24,9 @@ return [
         'blank_pdf_desc' => 'Genera file PDF senza carta intestata in modo che possano essere stampati sulla tua carta intestata.',
         'font_family' => 'Famiglia di font',
         "notificationSaved" => "Impostazione della notifica salvata",
-        "SettingsSaved" => "Impostazioni immobiliari salvate",
+        "settingsSaved" => "Impostazioni immobiliari salvate",
         "serviceRequestCategorySaved" => "Categoria della richiesta di servizio salvata",
         "serviceRequestCategoryDeleted" => "Categoria della richiesta di servizio cancellata",
-        'setting_saved' => "impostazioni utente salvate",
         'setting_deleted' => "l'impostazione dell'utente è stata cancellata",
         'password_reset_request_sent' => "Le abbiamo inviato un'e-mail con ulteriori istruzioni. Controlla la tua casella di posta in arrivo.",
         'errors' => [
@@ -521,9 +520,10 @@ return [
             'deleted' => "Errore al quarto eliminato: ",
         ],
     ],
-    'Settings' => [
+    'settings' => [
         "title" => "Impostazioni immobiliari",
         "settings" => "Impostazioni",
+        'saved' => "impostazioni utente salvate",
         'tenants_portal' => 'Portale inquilini',
         'iframe' => 'Iframe',
         'micro_apps' => 'Micro-Apps',
@@ -702,17 +702,8 @@ return [
             "solved" => "Risolte",
             "pending" => "Pendenti"
         ],
-        'category_options' => [
-            "disturbance" => "Perturbazione",
-            "defect" => "Difetto",
-            "other" => "Altro",
-            'room' => 'Camera',
-            'range' => 'Gamma',
-            'component' => 'Componente',
-            'acquisition' => 'Fase di acquisizione',
-            'cost' => 'Costo Impatto',
-            'keywords' => 'Parole chiave',
-            'building_locations' => [
+        'sub_category_fields' => [
+            'location' => [
                 'house_entrance' => 'Ingresso Casa',
                 'staircase' => 'Scala',
                 'elevator' => 'Ascensore',
@@ -724,7 +715,7 @@ return [
                 'roof' => 'Tetto',
                 'other' => 'Altro'
             ],
-            'apartment_rooms' => [
+            'room' => [
                 'bath' => 'Bagno/WC',
                 'shower' => 'Doccia/WC',
                 'entrance' => 'Ingresso',
@@ -740,7 +731,7 @@ return [
                 'all' => 'Tutti',
                 'other' => 'Altro'
             ],
-            'acquisitions' => [
+            'capture_phase' => [
                 'other' => 'Altro',
                 'construction' => 'Fase di costruzione',
                 'shell' => 'Accettazione Shell',
@@ -749,11 +740,22 @@ return [
                 'surrender' => 'Arrendersi',
                 'inspection' => 'Accettazione'
             ],
-            'costs' => [
+            'payer' => [
                 'landlord' => 'Padrone di casa',
                 'tenant' => 'Affittuario',
                 'tenant/landlord' => 'Affittuario/Padrone di casa'
             ]
+        ],
+        'category_options' => [
+            "disturbance" => "Perturbazione",
+            "defect" => "Difetto",
+            "other" => "Altro",
+            'room' => 'Camera',
+            'range' => 'Gamma',
+            'component' => 'Componente',
+            'acquisition' => 'Fase di acquisizione',
+            'cost' => 'Costo Impatto',
+            'keywords' => 'Parole chiave',
         ],
         'placeholders' => [
             "category" => "Selezionare la categoria",
