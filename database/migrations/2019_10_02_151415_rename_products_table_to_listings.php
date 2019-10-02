@@ -13,7 +13,7 @@ class RenameProductsTableToListings extends Migration
      */
     public function up()
     {
-        Schema::rename('buildings', 'listings');
+        Schema::rename('products', 'listings');
     }
 
     /**
@@ -23,6 +23,6 @@ class RenameProductsTableToListings extends Migration
      */
     public function down()
     {
-        Schema::rename('listings', 'buildings');
+        Schema::rename('listings', 'products');
     }
 }
