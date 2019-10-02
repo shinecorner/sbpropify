@@ -536,6 +536,7 @@ return [
         "quarter_enable" => "Trimestre",
         "marketplace_approval_enable" => "Activer le marché",
         'gocaution' => 'Gocaution',
+        'gocaution_desc' => 'Gocaution',
         "blank_pdf" => "PDF vierge",
         'blank_pdf_desc' => 'Générez des fichiers PDF sans papier à en-tête afin qu\'ils puissent être imprimés sur votre propre papeterie.',
         'font_family' => 'Font family',
@@ -547,12 +548,15 @@ return [
         "schedule" => "Calendrier",
         "endTime" => "Heure de la fin",
         "startTime" => "Heure de début",
+        'powered_by' => 'Propulsé par',
         "to" => "A",
         "categories" => "Catégories",
         "templates" => "Modèles",
         "contact_enable" => "Activez'Mes contacts'",
         'contact_enable_desc' => 'Les locataires peuvent voir les coordonnées des partenaires de service impliqués dans le portail des locataires.',
         "cleanify_email" => "Nettoyer les e-mails",
+        "cleanify_email_desc" => "Nettoyer les e-mails",
+        'cleanify_email_url' => 'Nettoyer les e-mails URL',
         "mail_encryption" => "Cryptage",
         'primary_color' => 'Couleur primaire',
         'accent_color' => 'Couleur d\'accent',
@@ -586,6 +590,10 @@ return [
         "mail_password" => [
             "label" => "Mot de passe",
             "validation" => "Entrer le mot de passe de l'email"
+        ],
+        "mail_powered_by" => [
+            "label" => "Email",
+            "validation" => "Entrez votre courriel"
         ],
         'errors' => [
             'not_found' => "Biens immobiliers non trouvés",
