@@ -217,6 +217,19 @@
                     this.showUmgebung = true;
                 }
             },
+            getLanguageI18n() {
+                let building_locations = this.$t('models.request.category_options.building_locations');
+                this.building_locations = [];
+                for (var key in building_locations) {
+                    this.building_locations.push({name : building_locations[key], value : key})
+                }
+
+                let apartment_rooms = this.$t('models.request.category_options.apartment_rooms');
+                this.apartment_rooms = [];
+                for (var key in apartment_rooms) {
+                    this.apartment_rooms.push({name : apartment_rooms[key], value : key})
+                }
+            },
             submit () {
                 this.$refs.form.validate(async valid => {
                     if (valid) {
@@ -274,7 +287,7 @@
                         }
                     }
                 })
-            }
+            },
         },
         async mounted () {
             try {
@@ -289,25 +302,22 @@
                 });
                 this.defect_subcategories = defect_cat.categories;
 
-                let building_locations = this.$t('models.request.category_options.building_locations');
-                this.building_locations = [];
-                for (var key in building_locations) {
-                    this.building_locations.push({name : building_locations[key], value : key})
-                }
-
-                let apartment_rooms = this.$t('models.request.category_options.apartment_rooms');
-                this.apartment_rooms = [];
-                for (var key in apartment_rooms) {
-                    this.apartment_rooms.push({name : apartment_rooms[key], value : key})
-                }
-
+                
 
             } catch (err) {
                 displayError(err)
             }
 
             this.priorities = Object.entries(this.$constants.serviceRequests.priority).map(([value, label]) => ({value: +value, label}));
-        }
+        },
+        watch: {
+            "$i18n.locale": {
+                immediate: true,
+                handler(val) {
+                    this.getLanguageI18n();
+                }
+            }
+        },
     };
 </script>
 
