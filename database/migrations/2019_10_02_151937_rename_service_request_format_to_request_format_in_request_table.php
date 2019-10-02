@@ -13,7 +13,7 @@ class RenameServiceRequestFormatToRequestFormatInRequestTable extends Migration
      */
     public function up()
     {
-        Schema::table('requestS', function (Blueprint $table) {
+        Schema::table('requests', function (Blueprint $table) {
             $table->renameColumn('service_request_format', 'request_format');
         });
     }
@@ -25,7 +25,7 @@ class RenameServiceRequestFormatToRequestFormatInRequestTable extends Migration
      */
     public function down()
     {
-        Schema::table('requestS', function (Blueprint $table) {
+        Schema::table('requests', function (Blueprint $table) {
             $table->renameColumn('request_format', 'service_request_format');
         });
     }

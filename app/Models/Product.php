@@ -87,7 +87,7 @@ class Product extends AuditableModel implements HasMedia, LikeableContract, Audi
     use HasComments;
     use \OwenIt\Auditing\Auditable;
 
-    public $table = 'products';
+    public $table = 'listings';
 
     const TypeSell = 1;
     const TypeLend = 2;

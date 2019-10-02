@@ -53,7 +53,7 @@ class ServiceRequestCategory extends Model
 {
     use SoftDeletes;
 
-    public $table = 'service_request_categories';
+    public $table = 'request_categories';
 
 
     protected $dates = ['deleted_at'];

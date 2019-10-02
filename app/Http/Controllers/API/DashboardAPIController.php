@@ -167,6 +167,12 @@ class DashboardAPIController extends AppBaseController
                 'status'
             ]
         ],
+        'requests' => [
+            'class' => ServiceRequest::class,
+            'columns' => [
+                'status'
+            ]
+        ],
         'tenants' => [
             'class' => Tenant::class,
             'columns' => [
@@ -178,7 +184,14 @@ class DashboardAPIController extends AppBaseController
                 ],
             ]
         ],
-        'products' => [
+        'products' => [ // @TODO delete
+            'class' => Product::class,
+            'columns' => [
+                'status',
+                'type'
+            ]
+        ],
+        'listings' => [
             'class' => Product::class,
             'columns' => [
                 'status',
@@ -198,7 +211,13 @@ class DashboardAPIController extends AppBaseController
      *
      */
     const PERMITTED_TABLES_FOR_CREATED_DATE = [
-        'products' => [
+        'products' => [ // @TODO delete
+            'class' => Product::class,
+            'columns' => [
+                'status',
+            ]
+        ],
+        'listings' => [
             'class' => Product::class,
             'columns' => [
                 'status',
@@ -720,9 +739,9 @@ class DashboardAPIController extends AppBaseController
 
      * @SWG\Get(
      *      path="/admin/statistics",
-     *      summary="statistics for request, building, pinboard, product",
+     *      summary="statistics for request, building, pinboard, listing",
      *      tags={"ServiceRequest", "Pinboard", "Tenant", "Product"},
-     *      description="statistics for request, building, pinboard, product",
+     *      description="statistics for request, building, pinboard, listing",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -785,12 +804,12 @@ class DashboardAPIController extends AppBaseController
      *                      ref="#/definitions/Donut"
      *                  ),
      *                  @SWG\Property(
-     *                      property="total_products",
+     *                      property="total_listings",
      *                      type="string",
      *                      example="200"
      *                  ),
      *                  @SWG\Property(
-     *                      property="products_per_status",
+     *                      property="listings_per_status",
      *                      ref="#/definitions/Donut"
      *                  ),
      *                  @SWG\Property(
@@ -821,7 +840,7 @@ class DashboardAPIController extends AppBaseController
      *                          example="01.01.2019"
      *                      ),
      *                      @SWG\Property(
-     *                          property="products",
+     *                          property="listings",
      *                          type="string",
      *                          example="01.01.2019"
      *                      ),
@@ -856,7 +875,8 @@ class DashboardAPIController extends AppBaseController
             'requests' => $this->timeFormat(ServiceRequest::min('created_at')),
             'tenants' => $this->timeFormat(Tenant::min('created_at')),
             'buildings' => $this->timeFormat(Building::min('created_at')),
-            'products' => $this->timeFormat(Product::min('created_at')),
+            'products' => $this->timeFormat(Product::min('created_at')), // @TODO delete
+            'listings' => $this->timeFormat(Product::min('created_at')),
             'pinboard' => $this->timeFormat(Pinboard::min('created_at')),
         ];
 
@@ -864,7 +884,7 @@ class DashboardAPIController extends AppBaseController
             'avg_request_duration' => $this->formatTime($timeDifInSeconds),
             // all time total requests count and total request count of per status
             'total_requests' => $this->thousandsFormat(ServiceRequest::count('id')),
-            'requests_per_status' => $this->donutChartByTable($request, $optionalArgs, 'service_requests'),
+            'requests_per_status' => $this->donutChartByTable($request, $optionalArgs, 'requests'),
             'requests_per_category' => $this->_donutChartRequestByCategory($request, $optionalArgs),
 
             // all time total tenants count and total tenants count of per status
@@ -875,8 +895,11 @@ class DashboardAPIController extends AppBaseController
             'total_buildings' => $this->thousandsFormat(Building::count('id')),
             'buildings_per_status' => $this->allBuildingStatistics(),
 
-            'total_products' => $this->thousandsFormat(Product::count('id')),
-            'products_per_status' => $this->donutChartByTable($request, $optionalArgs, 'products'),
+            'total_products' => $this->thousandsFormat(Product::count('id')), // @TODO delete
+            'products_per_status' => $this->donutChartByTable($request, $optionalArgs, 'listings'), // @TODO delete
+
+            'total_listings' => $this->thousandsFormat(Product::count('id')),
+            'listings_per_status' => $this->donutChartByTable($request, $optionalArgs, 'listings'),
 
             'total_pinboard' => $this->thousandsFormat(Pinboard::count('id')),
             'pinboard_per_status' => $this->donutChartByTable($request, $optionalArgs, 'pinboard'),
@@ -965,10 +988,10 @@ class DashboardAPIController extends AppBaseController
         $name = get_translation_attribute_name('name');
         $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck($name, 'id')->toArray();
         $serviceRequests = ServiceRequest::selectRaw($raw . ', IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
-            ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
-            ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
-            ->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'))
-            ->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'))
+            ->join('request_categories AS cat1', 'requests.category_id', '=', 'cat1.id')
+            ->leftJoin('request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
+            ->whereDate('requests.created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('requests.created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy('period')
             ->groupBy('category_parent_id')
             ->get();
@@ -983,17 +1006,17 @@ class DashboardAPIController extends AppBaseController
     /**
      * @SWG\Get(
      *      path="/admin/chartByCreationDate",
-     *      summary="get statistics for Grouped Report by products:status | tenants:status | pinboard:status ",
+     *      summary="get statistics for Grouped Report by listings:status | tenants:status | pinboard:status ",
      *      tags={"Tenant", "Product", "Pinboard", "CreationDate"},
-     *      description="get statistics for Grouped Report by products:status | tenants:status | pinboard:status",
+     *      description="get statistics for Grouped Report by listings:status | tenants:status | pinboard:status",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="table",
      *          in="query",
      *          description="The table used for get statistic data based db table",
      *          type="string",
-     *          default="products",
-     *          enum={"products", "tenants", "pinboard"}
+     *          default="listings",
+     *          enum={"listings", "tenants", "pinboard"}
      *      ),
      *      @SWG\Parameter(
      *          name="column",
@@ -1028,7 +1051,7 @@ class DashboardAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
-     *                  example="products statistics formatted successfully by status"
+     *                  example="listings statistics formatted successfully by status"
      *              )
      *          )
      *      )
@@ -1165,22 +1188,22 @@ class DashboardAPIController extends AppBaseController
     /**
      * @SWG\Get(
      *      path="/admin/donutChart",
-     *      summary="service_requests, products, tenants,  pinboard statistics for Donut Chart",
+     *      summary="requests, listings, tenants,  pinboard statistics for Donut Chart",
      *      tags={"Tenant", "ServiceRequest", "Pinboard", "Product", "Donut"},
-     *      description="service_requests:status | tenants:status,title | products:status,type |  pinboard:status,type statistics for Donut Chart",
+     *      description="requests:status | tenants:status,title | listings:status,type |  pinboard:status,type statistics for Donut Chart",
      *      produces={"application/json"},
      *     @SWG\Parameter(
      *          name="table",
      *          in="query",
      *          description="The table used for get statistic data based db table",
      *          type="string",
-     *          default="service_requests",
-     *          enum={"service_requests", "tenants", "products", "pinboard"}
+     *          default="requests",
+     *          enum={"requests", "tenants", "listings", "pinboard"}
      *      ),
      *      @SWG\Parameter(
      *          name="column",
      *          in="query",
-     *          description="The column used for get statistic according that column | permitted values for each table [service_requests:status | tenants:status,title | products:status,type |  pinboard:status,type]",
+     *          description="The column used for get statistic according that column | permitted values for each table [requests:status | tenants:status,title | listings:status,type |  pinboard:status,type]",
      *          type="string",
      *          default="status",
      *          enum={"status", "type", "title"}
@@ -1215,7 +1238,7 @@ class DashboardAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
-     *                  example="service_requests statistics by status retrieved successfully for DonutChart"
+     *                  example="requests statistics by status retrieved successfully for DonutChart"
      *              )
      *          )
      *      )
@@ -1251,7 +1274,7 @@ class DashboardAPIController extends AppBaseController
             ->orderBy($column)
             ->get();
 
-        $includePercentage = ('service_requests' == $table) ? true : false;
+        $includePercentage = ('requests' == $table) ? true : false;
         $response = $this->formatForDonutChart($statistics, $column, $columnValues, $includePercentage);
 
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
@@ -1264,9 +1287,9 @@ class DashboardAPIController extends AppBaseController
      *
      * @SWG\Get(
      *      path="/admin/donutChartRequestByCategory",
-     *      summary="Get request statistics for Donut Chart by service_request_categories",
+     *      summary="Get request statistics for Donut Chart by request_categories",
      *      tags={"ServiceRequest", "Donut"},
-     *      description="Get request statistics for Donut Chart by service_request_categories",
+     *      description="Get request statistics for Donut Chart by request_categories",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="start_date",
@@ -1312,7 +1335,7 @@ class DashboardAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
-     *                  example="Request statistics retrieved successfully By service_request_categories"
+     *                  example="Request statistics retrieved successfully By request_categories"
      *              )
      *          )
      *      )
@@ -1338,11 +1361,11 @@ class DashboardAPIController extends AppBaseController
         $name = get_translation_attribute_name('name');
         $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck($name, 'id');
 
-        $serviceRequests = ServiceRequest::selectRaw('count(service_requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
-            ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
-            ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
-            ->when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
-            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
+        $serviceRequests = ServiceRequest::selectRaw('count(requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
+            ->join('request_categories AS cat1', 'requests.category_id', '=', 'cat1.id')
+            ->leftJoin('request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
+            ->when($startDate, function ($q) use ($startDate) {$q->whereDate('requests.created_at', '>=', $startDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('requests.created_at', '<=', $endDate->format('Y-m-d'));})
             ->groupBy('category_parent_id')
             ->get();
 
@@ -1363,7 +1386,7 @@ class DashboardAPIController extends AppBaseController
 
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
-            ? $this->sendResponse($response, 'Request statistics retrieved successfully By service_request_categories')
+            ? $this->sendResponse($response, 'Request statistics retrieved successfully By request_categories')
             : $response;
     }
 
@@ -1429,11 +1452,11 @@ class DashboardAPIController extends AppBaseController
         }
 
         $serviceRequestCount = ServiceRequest
-            ::when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
+            ::when($startDate, function ($q) use ($startDate) {$q->whereDate('requests.created_at', '>=', $startDate->format('Y-m-d'));})
             ->whereHas('category', function ($q) {
                 $q->whereIn('id', [1, 2])->orWhereIn('parent_id', [1, 2]); // @TODO fix hard coding [1, 2]
             })
-            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('requests.created_at', '<=', $endDate->format('Y-m-d'));})
             ->count();
 
         $serviceRequestHasProviderCount = ServiceRequest
@@ -1441,8 +1464,8 @@ class DashboardAPIController extends AppBaseController
             ->whereHas('category', function ($q) {
                 $q->whereIn('id', [1, 2])->orWhereIn('parent_id', [1, 2]); // @TODO fix hard coding [1, 2]
             })
-            ->when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
-            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
+            ->when($startDate, function ($q) use ($startDate) {$q->whereDate('requests.created_at', '>=', $startDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('requests.created_at', '<=', $endDate->format('Y-m-d'));})
             ->count();
 
         $response = [
@@ -1463,9 +1486,9 @@ class DashboardAPIController extends AppBaseController
 
      * @SWG\Get(
      *      path="/admin/donutChartTenantsByDateAndStatus",
-     *      summary="Tenants statistics for Donut Chart by service_requests status",
+     *      summary="Tenants statistics for Donut Chart by requests status",
      *      tags={"Tenant", "Donut"},
-     *      description="Tenants statistics for Donut Chart by service_requests status",
+     *      description="Tenants statistics for Donut Chart by requests status",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="start_date",
@@ -1533,10 +1556,10 @@ class DashboardAPIController extends AppBaseController
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
 
-        $rsPerStatus = Tenant::selectRaw('`service_requests`.`status`, count(`tenants`.`id`) `count`')
-            ->join('service_requests', 'service_requests.tenant_id', 'tenants.id')
-            ->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'))
-            ->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'))
+        $rsPerStatus = Tenant::selectRaw('`requests`.`status`, count(`tenants`.`id`) `count`')
+            ->join('requests', 'requests.tenant_id', 'tenants.id')
+            ->whereDate('requests.created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('requests.created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy('status')
             ->orderBy('status')
             ->get();
@@ -1956,7 +1979,7 @@ class DashboardAPIController extends AppBaseController
      * @param string $table
      * @return mixed
      */
-    protected function donutChartByTable(Request $request, $optionalArgs, $table = 'service_requests')
+    protected function donutChartByTable(Request $request, $optionalArgs, $table = 'requests')
     {
         return $this->_donutChart($request, array_merge($optionalArgs, ['table' => $table, 'column' => 'status']));
     }
@@ -2091,7 +2114,7 @@ class DashboardAPIController extends AppBaseController
      * @param string $table
      * @return array
      */
-    protected function getPeriodRelatedData($period, $startDate, $endDate, $table = 'service_requests')
+    protected function getPeriodRelatedData($period, $startDate, $endDate, $table = 'requests')
     {
         $periodValues = [];
 
@@ -2205,6 +2228,9 @@ class DashboardAPIController extends AppBaseController
         $table = $optionalArgs['table'] ?? null;
         $table = $table ?? $request->{self::QUERY_PARAMS['table']};
         $table = key_exists($table, $permissions) ? $table : Arr::first(array_keys($permissions));
+        $table = 'products' == $table ? 'listings' : $table;  // @TODO delete
+        $table = 'service_requests' == $table ? 'requests' : $table; // @TODO delete
+
         $class = $permissions[$table]['class'];
 
         $permittedColumns = [];

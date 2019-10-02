@@ -127,7 +127,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
     use HasMorphedByManyEvents;
     use UniqueIDFormat;
 
-    public $table = 'service_requests';
+    public $table = 'requests';
 
     const StatusReceived = 1;
     const StatusInProcessing = 2;
@@ -308,7 +308,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'solved_date',
         'qualification',
         'visibility',
-        'service_request_format',
+        'request_format',
         'room',
         'capture_phase',
         'component',
@@ -343,7 +343,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'qualification' => 'integer',
         'visibility' => 'integer',
         'sent_reminder_user_ids' => 'array',
-        'service_request_format' => 'string',
+        'request_format' => 'string',
         'room' => 'integer',
         'capture_phase' => 'integer',
         'component' => 'string',
