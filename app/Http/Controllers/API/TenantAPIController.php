@@ -495,6 +495,8 @@ class TenantAPIController extends AppBaseController
         }
 
         $input['user']['settings'] = Arr::pull($input, 'settings', []);
+
+        DB::beginTransaction();
         try {
             // for prevent user update log related tenant
             User::disableAuditing();
@@ -508,6 +510,7 @@ class TenantAPIController extends AppBaseController
         try {
             $tenant = $this->tenantRepository->updateExisting($tenant, $input);
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
@@ -535,6 +538,7 @@ class TenantAPIController extends AppBaseController
                 $rentRepository->create($rentData);
             }
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->sendError(__('models.rent_contract.errors.create') . $e->getMessage());
         }
 
@@ -547,6 +551,8 @@ class TenantAPIController extends AppBaseController
         //if ($userPass) {
             //$tenant->setCredentialsPDF();
         //}
+        DB::commit();
+
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, __('models.tenant.saved'));
     }
