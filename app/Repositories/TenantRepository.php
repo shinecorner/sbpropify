@@ -89,9 +89,9 @@ class TenantRepository extends BaseRepository
 
         $attributes['status'] = Tenant::StatusActive;
         $model = parent::create($attributes);
-//        if ($model) {
-//            $model = $this->saveRentContracts($model, $attributes);
-//        }
+        if ($model) {
+            $model = $this->saveRentContracts($model, $attributes);
+        }
         return $model;
     }
 
