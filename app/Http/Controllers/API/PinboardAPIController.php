@@ -186,6 +186,10 @@ class PinboardAPIController extends AppBaseController
             $input['status'] = $input['status'] ?? Pinboard::StatusNew;
         }
 
+        if ($request->has('pinned')) {
+            $input['announcement'] = $request->pinned;
+        }
+
         if ($request->announcement  == true || $request->pinned  == true) { // @TODO delete pinned
             $input['type'] = Pinboard::TypeAnnouncement;
         } else {
