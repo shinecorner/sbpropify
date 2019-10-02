@@ -1,5 +1,5 @@
 <template>
-    <div class="settings">
+    <div class="settings" :style="{'overflow': main_drawer?'hidden':'inherit'}">
         <heading :title="$t('models.Settings.title')" class="custom-heading" icon="ti-settings" shadow="heavy" />
 
         <el-tabs class="settings-tabs" tab-position="left" v-model="activeName">
@@ -1054,14 +1054,18 @@
 
     .settings-tabs.el-tabs.el-tabs--left {
         overflow: auto;
-        // height: calc(100% - 100px);
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+        height: calc(100% - 100px);
         > .el-tabs__header.is-left {
             margin-top: 20px;
             margin-left: 20px;
             position: sticky;
             top: 0;
             min-width: 200px;
-            height: 840px;
+            height: 100%;
             box-shadow: inset 7px 0 5px -7px rgba(0,0,0,0.2);
             border-radius: 10px;
             background: #fff;
@@ -1265,7 +1269,7 @@
         padding: 0;
     }
     .card-boxs span.switcher__desc {
-    text-align: left;
+    text-align: center;
     font-weight: normal;
     margin-top: 10px;
     line-height: 20px;
