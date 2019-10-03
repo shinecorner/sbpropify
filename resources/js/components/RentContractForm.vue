@@ -338,6 +338,9 @@
             visible: {
                 type: Boolean,
                 default: false
+            },
+            used_units: {
+                type: Array
             }
         },
         data () {
@@ -467,7 +470,7 @@
                         building_id: this.model.building_id
                     });
 
-                    
+                    console.log('used_units', this.used_units)
                     // this.model.rent_contracts.forEach((rent_contract, cc_index) => {
                     //     resp.data = resp.data.filter( item => item.id != rent_contract.unit_id )
                     // })

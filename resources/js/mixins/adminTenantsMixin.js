@@ -135,6 +135,9 @@ export default (config = {}) => {
             form() {
                 return this.$refs.form;
             },
+            used_units() {
+                return this.model.rent_contracts.map(item => item.unit_id)
+            },
             ...mapGetters(['countries'])
         },
         watch: {
