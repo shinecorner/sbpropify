@@ -388,9 +388,6 @@
                         this.loading = true;
                         const {...params} = this.model
 
-                        console.log('params', params)
-
-                        console.log('tenant_id', this.tenant_id)
                         if (this.tenant_id == undefined || this.tenant_id == 0) 
                         {
                             params.unit = this.units.find(item => item.id == this.model.unit_id)
@@ -404,7 +401,6 @@
                             
                         }
                         else {
-                            
                             
                             params.tenant_id = this.tenant_id
 
@@ -486,7 +482,6 @@
             },
             changeRentContractUnit() {
                 let unit = this.units.find(item => item.id == this.model.unit_id)
-                console.log('unit', unit);
                 this.model.monthly_rent_net = unit.monthly_rent_net
                 this.model.monthly_maintenance = unit.monthly_maintenance
                 this.model.monthly_rent_gross = unit.monthly_rent_gross
@@ -494,8 +489,6 @@
                 this.model.duration = 1
             },
             addPDFtoRentContract(file) {
-                console.log('file', file)
-                //let toUploadRentContractFile = file.src
                 //let toUploadRentContractFile = {...file, url: URL.createObjectURL(file.raw)}
                 let toUploadRentContractFile = {media : file.src, name: file.raw.name}
                 this.model.media.push(toUploadRentContractFile)
@@ -526,7 +519,6 @@
             this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
             this.rentcontract_statuses = Object.entries(this.$constants.rentContracts.status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_status.${label}`)}));
 
-            console.log('model', this.model)
         }
     }
 </script>
