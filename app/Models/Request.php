@@ -638,7 +638,7 @@ class Request extends AuditableModel implements HasMedia
 
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdfs.request.requestDownload', $data);
 
-        return Storage::disk('service_request_downloads')->put($this->pdfFileName(), $pdf->output());
+        return Storage::disk('request_downloads')->put($this->pdfFileName(), $pdf->output());
     }
 
     public function getDiskPreName()

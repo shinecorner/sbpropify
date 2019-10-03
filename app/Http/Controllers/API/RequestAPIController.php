@@ -1698,10 +1698,10 @@ class RequestAPIController extends AppBaseController
         }
 
         $pdfName = $this->getPdfName($r);
-        if (!\Storage::disk('service_request_downloads')->exists($pdfName)) {
+        if (!\Storage::disk('request_downloads')->exists($pdfName)) {
             return $this->sendError('Request file not found!');
         }
-        return \Storage::disk('service_request_downloads')->download($pdfName, $pdfName);
+        return \Storage::disk('request_downloads')->download($pdfName, $pdfName);
     }
 
 }

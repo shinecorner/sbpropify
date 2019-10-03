@@ -122,9 +122,9 @@ return [
             'visibility' => 'public',
         ],
 
-        'service_request_downloads' => [
+        'request_downloads' => [
             'driver' => 'local',
-            'root' => storage_path('app/private/service-request/downloads'),
+            'root' => storage_path('app/private/request/downloads'),
             'visibility' => 'public',
         ],
 
