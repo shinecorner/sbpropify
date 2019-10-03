@@ -82,6 +82,7 @@
                                                             style="width: 100%;"
                                                             type="date"
                                                             v-model="model.birth_date"
+                                                            :picker-options="birthDatePickerOptions"
                                                             value-format="yyyy-MM-dd"/>
                                                 </el-form-item>
                                             </el-col>
@@ -549,6 +550,11 @@
         data() {
             return {
                 avatar: '',
+                birthDatePickerOptions: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
+                }
             }
         },
         methods: {
