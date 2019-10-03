@@ -1,6 +1,6 @@
 <template>
     <div class="tenants-add">
-        <div>
+        <div class="main-content">
         <heading :title="$t('models.tenant.add')" icon="icon-group" shadow="heavy">
             <add-actions :saveAction="submit" editRoute="adminTenantsEdit" route="adminTenants"/>
         </heading>
@@ -246,8 +246,64 @@
 </style>
 <style lang="scss" scoped>
     .tenants-add {
+        overflow: hidden;
+
+        .main-content { 
+            overflow-x: hidden;
+            overflow-y: scroll;
+            height: 100%;
+        }
+
         .heading {
             margin-bottom: 20px;
+        }
+
+        
+
+        /deep/ .rentcontract-box.el-card {
+            .el-card__header {
+                display: block;
+            }
+
+            .rentcontract-file-table {
+                .clickable {
+                    display: block;
+                    width: 100%;
+                }
+            }
+        }
+
+        
+
+        /deep/ .ui-drawer {
+            .content {
+                height: calc(100% - 32px);
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                padding: 16px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                position: relative;
+            }
+
+            .chart-card-header{
+                font-size: 16px;
+                font-weight: 400;
+                padding: 0 20px 16px;
+                margin: -4px -10px 10px;
+                border-bottom: 1px solid #EBEEF5;
+
+                h3 {
+                    font-size: 24px;
+                    font-weight: 500;
+                }
+
+            }
         }
     }
 
@@ -265,34 +321,4 @@
         margin-bottom: 15px;
     }
 
-    /deep/ .rentcontract-box.el-card {
-        .el-card__header {
-            display: block;
-        }
-
-        .rentcontract-file-table {
-            .clickable {
-                display: block;
-                width: 100%;
-            }
-        }
-    }
-
-    .ui-drawer {
-        .content {
-            height: calc(100% - 32px);
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            padding: 16px;
-            overflow-y: auto;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            position: relative;
-        }
-    }
-
-    
 </style>
