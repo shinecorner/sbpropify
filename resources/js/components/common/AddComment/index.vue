@@ -185,6 +185,7 @@
 
                     this.content = ''
                     this.loading = false
+                    this.isManagerSelect = false
                 }
             },
         },
