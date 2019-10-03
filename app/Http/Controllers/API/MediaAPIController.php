@@ -7,10 +7,10 @@ use App\Http\Requests\API\Media\BuildingDeleteRequest;
 use App\Http\Requests\API\Media\BuildingUploadRequest;
 use App\Http\Requests\API\Media\PinboardDeleteRequest;
 use App\Http\Requests\API\Media\PinboardUploadRequest;
-use App\Http\Requests\API\Media\ProductDeleteRequest;
-use App\Http\Requests\API\Media\ProductUploadRequest;
-use App\Http\Requests\API\Media\SRequestDeleteRequest;
-use App\Http\Requests\API\Media\SRequestUploadRequest;
+use App\Http\Requests\API\Media\ListingDeleteRequest;
+use App\Http\Requests\API\Media\ListingUploadRequest;
+use App\Http\Requests\API\Media\RequestDeleteRequest;
+use App\Http\Requests\API\Media\RequestUploadRequest;
 use App\Http\Requests\API\Media\TenantDeleteRequest;
 use App\Http\Requests\API\Media\RentContractDeleteRequest;
 use App\Http\Requests\API\Media\RentContractUploadRequest;
@@ -594,10 +594,10 @@ class MediaAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param SRequestUploadRequest $request
+     * @param RequestUploadRequest $request
      * @return Response
      */
-    public function requestUpload(int $id, SRequestUploadRequest $request)
+    public function requestUpload(int $id, RequestUploadRequest $request)
     {
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
@@ -651,10 +651,10 @@ class MediaAPIController extends AppBaseController
      *
      * @param int $id
      * @param int $media_id
-     * @param SRequestDeleteRequest $r
+     * @param RequestDeleteRequest $r
      * @return Response
      */
-    public function requestDestroy(int $id, int $media_id, SRequestDeleteRequest $r)
+    public function requestDestroy(int $id, int $media_id, RequestDeleteRequest $r)
     {
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
@@ -708,10 +708,10 @@ class MediaAPIController extends AppBaseController
      *
      *
      * @param int $id
-     * @param ProductUploadRequest $request
+     * @param ListingUploadRequest $request
      * @return Response
      */
-    public function listingUpload(int $id, ProductUploadRequest $request)
+    public function listingUpload(int $id, ListingUploadRequest $request)
     {
         $product = $this->productRepository->findWithoutFail($id);
         if (empty($product)) {
@@ -764,11 +764,11 @@ class MediaAPIController extends AppBaseController
      *
      * @param int $id
      * @param int $media_id
-     * @param ProductDeleteRequest $r
+     * @param ListingDeleteRequest $r
      * @return Response
      *
      */
-    public function listingDestroy(int $id, int $media_id, ProductDeleteRequest $r)
+    public function listingDestroy(int $id, int $media_id, ListingDeleteRequest $r)
     {
         $product = $this->productRepository->findWithoutFail($id);
         if (empty($product)) {

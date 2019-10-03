@@ -5,7 +5,7 @@ namespace App\Http\Requests\API\Media;
 use App\Models\Product;
 use App\Http\Requests\BaseRequest;
 
-class ProductUploadRequest extends BaseRequest
+class ListingUploadRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
