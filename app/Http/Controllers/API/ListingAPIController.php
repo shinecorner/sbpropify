@@ -20,7 +20,7 @@ use App\Http\Requests\API\Listing\ViewRequest;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
 use App\Repositories\SettingsRepository;
-use App\Transformers\ProductTransformer;
+use App\Transformers\ListingTransformer;
 use App\Transformers\UserTransformer;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
@@ -38,7 +38,7 @@ class ListingAPIController extends AppBaseController
      */
     private $settingsRepository;
     /**
-     * @var ProductTransformer
+     * @var ListingTransformer
      */
     private $transformer;
     /**
@@ -50,13 +50,13 @@ class ListingAPIController extends AppBaseController
      * ListingAPIController constructor.
      * @param ProductRepository $productRepo
      * @param SettingsRepository $reRepo
-     * @param ProductTransformer $t
+     * @param ListingTransformer $t
      * @param UserTransformer $ut
      */
     public function __construct(
         ProductRepository $productRepo,
         SettingsRepository $reRepo,
-        ProductTransformer $t,
+        ListingTransformer $t,
         UserTransformer $ut
     )
     {

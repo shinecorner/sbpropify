@@ -11,7 +11,7 @@ use App\Http\Requests\API\RequestCategory\ViewRequest;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
 use App\Repositories\ServiceRequestCategoryRepository;
-use App\Transformers\ServiceRequestCategoryTransformer;
+use App\Transformers\RequestCategoryTransformer;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
@@ -91,11 +91,11 @@ class RequestCategoryAPIController extends AppBaseController
                 }
             }
 
-            $response = (new ServiceRequestCategoryTransformer())->transformCollection($serviceRequestCategories);
+            $response = (new RequestCategoryTransformer())->transformCollection($serviceRequestCategories);
             return $this->sendResponse($response, 'Service Requests Categories retrieved successfully');
         }
 
-        $response = (new ServiceRequestCategoryTransformer())->transformCollection($parentServiceRequestCategories);
+        $response = (new RequestCategoryTransformer())->transformCollection($parentServiceRequestCategories);
         return $this->sendResponse($response, 'Service Request Categories retrieved successfully');
     }
 
@@ -142,7 +142,7 @@ class RequestCategoryAPIController extends AppBaseController
                 'parent_id' => null
             ]);
 
-        $response = (new ServiceRequestCategoryTransformer())->transformCollection($serviceRequestCategories);
+        $response = (new RequestCategoryTransformer())->transformCollection($serviceRequestCategories);
 
         return $this->sendResponse($response, 'Service Requests Categories retrieved successfully');
     }
@@ -208,7 +208,7 @@ class RequestCategoryAPIController extends AppBaseController
 
         $serviceRequestCategories = $this->serviceRequestCategoryRepository->create($input);
 
-        $response = (new ServiceRequestCategoryTransformer)->transform($serviceRequestCategories);
+        $response = (new RequestCategoryTransformer)->transform($serviceRequestCategories);
         return $this->sendResponse($response, __('models.user.serviceRequestCategorySaved'));
     }
 
@@ -259,7 +259,7 @@ class RequestCategoryAPIController extends AppBaseController
             return $this->sendError(__('models.requestCategory.errors.not_found'));
         }
 
-        $response = (new ServiceRequestCategoryTransformer)->transform($serviceRequestCategory);
+        $response = (new RequestCategoryTransformer)->transform($serviceRequestCategory);
         return $this->sendResponse($response, 'Service Request Category retrieved successfully');
     }
 
@@ -339,7 +339,7 @@ class RequestCategoryAPIController extends AppBaseController
 
         $serviceRequestCategory = $this->serviceRequestCategoryRepository->update($input, $id);
 
-        $response = (new ServiceRequestCategoryTransformer())->transform($serviceRequestCategory);
+        $response = (new RequestCategoryTransformer())->transform($serviceRequestCategory);
         return $this->sendResponse($response, __('models.user.serviceRequestCategorySaved'));
     }
 

@@ -5,11 +5,11 @@ namespace App\Transformers;
 use App\Models\Product;
 
 /**
- * Class ProductTransformer.
+ * Class ListingTransformer.
  *
  * @package namespace App\Transformers;
  */
-class ProductTransformer extends BaseTransformer
+class ListingTransformer extends BaseTransformer
 {
     protected $defaultIncludes = [];
 

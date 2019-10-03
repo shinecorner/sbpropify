@@ -5,11 +5,11 @@ namespace App\Transformers;
 use App\Models\ServiceRequest;
 
 /**
- * Class ServiceRequestTransformer
+ * Class RequestTransformer
  *
  * @package namespace App\Transformers;
  */
-class ServiceRequestTransformer extends BaseTransformer
+class RequestTransformer extends BaseTransformer
 {
     /**
      * Transform the ServiceProvider entity.
@@ -86,7 +86,7 @@ class ServiceRequestTransformer extends BaseTransformer
 
 
         if ($model->relationExists('category')) {
-            $response['category'] = (new ServiceRequestCategorySimpleTransformer)->transform($model->category);
+            $response['category'] = (new RequestCategorySimpleTransformer)->transform($model->category);
         }
         if ($model->relationExists('remainder_user')) {
             $response['remainder_user'] = (new UserTransformer())->transform($model->remainder_user);

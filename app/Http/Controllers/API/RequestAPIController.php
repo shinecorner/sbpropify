@@ -33,8 +33,8 @@ use App\Repositories\ServiceRequestRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\TemplateRepository;
 use App\Repositories\UserRepository;
-use App\Transformers\ServiceRequestAssigneeTransformer;
-use App\Transformers\ServiceRequestTransformer;
+use App\Transformers\RequestAssigneeTransformer;
+use App\Transformers\RequestTransformer;
 use App\Transformers\TagTransformer;
 use App\Transformers\TemplateTransformer;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -136,8 +136,8 @@ class RequestAPIController extends AppBaseController
         if ($getAll) {
             $serviceRequests = $this->serviceRequestRepository
                 ->with('category')->get();
-            $response = (new ServiceRequestTransformer)->transformCollection($serviceRequests);
-            return $this->sendResponse($response, 'Service Requests retrieved successfully');
+            $response = (new RequestTransformer)->transformCollection($serviceRequests);
+            return $this->sendResponse($response, 'Requests retrieved successfully');
         }
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $serviceRequests = $this->serviceRequestRepository
@@ -157,7 +157,7 @@ class RequestAPIController extends AppBaseController
             ])->paginate($perPage);
 
         $serviceRequests->getCollection()->loadCount('allComments');
-        $response = (new ServiceRequestTransformer)->transformPaginator($serviceRequests);
+        $response = (new RequestTransformer)->transformPaginator($serviceRequests);
         return $this->sendResponse($response, 'Service Requests retrieved successfully');
     }
 
@@ -238,7 +238,7 @@ class RequestAPIController extends AppBaseController
             'managers.user',
             'users'
         ]);
-        $response = (new ServiceRequestTransformer)->transform($serviceRequest);
+        $response = (new RequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.saved'));
     }
 
@@ -297,7 +297,7 @@ class RequestAPIController extends AppBaseController
                 $q->with('building.address', 'unit');
             },
         ]);
-        $response = (new ServiceRequestTransformer)->transform($serviceRequest);
+        $response = (new RequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, 'Service Request retrieved successfully');
     }
 
@@ -368,7 +368,7 @@ class RequestAPIController extends AppBaseController
             'media', 'tenant.user', 'category', 'managers.user', 'users', 'remainder_user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
         ]);
-        $response = (new ServiceRequestTransformer)->transform($updatedServiceRequest);
+        $response = (new RequestTransformer)->transform($updatedServiceRequest);
         return $this->sendResponse($response, __('models.request.saved'));
     }
 
@@ -427,7 +427,7 @@ class RequestAPIController extends AppBaseController
         }
 
         $serviceRequest = $this->serviceRequestRepository->updateExisting($serviceRequest, $input);
-        $response = (new ServiceRequestTransformer)->transform($serviceRequest);
+        $response = (new RequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.status_changed'));
     }
 
@@ -485,7 +485,7 @@ class RequestAPIController extends AppBaseController
 
         $serviceRequest = $this->serviceRequestRepository->update($input, $id);
 
-        $response = (new ServiceRequestTransformer)->transform($serviceRequest);
+        $response = (new RequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.priority_changed'));
     }
 
@@ -1310,7 +1310,7 @@ class RequestAPIController extends AppBaseController
         $assignees = $sr->assignees()->paginate($perPage);
         $assignees = $this->getAssigneesRelated($assignees, [PropertyManager::class, User::class, ServiceProvider::class]);
 
-        $response = (new ServiceRequestAssigneeTransformer())->transformPaginator($assignees) ;
+        $response = (new RequestAssigneeTransformer())->transformPaginator($assignees) ;
         return $this->sendResponse($response, 'Assignees retrieved successfully');
     }
 

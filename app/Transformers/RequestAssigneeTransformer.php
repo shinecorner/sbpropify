@@ -5,11 +5,11 @@ use App\Models\ServiceRequest;
 use App\Models\ServiceRequestAssignee;
 
 /**
- * Class ServiceRequestTransformer
+ * Class RequestTransformer
  *
  * @package namespace App\Transformers;
  */
-class ServiceRequestAssigneeTransformer extends BaseTransformer
+class RequestAssigneeTransformer extends BaseTransformer
 {
     /**
      * Transform the ServiceProvider entity.

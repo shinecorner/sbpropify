@@ -5,11 +5,11 @@ namespace App\Transformers;
 use App\Models\ServiceRequestCategory;
 
 /**
- * Class ServiceRequestCategoryTransformer.
+ * Class RequestCategorySimpleTransformer.
  *
  * @package namespace App\Transformers;
  */
-class ServiceRequestCategoryTransformer extends BaseTransformer
+class RequestCategorySimpleTransformer extends BaseTransformer
 {
     /**
      * Transform the ServiceRequestCategory entity.
@@ -24,21 +24,13 @@ class ServiceRequestCategoryTransformer extends BaseTransformer
             'id' => $model->id,
             'parent_id' => $model->parent_id,
             'name' => $model->name,
-            'name' => $model->name,
-            'name_en' => $model->name,
-            'name_de' => $model->name_de,
-            'name_fr' => $model->name_fr,
-            'name_it' => $model->name_it,
             'description' => $model->description,
-            'has_qualifications' => $model->has_qualifications,
             'acquisition' => $model->acquisition,
-            'location' => $model->location,
-            'room' => $model->room,
         ];
 
         // @TODO check and use ->relationExists
-        if ($model->categories) {
-            $response['categories'] = $this->transformCollection($model->categories);
+        if ($model->parent_id > 0 && $model->parentCategory) {
+            $response['parentCategory'] = $this->transform($model->parentCategory);
         }
 
         return $response;
