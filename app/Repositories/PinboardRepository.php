@@ -414,8 +414,8 @@ class PinboardRepository extends BaseRepository
             ->join('building_pinboard', 'building_pinboard.building_id', '=', 'id')
             ->where('building_pinboard.pinboard_id', $p->id);
         $pds = Quarter::select(\DB::raw('id, name, "quarter" as type'))
-            ->join('quarter_pinboard', 'quarter_pinboard.quarter_id', '=', 'id')
-            ->where('quarter_pinboard.pinboard_id', $p->id);
+            ->join('pinboard_quarter', 'pinboard_quarter.quarter_id', '=', 'id')
+            ->where('pinboard_quarter.pinboard_id', $p->id);
 
         return $pbs->union($pds);
     }

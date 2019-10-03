@@ -22,6 +22,7 @@ use App\Http\Requests\API\ServiceRequest\SeeRequestsCount;
 use App\Http\Requests\API\ServiceRequest\UnAssignRequest;
 use App\Http\Requests\API\ServiceRequest\UpdateRequest;
 use App\Http\Requests\API\ServiceRequest\ViewRequest;
+use App\Http\Requests\API\Tenant\DownloadPdfRequest;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
@@ -1678,10 +1679,11 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
+     * @param DownloadPdfRequest $r
      * @param $id
      * @return mixed
      */
-    public function downloadPdf($id){
+    public function downloadPdf(DownloadPdfRequest $r, $id){
 
         $r = $this->serviceRequestRepository->findWithoutFail($id);
 

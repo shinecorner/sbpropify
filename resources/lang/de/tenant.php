@@ -45,7 +45,7 @@ return [
         "media_upload" => "Laden Sie hier Medien hoch oder ziehen Sie Dateien per Drag & Drop.",
         "type_comment" => "Geben Sie einen Kommentar ein",
         "upload" => "Dateien hochladen",
-        "search_product" => "Suche nach einem Produkt",
+        "search_product" => "Suche nach einem Inserat",
 		"category" => "Kategorie wählen",
 		"priority" => "Priorität wählen",
 		"defect_location" => "Bitte geben Sie die Örtlichkeit",
@@ -189,7 +189,7 @@ return [
     "sell" => "Verkaufen",
     "get_in_touch" => "Nehmen Sie Kontakt auf",
     "get_in_touch_info" => "Benutzen Sie den obigen Button, um zu erfahren, wie Sie den Verkäufer kontaktieren können, um dieses Angebot zu erhalten.",
-    "free" => "Kostenlos",    
+    "free" => "Gratis",    
     "user_settings" => "Benutzereinstellungen",
     "personal_informations" => "Personenbezogene Daten",
     "security" => "Sicherheit",
@@ -238,4 +238,5 @@ return [
         "desc" => "Wenn Sie ausserhalb der Bürozeiten einen Notfall haben, so bitten wir Sie folgende Nummer anzurufen"
     ],
     "message" => "Nachricht",
+    "my_offerings" => "Meine Offerten",
 ];

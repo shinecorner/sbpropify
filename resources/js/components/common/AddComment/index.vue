@@ -1,4 +1,5 @@
 <template>
+<div>
     <div :class="['add-comment', {'with-templates': showTemplates}]">
         <el-tooltip :content="user.name" effect="dark" placement="top-start">
             <ui-avatar :name="user.name" :size="32" :src="user.avatar" />
@@ -6,7 +7,7 @@
         <div class="content">
             <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
             <el-dropdown class="templates" size="small" placement="top-end" trigger="click" @command="onTemplateSelected" @visible-change="onDropdownVisibility" v-if="showTemplates">
-                <el-tooltip ref="templates-button-tooltip" :content="$t('components.common.addComment.tooltipTemplates')" placement="top-end">
+                <el-tooltip ref="templates-button-tooltip" :content="type == 'internalNotices' ? 'Choose Property maneger and Admin' : $t('components.common.addComment.tooltipTemplates')" placement="top-end">
                     <el-button ref="templates-button" type="text" class="el-dropdown-link" :disabled="loading">
                         <i class="icon-ellipsis-vert"></i>
                     </el-button>
@@ -31,6 +32,25 @@
             <el-button circle icon="icon-paper-plane" size="small" :disabled="!content" :loading="loading" @click="save" />
         </el-tooltip>
     </div>
+    <div v-if="type === 'internalNotices'" style="margin: 10px 41px 0 35px;">
+        <el-row :gutter="10">
+            <el-col :span="12">
+                <el-form-item class="switcher">
+                    <label class="switcher__label">
+                        Select property manager/admin?
+                        <span class="switcher__desc">Do you want to select property manager/administrator?</span>
+                    </label>
+                    <el-switch v-model="isManagerSelect" @change="resetList"/>
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-select v-if="isManagerSelect" v-model="selectedManagerLists" multiple filterable remote reserve-keyword placeholder="Please enter a keyword" :remote-method="remoteSearch" :loading="loading" style="width: 100%">
+                    <el-option v-for="item in managerLists" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                </el-select>
+            </el-col>
+        </el-row>
+    </div>
+</div>
 </template>
 
 <script>
@@ -73,13 +93,49 @@
                 loading: false,
                 loadingTemplates: false,
                 dropdownTemplatesVisible: false,
-                errorFallback: ErrorFallback
+                errorFallback: ErrorFallback,
+                               
+                managerLists: [],
+                selectedManagerLists: [],
+                loadingList: false,
+                isManagerSelect: false
             }
         },
         methods: {
             ...mapActions({
-                getTemplates: 'getRequestTemplates'
+                getTemplates: 'getRequestTemplates',
+                getPropertyManagers: 'getPropertyManagers',
             }),
+            async remoteSearch(search) {
+                if (search === '') {
+                    this.managerList = [];
+                } else {
+                    this.loadingList = true;
+                    try {
+                        let resp = [];
+                        const respAssignee = await this.getPropertyManagers({request_id: this.$route.params.id});                        
+                        let exclude_ids = [];                                                
+                            respAssignee.data.data.map(item => {
+                                if(item.type === 'manager'){
+                                    exclude_ids.push(item.edit_id);
+                                }                                
+                            })
+                            resp = await this.getPropertyManagers({
+                                get_all: true,
+                                search,
+                                exclude_ids
+                            });
+                        this.managerLists = resp.data;
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.loadingList = false;
+                    }
+                }           
+            },
+            resetList(){
+                this.selectedManagerLists = []
+            },
 
             focus () {
                 this.$refs.content.focus()
@@ -117,6 +173,7 @@
                         user_id: this.user.id,
                         comment: this.content,
                         commentable: this.type,
+                        selectedManagerLists: this.selectedManagerLists
                     }
 
                     await this.$store.dispatch('comments/create', body);                    
@@ -128,8 +185,9 @@
 
                     this.content = ''
                     this.loading = false
+                    this.isManagerSelect = false
                 }
-            }
+            },
         },
         computed: {
             ...mapGetters({
@@ -311,4 +369,45 @@
             }
         }
     }
+
+    .switcher {
+        .el-form-item__content {
+            display: block;
+        }
+        span {
+            display: block;
+        }
+        &__label {
+            line-height: 1.4em;
+            color: #606266;
+        }
+        &__label-title {
+            display: flex;
+            align-items: center;
+            min-height: 40px;
+        }
+        &__label-desc {
+            margin-top: 0.5em;
+            display: block;
+            font-size: 0.9em;
+        }
+        .el-switch {
+            margin-top: 10px;
+            margin-left: auto;
+        }
+    }
+
+    .card-boxs span.switcher__desc {
+        text-align: center;
+        font-weight: normal;
+        margin-top: 10px;
+        line-height: 20px;
+        font-size: 13px;
+        color: #333;
+    }
+
+    .switcher-frist .el-switch {
+        margin-top: 10px;
+    }
+
 </style>

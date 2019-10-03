@@ -62,14 +62,14 @@ class FilterByLocationCriteria implements CriteriaInterface
         ];
         // If the tenant building is in a quarter, show the announcement pinboard from that quarter
         if ($t->building && $t->building->quarter_id) {
-            $conds[] = "quarter_pinboard.quarter_id = ?";
+            $conds[] = "pinboard_quarter.quarter_id = ?";
             $args[] = $t->building->quarter_id;
         }
 
         // It's raw, Melissa, because  https://github.com/laravel/framework/issues/23957
         return $model->select('pinboard.*')->distinct()
             ->leftJoin("building_pinboard", "building_pinboard.pinboard_id", "=", "pinboard.id")
-            ->leftJoin("quarter_pinboard", "quarter_pinboard.pinboard_id", "=", "pinboard.id")
+            ->leftJoin("pinboard_quarter", "pinboard_quarter.pinboard_id", "=", "pinboard.id")
             ->whereRaw("(" . implode(" or ", $conds) . ")", $args);
     }
 }
