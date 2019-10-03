@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Product;
+use App\Models\Listing;
 use App\Models\Tenant;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -12,21 +12,28 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
-class ProductLiked extends Notification implements ShouldQueue
+class ListingLiked extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $product;
+    /**
+     * @var Listing
+     */
+    protected $listing;
+
+    /**
+     * @var Tenant
+     */
     protected $liker;
 
     /**
-     * ProductLiked constructor.
-     * @param Product $product
+     * ListingLiked constructor.
+     * @param Listing $listing
      * @param Tenant $liker
      */
-    public function __construct(Product $product, Tenant $liker)
+    public function __construct(Listing $listing, Tenant $liker)
     {
-        $this->product = $product;
+        $this->listing = $listing;
         $this->liker = $liker;
     }
 
@@ -38,7 +45,7 @@ class ProductLiked extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        if ($notifiable->settings && $notifiable->settings->marketplace_notification) {
+        if ($notifiable->settings && $notifiable->settings->listing_notification) {
             return ['database', 'mail'];
         }
 
@@ -54,12 +61,12 @@ class ProductLiked extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $data = $tRepo->getProductLikedParsedTemplate($this->product, $this->liker->user);
+        $data = $tRepo->getListingLikedParsedTemplate($this->listing, $this->liker->user);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
         return (new MailMessage)
-            ->view('mails.productLiked', $data)->subject($data['subject']);
+            ->view('mails.listingLiked', $data)->subject($data['subject']);
     }
 
     /**
@@ -71,9 +78,9 @@ class ProductLiked extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'product_id' => $this->product->id,
+            'listing_id' => $this->listing->id,
             'tenant' => $this->liker->name,
-            'fragment' => Str::limit($this->product->content, 128),
+            'fragment' => Str::limit($this->listing->content, 128),
         ];
     }
 

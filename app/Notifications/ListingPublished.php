@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Product;
+use App\Models\Listing;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -10,25 +10,25 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
 /**
- * Class ProductPublished
+ * Class ListingPublished
  * @package App\Notifications
  */
-class ProductPublished extends Notification implements ShouldQueue
+class ListingPublished extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
-     * @var Product
+     * @var Listing
      */
-    protected $product;
+    protected $listing;
 
     /**
-     * ProductPublished constructor.
-     * @param Product $product
+     * ListingPublished constructor.
+     * @param Listing $listing
      */
-    public function __construct(Product $product)
+    public function __construct(Listing $listing)
     {
-        $this->product = $product;
+        $this->listing = $listing;
     }
 
     /**
@@ -65,9 +65,9 @@ class ProductPublished extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'product_id' => $this->product->id,
-            'user_name' => $this->product->user->name,
-            'fragment' => Str::limit($this->product->content, 30),
+            'listing_id' => $this->listing->id,
+            'user_name' => $this->listing->user->name,
+            'fragment' => Str::limit($this->listing->content, 30),
         ];
     }
 

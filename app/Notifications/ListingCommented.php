@@ -3,7 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Comment;
-use App\Models\Product;
+use App\Models\Listing;
 use App\Models\Tenant;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -14,17 +14,17 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 /**
- * Class ProductCommented
+ * Class ListingCommented
  * @package App\Notifications
  */
-class ProductCommented extends Notification implements ShouldQueue
+class ListingCommented extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
-     * @var Product
+     * @var Listing
      */
-    protected $product;
+    protected $listing;
     /**
      * @var Tenant
      */
@@ -35,14 +35,14 @@ class ProductCommented extends Notification implements ShouldQueue
     protected $comment;
 
     /**
-     * ProductCommented constructor.
-     * @param Product $product
+     * ListingCommented constructor.
+     * @param Listing $listing
      * @param Tenant $commenter
      * @param Comment $comment
      */
-    public function __construct(Product $product, Tenant $commenter, Comment $comment)
+    public function __construct(Listing $listing, Tenant $commenter, Comment $comment)
     {
-        $this->product = $product;
+        $this->listing = $listing;
         $this->commenter = $commenter;
         $this->comment = $comment;
     }
@@ -55,7 +55,7 @@ class ProductCommented extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        if ($notifiable->settings && $notifiable->settings->marketplace_notification) {
+        if ($notifiable->settings && $notifiable->settings->listing_notification) {
             return ['database', 'mail'];
         }
 
@@ -71,12 +71,12 @@ class ProductCommented extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $data = $tRepo->getProductCommentedParsedTemplate($this->product, $this->commenter->user, $this->comment);
+        $data = $tRepo->getListingCommentedParsedTemplate($this->listing, $this->commenter->user, $this->comment);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
         return (new MailMessage)
-            ->view('mails.productCommented', $data)->subject($data['subject']);
+            ->view('mails.listingCommented', $data)->subject($data['subject']);
     }
 
     /**
@@ -88,10 +88,10 @@ class ProductCommented extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'product_id' => $this->product->id,
+            'listing_id' => $this->listing->id,
             'tenant' => $this->commenter->name,
             'comment' => $this->comment->comment,
-            'fragment' => Str::limit($this->product->title, 128),
+            'fragment' => Str::limit($this->listing->title, 128),
         ];
     }
 
