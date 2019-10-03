@@ -2,11 +2,9 @@
 
 namespace App\Criteria\Request;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
@@ -23,9 +21,9 @@ class FilterByPermissionsCriteria implements CriteriaInterface
 
     /**
      * FilterByPermissionsCriteria constructor.
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      */
-    public function __construct(Request $request)
+    public function __construct(\Illuminate\Http\Request $request)
     {
         $this->request = $request;
     }
@@ -53,11 +51,11 @@ class FilterByPermissionsCriteria implements CriteriaInterface
                 ->join('units', 'units.id', '=', 'requests.unit_id')
                 ->join('buildings', 'units.building_id', '=', 'buildings.id');
             $vs = [
-                ServiceRequest::VisibilityTenant, $u->tenant->id,
-                ServiceRequest::VisibilityBuilding, $u->tenant->building_id,
+                Request::VisibilityTenant, $u->tenant->id,
+                Request::VisibilityBuilding, $u->tenant->building_id,
             ];
             if ($u->tenant->building) {
-                $vs[] = ServiceRequest::VisibilityQuarter;
+                $vs[] = Request::VisibilityQuarter;
                 $vs[] = $u->tenant->building->quarter_id;
                 $qs[] = '(requests.visibility = ? and units.building_id = ?)';
             }

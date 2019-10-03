@@ -2,7 +2,6 @@
 
 namespace App\Criteria\Listing;
 
-use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -20,6 +19,10 @@ class FilterByTenantCriteria implements CriteriaInterface
      */
     protected $request;
 
+    /**
+     * FilterByTenantCriteria constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -41,7 +44,7 @@ class FilterByTenantCriteria implements CriteriaInterface
         // @TODO ask use this one or nested relation criteria
 //        $user_id = Tenant::where('id', $tenant_id)->value('user_id');
 //        if ($user_id) {
-//            $model->where('products.user_id', $user_id);
+//            $model->where('listings.user_id', $user_id);
 //        }
         if ($tenant_id) {
             $model->whereHas('user', function($q) use ($tenant_id) {

@@ -2,7 +2,6 @@
 
 namespace App\Criteria\Request;
 
-use App\Models\ServiceRequest;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -20,6 +19,10 @@ class FilterNotAssignedCriteria implements CriteriaInterface
      */
     protected $request;
 
+    /**
+     * FilterNotAssignedCriteria constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;

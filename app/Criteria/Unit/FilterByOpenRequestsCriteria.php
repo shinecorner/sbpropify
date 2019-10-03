@@ -2,10 +2,9 @@
 
 namespace App\Criteria\Unit;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
@@ -20,7 +19,11 @@ class FilterByOpenRequestsCriteria implements CriteriaInterface
      */
     protected $request;
 
-    public function __construct(Request $request)
+    /**
+     * FilterByOpenRequestsCriteria constructor.
+     * @param \Illuminate\Http\Request $request
+     */
+    public function __construct(\Illuminate\Http\Request $request)
     {
         $this->request = $request;
     }
@@ -39,7 +42,7 @@ class FilterByOpenRequestsCriteria implements CriteriaInterface
         $request = $this->request->get('request', null);
         if ($request == 1) {
             return $model->whereHas('tenant.requests', function ($query) {
-                $query->where('status', '<', ServiceRequest::StatusDone);
+                $query->where('status', '<', Request::StatusDone);
             });
         }
 

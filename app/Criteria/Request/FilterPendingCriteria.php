@@ -2,7 +2,6 @@
 
 namespace App\Criteria\Request;
 
-use App\Models\ServiceRequest;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -20,6 +19,10 @@ class FilterPendingCriteria implements CriteriaInterface
      */
     protected $request;
 
+    /**
+     * FilterPendingCriteria constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -37,7 +40,7 @@ class FilterPendingCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         if ($this->request->get('pending_request')) {
-            $model = $model->whereIn('status', ServiceRequest::PendingStatuses);
+            $model = $model->whereIn('status', \App\Models\Request::PendingStatuses);
         }
 
         return $model;

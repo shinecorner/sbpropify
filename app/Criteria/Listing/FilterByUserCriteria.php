@@ -19,6 +19,10 @@ class FilterByUserCriteria implements CriteriaInterface
      */
     protected $request;
 
+    /**
+     * FilterByUserCriteria constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -38,7 +42,7 @@ class FilterByUserCriteria implements CriteriaInterface
     {
         $user_id = $this->request->get('user_id', null);
         if ($user_id) {
-            $model->where('products.user_id', $user_id);
+            $model->where('listings.user_id', $user_id);
         }
 
         return $model;

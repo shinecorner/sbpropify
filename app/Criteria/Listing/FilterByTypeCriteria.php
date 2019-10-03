@@ -19,6 +19,10 @@ class FilterByTypeCriteria implements CriteriaInterface
      */
     protected $request;
 
+    /**
+     * FilterByTypeCriteria constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -42,7 +46,7 @@ class FilterByTypeCriteria implements CriteriaInterface
                 $type = [$type];
             }
 
-            $model->whereIn('products.type', $type);
+            $model->whereIn('listings.type', $type);
         }
 
         return $model;

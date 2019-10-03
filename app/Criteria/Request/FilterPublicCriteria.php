@@ -2,10 +2,9 @@
 
 namespace App\Criteria\Request;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
@@ -22,9 +21,9 @@ class FilterPublicCriteria implements CriteriaInterface
 
     /**
      * FilterPublicCriteria constructor.
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      */
-    public function __construct(Request $request)
+    public function __construct(\Illuminate\Http\Request $request)
     {
         $this->request = $request;
     }
@@ -45,8 +44,8 @@ class FilterPublicCriteria implements CriteriaInterface
         }
 
         $vs = [
-            ServiceRequest::VisibilityBuilding,
-            ServiceRequest::VisibilityQuarter,
+            Request::VisibilityBuilding,
+            Request::VisibilityQuarter,
         ];
         return $model->whereIn('requests.visibility', $vs);
     }
