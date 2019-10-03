@@ -15,12 +15,12 @@ trait RequestRelation
 
     public function pendingRequests()
     {
-        return $this->requests()->whereIn('service_requests.status', ServiceRequest::PendingStatuses);
+        return $this->requests()->whereIn('requests.status', ServiceRequest::PendingStatuses);
     }
 
     public function solvedRequests()
     {
-        return $this->requests()->whereIn('service_requests.status', ServiceRequest::SolvedStatuses);
+        return $this->requests()->whereIn('requests.status', ServiceRequest::SolvedStatuses);
     }
 
     public function scopeAllRequestStatusCount($q)
@@ -67,7 +67,7 @@ trait RequestRelation
             $status = substr($name, strlen('requests'));
             $statusFullName = ServiceRequest::class . '::Status' . $status;
             if (defined($statusFullName)) {
-                return $this->requests()->where('service_requests.status', constant($statusFullName));
+                return $this->requests()->where('requests.status', constant($statusFullName));
             }
         }
         return parent::__call($name, $arguments);
