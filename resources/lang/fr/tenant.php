@@ -239,4 +239,5 @@ return [
         "desc" => "En cas d'urgence en dehors des heures de bureau, veuillez composer le numéro suivant"
     ],
     "message" => "Message",
+    "my_offerings" => "Mes offrandes",
 ];

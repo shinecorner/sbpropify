@@ -18,7 +18,7 @@
                 </div>
                 <el-button size="mini" @click.stop="$emit('edit-product', $event, data)" type="primary" v-if="showAction"> 
                     <i class="ti-pencil"></i>
-                    <span>{{ $t('general.actions.edit') }}</span>
+                    <span>{{ $t('general.actions.update') }}</span>
                 </el-button>
                 <!-- <el-button size="mini" @click.stop="$emit('delete-product', $event, data)" type="danger"> 
                     <i class="ti-close"></i>
