@@ -26,6 +26,11 @@ export default (config = {}) => {
                 deposit_types: [],
                 user: {},
                 unit: {},
+                birthDatePickerOptions: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
+                },
                 model: {
                     first_name: '',
                     last_name: '',
