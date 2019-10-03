@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Users;
+namespace App\Criteria\PropertyManager;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -9,13 +9,13 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByRolesCriteria
+ * Class FilterByRelatedFieldsCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByRolesCriteria implements CriteriaInterface
+class FilterByRelatedFieldsCriteria implements CriteriaInterface
 {
     /**
-     * @var \Illuminate\Http\Request
+     * @var Request
      */
     protected $request;
 
@@ -24,11 +24,10 @@ class FilterByRolesCriteria implements CriteriaInterface
         $this->request = $request;
     }
 
-
     /**
      * Apply criteria in query repository
      *
-     * @param         Builder|Model     $model
+     * @param Builder|Model $model
      * @param RepositoryInterface $repository
      *
      * @return mixed
@@ -36,15 +35,18 @@ class FilterByRolesCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $role = $this->request->get('role', null);
-        $roles = $this->request->roles;
-
-        if ($role) {
-            $model->withRole($role);
+        $buildingId = $this->request->get('building_id', null);
+        if ($buildingId) {
+            $model->whereHas('buildings', function ($q) use ($buildingId) {
+                $q->where('buildings.id', $buildingId);
+            });
         }
 
-        if (is_array($roles)) {
-            $model->withRoles($roles);
+        $quarterId = $this->request->get('quarter_id', null);
+        if ($quarterId) {
+            $model->whereHas('buildings', function ($q) use ($quarterId) {
+                $q->where('buildings.quarter_id', $quarterId);
+            });
         }
 
         return $model;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Criteria\Users;
+namespace App\Criteria\Request;
 
+use App\Models\ServiceRequest;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -9,26 +10,29 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByRolesCriteria
+ * Class FilterPublicCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByRolesCriteria implements CriteriaInterface
+class FilterPublicCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
      */
     protected $request;
 
+    /**
+     * FilterPublicCriteria constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
-
     /**
      * Apply criteria in query repository
      *
-     * @param         Builder|Model     $model
+     * @param Builder|Model $model
      * @param RepositoryInterface $repository
      *
      * @return mixed
@@ -36,17 +40,14 @@ class FilterByRolesCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $role = $this->request->get('role', null);
-        $roles = $this->request->roles;
-
-        if ($role) {
-            $model->withRole($role);
+        if (!$this->request->get('is_public', null)) {
+            return $model;
         }
 
-        if (is_array($roles)) {
-            $model->withRoles($roles);
-        }
-
-        return $model;
+        $vs = [
+            ServiceRequest::VisibilityBuilding,
+            ServiceRequest::VisibilityQuarter,
+        ];
+        return $model->whereIn('requests.visibility', $vs);
     }
 }

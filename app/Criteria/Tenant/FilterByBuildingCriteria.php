@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Users;
+namespace App\Criteria\Tenant;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +9,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByRolesCriteria
+ * Class FilterByBuildingCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByRolesCriteria implements CriteriaInterface
+class FilterByBuildingCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -23,7 +23,6 @@ class FilterByRolesCriteria implements CriteriaInterface
     {
         $this->request = $request;
     }
-
 
     /**
      * Apply criteria in query repository
@@ -36,17 +35,16 @@ class FilterByRolesCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $role = $this->request->get('role', null);
-        $roles = $this->request->roles;
-
-        if ($role) {
-            $model->withRole($role);
+        $hasBuilding = $this->request->get('has_building', null);
+        if ($hasBuilding) {
+            $model = $model->where('tenants.building_id', '>', 0);
         }
 
-        if (is_array($roles)) {
-            $model->withRoles($roles);
+        $building_id = $this->request->get('building_id', null);
+        if ($building_id) {
+            $model = $model->where('tenants.building_id', (int)$building_id);
         }
-
-        return $model;
-    }
+        
+        return $model;     
+    }  
 }

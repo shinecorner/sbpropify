@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Criteria\Users;
+namespace App\Criteria\Listing;
 
+use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -9,10 +10,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByRolesCriteria
+ * Class FilterByUserCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByRolesCriteria implements CriteriaInterface
+class FilterByTenantCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -36,15 +37,18 @@ class FilterByRolesCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $role = $this->request->get('role', null);
-        $roles = $this->request->roles;
-
-        if ($role) {
-            $model->withRole($role);
-        }
-
-        if (is_array($roles)) {
-            $model->withRoles($roles);
+        $tenant_id = $this->request->get('tenant_id', null);
+        // @TODO ask use this one or nested relation criteria
+//        $user_id = Tenant::where('id', $tenant_id)->value('user_id');
+//        if ($user_id) {
+//            $model->where('products.user_id', $user_id);
+//        }
+        if ($tenant_id) {
+            $model->whereHas('user', function($q) use ($tenant_id) {
+                $q->whereHas('tenant', function($q)  use ($tenant_id) {
+                    $q->where('id', $tenant_id);
+                });
+            });
         }
 
         return $model;

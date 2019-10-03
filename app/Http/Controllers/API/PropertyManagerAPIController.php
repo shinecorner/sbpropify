@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\FilterFullnameCriteria;
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\PropertyManagers\FilterByRelatedFieldsCriteria;
-use App\Criteria\PropertyManagers\HasRequestCriteria;
+use App\Criteria\PropertyManager\FilterByRelatedFieldsCriteria;
+use App\Criteria\PropertyManager\HasRequestCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\PropertyManager\AssignRequest;
 use App\Http\Requests\API\PropertyManager\BatchDeleteRequest;

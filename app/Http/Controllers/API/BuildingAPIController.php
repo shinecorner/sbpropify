@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Criteria\Buildings\FilterByRelatedFieldsCriteria;
+use App\Criteria\Building\FilterByRelatedFieldsCriteria;
 use App\Criteria\Common\HasRequestCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Http\Controllers\AppBaseController;

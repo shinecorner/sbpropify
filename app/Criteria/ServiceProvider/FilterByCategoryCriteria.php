@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Users;
+namespace App\Criteria\ServiceProvider;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +9,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByRolesCriteria
- * @package Prettus\Repository\Criteria
+ * Class FilterByCategoryCriteria
+ * @package App\Criteria\ServiceProvider
  */
-class FilterByRolesCriteria implements CriteriaInterface
+class FilterByCategoryCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -36,17 +36,10 @@ class FilterByRolesCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $role = $this->request->get('role', null);
-        $roles = $this->request->roles;
+        $category = $this->request->get('category', null) ?? $this->request->get('category_id', null);
+        if (! $category) { return $model; }
 
-        if ($role) {
-            $model->withRole($role);
-        }
-
-        if (is_array($roles)) {
-            $model->withRoles($roles);
-        }
-
+        $model = $model->where('category', $category);
         return $model;
     }
 }

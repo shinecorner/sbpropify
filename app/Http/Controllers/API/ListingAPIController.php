@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\Products\FilterByTenantCriteria;
-use App\Criteria\Products\FilterByTypeCriteria;
-use App\Criteria\Products\FilterByUserCriteria;
-use App\Criteria\Products\FilterByStatusCriteria;
-use App\Criteria\Products\FilterByQuarterCriteria;
+use App\Criteria\Listing\FilterByTenantCriteria;
+use App\Criteria\Listing\FilterByTypeCriteria;
+use App\Criteria\Listing\FilterByUserCriteria;
+use App\Criteria\Listing\FilterByStatusCriteria;
+use App\Criteria\Listing\FilterByQuarterCriteria;
 use App\Http\Requests\API\Listing\LikeRequest;
 use App\Http\Requests\API\Listing\ListRequest;
 use App\Notifications\ProductLiked;

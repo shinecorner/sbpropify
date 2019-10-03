@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Criteria\Comments\FilterChildrenCriteria;
-use App\Criteria\Comments\FilterChildrenOutCriteria;
-use App\Criteria\Comments\FilterIdsOutCriteria;
-use App\Criteria\Comments\FilterModelCriteria;
+use App\Criteria\Comment\FilterChildrenCriteria;
+use App\Criteria\Comment\FilterChildrenOutCriteria;
+use App\Criteria\Comment\FilterIdsOutCriteria;
+use App\Criteria\Comment\FilterModelCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Comment\ChildrenListRequest;
 use App\Http\Requests\API\Comment\CreateRequest;

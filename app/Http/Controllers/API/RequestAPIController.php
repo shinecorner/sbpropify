@@ -4,12 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Common\WhereInCriteria;
-use App\Criteria\ServiceRequests\FilterByInternalFieldsCriteria;
-use App\Criteria\ServiceRequests\FilterByPermissionsCriteria;
-use App\Criteria\ServiceRequests\FilterByRelatedFieldsCriteria;
-use App\Criteria\ServiceRequests\FilterNotAssignedCriteria;
-use App\Criteria\ServiceRequests\FilterPendingCriteria;
-use App\Criteria\ServiceRequests\FilterPublicCriteria;
+use App\Criteria\Request\FilterByInternalFieldsCriteria;
+use App\Criteria\Request\FilterByPermissionsCriteria;
+use App\Criteria\Request\FilterByRelatedFieldsCriteria;
+use App\Criteria\Request\FilterNotAssignedCriteria;
+use App\Criteria\Request\FilterPendingCriteria;
+use App\Criteria\Request\FilterPublicCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Request\AssignRequest;
 use App\Http\Requests\API\Request\ChangePriorityRequest;
@@ -69,9 +69,9 @@ class RequestAPIController extends AppBaseController
     /**
      * @SWG\Get(
      *      path="/requests",
-     *      summary="Get a listing of the ServiceRequests.",
+     *      summary="Get a listing of the Requests.",
      *      tags={"Request"},
-     *      description="Get all ServiceRequests",
+     *      description="Get all Requests",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="service_provider_id",
