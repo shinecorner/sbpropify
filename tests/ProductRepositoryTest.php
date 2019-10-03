@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Product;
-use App\Repositories\ProductRepository;
+use App\Repositories\ListingRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ProductRepositoryTest extends TestCase
@@ -9,14 +9,14 @@ class ProductRepositoryTest extends TestCase
     use MakeProductTrait, ApiTestTrait, DatabaseTransactions;
 
     /**
-     * @var ProductRepository
+     * @var ListingRepository
      */
     protected $productRepo;
 
     public function setUp()
     {
         parent::setUp();
-        $this->productRepo = App::make(ProductRepository::class);
+        $this->productRepo = App::make(ListingRepository::class);
     }
 
     /**

@@ -16,9 +16,9 @@ use App\Notifications\PinboardCommented;
 use App\Notifications\ProductCommented;
 use App\Repositories\CommentRepository;
 use App\Repositories\PinboardRepository;
-use App\Repositories\ProductRepository;
+use App\Repositories\ListingRepository;
 use App\Repositories\SettingsRepository;
-use App\Repositories\ServiceRequestRepository;
+use App\Repositories\RequestRepository;
 use App\Transformers\CommentTransformer;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
@@ -33,13 +33,13 @@ class CommentAPIController extends AppBaseController
     /** @var  CommentRepository */
     private $pinboardRepository;
     /**
-     * @var ProductRepository
+     * @var ListingRepository
      */
-    private $productRepository;
+    private $listingRepository;
     /**
-     * @var ServiceRequestRepository
+     * @var RequestRepository
      */
-    private $serviceRequestRepository;
+    private $requestRepository;
     /**
      * @var CommentRepository
      */
@@ -57,23 +57,23 @@ class CommentAPIController extends AppBaseController
      * CommentAPIController constructor.
      * @param PinboardRepository $pinboardRepo
      * @param CommentRepository $commRepo
-     * @param ProductRepository $prodRepo
-     * @param ServiceRequestRepository $sr
+     * @param ListingRepository $prodRepo
+     * @param RequestRepository $sr
      * @param SettingsRepository $setRepo
      * @param CommentTransformer $pt
      */
     public function __construct(
         PinboardRepository $pinboardRepo,
         CommentRepository $commRepo,
-        ProductRepository $prodRepo,
-        ServiceRequestRepository $sr,
+        ListingRepository $prodRepo,
+        RequestRepository $sr,
         SettingsRepository $setRepo,
         CommentTransformer $pt
     )
     {
         $this->pinboardRepository = $pinboardRepo;
-        $this->productRepository = $prodRepo;
-        $this->serviceRequestRepository = $sr;
+        $this->listingRepository = $prodRepo;
+        $this->requestRepository = $sr;
         $this->commentRepository = $commRepo;
         $this->settingsRepository = $setRepo;
         $this->transformer = $pt;
@@ -181,7 +181,7 @@ class CommentAPIController extends AppBaseController
      */
     public function storeRequestComment(int $id, CreateRequest $request)
     {
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        $serviceRequest = $this->requestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -189,7 +189,7 @@ class CommentAPIController extends AppBaseController
         $comment = $serviceRequest->comment($request->comment, $request->parent_id);
         $comment->load('user');
         $out = $this->transformer->transform($comment);
-        $this->serviceRequestRepository->notifyNewComment($serviceRequest, $comment);
+        $this->requestRepository->notifyNewComment($serviceRequest, $comment);
 
         return $this->sendResponse($out, __('general.comment_created'));
     }
@@ -235,7 +235,7 @@ class CommentAPIController extends AppBaseController
      */
     public function storeProductComment(int $id, CreateRequest $request)
     {
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = $this->listingRepository->findWithoutFail($id);
         if (empty($product)) {
             return $this->sendError(__('models.product.errors.not_found'));
         }

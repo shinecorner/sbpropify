@@ -18,7 +18,7 @@ use App\Http\Requests\API\Listing\PublishRequest;
 use App\Http\Requests\API\Listing\UpdateRequest;
 use App\Http\Requests\API\Listing\ViewRequest;
 use App\Models\Product;
-use App\Repositories\ProductRepository;
+use App\Repositories\ListingRepository;
 use App\Repositories\SettingsRepository;
 use App\Transformers\ListingTransformer;
 use App\Transformers\UserTransformer;
@@ -31,8 +31,8 @@ use InfyOm\Generator\Criteria\LimitOffsetCriteria;
  */
 class ListingAPIController extends AppBaseController
 {
-    /** @var  ProductRepository */
-    private $productRepository;
+    /** @var  ListingRepository */
+    private $listingRepository;
     /**
      * @var SettingsRepository
      */
@@ -48,22 +48,22 @@ class ListingAPIController extends AppBaseController
 
     /**
      * ListingAPIController constructor.
-     * @param ProductRepository $productRepo
-     * @param SettingsRepository $reRepo
-     * @param ListingTransformer $t
-     * @param UserTransformer $ut
+     * @param ListingRepository $listingRepository
+     * @param SettingsRepository $settingsRepository
+     * @param ListingTransformer $listingTransformer
+     * @param UserTransformer $userTransformer
      */
     public function __construct(
-        ProductRepository $productRepo,
-        SettingsRepository $reRepo,
-        ListingTransformer $t,
-        UserTransformer $ut
+        ListingRepository $listingRepository,
+        SettingsRepository $settingsRepository,
+        ListingTransformer $listingTransformer,
+        UserTransformer $userTransformer
     )
     {
-        $this->productRepository = $productRepo;
-        $this->settingsRepository = $reRepo;
-        $this->transformer = $t;
-        $this->uTransformer = $ut;
+        $this->listingRepository = $listingRepository;
+        $this->settingsRepository = $settingsRepository;
+        $this->transformer = $listingTransformer;
+        $this->uTransformer = $userTransformer;
     }
 
     /**
@@ -101,16 +101,16 @@ class ListingAPIController extends AppBaseController
      */
     public function index(ListRequest $request)
     {
-        $this->productRepository->pushCriteria(new RequestCriteria($request));
-        $this->productRepository->pushCriteria(new LimitOffsetCriteria($request));
-        $this->productRepository->pushCriteria(new FilterByTenantCriteria($request));
-        $this->productRepository->pushCriteria(new FilterByUserCriteria($request));
-        $this->productRepository->pushCriteria(new FilterByTypeCriteria($request));
-        $this->productRepository->pushCriteria(new FilterByStatusCriteria($request));
-        $this->productRepository->pushCriteria(new FilterByQuarterCriteria($request));
+        $this->listingRepository->pushCriteria(new RequestCriteria($request));
+        $this->listingRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->listingRepository->pushCriteria(new FilterByTenantCriteria($request));
+        $this->listingRepository->pushCriteria(new FilterByUserCriteria($request));
+        $this->listingRepository->pushCriteria(new FilterByTypeCriteria($request));
+        $this->listingRepository->pushCriteria(new FilterByStatusCriteria($request));
+        $this->listingRepository->pushCriteria(new FilterByQuarterCriteria($request));
         
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $products = $this->productRepository->with([
+        $listings = $this->listingRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -118,9 +118,9 @@ class ListingAPIController extends AppBaseController
             'likes.user',
         ])->orderBy('published_at', 'desc')->orderBy('created_at', 'desc')
             ->paginate($perPage);
-        $products->getCollection()->loadCount('allComments');
+        $listings->getCollection()->loadCount('allComments');
 
-        $out = $this->transformer->transformPaginator($products);
+        $out = $this->transformer->transformPaginator($listings);
         return $this->sendResponse($out, 'Products retrieved successfully');
     }
 
@@ -175,7 +175,7 @@ class ListingAPIController extends AppBaseController
             $input['needs_approval'] = $settings->marketplace_approval_enable;
         }
 
-        $product = $this->productRepository->create($input);
+        $product = $this->listingRepository->create($input);
 
         $data = $this->transformer->transform($product);
         return $this->sendResponse($data, __('models.product.saved'));
@@ -223,7 +223,7 @@ class ListingAPIController extends AppBaseController
     public function show($id, ViewRequest $request)
     {
         /** @var Product $product */
-        $product = $this->productRepository->with([
+        $product = $this->listingRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -292,13 +292,13 @@ class ListingAPIController extends AppBaseController
         $input = $request->only(Product::Fillable);
 
         /** @var Product $product */
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = $this->listingRepository->findWithoutFail($id);
 
         if (empty($product)) {
             return $this->sendError(__('models.product.errors.not_found'));
         }
 
-        $product = $this->productRepository->update($input, $id);
+        $product = $this->listingRepository->update($input, $id);
 
         $data = $this->transformer->transform($product);
         return $this->sendResponse($data, __('models.product.saved'));
@@ -347,7 +347,7 @@ class ListingAPIController extends AppBaseController
     public function destroy($id, DeleteRequest $request)
     {
         /** @var Product $product */
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = $this->listingRepository->findWithoutFail($id);
 
         if (empty($product)) {
             return $this->sendError(__('models.product.errors.not_found'));
@@ -415,7 +415,7 @@ class ListingAPIController extends AppBaseController
      */
     public function like($id, LikeRequest $likeRequest)
     {
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = $this->listingRepository->findWithoutFail($id);
         if (empty($product)) {
             return $this->sendError(__('models.product.errors.not_found'));
         }
@@ -475,7 +475,7 @@ class ListingAPIController extends AppBaseController
      */
     public function unlike($id, LikeRequest $likeRequest)
     {
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = $this->listingRepository->findWithoutFail($id);
         if (empty($product)) {
             return $this->sendError(__('models.product.errors.not_found'));
         }
@@ -537,12 +537,12 @@ class ListingAPIController extends AppBaseController
     public function publish($id, PublishRequest $request)
     {
         $newStatus = $request->get('status');
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = $this->listingRepository->findWithoutFail($id);
         if (empty($product)) {
             return $this->sendError(__('models.product.errors.not_found'));
         }
 
-        $product = $this->productRepository->setStatusExisting($product, $newStatus);
+        $product = $this->listingRepository->setStatusExisting($product, $newStatus);
 
         return $this->sendResponse($id, __('general.status_changed'));
     }

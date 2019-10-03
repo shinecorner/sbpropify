@@ -29,7 +29,7 @@ use App\Models\ServiceRequestAssignee;
 use App\Models\User;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\ServiceProviderRepository;
-use App\Repositories\ServiceRequestRepository;
+use App\Repositories\RequestRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\TemplateRepository;
 use App\Repositories\UserRepository;
@@ -49,8 +49,8 @@ use InfyOm\Generator\Criteria\LimitOffsetCriteria;
  */
 class RequestAPIController extends AppBaseController
 {
-    /** @var  ServiceRequestRepository */
-    private $serviceRequestRepository;
+    /** @var  RequestRepository */
+    private $requestRepository;
 
     /**
      * @var string
@@ -59,11 +59,11 @@ class RequestAPIController extends AppBaseController
 
     /**
      * RequestAPIController constructor.
-     * @param ServiceRequestRepository $serviceRequestRepo
+     * @param RequestRepository $serviceRequestRepo
      */
-    public function __construct(ServiceRequestRepository $serviceRequestRepo)
+    public function __construct(RequestRepository $serviceRequestRepo)
     {
-        $this->serviceRequestRepository = $serviceRequestRepo;
+        $this->requestRepository = $serviceRequestRepo;
     }
 
     /**
@@ -123,24 +123,24 @@ class RequestAPIController extends AppBaseController
      */
     public function index(ListRequest $request)
     {
-        $this->serviceRequestRepository->pushCriteria(new RequestCriteria($request));
-        $this->serviceRequestRepository->pushCriteria(new LimitOffsetCriteria($request));
-        $this->serviceRequestRepository->pushCriteria(new FilterByPermissionsCriteria($request));
-        $this->serviceRequestRepository->pushCriteria(new FilterByInternalFieldsCriteria($request));
-        $this->serviceRequestRepository->pushCriteria(new FilterPublicCriteria($request));
-        $this->serviceRequestRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
-        $this->serviceRequestRepository->pushCriteria(new FilterPendingCriteria($request));
-        $this->serviceRequestRepository->pushCriteria(new FilterNotAssignedCriteria($request));
+        $this->requestRepository->pushCriteria(new RequestCriteria($request));
+        $this->requestRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->requestRepository->pushCriteria(new FilterByPermissionsCriteria($request));
+        $this->requestRepository->pushCriteria(new FilterByInternalFieldsCriteria($request));
+        $this->requestRepository->pushCriteria(new FilterPublicCriteria($request));
+        $this->requestRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
+        $this->requestRepository->pushCriteria(new FilterPendingCriteria($request));
+        $this->requestRepository->pushCriteria(new FilterNotAssignedCriteria($request));
 
         $getAll = $request->get('get_all', false);
         if ($getAll) {
-            $serviceRequests = $this->serviceRequestRepository
+            $serviceRequests = $this->requestRepository
                 ->with('category')->get();
             $response = (new RequestTransformer)->transformCollection($serviceRequests);
             return $this->sendResponse($response, 'Requests retrieved successfully');
         }
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $serviceRequests = $this->serviceRequestRepository
+        $serviceRequests = $this->requestRepository
             ->with([
                 'media',
                 'tenant.user',
@@ -222,10 +222,10 @@ class RequestAPIController extends AppBaseController
     {
         $input = $request->all();
         $input['internal_priority'] = $input['internal_priority'] ?? $input['priority'];
-        $serviceRequest = $this->serviceRequestRepository->create($input);
-        $this->serviceRequestRepository->notifyNewRequest($serviceRequest);
+        $serviceRequest = $this->requestRepository->create($input);
+        $this->requestRepository->notifyNewRequest($serviceRequest);
         if (isset($input['due_date'])) {
-            $this->serviceRequestRepository->notifyDue($serviceRequest);
+            $this->requestRepository->notifyDue($serviceRequest);
         }
         $serviceRequest->load([
             'media',
@@ -284,7 +284,7 @@ class RequestAPIController extends AppBaseController
     public function show($id, ViewRequest $request)
     {
         /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        $serviceRequest = $this->requestRepository->findWithoutFail($id);
 
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
@@ -352,17 +352,17 @@ class RequestAPIController extends AppBaseController
     {
         $input = $request->only(ServiceRequest::Fillable);
         /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        $serviceRequest = $this->requestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $oldStatus = $serviceRequest->status;
-        if (!$this->serviceRequestRepository->checkStatusPermission($input, $oldStatus)) {
+        if (!$this->requestRepository->checkStatusPermission($input, $oldStatus)) {
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $updatedServiceRequest = $this->serviceRequestRepository->updateExisting($serviceRequest, $input);
+        $updatedServiceRequest = $this->requestRepository->updateExisting($serviceRequest, $input);
 
         $updatedServiceRequest->load([
             'media', 'tenant.user', 'category', 'managers.user', 'users', 'remainder_user',
@@ -415,18 +415,18 @@ class RequestAPIController extends AppBaseController
     public function changeStatus(int $id, ChangeStatusRequest $request)
     {
         /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        $serviceRequest = $this->requestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $input = ['status' => $request->get('status', '')];
 
-        if (!$this->serviceRequestRepository->checkStatusPermission($input, $serviceRequest->status)) {
+        if (!$this->requestRepository->checkStatusPermission($input, $serviceRequest->status)) {
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $serviceRequest = $this->serviceRequestRepository->updateExisting($serviceRequest, $input);
+        $serviceRequest = $this->requestRepository->updateExisting($serviceRequest, $input);
         $response = (new RequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.status_changed'));
     }
@@ -474,7 +474,7 @@ class RequestAPIController extends AppBaseController
     public function changePriority(int $id, ChangePriorityRequest $request)
     {
         /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        $serviceRequest = $this->requestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -483,7 +483,7 @@ class RequestAPIController extends AppBaseController
             'priority' => $request->get('priority', '')
         ];
 
-        $serviceRequest = $this->serviceRequestRepository->update($input, $id);
+        $serviceRequest = $this->requestRepository->update($input, $id);
 
         $response = (new RequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.priority_changed'));
@@ -532,7 +532,7 @@ class RequestAPIController extends AppBaseController
     public function destroy($id, DeleteRequest $r)
     {
         /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        $serviceRequest = $this->requestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -612,7 +612,7 @@ class RequestAPIController extends AppBaseController
         PropertyManagerRepository $pmRepo
     )
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -628,7 +628,7 @@ class RequestAPIController extends AppBaseController
         $propertyManager = $managerId ? $pmRepo->with('user:email,id')->find($managerId) : null;
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
 
-        $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManager, $mailDetails);
+        $this->requestRepository->notifyProvider($sr, $sp, $propertyManager, $mailDetails);
         $sr->touch();
         $sp->touch();
         return $this->sendResponse($sr, __('models.request.mail.success'));
@@ -670,7 +670,7 @@ class RequestAPIController extends AppBaseController
      */
     public function assignProvider(int $id, int $pid, ServiceProviderRepository $spRepo, AssignRequest $r)
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -771,7 +771,7 @@ class RequestAPIController extends AppBaseController
      */
     public function assignUser(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -832,7 +832,7 @@ class RequestAPIController extends AppBaseController
      */
     public function assignTmpManager(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -883,7 +883,7 @@ class RequestAPIController extends AppBaseController
      */
     public function assignManager(int $id, int $pmid, UserRepository $uRepo, AssignRequest $r)
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -981,7 +981,7 @@ class RequestAPIController extends AppBaseController
      */
     public function getTags(int $id, ViewRequest $request)
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -1029,7 +1029,7 @@ class RequestAPIController extends AppBaseController
      */
     public function assignTag(int $id, int $tid, TagRepository $tRepo, AssignRequest $r)
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -1095,7 +1095,7 @@ class RequestAPIController extends AppBaseController
      */
     public function assignManyTags(int $id, TagRepository $tRepo, AssignRequest $r)
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -1180,7 +1180,7 @@ class RequestAPIController extends AppBaseController
      */
     public function unassignManyTags(int $id, TagRepository $tRepo, UnAssignRequest $r)
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -1247,7 +1247,7 @@ class RequestAPIController extends AppBaseController
      */
     public function unassignTag(int $id, int $tid, TagRepository $tRepo, UnAssignRequest $r)
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -1301,7 +1301,7 @@ class RequestAPIController extends AppBaseController
     public function getAssignees(int $id, ViewRequest $request)
     {
         // @TODO permissions
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -1416,7 +1416,7 @@ class RequestAPIController extends AppBaseController
     public function getCommunicationTemplates($id, TemplateRepository $tempRepo, ViewRequest $request)
     {
         /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        $serviceRequest = $this->requestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -1476,7 +1476,7 @@ class RequestAPIController extends AppBaseController
     public function getServiceCommunicationTemplates($id, TemplateRepository $tempRepo, ViewRequest $request)
     {
         /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        $serviceRequest = $this->requestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -1536,7 +1536,7 @@ class RequestAPIController extends AppBaseController
     public function getServiceEmailTemplates($id, TemplateRepository $tempRepo, ViewRequest $request)
     {
         /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        $serviceRequest = $this->requestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -1608,17 +1608,17 @@ class RequestAPIController extends AppBaseController
      */
     public function requestsCounts(SeeRequestsCount $request)
     {
-        $requestCount = $this->serviceRequestRepository->count();
+        $requestCount = $this->requestRepository->count();
 
-        $this->serviceRequestRepository->resetCriteria();
-        $this->serviceRequestRepository->doesntHave('assignees');
-        $notAssignedRequestsCount = $this->serviceRequestRepository->count();
+        $this->requestRepository->resetCriteria();
+        $this->requestRepository->doesntHave('assignees');
+        $notAssignedRequestsCount = $this->requestRepository->count();
 
         $pendingStatues = ServiceRequest::PendingStatuses;
 
-        $this->serviceRequestRepository->resetCriteria();
-        $this->serviceRequestRepository->pushCriteria(new WhereInCriteria('status', $pendingStatues));
-        $allPendingCount = $this->serviceRequestRepository->count();
+        $this->requestRepository->resetCriteria();
+        $this->requestRepository->pushCriteria(new WhereInCriteria('status', $pendingStatues));
+        $allPendingCount = $this->requestRepository->count();
 
         $response = [
             'all_request_count' => $requestCount,
@@ -1648,19 +1648,19 @@ class RequestAPIController extends AppBaseController
      */
     protected function getLoggedRequestCount($relationId, $response, $userRelation, $requestRelation)
     {
-        $this->serviceRequestRepository->resetCriteria();
-        $this->serviceRequestRepository->whereHas($requestRelation, function ($q) use ($relationId) {
+        $this->requestRepository->resetCriteria();
+        $this->requestRepository->whereHas($requestRelation, function ($q) use ($relationId) {
             $q->where('assignee_id', $relationId);
         });
-        $response['my_request_count'] = $this->serviceRequestRepository->count();
+        $response['my_request_count'] = $this->requestRepository->count();
 
 
-        $this->serviceRequestRepository->resetCriteria();
-        $this->serviceRequestRepository->whereHas($requestRelation, function ($q) use ($relationId) {
+        $this->requestRepository->resetCriteria();
+        $this->requestRepository->whereHas($requestRelation, function ($q) use ($relationId) {
             $q->where('assignee_id', $relationId);
         });
-        $this->serviceRequestRepository->pushCriteria(new WhereInCriteria('status', ServiceRequest::PendingStatuses));
-        $response['my_pending_request_count'] = $this->serviceRequestRepository->count();
+        $this->requestRepository->pushCriteria(new WhereInCriteria('status', ServiceRequest::PendingStatuses));
+        $response['my_pending_request_count'] = $this->requestRepository->count();
 
         return $response;
     }
@@ -1684,7 +1684,7 @@ class RequestAPIController extends AppBaseController
      */
     public function downloadPdf(DownloadPdfRequest $r, $id){
 
-        $r = $this->serviceRequestRepository->findWithoutFail($id);
+        $r = $this->requestRepository->findWithoutFail($id);
 
         if (empty($r)) {
             return $this->sendError(__('models.request.errors.not_found'));

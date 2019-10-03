@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
 
 /**
- * Class ProductRepository
+ * Class ListingRepository
  * @package App\Repositories
  * @version March 3, 2019, 3:15 pm UTC
  *
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Notification;
  * @method Product find($id, $columns = ['*'])
  * @method Product first($columns = ['*'])
 */
-class ProductRepository extends BaseRepository
+class ListingRepository extends BaseRepository
 {
     /**
      * @var array

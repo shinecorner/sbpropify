@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\Models\Media;
 
 /**
- * Class ServiceRequestRepository
+ * Class RequestRepository
  * @package App\Repositories
  * @version February 27, 2019, 2:18 pm UTC
  *
@@ -31,7 +31,7 @@ use Spatie\MediaLibrary\Models\Media;
  * @method ServiceRequest find($id, $columns = ['*'])
  * @method ServiceRequest first($columns = ['*'])
  */
-class ServiceRequestRepository extends BaseRepository
+class RequestRepository extends BaseRepository
 {
     use  SaveMediaUploads;
     /**

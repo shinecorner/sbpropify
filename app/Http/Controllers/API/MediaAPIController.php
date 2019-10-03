@@ -19,8 +19,8 @@ use App\Models\Building;
 use App\Repositories\AddressRepository;
 use App\Repositories\BuildingRepository;
 use App\Repositories\PinboardRepository;
-use App\Repositories\ProductRepository;
-use App\Repositories\ServiceRequestRepository;
+use App\Repositories\ListingRepository;
+use App\Repositories\RequestRepository;
 use App\Repositories\RentContractRepository;
 use App\Repositories\TenantRepository;
 use App\Transformers\MediaTransformer;
@@ -42,8 +42,8 @@ class MediaAPIController extends AppBaseController
     /** @var  PinboardRepository */
     private $pinboardRepository;
 
-    /** @var  ProductRepository */
-    private $productRepository;
+    /** @var  ListingRepository */
+    private $listingRepository;
 
     /** @var  TenantRepository */
     private $tenantRepository;
@@ -53,35 +53,35 @@ class MediaAPIController extends AppBaseController
      */
     private $rentContractRepository;
 
-    /** @var  ServiceRequestRepository */
-    private $serviceRequestRepository;
+    /** @var  RequestRepository */
+    private $requestRepository;
 
     /**
      * MediaAPIController constructor.
      * @param BuildingRepository $buildingRepo
      * @param AddressRepository $addrRepo
      * @param PinboardRepository $pinboardRepo
-     * @param ProductRepository $productRepo
+     * @param ListingRepository $productRepo
      * @param TenantRepository $tenantRepo
      * @param RentContractRepository $rentContractRepository
-     * @param ServiceRequestRepository $serviceRequestRepo
+     * @param RequestRepository $serviceRequestRepo
      */
     public function __construct(
         BuildingRepository $buildingRepo,
         AddressRepository $addrRepo,
         PinboardRepository $pinboardRepo,
-        ProductRepository $productRepo,
+        ListingRepository $productRepo,
         TenantRepository $tenantRepo,
         RentContractRepository $rentContractRepository,
-        ServiceRequestRepository $serviceRequestRepo
+        RequestRepository $serviceRequestRepo
     )
     {
         $this->buildingRepository = $buildingRepo;
         $this->addressRepository = $addrRepo;
         $this->pinboardRepository = $pinboardRepo;
-        $this->productRepository = $productRepo;
+        $this->listingRepository = $productRepo;
         $this->tenantRepository = $tenantRepo;
-        $this->serviceRequestRepository = $serviceRequestRepo;
+        $this->requestRepository = $serviceRequestRepo;
         $this->rentContractRepository = $rentContractRepository;
     }
 
@@ -599,17 +599,17 @@ class MediaAPIController extends AppBaseController
      */
     public function requestUpload(int $id, RequestUploadRequest $request)
     {
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        $serviceRequest = $this->requestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->serviceRequestRepository->uploadFile('media', $data, $serviceRequest, $request->merge_in_audit)) {
+        if (!$media = $this->requestRepository->uploadFile('media', $data, $serviceRequest, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
         $serviceRequest->touch();
-        $this->serviceRequestRepository->notifyMedia($serviceRequest, \Auth::user(), $media);
+        $this->requestRepository->notifyMedia($serviceRequest, \Auth::user(), $media);
         $response = (new MediaTransformer)->transform($media);
         return $this->sendResponse($response, __('general.swal.media.added'));
     }
@@ -656,7 +656,7 @@ class MediaAPIController extends AppBaseController
      */
     public function requestDestroy(int $id, int $media_id, RequestDeleteRequest $r)
     {
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        $serviceRequest = $this->requestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -713,13 +713,13 @@ class MediaAPIController extends AppBaseController
      */
     public function listingUpload(int $id, ListingUploadRequest $request)
     {
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = $this->listingRepository->findWithoutFail($id);
         if (empty($product)) {
             return $this->sendError(__('models.building.not_found'));
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->productRepository->uploadFile('media', $data, $product, $request->merge_in_audit)) {
+        if (!$media = $this->listingRepository->uploadFile('media', $data, $product, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
 
@@ -770,7 +770,7 @@ class MediaAPIController extends AppBaseController
      */
     public function listingDestroy(int $id, int $media_id, ListingDeleteRequest $r)
     {
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = $this->listingRepository->findWithoutFail($id);
         if (empty($product)) {
             return $this->sendError(__('models.product.errors.not_found'));
         }

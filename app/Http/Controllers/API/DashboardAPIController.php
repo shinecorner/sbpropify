@@ -21,7 +21,7 @@ use App\Models\Pinboard;
 use App\Models\Unit;
 use App\Models\UserSettings;
 use App\Repositories\BuildingRepository;
-use App\Repositories\ServiceRequestRepository;
+use App\Repositories\RequestRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UnitRepository;
 use Carbon\CarbonInterval;
@@ -246,27 +246,27 @@ class DashboardAPIController extends AppBaseController
     /** @var  TenantRepository */
     private $tenantRepo;
 
-    /** @var  ServiceRequestRepository */
-    private $serviceRequestRepo;
+    /** @var  RequestRepository */
+    private $requestRepository;
 
     /**
      * DashboardAPIController constructor.
      * @param BuildingRepository $br
      * @param UnitRepository $ur
      * @param TenantRepository $tr
-     * @param ServiceRequestRepository $srr
+     * @param RequestRepository $srr
      */
     public function __construct(
         BuildingRepository $br,
         UnitRepository $ur,
         TenantRepository $tr,
-        ServiceRequestRepository $srr
+        RequestRepository $srr
     )
     {
         $this->buildingRepo = $br;
         $this->unitRepo = $ur;
         $this->tenantRepo = $tr;
-        $this->serviceRequestRepo = $srr;
+        $this->requestRepository = $srr;
     }
 
     /**

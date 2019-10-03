@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\ServiceRequestCategory;
 
 /**
- * Class ServiceRequestCategoryRepository
+ * Class RequestCategoryRepository
  * @package App\Repositories
  * @version February 27, 2019, 2:18 pm UTC
  *
@@ -13,7 +13,7 @@ use App\Models\ServiceRequestCategory;
  * @method ServiceRequestCategory find($id, $columns = ['*'])
  * @method ServiceRequestCategory first($columns = ['*'])
 */
-class ServiceRequestCategoryRepository extends BaseRepository
+class RequestCategoryRepository extends BaseRepository
 {
     /**
      * @var array

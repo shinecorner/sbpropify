@@ -10,7 +10,7 @@ use App\Http\Requests\API\RequestCategory\UpdateRequest;
 use App\Http\Requests\API\RequestCategory\ViewRequest;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
-use App\Repositories\ServiceRequestCategoryRepository;
+use App\Repositories\RequestCategoryRepository;
 use App\Transformers\RequestCategoryTransformer;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
@@ -23,16 +23,16 @@ use Prettus\Repository\Criteria\RequestCriteria;
  */
 class RequestCategoryAPIController extends AppBaseController
 {
-    /** @var  ServiceRequestCategoryRepository */
-    private $serviceRequestCategoryRepository;
+    /** @var  RequestCategoryRepository */
+    private $requestCategoryRepository;
 
     /**
      * RequestCategoryAPIController constructor.
-     * @param ServiceRequestCategoryRepository $serviceRequestCategoryRepo
+     * @param RequestCategoryRepository $serviceRequestCategoryRepo
      */
-    public function __construct(ServiceRequestCategoryRepository $serviceRequestCategoryRepo)
+    public function __construct(RequestCategoryRepository $serviceRequestCategoryRepo)
     {
-        $this->serviceRequestCategoryRepository = $serviceRequestCategoryRepo;
+        $this->requestCategoryRepository = $serviceRequestCategoryRepo;
     }
 
     /**
@@ -70,10 +70,10 @@ class RequestCategoryAPIController extends AppBaseController
      */
     public function index(ListRequest $request)
     {
-        $this->serviceRequestCategoryRepository->pushCriteria(new RequestCriteria($request));
-        $this->serviceRequestCategoryRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->requestCategoryRepository->pushCriteria(new RequestCriteria($request));
+        $this->requestCategoryRepository->pushCriteria(new LimitOffsetCriteria($request));
 
-        $parentServiceRequestCategories = $this->serviceRequestCategoryRepository->with('categories')
+        $parentServiceRequestCategories = $this->requestCategoryRepository->with('categories')
             ->findWhere([
                 'parent_id' => null
             ]);
@@ -134,10 +134,10 @@ class RequestCategoryAPIController extends AppBaseController
      */
     public function categoryTree(ListRequest $request)
     {
-        $this->serviceRequestCategoryRepository->pushCriteria(new RequestCriteria($request));
-        $this->serviceRequestCategoryRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->requestCategoryRepository->pushCriteria(new RequestCriteria($request));
+        $this->requestCategoryRepository->pushCriteria(new LimitOffsetCriteria($request));
 
-        $serviceRequestCategories = $this->serviceRequestCategoryRepository->with('categories')
+        $serviceRequestCategories = $this->requestCategoryRepository->with('categories')
             ->findWhere([
                 'parent_id' => null
             ]);
@@ -194,7 +194,7 @@ class RequestCategoryAPIController extends AppBaseController
         $parentId = $request->get('parent_id');
         if ($parentId) {
             /** @var ServiceRequestCategory $serviceRequestCategory */
-            $parentCategory = $this->serviceRequestCategoryRepository->findWithoutFail((int)$parentId);
+            $parentCategory = $this->requestCategoryRepository->findWithoutFail((int)$parentId);
             if (empty($parentCategory)) {
                 return $this->sendError(__('models.requestCategory.errors.parent_not_found'));
             }
@@ -206,7 +206,7 @@ class RequestCategoryAPIController extends AppBaseController
             $input['has_qualifications'] = $parentCategory->has_qualifications;
         }
 
-        $serviceRequestCategories = $this->serviceRequestCategoryRepository->create($input);
+        $serviceRequestCategories = $this->requestCategoryRepository->create($input);
 
         $response = (new RequestCategoryTransformer)->transform($serviceRequestCategories);
         return $this->sendResponse($response, __('models.user.serviceRequestCategorySaved'));
@@ -254,7 +254,7 @@ class RequestCategoryAPIController extends AppBaseController
     public function show($id, ViewRequest $r)
     {
         /** @var ServiceRequestCategory $serviceRequestCategory */
-        $serviceRequestCategory = $this->serviceRequestCategoryRepository->findWithoutFail($id);
+        $serviceRequestCategory = $this->requestCategoryRepository->findWithoutFail($id);
         if (empty($serviceRequestCategory)) {
             return $this->sendError(__('models.requestCategory.errors.not_found'));
         }
@@ -315,7 +315,7 @@ class RequestCategoryAPIController extends AppBaseController
         $input = $request->only((new ServiceRequestCategory)->getFillable());
 
         /** @var ServiceRequestCategory $serviceRequestCategory */
-        $serviceRequestCategory = $this->serviceRequestCategoryRepository->findWithoutFail($id);
+        $serviceRequestCategory = $this->requestCategoryRepository->findWithoutFail($id);
         if (empty($serviceRequestCategory)) {
             return $this->sendError(__('models.requestCategory.errors.not_found'));
         }
@@ -325,7 +325,7 @@ class RequestCategoryAPIController extends AppBaseController
         $parentId = $request->get('parent_id');
         if ($parentId) {
             /** @var ServiceRequestCategory $serviceRequestCategory */
-            $parentCategory = $this->serviceRequestCategoryRepository->findWithoutFail((int)$parentId);
+            $parentCategory = $this->requestCategoryRepository->findWithoutFail((int)$parentId);
             if (empty($parentCategory)) {
                 return $this->sendError(__('models.requestCategory.errors.parent_not_found'));
             }
@@ -337,7 +337,7 @@ class RequestCategoryAPIController extends AppBaseController
             $input['has_qualifications'] = $parentCategory->has_qualifications;
         }
 
-        $serviceRequestCategory = $this->serviceRequestCategoryRepository->update($input, $id);
+        $serviceRequestCategory = $this->requestCategoryRepository->update($input, $id);
 
         $response = (new RequestCategoryTransformer())->transform($serviceRequestCategory);
         return $this->sendResponse($response, __('models.user.serviceRequestCategorySaved'));
@@ -386,7 +386,7 @@ class RequestCategoryAPIController extends AppBaseController
     public function destroy(int $id, DeleteRequest $r)
     {
         /** @var ServiceRequestCategory $serviceRequestCategory */
-        $serviceRequestCategory = $this->serviceRequestCategoryRepository->findWithoutFail($id);
+        $serviceRequestCategory = $this->requestCategoryRepository->findWithoutFail($id);
         if (empty($serviceRequestCategory)) {
             return $this->sendError(__('models.requestCategory.errors.not_found'));
         }

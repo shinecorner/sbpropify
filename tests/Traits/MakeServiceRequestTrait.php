@@ -2,7 +2,7 @@
 
 use Faker\Factory as Faker;
 use App\Models\ServiceRequest;
-use App\Repositories\ServiceRequestRepository;
+use App\Repositories\RequestRepository;
 
 trait MakeServiceRequestTrait
 {
@@ -14,8 +14,8 @@ trait MakeServiceRequestTrait
      */
     public function makeServiceRequest($serviceRequestFields = [])
     {
-        /** @var ServiceRequestRepository $serviceRequestRepo */
-        $serviceRequestRepo = App::make(ServiceRequestRepository::class);
+        /** @var RequestRepository $serviceRequestRepo */
+        $serviceRequestRepo = App::make(RequestRepository::class);
         $theme = $this->fakeServiceRequestData($serviceRequestFields);
         return $serviceRequestRepo->create($theme);
     }

@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\ServiceRequest;
-use App\Repositories\ServiceRequestRepository;
+use App\Repositories\RequestRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ServiceRequestRepositoryTest extends TestCase
@@ -9,14 +9,14 @@ class ServiceRequestRepositoryTest extends TestCase
     use MakeServiceRequestTrait, ApiTestTrait, DatabaseTransactions;
 
     /**
-     * @var ServiceRequestRepository
+     * @var RequestRepository
      */
     protected $serviceRequestRepo;
 
     public function setUp()
     {
         parent::setUp();
-        $this->serviceRequestRepo = App::make(ServiceRequestRepository::class);
+        $this->serviceRequestRepo = App::make(RequestRepository::class);
     }
 
     /**
