@@ -45,10 +45,10 @@ use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
 /**
- * Class ServiceRequestController
+ * Class RequestAPIController
  * @package App\Http\Controllers\API
  */
-class ServiceRequestAPIController extends AppBaseController
+class RequestAPIController extends AppBaseController
 {
     /** @var  ServiceRequestRepository */
     private $serviceRequestRepository;
@@ -59,7 +59,7 @@ class ServiceRequestAPIController extends AppBaseController
     private $serviceRequestFileNotFound = "Service request file not found!";
 
     /**
-     * ServiceRequestAPIController constructor.
+     * RequestAPIController constructor.
      * @param ServiceRequestRepository $serviceRequestRepo
      */
     public function __construct(ServiceRequestRepository $serviceRequestRepo)

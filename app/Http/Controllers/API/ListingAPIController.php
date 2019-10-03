@@ -26,10 +26,10 @@ use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
 /**
- * Class ProductController
+ * Class ListingAPIController
  * @package App\Http\Controllers\API
  */
-class ProductAPIController extends AppBaseController
+class ListingAPIController extends AppBaseController
 {
     /** @var  ProductRepository */
     private $productRepository;
@@ -47,7 +47,7 @@ class ProductAPIController extends AppBaseController
     private $uTransformer;
 
     /**
-     * ProductAPIController constructor.
+     * ListingAPIController constructor.
      * @param ProductRepository $productRepo
      * @param SettingsRepository $reRepo
      * @param ProductTransformer $t

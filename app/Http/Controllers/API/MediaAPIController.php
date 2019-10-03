@@ -711,7 +711,7 @@ class MediaAPIController extends AppBaseController
      * @param ProductUploadRequest $request
      * @return Response
      */
-    public function productUpload(int $id, ProductUploadRequest $request)
+    public function listingUpload(int $id, ProductUploadRequest $request)
     {
         $product = $this->productRepository->findWithoutFail($id);
         if (empty($product)) {
@@ -768,7 +768,7 @@ class MediaAPIController extends AppBaseController
      * @return Response
      *
      */
-    public function productDestroy(int $id, int $media_id, ProductDeleteRequest $r)
+    public function listingDestroy(int $id, int $media_id, ProductDeleteRequest $r)
     {
         $product = $this->productRepository->findWithoutFail($id);
         if (empty($product)) {

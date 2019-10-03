@@ -234,63 +234,73 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('cleanify', 'CleanifyRequestAPIController@store');
 
     // Service Requests Category
-    Route::get('/requestCategories', 'ServiceRequestCategoryAPIController@index')->name('requests.categories');
-    Route::get('/requestCategories/tree', 'ServiceRequestCategoryAPIController@categoryTree')->name('requests.categories.tree');
-    Route::get('/requestCategories/{id}', 'ServiceRequestCategoryAPIController@show')->name('requests.categories.show');
-    Route::post('/requestCategories', 'ServiceRequestCategoryAPIController@store')->name('requests.categories.store');
-    Route::put('/requestCategories/{id}', 'ServiceRequestCategoryAPIController@update')->name('requests.categories.update');
-    Route::delete('/requestCategories/{id}', 'ServiceRequestCategoryAPIController@destroy')->name('requests.categories.destroy');
+    Route::get('/requestCategories', 'RequestCategoryAPIController@index')->name('requests.categories');
+    Route::get('/requestCategories/tree', 'RequestCategoryAPIController@categoryTree')->name('requests.categories.tree');
+    Route::get('/requestCategories/{id}', 'RequestCategoryAPIController@show')->name('requests.categories.show');
+    Route::post('/requestCategories', 'RequestCategoryAPIController@store')->name('requests.categories.store');
+    Route::put('/requestCategories/{id}', 'RequestCategoryAPIController@update')->name('requests.categories.update');
+    Route::delete('/requestCategories/{id}', 'RequestCategoryAPIController@destroy')->name('requests.categories.destroy');
 
     // Tag Requests
     Route::resource('tags', 'TagAPIController');
 
     // Service Requests
-    Route::get('/requests', 'ServiceRequestAPIController@index')->name('requests');
-    Route::get('/requestsCounts', 'ServiceRequestAPIController@requestsCounts')->name('requestsCounts');
+    Route::get('/requests', 'RequestAPIController@index')->name('requests');
+    Route::get('/requestsCounts', 'RequestAPIController@requestsCounts')->name('requestsCounts');
     Route::get('/requests/statistics', 'DashboardAPIController@requestsStatistics')->name('requests.statistics');
-    Route::get('/requests/{id}', 'ServiceRequestAPIController@show')->name('requests.show');
-    Route::post('/requests', 'ServiceRequestAPIController@store')->name('requests.store');
+    Route::get('/requests/{id}', 'RequestAPIController@show')->name('requests.show');
+    Route::post('/requests', 'RequestAPIController@store')->name('requests.store');
     Route::post('/requests/{id}/media', 'MediaAPIController@serviceRequestUpload')->name('requests.media.upload');
     Route::post('/requests/{id}/comments', 'CommentAPIController@storeRequestComment')->name('requests.comment.store');
-    Route::post('/requests/{id}/notify', 'ServiceRequestAPIController@notifyProvider')->name('requests.notify');
-    Route::put('/requests/{id}', 'ServiceRequestAPIController@update')->name('requests.update');
-    Route::put('/requests/{id}/status', 'ServiceRequestAPIController@changeStatus')->name('requests.changeStatus');
-    Route::put('/requests/{id}/priority', 'ServiceRequestAPIController@changePriority')->name('requests.changePriority');
-    Route::delete('/requests/{id}', 'ServiceRequestAPIController@destroy')->name('requests.destroy');
-    Route::post('/requests/deletewithids', 'ServiceRequestAPIController@destroyWithIds')->name('requests.destroyWithIds');
+    Route::post('/requests/{id}/notify', 'RequestAPIController@notifyProvider')->name('requests.notify');
+    Route::put('/requests/{id}', 'RequestAPIController@update')->name('requests.update');
+    Route::put('/requests/{id}/status', 'RequestAPIController@changeStatus')->name('requests.changeStatus');
+    Route::put('/requests/{id}/priority', 'RequestAPIController@changePriority')->name('requests.changePriority');
+    Route::delete('/requests/{id}', 'RequestAPIController@destroy')->name('requests.destroy');
+    Route::post('/requests/deletewithids', 'RequestAPIController@destroyWithIds')->name('requests.destroyWithIds');
     Route::delete('/requests/{id}/media/{media_id}', 'MediaAPIController@serviceRequestDestroy')->name('requests.media.destroy');
-    Route::post('/requests/{id}/download-pdf', 'ServiceRequestAPIController@downloadPdf');
+    Route::post('/requests/{id}/download-pdf', 'RequestAPIController@downloadPdf');
 
-    Route::get('/requests/{id}/tags', 'ServiceRequestAPIController@getTags');
-    Route::get('/requests/{id}/assignees', 'ServiceRequestAPIController@getAssignees');
-    Route::post('/requests/{id}/users/{user_id}', 'ServiceRequestAPIController@assignUser');
-    Route::post('/requests/{id}/providers/{provider_id}', 'ServiceRequestAPIController@assignProvider');
-    Route::post('/requests/{id}/managers/{manager_id}', 'ServiceRequestAPIController@assignManager');
-    Route::post('/requests/{id}/tags', 'ServiceRequestAPIController@assignManyTags')->name('request.assign.many-tags');
-    Route::post('/requests/{id}/tags/{tag_id}', 'ServiceRequestAPIController@assignTag');
-    Route::delete('/requests/{id}/tags', 'ServiceRequestAPIController@unassignManyTags')->name('request.unassign.many-tags');
-    Route::delete('/requests/{id}/tags/{tag_id}', 'ServiceRequestAPIController@unassignTag');
-    Route::delete('/requests-assignees/{requests_assignee_id}', 'ServiceRequestAPIController@deleteRequestAssignee');
+    Route::get('/requests/{id}/tags', 'RequestAPIController@getTags');
+    Route::get('/requests/{id}/assignees', 'RequestAPIController@getAssignees');
+    Route::post('/requests/{id}/users/{user_id}', 'RequestAPIController@assignUser');
+    Route::post('/requests/{id}/providers/{provider_id}', 'RequestAPIController@assignProvider');
+    Route::post('/requests/{id}/managers/{manager_id}', 'RequestAPIController@assignManager');
+    Route::post('/requests/{id}/tags', 'RequestAPIController@assignManyTags')->name('request.assign.many-tags');
+    Route::post('/requests/{id}/tags/{tag_id}', 'RequestAPIController@assignTag');
+    Route::delete('/requests/{id}/tags', 'RequestAPIController@unassignManyTags')->name('request.unassign.many-tags');
+    Route::delete('/requests/{id}/tags/{tag_id}', 'RequestAPIController@unassignTag');
+    Route::delete('/requests-assignees/{requests_assignee_id}', 'RequestAPIController@deleteRequestAssignee');
 
     // @TODO remove later
-    Route::post('/requests/{id}/assignees/{assignee_id}', 'ServiceRequestAPIController@assignTmpManager');
-    Route::delete('/requests/{id}/assignees/{assignee_id}', 'ServiceRequestAPIController@unassignUser');
-    Route::delete('/requests/{id}/providers/{provider_id}', 'ServiceRequestAPIController@unassignProvider');
+    Route::post('/requests/{id}/assignees/{assignee_id}', 'RequestAPIController@assignTmpManager');
+    Route::delete('/requests/{id}/assignees/{assignee_id}', 'RequestAPIController@unassignUser');
+    Route::delete('/requests/{id}/providers/{provider_id}', 'RequestAPIController@unassignProvider');
 
 
-    Route::get('/requests/{id}/communicationTemplates', 'ServiceRequestAPIController@getCommunicationTemplates');
-    Route::get('/requests/{id}/serviceCommunicationTemplates', 'ServiceRequestAPIController@getServiceCommunicationTemplates');
-    Route::get('/requests/{id}/serviceEmailTemplates', 'ServiceRequestAPIController@getServiceEmailTemplates');
+    Route::get('/requests/{id}/communicationTemplates', 'RequestAPIController@getCommunicationTemplates');
+    Route::get('/requests/{id}/serviceCommunicationTemplates', 'RequestAPIController@getServiceCommunicationTemplates');
+    Route::get('/requests/{id}/serviceEmailTemplates', 'RequestAPIController@getServiceEmailTemplates');
+
+    // Listings // @TODO delete
+    Route::resource('products', 'ListingAPIController');
+    Route::post('products/{id}/like', 'ListingAPIController@like')->name('products.like');
+    Route::post('products/{id}/unlike', 'ListingAPIController@unlike')->name('products.unlike');
+    Route::post('products/{id}/media', 'MediaAPIController@listingUpload')->name('products.media.upload');
+    Route::delete('products/{id}/media/{media_id}', 'MediaAPIController@listingDestroy')->name('products.media.destroy');
+    Route::post('/products/deletewithids', 'ListingAPIController@destroyWithIds')->name('products.destroyWithIds');
+    Route::post('products/{id}/comments', 'CommentAPIController@storeProductComment')->name('products.store.comment');
+    Route::post('products/{id}/publish', 'ListingAPIController@publish')->name('products.publish');
 
     // Products
-    Route::resource('products', 'ProductAPIController');
-    Route::post('products/{id}/like', 'ProductAPIController@like')->name('products.like');
-    Route::post('products/{id}/unlike', 'ProductAPIController@unlike')->name('products.unlike');
-    Route::post('products/{id}/media', 'MediaAPIController@productUpload')->name('products.media.upload');
-    Route::delete('products/{id}/media/{media_id}', 'MediaAPIController@productDestroy')->name('products.media.destroy');
-    Route::post('/products/deletewithids', 'ProductAPIController@destroyWithIds')->name('products.destroyWithIds');
-    Route::post('products/{id}/comments', 'CommentAPIController@storeProductComment')->name('products.store.comment');
-    Route::post('products/{id}/publish', 'ProductAPIController@publish')->name('products.publish');
+    Route::resource('listings', 'ListingAPIController');
+    Route::post('listings/{id}/like', 'ListingAPIController@like')->name('listings.like');
+    Route::post('listings/{id}/unlike', 'ListingAPIController@unlike')->name('listings.unlike');
+    Route::post('listings/{id}/media', 'MediaAPIController@listingUpload')->name('listings.media.upload');
+    Route::delete('listings/{id}/media/{media_id}', 'MediaAPIController@listingDestroy')->name('listings.media.destroy');
+    Route::post('/listings/deletewithids', 'ListingAPIController@destroyWithIds')->name('listings.destroyWithIds');
+    Route::post('listings/{id}/comments', 'CommentAPIController@storeProductComment')->name('listings.store.comment');
+    Route::post('listings/{id}/publish', 'ListingAPIController@publish')->name('listings.publish');
 
     // Service Requests
     Route::get('propertyManagers', 'PropertyManagerAPIController@index')->name('propertyManagers');

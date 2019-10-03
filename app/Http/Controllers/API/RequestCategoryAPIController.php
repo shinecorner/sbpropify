@@ -18,16 +18,16 @@ use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 /**
- * Class ServiceRequestCategoryController
+ * Class RequestCategoryAPIController
  * @package App\Http\Controllers\API
  */
-class ServiceRequestCategoryAPIController extends AppBaseController
+class RequestCategoryAPIController extends AppBaseController
 {
     /** @var  ServiceRequestCategoryRepository */
     private $serviceRequestCategoryRepository;
 
     /**
-     * ServiceRequestCategoryAPIController constructor.
+     * RequestCategoryAPIController constructor.
      * @param ServiceRequestCategoryRepository $serviceRequestCategoryRepo
      */
     public function __construct(ServiceRequestCategoryRepository $serviceRequestCategoryRepo)
