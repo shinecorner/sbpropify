@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Models\Product;
+use App\Models\Listing;
 
 /**
  * Class ListingTransformer.
@@ -16,11 +16,11 @@ class ListingTransformer extends BaseTransformer
     /**
      * Transform the Listing entity.
      *
-     * @param \App\Models\Product $model
+     * @param \App\Models\Listing $model
      *
      * @return array
      */
-    public function transform(Product $model)
+    public function transform(Listing $model)
     {
         $response = [
             'id' => $model->id,

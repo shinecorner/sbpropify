@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Models\ServiceRequestCategory;
+use App\Models\RequestCategory;
 
 /**
  * Class RequestCategorySimpleTransformer.
@@ -12,13 +12,13 @@ use App\Models\ServiceRequestCategory;
 class RequestCategorySimpleTransformer extends BaseTransformer
 {
     /**
-     * Transform the ServiceRequestCategory entity.
+     * Transform the RequestCategory entity.
      *
-     * @param \App\Models\ServiceRequestCategory $model
+     * @param \App\Models\RequestCategory $model
      *
      * @return array
      */
-    public function transform(ServiceRequestCategory $model)
+    public function transform(RequestCategory $model)
     {
         $response = [
             'id' => $model->id,

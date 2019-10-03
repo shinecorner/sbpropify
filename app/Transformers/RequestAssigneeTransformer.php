@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Transformers;
-use App\Models\ServiceRequest;
-use App\Models\ServiceRequestAssignee;
+
+use App\Models\RequestAssignee;
 
 /**
  * Class RequestTransformer
@@ -14,11 +14,11 @@ class RequestAssigneeTransformer extends BaseTransformer
     /**
      * Transform the ServiceProvider entity.
      *
-     * @param ServiceRequest $model
+     * @param RequestAssignee $model
      *
      * @return array
      */
-    public function transform(ServiceRequestAssignee $model)
+    public function transform(RequestAssignee $model)
     {
         $response = [
             'id' => $model->id,

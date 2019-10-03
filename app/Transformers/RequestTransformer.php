@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 
 /**
  * Class RequestTransformer
@@ -12,13 +12,11 @@ use App\Models\ServiceRequest;
 class RequestTransformer extends BaseTransformer
 {
     /**
-     * Transform the ServiceProvider entity.
-     *
-     * @param ServiceRequest $model
-     *
+     * @param Request $model
      * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function transform(ServiceRequest $model)
+    public function transform(Request $model)
     {
         $response = [
             'id' => $model->id,

@@ -3,8 +3,8 @@
 namespace App\Transformers;
 
 use App\Models\Pinboard;
-use App\Models\Product;
-use App\Models\ServiceRequest;
+use App\Models\Listing;
+use App\Models\Request;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use OwenIt\Auditing\Models\Audit;
 use Illuminate\Support\Arr;
@@ -19,7 +19,7 @@ class AuditTransformer extends BaseTransformer
     /**
      * Transform the Audit entity.
      *
-     * @param OwenIt\Auditing\Models\Audit $model
+     * @param Audit $model
      *
      * @return array
      */
@@ -43,21 +43,31 @@ class AuditTransformer extends BaseTransformer
         ];
     }
 
+    /**
+     * @param Audit $a
+     * @return mixed|string
+     */
     private function getMessage(Audit $a)
     {
         if ($this->getMorphedModel($a->auditable_type) == Pinboard::class) {
             return $this->getPinboardMessage($a);
         }
-        if ($this->getMorphedModel($a->auditable_type) == Product::class) {
-            return $this->getProductMessage($a);
+
+        if ($this->getMorphedModel($a->auditable_type) == Listing::class) {
+            return $this->getListingMessage($a);
         }
-        if ($this->getMorphedModel($a->auditable_type) == ServiceRequest::class) {
-            return $this->getServiceRequestMessage($a);
+
+        if ($this->getMorphedModel($a->auditable_type) == Request::class) {
+            return $this->getRequestMessage($a);
         }
 
         return "unkown";
     }
 
+    /**
+     * @param Audit $a
+     * @return mixed
+     */
     private function getPinboardMessage(Audit $a)
     {
         if ($a->event == 'created' || $a->event == 'deleted') {
@@ -78,24 +88,36 @@ class AuditTransformer extends BaseTransformer
         return $a->event;
     }
 
-    private function getProductMessage(Audit $a)
+    /**
+     * @param Audit $a
+     * @return mixed
+     */
+    private function getListingMessage(Audit $a)
     {
         return $a->event;
     }
 
-    private function getServiceRequestMessage(Audit $a)
+    /**
+     * @param Audit $a
+     * @return mixed
+     */
+    private function getRequestMessage(Audit $a)
     {
         if ($a->event == 'created' || $a->event == 'deleted') {
             return $a->event;
         }
 
         if (Arr::has($a->new_values, 'status')) {
-            return ServiceRequest::Status[$a->new_values['status']];
+            return Request::Status[$a->new_values['status']];
         }
 
         return $a->event;
     }
 
+    /**
+     * @param $alias
+     * @return string|null
+     */
     private function getMorphedModel($alias)
     {
         return Relation::getMorphedModel($alias) ?? $alias;
