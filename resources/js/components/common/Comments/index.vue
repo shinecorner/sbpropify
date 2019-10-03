@@ -128,8 +128,13 @@
                     })
 
                     this.comments = this.$store.getters['comments/get'](this.id, this.type)
-
-                    EventBus.$emit('comments-get-counted', this.comments.total);
+                    if(this.type === 'internalNotices'){
+                        EventBus.$emit('notice-comment-count', this.comments.total);
+                    } else if(this.type === 'pinboard'){
+                        EventBus.$emit('pinboard-comment-count', this.comments.total);
+                    } else if(this.type === 'request'){
+                        EventBus.$emit('request-comment-count', this.comments.total);
+                    }                    
 
                     if (this.$refs['dynamic-scroller'] && current_page >= 1) {
                         this.$refs['dynamic-scroller'].$el.scrollTop = this.$refs['dynamic-scroller'].$el.scrollHeight - prevScrollHeight
@@ -208,6 +213,10 @@
                     macros.title = 'components.common.listingcommentsList.emptyPlaceholder.title';
                     macros.description = 'components.common.listingcommentsList.emptyPlaceholder.description';                    
                 }
+                else if((this.type === 'pinboard')){
+                    macros.title = 'components.common.pinboardcommentsList.emptyPlaceholder.title';
+                    macros.description = 'components.common.pinboardcommentsList.emptyPlaceholder.description';
+                }
                 return macros;
             } 
         },
@@ -224,7 +233,7 @@
                 this.comments = this.data;
             } else {
                 
-                //this.$store.dispatch('comments/clear', {commentable: this.type})
+                this.$store.dispatch('comments/clear', {commentable: this.type})
 
                 await this.fetch()
             }

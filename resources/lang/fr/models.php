@@ -24,10 +24,9 @@ return [
         'blank_pdf_desc' => 'Générez des fichiers PDF sans papier à en-tête afin qu\'ils puissent être imprimés sur votre propre papeterie.',
         'font_family' => 'Font family',
         "notificationSaved" => "Réglage de la notification sauvegardé",
-        "SettingsSaved" => "Options des biens immobiliers sauvegardées",
+        "settingsSaved" => "Options des biens immobiliers sauvegardées",
         "serviceRequestCategorySaved" => "Catégorie de demande de service sauvegardée",
         "serviceRequestCategoryDeleted" => "Catégorie de demande de service supprimée",
-        'setting_saved' => "réglage utilisateur sauvegardé",
         'setting_deleted' => "Suppression du réglage utilisateur",
         'password_reset_request_sent' => "Nous vous avons envoyé un e-mail avec d'autres instructions. Veuillez vérifier votre boîte de réception.",
         'errors' => [
@@ -391,7 +390,7 @@ return [
         "content" => "Contenu",
         "preview" => "Aperçu",
         "add" => "Ajouter Panneau d'affichage",
-        "add_pinned" => "Ajouter un tableau d'affichage épinglé",
+        "add_announcement" => "Annonce",
         "saved" => "Panneau d'affichage sauvegardé",
         'view_incresead' => "Le nombre de points de vue a augmenté avec succès",
         "updated" => "Mise à jour du tableau d'affichage",
@@ -403,11 +402,12 @@ return [
         "publish" => "Publier",
         "unpublish" => "Non publié",
         "buildings" => "Bâtiments",
-        "pinned" => "Épinglé",
+        "announcement" => "Annonce à l'intention de",
         "notify_email" => "Prévenez par courriel",
-        "pinned_to" => "Épinglé sur",
+        "announcement_to" => "Annonce",
         "comments" => "Commentaires",
         "images" => "Images",
+        'attachments' => 'Pièces jointes',
         'category_default_image_label' => 'Voulez-vous utiliser cette image?',
         'placeholders' => [
             "buildings" => "Choisir des bâtiments",
@@ -418,7 +418,7 @@ return [
             "post" => "Poster",
             "article" => "Article",
             "new_neighbour" => "Nouveau voisin",
-            "pinned" => "Épinglé",
+            "announcement" => "Annonce",
         ],
         'sub_type' => [
             'label' => 'Sous-type',
@@ -520,9 +520,10 @@ return [
             'deleted' => "Erreur d'effacement trimestriel : ",
         ],
     ],
-    'Settings' => [
+    'settings' => [
         "title" => "Réglages de l'immobilier",
         "settings" => "Réglages",
+        'saved' => "réglage utilisateur sauvegardé",
         'tenants_portal' => 'Portail locataires',
         'iframe' => 'Iframe',
         'micro_apps' => 'Micro-Applications',
@@ -536,6 +537,7 @@ return [
         "quarter_enable" => "Trimestre",
         "marketplace_approval_enable" => "Activer le marché",
         'gocaution' => 'Gocaution',
+        'gocaution_desc' => 'Gocaution',
         "blank_pdf" => "PDF vierge",
         'blank_pdf_desc' => 'Générez des fichiers PDF sans papier à en-tête afin qu\'ils puissent être imprimés sur votre propre papeterie.',
         'font_family' => 'Font family',
@@ -547,12 +549,15 @@ return [
         "schedule" => "Calendrier",
         "endTime" => "Heure de la fin",
         "startTime" => "Heure de début",
+        'powered_by' => 'Propulsé par',
         "to" => "A",
         "categories" => "Catégories",
         "templates" => "Modèles",
         "contact_enable" => "Activez'Mes contacts'",
         'contact_enable_desc' => 'Les locataires peuvent voir les coordonnées des partenaires de service impliqués dans le portail des locataires.',
         "cleanify_email" => "Nettoyer les e-mails",
+        "cleanify_email_desc" => "Nettoyer les e-mails",
+        'cleanify_email_url' => 'Nettoyer les e-mails URL',
         "mail_encryption" => "Cryptage",
         'primary_color' => 'Couleur primaire',
         'accent_color' => 'Couleur d\'accent',
@@ -586,6 +591,10 @@ return [
         "mail_password" => [
             "label" => "Mot de passe",
             "validation" => "Entrer le mot de passe de l'email"
+        ],
+        "mail_powered_by" => [
+            "label" => "Email",
+            "validation" => "Entrez votre courriel"
         ],
         'errors' => [
             'not_found' => "Biens immobiliers non trouvés",
@@ -696,17 +705,8 @@ return [
             "solved" => "Résolues",
             "pending" => "En attente"
         ],
-        'category_options' => [
-            "disturbance" => "Perturbation",
-            "defect" => "Défaut",
-            "other" => "Autre",
-            'room' => 'Chambre',
-            'range' => 'Gamme',
-            'component' => 'Composante',
-            'acquisition' => 'Phase d\'acquisition',
-            'cost' => 'Incidence sur les coûts',
-            'keywords' => 'Mots-clés',
-            'building_locations' => [
+        'sub_category_fields' => [
+            'location' => [
                 'house_entrance' => 'Entrée de maison',
                 'staircase' => 'Escalier',
                 'elevator' => 'Ascenseur',
@@ -718,7 +718,7 @@ return [
                 'roof' => 'Toit',
                 'other' => 'Autre'
             ],
-            'apartment_rooms' => [
+            'room' => [
                 'bath' => 'Salle de bains/WC',
                 'shower' => 'Douche/WC',
                 'entrance' => 'L\'entrée',
@@ -734,7 +734,7 @@ return [
                 'all' => 'Tous',
                 'other' => 'Autre'
             ],
-            'acquisitions' => [
+            'capture_phase' => [
                 'other' => 'Autre',
                 'construction' => 'Phase de construction',
                 'shell' => 'Acceptation de la coquille',
@@ -743,11 +743,22 @@ return [
                 'surrender' => 'Rendez-vous',
                 'inspection' => 'Acceptation'
             ],
-            'costs' => [
+            'payer' => [
                 'landlord' => 'Propriétaire',
                 'tenant' => 'Locataire',
                 'tenant/landlord' => 'Locataire/Propriétaire'
             ]
+        ],
+        'category_options' => [
+            "disturbance" => "Perturbation",
+            "defect" => "Défaut",
+            "other" => "Autre",
+            'room' => 'Chambre',
+            'range' => 'Gamme',
+            'component' => 'Composante',
+            'acquisition' => 'Phase d\'acquisition',
+            'cost' => 'Incidence sur les coûts',
+            'keywords' => 'Mots-clés',
         ],
         'placeholders' => [
             "category" => "Sélectionnez une catégorie",

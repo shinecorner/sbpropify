@@ -8,7 +8,7 @@
                                 @change="showSubcategory">
                         <el-option v-for="category in categories" 
                                     :key="category.id" 
-                                    :label="category.name" 
+                                    :label="category['name_'+$i18n.locale]" 
                                     :value="category.id" />
                     </el-select>
                 </el-form-item>
@@ -20,7 +20,7 @@
                                 @change="showLocationOrRoom">
                         <el-option v-for="category in defect_subcategories" 
                                     :key="category.id" 
-                                    :label="category.name" 
+                                    :label="category['name_'+$i18n.locale]" 
                                     :value="category.id" />
                     </el-select>
                 </el-form-item>
@@ -217,6 +217,19 @@
                     this.showUmgebung = true;
                 }
             },
+            getLanguageI18n() {
+                let building_locations = this.$t('models.request.category_options.building_locations');
+                this.building_locations = [];
+                for (var key in building_locations) {
+                    this.building_locations.push({name : building_locations[key], value : key})
+                }
+
+                let apartment_rooms = this.$t('models.request.category_options.apartment_rooms');
+                this.apartment_rooms = [];
+                for (var key in apartment_rooms) {
+                    this.apartment_rooms.push({name : apartment_rooms[key], value : key})
+                }
+            },
             submit () {
                 this.$refs.form.validate(async valid => {
                     if (valid) {
@@ -289,25 +302,20 @@
                 });
                 this.defect_subcategories = defect_cat.categories;
 
-                let building_locations = this.$t('models.request.category_options.building_locations');
-                this.building_locations = [];
-                for (var key in building_locations) {
-                    this.building_locations.push({name : building_locations[key], value : key})
-                }
-
-                let apartment_rooms = this.$t('models.request.category_options.apartment_rooms');
-                this.apartment_rooms = [];
-                for (var key in apartment_rooms) {
-                    this.apartment_rooms.push({name : apartment_rooms[key], value : key})
-                }
-
-
             } catch (err) {
                 displayError(err)
             }
 
             this.priorities = Object.entries(this.$constants.serviceRequests.priority).map(([value, label]) => ({value: +value, label}));
-        }
+        },
+        watch: {
+            "$i18n.locale": {
+                immediate: true,
+                handler(val) {
+                    this.getLanguageI18n();
+                }
+            }
+        },
     };
 </script>
 
