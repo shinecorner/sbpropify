@@ -128,8 +128,8 @@ export default (config = {}) => {
                 return ['.pdf'].includes(ext);
             },
             editRentContract(index) {
-                console.log(this.model.rent_contracts)
                 this.editingRentContract = this.model.rent_contracts[index];
+                console.log('editing', this.editingRentContract)
                 this.visibleDrawer = true;
             },
             deleteRentContract(index) {

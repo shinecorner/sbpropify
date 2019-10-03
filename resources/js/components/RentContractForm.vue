@@ -14,7 +14,7 @@
                             :loading="remoteLoading"
                             :placeholder="$t('models.tenant.search_building')"
                             :remote-method="remoteRentContractdSearchBuildings"
-                            @change="searchRentContractUnits(false)"
+                            @change="searchRentContractUnits()"
                             filterable
                             remote
                             reserve-keyword
@@ -443,8 +443,8 @@
                     }
                 }
             },
-            async searchRentContractUnits(shouldKeepValue) {
-                if(!shouldKeepValue)
+            async searchRentContractUnits() {
+
                 this.model.unit_id = '';
                 try {
                     const resp = await this.getUnits({
@@ -485,8 +485,21 @@
             },
             ...mapActions(['getBuildings', 'getUnits']),
         },
-        created () {
-            // this.model = this.data;
+        async created () {
+
+            if(this.mode == "edit") {
+                this.model = this.data
+
+                if(this.model.building) {
+                    await this.remoteRentContractdSearchBuildings(this.model.building.name)
+                }
+
+                if (this.model.unit) {
+
+                    await this.searchRentContractUnits()
+                    this.model.unit_id = this.model.unit.id
+                }
+            }
             this.rent_types = Object.entries(this.$constants.rentContracts.type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_types.${label}`)}))
             this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
             this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))

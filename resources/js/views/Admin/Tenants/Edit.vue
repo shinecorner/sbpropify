@@ -263,7 +263,7 @@
             </el-row>
             </div>
             <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
-                <div class="content">
+                <div class="content" v-if="visibleDrawer">
                     <rent-contract-form v-if="editingRentContract" mode="edit" :data="editingRentContract" :tenant_id="model.id" :visible.sync="visibleDrawer"/>
                     <rent-contract-form v-else mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer"/>
                 </div>
