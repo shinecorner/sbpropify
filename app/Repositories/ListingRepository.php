@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Models\Product;
+use App\Models\Listing;
 use App\Models\User;
-use App\Notifications\ProductPublished;
+use App\Notifications\ListingPublished;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
 
@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Notification;
  * @package App\Repositories
  * @version March 3, 2019, 3:15 pm UTC
  *
- * @method Product findWithoutFail($id, $columns = ['*'])
- * @method Product find($id, $columns = ['*'])
- * @method Product first($columns = ['*'])
+ * @method Listing findWithoutFail($id, $columns = ['*'])
+ * @method Listing find($id, $columns = ['*'])
+ * @method Listing first($columns = ['*'])
 */
 class ListingRepository extends BaseRepository
 {
@@ -40,7 +40,7 @@ class ListingRepository extends BaseRepository
      **/
     public function model()
     {
-        return Product::class;
+        return Listing::class;
     }
 
     public function create(array $atts)
@@ -51,58 +51,58 @@ class ListingRepository extends BaseRepository
             $atts['quarter_id'] = $u->tenant->building->quarter_id;
         }
 
-        if ($atts['visibility'] != Product::VisibilityAll &&
+        if ($atts['visibility'] != Listing::VisibilityAll &&
             !isset($atts['address_id']) && (!isset($atts['quarter_id']))
         ) {
-            throw new \Exception("Missing address or missing quarter for new product");
+            throw new \Exception("Missing address or missing quarter for new listing");
         }
 
         $model = parent::create($atts);
 
         if (!$atts['needs_approval']) {
-            return $this->setStatusExisting($model, Product::StatusPublished);
+            return $this->setStatusExisting($model, Listing::StatusPublished);
         }
 
         return $model;
     }
 
     /**
-     * @param $product
+     * @param $listing
      * @param $status
      * @return mixed
      */
-    public function setStatusExisting($product, $status)
+    public function setStatusExisting($listing, $status)
     {
-        if ($product->status != $status && $status == Product::StatusPublished) {
-            $product->published_at = Carbon::now();
-            $this->notify($product);
+        if ($listing->status != $status && $status == Listing::StatusPublished) {
+            $listing->published_at = Carbon::now();
+            $this->notify($listing);
         }
 
-        $product->status = $status;
-        $product->save();
-        return $product;
+        $listing->status = $status;
+        $listing->save();
+        return $listing;
     }
 
-    public function notify(Product $product)
+    public function notify(Listing $listing)
     {
         $users = [];
-        if ($product->visibility == Product::VisibilityAll) {
+        if ($listing->visibility == Listing::VisibilityAll) {
             $users = User::all();
         }
-        if ($product->visibility == Product::VisibilityQuarter) {
+        if ($listing->visibility == Listing::VisibilityQuarter) {
             $users = User::select('users.*')
                 ->join('tenants', 'tenants.user_id', '=', 'users.id')
                 ->join('buildings', 'buildings.id', '=', 'tenants.building_id')
-                ->where('buildings.quarter_id', $product->quarter_id)
+                ->where('buildings.quarter_id', $listing->quarter_id)
                 ->get();
         }
-        if ($product->visibility == Product::VisibilityAddress) {
+        if ($listing->visibility == Listing::VisibilityAddress) {
             $users = User::select('users.*')
                 ->join('tenants', 'tenants.user_id', '=', 'users.id')
                 ->join('buildings', 'buildings.id', '=', 'tenants.building_id')
-                ->where('buildings.address_id', $product->address_id)
+                ->where('buildings.address_id', $listing->address_id)
                 ->get();
         }
-        Notification::send($users, new ProductPublished($product));
+        Notification::send($users, new ListingPublished($listing));
     }
 }

@@ -6,9 +6,9 @@ use App\Models\CleanifyRequest;
 use App\Models\Comment;
 use App\Models\PasswordReset;
 use App\Models\Pinboard;
-use App\Models\Product;
+use App\Models\Listing;
 use App\Models\Settings;
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Models\Template;
 use App\Models\TemplateCategory;
 use App\Models\Tenant;
@@ -489,11 +489,11 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Product $listing
+     * @param Listing $listing
      * @param User $user
      * @return array
      */
-    public function getProductLikedParsedTemplate(Product $listing, User $user): array
+    public function getListingLikedParsedTemplate(Listing $listing, User $user): array
     {
         $template = $this->getByCategoryName('listing_liked');
 
@@ -509,12 +509,12 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Product $listing
+     * @param Listing $listing
      * @param User $user
      * @param Comment $comment
      * @return array
      */
-    public function getProductCommentedParsedTemplate(Product $listing, User $user, Comment $comment): array
+    public function getListingCommentedParsedTemplate(Listing $listing, User $user, Comment $comment): array
     {
         $template = $this->getByCategoryName('listing_commented');
 
@@ -531,12 +531,12 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param ServiceRequest $request
+     * @param Request $request
      * @param User $user
      * @param User $subject
      * @return array
      */
-    public function getNewRequestParsedTemplate(ServiceRequest $request, User $user, User $subject): array
+    public function getNewRequestParsedTemplate(Request $request, User $user, User $subject): array
     {
         $template = $this->getByCategoryName('new_request');
 
@@ -553,21 +553,21 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param ServiceRequest $sr
+     * @param Request $request
      * @param User $user
      * @param Comment $comment
      * @return array
      */
-    public function getRequestCommentedParsedTemplate(ServiceRequest $sr, User $user, Comment $comment): array
+    public function getRequestCommentedParsedTemplate(Request $request, User $user, Comment $comment): array
     {
         $template = $this->getByCategoryName('request_comment');
 
-        $user->redirect = '/admin/requests/' . $sr->id;
+        $user->redirect = '/admin/requests/' . $request->id;
         if ($user->hasRole('tenant')) {
             $user->redirect = '/requests';
         }
         $context = [
-            'request' => $sr,
+            'request' => $request,
             'comment' => $comment,
             'user' => $user,
         ];
@@ -578,16 +578,16 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param ServiceRequest $sr
+     * @param Request $request
      * @return array
      */
-    public function getRequestDueParsedTemplate(ServiceRequest $sr, User $receiver): array
+    public function getRequestDueParsedTemplate(Request $request, User $receiver): array
     {
         $template = $this->getByCategoryName('request_due_date_reminder');
 
-        $receiver->redirect = '/admin/requests/' . $sr->id;
+        $receiver->redirect = '/admin/requests/' . $request->id;
         $context = [
-            'request' => $sr,
+            'request' => $request,
             'receiver' => $receiver,
         ];
 
@@ -597,14 +597,14 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param ServiceRequest $sr
+     * @param Request $request
      * @param User $uploader
      * @param User $receiver
      * @param Media $media
      * @return array
      */
     public function getRequestMediaParsedTemplate(
-        ServiceRequest $sr,
+        Request $request,
         User $uploader,
         User $receiver,
         Media $media
@@ -612,12 +612,12 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('request_upload');
 
-        $receiver->redirect = '/admin/requests/' . $sr->id;
+        $receiver->redirect = '/admin/requests/' . $request->id;
         if ($receiver->hasRole('tenant')) {
             $receiver->redirect = '/requests';
         }
         $context = [
-            'request' => $sr,
+            'request' => $request,
             'media' => $media,
             'uploader' => $uploader,
             'receiver' => $receiver,
@@ -631,19 +631,19 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param ServiceRequest $sr
-     * @param ServiceRequest $osr
+     * @param Request $request
+     * @param Request $originalRequest
      * @param User $user
      * @return array
      */
-    public function getRequestStatusChangedParsedTemplate(ServiceRequest $sr, ServiceRequest $osr, User $user): array
+    public function getRequestStatusChangedParsedTemplate(Request $request, Request $originalRequest, User $user): array
     {
         $template = $this->getByCategoryName('request_admin_change_status');
 
-        $sr->tenant->user->redirect = '/requests';
+        $request->tenant->user->redirect = '/requests';
         $context = [
-            'request' => $sr,
-            'originalRequest' => $osr,
+            'request' => $request,
+            'originalRequest' => $originalRequest,
             'user' => $user,
         ];
         $tags = $this->getTags($template->category->tag_map, $context);
@@ -652,14 +652,14 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param ServiceRequest $sr
+     * @param Request $request
      * @param Comment $comment
      * @param User $sender
      * @param User $receiver
      * @return array
      */
     public function getRequestInternalCommentParsedTemplate(
-        ServiceRequest $sr,
+        Request $request,
         Comment $comment,
         User $sender,
         User $receiver
@@ -667,9 +667,9 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('request_internal_comment');
 
-        $receiver->redirect = '/admin/requests/' . $sr->id;
+        $receiver->redirect = '/admin/requests/' . $request->id;
         $context = [
-            'request' => $sr,
+            'request' => $request,
             'comment' => $comment,
             'sender' => $sender,
             'receiver' => $receiver,
@@ -681,28 +681,28 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param CleanifyRequest $creq
+     * @param CleanifyRequest $cleanifyRequest
      * @return array
      */
-    public function getCleanifyParsedTemplate(CleanifyRequest $creq): array
+    public function getCleanifyParsedTemplate(CleanifyRequest $cleanifyRequest): array
     {
         $template = $this->getByCategoryName('cleanify_request_email');
 
         $context = [
-            'form' => $creq->form
+            'form' => $cleanifyRequest->form
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplateData($template, $tags, $creq->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $cleanifyRequest->user->settings->language);
     }
 
     /**
-     * @param ServiceRequest $serviceReq
+     * @param Request $request
      * @param User $user
      * @return Collection
      */
-    public function getParsedCommunicationTemplates(ServiceRequest $serviceReq, User $user): Collection
+    public function getParsedCommunicationTemplates(Request $request, User $user): Collection
     {
         $templates = (new Template())->whereHas('category', function ($q) {
             $q->where('type', TemplateCategory::TypeCommunication)
@@ -712,8 +712,8 @@ class TemplateRepository extends BaseRepository
         foreach ($templates as $template) {
             $context = [
                 'user' => $user,
-                'subject' => $serviceReq->tenant->user,
-                'request' => $serviceReq,
+                'subject' => $request->tenant->user,
+                'request' => $request,
             ];
 
             $template = self::getTemplate($template, $context);
@@ -723,11 +723,11 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param ServiceRequest $serviceReq
+     * @param Request $request
      * @param User $user
      * @return Collection
      */
-    public function getParsedServiceCommunicationTemplates(ServiceRequest $serviceReq, User $user): Collection
+    public function getParsedServiceCommunicationTemplates(Request $request, User $user): Collection
     {
         $templates = (new Template())->whereHas('category', function ($q) {
             $q->where('type', TemplateCategory::TypeCommunication)
@@ -737,8 +737,8 @@ class TemplateRepository extends BaseRepository
         foreach ($templates as $template) {
             $context = [
                 'user' => $user,
-                'subject' => $serviceReq->tenant->user,
-                'request' => $serviceReq,
+                'subject' => $request->tenant->user,
+                'request' => $request,
             ];
             $template = self::getTemplate($template, $context);
         }
@@ -747,11 +747,11 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param ServiceRequest $serviceReq
+     * @param Request $request
      * @param User $user
      * @return Collection
      */
-    public function getParsedServiceEmailTemplates(ServiceRequest $serviceReq, User $user): Collection
+    public function getParsedServiceEmailTemplates(Request $request, User $user): Collection
     {
         $templates = (new Template())->whereHas('category', function ($q) {
             $q->where('type', TemplateCategory::TypeEmail)
@@ -761,8 +761,8 @@ class TemplateRepository extends BaseRepository
         foreach ($templates as $template) {
             $context = [
                 'user' => $user,
-                'subject' => $serviceReq->tenant->user,
-                'request' => $serviceReq,
+                'subject' => $request->tenant->user,
+                'request' => $request,
             ];
             $template = self::getTemplate($template, $context);
         }

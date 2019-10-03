@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Media;
 use App\Models\Model;
 use App\Models\RentContract;
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Models\Tenant;
 use App\Models\Unit;
 use Illuminate\Support\Arr;
@@ -270,9 +270,9 @@ class TenantRepository extends BaseRepository
 
         $requestsInProgress = $model->requests()
             ->whereIn('status', [
-                ServiceRequest::StatusInProcessing,
-                ServiceRequest::StatusAssigned,
-                ServiceRequest::StatusReactivated,
+                Request::StatusInProcessing,
+                Request::StatusAssigned,
+                Request::StatusReactivated,
             ])->get();
 
         if (count($requestsInProgress)) {

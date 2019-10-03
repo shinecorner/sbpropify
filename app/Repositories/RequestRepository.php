@@ -8,8 +8,8 @@ use App\Models\Comment;
 use App\Models\Model;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
-use App\Models\ServiceRequest;
-use App\Models\ServiceRequestCategory;
+use App\Models\Request;
+use App\Models\RequestCategory;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\NewTenantRequest;
@@ -27,9 +27,9 @@ use Spatie\MediaLibrary\Models\Media;
  * @package App\Repositories
  * @version February 27, 2019, 2:18 pm UTC
  *
- * @method ServiceRequest findWithoutFail($id, $columns = ['*'])
- * @method ServiceRequest find($id, $columns = ['*'])
- * @method ServiceRequest first($columns = ['*'])
+ * @method Request findWithoutFail($id, $columns = ['*'])
+ * @method Request find($id, $columns = ['*'])
+ * @method Request first($columns = ['*'])
  */
 class RequestRepository extends BaseRepository
 {
@@ -63,7 +63,7 @@ class RequestRepository extends BaseRepository
      **/
     public function model()
     {
-        return ServiceRequest::class;
+        return Request::class;
     }
 
     /**
@@ -76,8 +76,8 @@ class RequestRepository extends BaseRepository
         $attr = self::getPostAttributes($attributes);
 
         if (isset($attr['category_id'])) {
-            $serviceRequestCategories = ServiceRequestCategory::where('has_qualifications', 1)->pluck('id');
-            if (! $serviceRequestCategories->contains($attr['category_id'])) {
+            $requestCategories = RequestCategory::where('has_qualifications', 1)->pluck('id');
+            if (! $requestCategories->contains($attr['category_id'])) {
                 unset($attr['qualification']);
             }
         }
@@ -105,8 +105,8 @@ class RequestRepository extends BaseRepository
             $attr['internal_priority'] = $attributes['internal_priority'] ?? $attributes['priority'];
             $attr['tenant_id'] = $user->tenant->id;
             $attr['unit_id'] = $user->tenant->unit_id;
-            $attr['status'] = ServiceRequest::StatusReceived;
-            $attr['qualification'] = array_flip(ServiceRequest::Qualification)['none'];
+            $attr['status'] = Request::StatusReceived;
+            $attr['qualification'] = array_flip(Request::Qualification)['none'];
 
             return $attr;
         }
@@ -118,7 +118,7 @@ class RequestRepository extends BaseRepository
             $attr['category_id'] = $attributes['category_id'];
             $attr['tenant_id'] = $user->tenant->id;
             $attr['unit_id'] = $user->tenant->unit_id;
-            $attr['status'] = ServiceRequest::StatusReceived;
+            $attr['status'] = Request::StatusReceived;
 
             return $attr;
         }
@@ -126,7 +126,7 @@ class RequestRepository extends BaseRepository
         $t = Tenant::find($attributes['tenant_id'] ?? 0);
         $attributes['unit_id'] = $t->unit_id;
         $attributes['assignee_ids'] = [Auth::user()->id]; // @TODO where used
-        $attributes['status'] = ServiceRequest::StatusReceived;
+        $attributes['status'] = Request::StatusReceived;
         $attributes['due_date'] = Carbon::parse($attributes['due_date'])->format('Y-m-d');
 
         return $attributes;
@@ -205,12 +205,12 @@ class RequestRepository extends BaseRepository
     public static function getStatusRelatedAttributes($attributes, $request)
     {
         if ($attributes['status'] != $request->status) {
-            if (ServiceRequest::StatusDone == $attributes['status']) {
+            if (Request::StatusDone == $attributes['status']) {
                 $now = now();
                 $attributes['solved_date'] = $now;
                 $time = $request->reactivation_date ?? $request->created_at;
                 $attributes['resolution_time'] = $request->resolution_time + $now->diffInSeconds($time);
-            } elseif (ServiceRequest::StatusReactivated == $attributes['status']) {
+            } elseif (Request::StatusReactivated == $attributes['status']) {
                 $attributes['reactivation_date'] = now();
             }
         }
@@ -230,18 +230,18 @@ class RequestRepository extends BaseRepository
         return true;
         $user = Auth::user();
         if ($user->can('edit-request_tenant')) {
-            if (!in_array($attributes['status'], ServiceRequest::StatusByTenant[$currentStatus])) {
+            if (!in_array($attributes['status'], Request::StatusByTenant[$currentStatus])) {
                 return false;
             }
         }
 
         if ($user->can('edit-request_service')) {
-            if (!in_array($attributes['status'], ServiceRequest::StatusByService[$currentStatus])) {
+            if (!in_array($attributes['status'], Request::StatusByService[$currentStatus])) {
                 return false;
             }
         }
 
-        if (!in_array($attributes['status'], ServiceRequest::StatusByAgent[$currentStatus])) {
+        if (!in_array($attributes['status'], Request::StatusByAgent[$currentStatus])) {
             return false;
         }
 
@@ -249,90 +249,90 @@ class RequestRepository extends BaseRepository
     }
 
     /**
-     * @param ServiceRequest $originalRequest
-     * @param ServiceRequest $serviceRequest
+     * @param Request $originalRequest
+     * @param Request $request
      */
-    public function notifyStatusChangeIfNeed(ServiceRequest $originalRequest, ServiceRequest $serviceRequest)
+    public function notifyStatusChangeIfNeed(Request $originalRequest, Request $request)
     {
-        if ($originalRequest->status != $serviceRequest->status) {
-            $user = $serviceRequest->tenant->user;
-            $user->notify(new StatusChangedRequest($serviceRequest, $originalRequest, $user));
+        if ($originalRequest->status != $request->status) {
+            $user = $request->tenant->user;
+            $user->notify(new StatusChangedRequest($request, $originalRequest, $user));
         }
     }
 
     /**
-     * @param ServiceRequest $serviceRequest
+     * @param Request $request
      */
-    public function notifyNewRequest(ServiceRequest $serviceRequest)
+    public function notifyNewRequest(Request $request)
     {
-        if (!$serviceRequest->tenant->building) {
+        if (!$request->tenant->building) {
             return;
         }
 
-        $propertyManagers = PropertyManager::whereHas('buildings', function ($q) use ($serviceRequest) {
-            $q->where('buildings.id', $serviceRequest->tenant->building->id);
+        $propertyManagers = PropertyManager::whereHas('buildings', function ($q) use ($request) {
+            $q->where('buildings.id', $request->tenant->building->id);
         })->get();
 
         $i = 0;
         foreach ($propertyManagers as $propertyManager) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
-            $propertyManager->user->redirect = "/admin/requests/" . $serviceRequest->id;
+            $propertyManager->user->redirect = "/admin/requests/" . $request->id;
 
             $propertyManager->user
-                ->notify((new NewTenantRequest($serviceRequest, $propertyManager->user, $serviceRequest->tenant->user))
+                ->notify((new NewTenantRequest($request, $propertyManager->user, $request->tenant->user))
                     ->delay(now()->addSeconds($delay)));
         }
     }
 
     /**
-     * @param ServiceRequest $serviceRequest
+     * @param Request $request
      * @param Comment $comment
      */
-    public function notifyNewComment(ServiceRequest $sr, Comment $comment)
+    public function notifyNewComment(Request $request, Comment $comment)
     {
         $i = 0;
-        foreach ($sr->allPeople as $person) {
+        foreach ($request->allPeople as $person) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
 
             if ($person->id != $comment->user->id) {
-                $person->notify((new RequestCommented($sr, $person, $comment))
+                $person->notify((new RequestCommented($request, $person, $comment))
                     ->delay(now()->addSeconds($delay)));
             }
         }
     }
 
     /**
-     * @param ServiceRequest $serviceRequest
+     * @param Request $request
      * @param User $uploader
      * @param Media $media
      */
-    public function notifyMedia(ServiceRequest $sr, User $uploader, Media $media)
+    public function notifyMedia(Request $request, User $uploader, Media $media)
     {
         $i = 0;
-        foreach ($sr->allPeople as $person) {
+        foreach ($request->allPeople as $person) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
 
             if ($person->id != $uploader->id) {
-                $person->notify((new RequestMedia($sr, $uploader, $media))
+                $person->notify((new RequestMedia($request, $uploader, $media))
                     ->delay(now()->addSeconds($delay)));
             }
         }
     }
 
     /**
-     * @param ServiceRequest $sr
-     * @param ServiceProvider $sp
-     * @param $propertyManager
+     * @param Request $request
+     * @param ServiceProvider $provider
+     * @param $manager
      * @param $mailDetails
      */
-    public function notifyProvider(ServiceRequest $sr, ServiceProvider $sp, $propertyManager, $mailDetails)
+    public function notifyProvider(Request $request, ServiceProvider $provider, $manager, $mailDetails)
     {
-        $toEmails = [$sp->user->email];
+        $toEmails = [$provider->user->email];
         if (!empty($mailDetails['to'])) {
             $toEmails[] = $mailDetails['to'];
         }
 
-        $ccEmails = $propertyManager ? [$propertyManager->user->email] : [];
+        $ccEmails = $manager ? [$manager->user->email] : [];
         if (!empty($mailDetails['cc']) && is_array($mailDetails['cc'])) {
             $ccEmails = array_merge($ccEmails, $mailDetails['cc']);
         }
@@ -341,40 +341,40 @@ class RequestRepository extends BaseRepository
         \Mail::to($toEmails)
             ->cc($ccEmails)
             ->bcc($bccEmails)
-            ->send( new NotifyServiceProvider($sp, $sr, $mailDetails));
+            ->send( new NotifyServiceProvider($provider, $request, $mailDetails));
 
         $auditData = [
-            'serviceProvider' => $sp,
-            'propertyManager' => $propertyManager,
+            'serviceProvider' => $provider,
+            'propertyManager' => $manager,
             'mailDetails' => $mailDetails
         ];
-        $sr->registerAuditEvent(AuditableModel::EventProviderNotified, $auditData);
+        $request->registerAuditEvent(AuditableModel::EventProviderNotified, $auditData);
 
         $u = \Auth::user();
-        $conv = $sr->conversationFor($u, $sp->user);
+        $conversation = $request->conversationFor($u, $provider->user);
         $comment = $mailDetails['title'] . "\n\n" . strip_tags($mailDetails['body']);
-        $conv->comment($comment);
+        $conversation->comment($comment);
 
-        if ($propertyManager && $propertyManager->user) {
-            $conv = $sr->conversationFor($u, $propertyManager->user);
-            if ($conv) {
-                $conv->comment($comment);
+        if ($manager && $manager->user) {
+            $conversation = $request->conversationFor($u, $manager->user);
+            if ($conversation) {
+                $conversation->comment($comment);
             }
         }
     }
 
     /**
-     * @param ServiceRequest $sr
+     * @param Request $request
      */
-    public function notifyDue(ServiceRequest $sr)
+    public function notifyDue(Request $request)
     {
         $beforeHours = env('REQUEST_DUE_MAIL', 24);
-        $providers = $sr->providers->map(function($p) {
+        $providers = $request->providers->map(function($p) {
             return $p->user;
         });
 
-        foreach (array_merge($providers->all(), $sr->managers()->get()->all()) as $u) {
-            $u->notify((new RequestDue($sr))->delay($sr->due_date->subHours($beforeHours)));
+        foreach (array_merge($providers->all(), $request->managers()->get()->all()) as $u) {
+            $u->notify((new RequestDue($request))->delay($request->due_date->subHours($beforeHours)));
         }
     }
 

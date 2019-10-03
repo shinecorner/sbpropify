@@ -2,16 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Models\ServiceRequestCategory;
+use App\Models\RequestCategory;
 
 /**
  * Class RequestCategoryRepository
  * @package App\Repositories
  * @version February 27, 2019, 2:18 pm UTC
  *
- * @method ServiceRequestCategory findWithoutFail($id, $columns = ['*'])
- * @method ServiceRequestCategory find($id, $columns = ['*'])
- * @method ServiceRequestCategory first($columns = ['*'])
+ * @method RequestCategory findWithoutFail($id, $columns = ['*'])
+ * @method RequestCategory find($id, $columns = ['*'])
+ * @method RequestCategory first($columns = ['*'])
 */
 class RequestCategoryRepository extends BaseRepository
 {
@@ -30,6 +30,6 @@ class RequestCategoryRepository extends BaseRepository
      **/
     public function model()
     {
-        return ServiceRequestCategory::class;
+        return RequestCategory::class;
     }
 }
