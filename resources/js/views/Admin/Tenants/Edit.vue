@@ -264,7 +264,8 @@
             </div>
             <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
                 <div class="content">
-                    <rent-contract-form mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer"/>
+                    <rent-contract-form v-if="editingRentContract" mode="edit" :data="editingRentContract" :tenant_id="model.id" :visible.sync="visibleDrawer"/>
+                    <rent-contract-form v-else mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer"/>
                 </div>
             </ui-drawer>
         </div>
@@ -308,6 +309,7 @@
         data() {
             return {
                 avatar: '',
+                editingRentContract: null,
             }
         },
         methods: {

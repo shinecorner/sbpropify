@@ -112,7 +112,7 @@
             </el-col>
         </el-row>
         <el-row :gutter="20">
-            <!-- <el-col :md="12">
+            <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.rentcontract_id')"
                                 class="label-block">
                     <el-input
@@ -120,7 +120,7 @@
                         :disabled="true">
                     </el-input>
                 </el-form-item>
-            </el-col> -->
+            </el-col>
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.status.label')" class="label-block">
                     <el-select placeholder="Select" style="display: block" 
