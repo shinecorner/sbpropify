@@ -15,7 +15,7 @@ class ListingUploadRequest extends BaseRequest
     public function authorize()
     {
         $u = \Auth::user();
-        if ($u->can('edit-product')) {
+        if ($u->can('edit-listing')) {
             return true;
         }
         return Product::where('id', $this->route('id'))

@@ -15,7 +15,7 @@ class ListingDeleteRequest extends BaseRequest
     public function authorize()
     {
         $u = \Auth::user();
-        if ($u->can('edit-product')) {
+        if ($u->can('edit-listing')) {
             return true;
         }
         $p = Product::where('id', $this->route('id'))

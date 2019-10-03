@@ -14,12 +14,12 @@ class DeleteRequest extends BaseRequest
      */
     public function authorize()
     {
-        if ($this->can('delete-product')) {
+        if ($this->can('delete-listing')) {
             return true;
         }
 
         $u = \Auth::user();
-        return Product::where('id', $this->route('product'))
+        return Product::where('id', $this->route('listing'))
             ->where('user_id', $u->id)->exists();
     }
 }

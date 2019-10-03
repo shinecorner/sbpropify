@@ -13,6 +13,6 @@ class ViewRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('view-product');
+        return $this->can('view-listing');
     }
 }
