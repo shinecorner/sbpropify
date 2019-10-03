@@ -25,7 +25,6 @@ use App\Repositories\RentContractRepository;
 use App\Repositories\TenantRepository;
 use App\Transformers\MediaTransformer;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 
 /**
  * Class MediaController
@@ -61,27 +60,27 @@ class MediaAPIController extends AppBaseController
      * @param BuildingRepository $buildingRepo
      * @param AddressRepository $addrRepo
      * @param PinboardRepository $pinboardRepo
-     * @param ListingRepository $productRepo
+     * @param ListingRepository $listingRepo
      * @param TenantRepository $tenantRepo
      * @param RentContractRepository $rentContractRepository
-     * @param RequestRepository $serviceRequestRepo
+     * @param RequestRepository $requestRepo
      */
     public function __construct(
         BuildingRepository $buildingRepo,
         AddressRepository $addrRepo,
         PinboardRepository $pinboardRepo,
-        ListingRepository $productRepo,
+        ListingRepository $listingRepo,
         TenantRepository $tenantRepo,
         RentContractRepository $rentContractRepository,
-        RequestRepository $serviceRequestRepo
+        RequestRepository $requestRepo
     )
     {
         $this->buildingRepository = $buildingRepo;
         $this->addressRepository = $addrRepo;
         $this->pinboardRepository = $pinboardRepo;
-        $this->listingRepository = $productRepo;
+        $this->listingRepository = $listingRepo;
         $this->tenantRepository = $tenantRepo;
-        $this->requestRepository = $serviceRequestRepo;
+        $this->requestRepository = $requestRepo;
         $this->rentContractRepository = $rentContractRepository;
     }
 
@@ -599,17 +598,17 @@ class MediaAPIController extends AppBaseController
      */
     public function requestUpload(int $id, RequestUploadRequest $request)
     {
-        $serviceRequest = $this->requestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->requestRepository->uploadFile('media', $data, $serviceRequest, $request->merge_in_audit)) {
+        if (!$media = $this->requestRepository->uploadFile('media', $data, $request, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
-        $serviceRequest->touch();
-        $this->requestRepository->notifyMedia($serviceRequest, \Auth::user(), $media);
+        $request->touch();
+        $this->requestRepository->notifyMedia($request, \Auth::user(), $media);
         $response = (new MediaTransformer)->transform($media);
         return $this->sendResponse($response, __('general.swal.media.added'));
     }
@@ -656,26 +655,26 @@ class MediaAPIController extends AppBaseController
      */
     public function requestDestroy(int $id, int $media_id, RequestDeleteRequest $r)
     {
-        $serviceRequest = $this->requestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $media = $serviceRequest->media->find($media_id);
+        $media = $request->media->find($media_id);
         if (empty($media)) {
             return $this->sendError(__('general.media_not_found'));
         }
 
         $media->delete();
-        $serviceRequest->touch();
+        $request->touch();
         return $this->sendResponse($media_id, __('general.swal.media.deleted'));
     }
 
     /**
      * @SWG\Post(
-     *      path="/products/{product_id}/media",
-     *      summary="Store a newly created product Media in storage",
-     *      tags={"Marketplace"},
+     *      path="/listings/{listing_id}/media",
+     *      summary="Store a newly created listing Media in storage",
+     *      tags={"Listing"},
      *      description="Store Media",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -713,13 +712,13 @@ class MediaAPIController extends AppBaseController
      */
     public function listingUpload(int $id, ListingUploadRequest $request)
     {
-        $product = $this->listingRepository->findWithoutFail($id);
-        if (empty($product)) {
+        $listing = $this->listingRepository->findWithoutFail($id);
+        if (empty($listing)) {
             return $this->sendError(__('models.building.not_found'));
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->listingRepository->uploadFile('media', $data, $product, $request->merge_in_audit)) {
+        if (!$media = $this->listingRepository->uploadFile('media', $data, $listing, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
 
@@ -729,9 +728,9 @@ class MediaAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="/products/{product_id}/media/{media_id}",
+     *      path="/listings/{listing_id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
-     *      tags={"Marketplace"},
+     *      tags={"Listing"},
      *      description="Delete Media",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -770,12 +769,12 @@ class MediaAPIController extends AppBaseController
      */
     public function listingDestroy(int $id, int $media_id, ListingDeleteRequest $r)
     {
-        $product = $this->listingRepository->findWithoutFail($id);
-        if (empty($product)) {
-            return $this->sendError(__('models.product.errors.not_found'));
+        $listing = $this->listingRepository->findWithoutFail($id);
+        if (empty($listing)) {
+            return $this->sendError(__('models.listing.errors.not_found'));
         }
 
-        $media = $product->media->find($media_id);
+        $media = $listing->media->find($media_id);
         if (empty($media)) {
             return $this->sendError(__('general.media_not_found'));
         }

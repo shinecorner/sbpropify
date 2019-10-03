@@ -13,7 +13,7 @@ use App\Http\Requests\API\Comment\DeleteRequest;
 use App\Http\Requests\API\Comment\ListRequest;
 use App\Http\Requests\API\Comment\UpdateRequest;
 use App\Notifications\PinboardCommented;
-use App\Notifications\ProductCommented;
+use App\Notifications\ListingCommented;
 use App\Repositories\CommentRepository;
 use App\Repositories\PinboardRepository;
 use App\Repositories\ListingRepository;
@@ -115,17 +115,17 @@ class CommentAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param CreateRequest $request
+     * @param CreateRequest $createRequest
      * @return Response
      */
-    public function storePinboardComment(int $id, CreateRequest $request)
+    public function storePinboardComment(int $id, CreateRequest $createRequest)
     {
         $pinboard = $this->pinboardRepository->findWithoutFail($id);
         if (empty($pinboard)) {
             return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
-        $comment = $pinboard->comment($request->comment, $request->parent_id);
+        $comment = $pinboard->comment($createRequest->comment, $createRequest->parent_id);
         $comment->load('user');
 
 
@@ -176,29 +176,29 @@ class CommentAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param CreateRequest $request
+     * @param CreateRequest $createRequest
      * @return Response
      */
-    public function storeRequestComment(int $id, CreateRequest $request)
+    public function storeRequestComment(int $id, CreateRequest $createRequest)
     {
-        $serviceRequest = $this->requestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $comment = $serviceRequest->comment($request->comment, $request->parent_id);
+        $comment = $request->comment($createRequest->comment, $createRequest->parent_id);
         $comment->load('user');
         $out = $this->transformer->transform($comment);
-        $this->requestRepository->notifyNewComment($serviceRequest, $comment);
+        $this->requestRepository->notifyNewComment($request, $comment);
 
         return $this->sendResponse($out, __('general.comment_created'));
     }
 
     /**
      * @SWG\Post(
-     *      path="/products/{id}/comments",
+     *      path="/listings/{id}/comments",
      *      summary="Store a newly created comment in storage",
-     *      tags={"Marketplace"},
+     *      tags={"Listing"},
      *      description="Store Comment",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -230,28 +230,28 @@ class CommentAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param CreateRequest $request
+     * @param CreateRequest $createRequest
      * @return Response
      */
-    public function storeProductComment(int $id, CreateRequest $request)
+    public function storeListingComment(int $id, CreateRequest $createRequest)
     {
-        $product = $this->listingRepository->findWithoutFail($id);
-        if (empty($product)) {
-            return $this->sendError(__('models.product.errors.not_found'));
+        $listing = $this->listingRepository->findWithoutFail($id);
+        if (empty($listing)) {
+            return $this->sendError(__('models.listing.errors.not_found'));
         }
 
-        $comment = $product->comment($request->comment, $request->parent_id);
+        $comment = $listing->comment($createRequest->comment, $createRequest->parent_id);
         $comment->load('user');
 
         // if logged in user is tenant and
         // author of pinboard is tenant and
         // author of pinboard is different than liker
         $u = \Auth::user();
-        if ($u->tenant && $product->user->tenant && $u->id != $product->user_id) {
-            $product->user->notify(new ProductCommented($product, $u->tenant, $comment));
+        if ($u->tenant && $listing->user->tenant && $u->id != $listing->user_id) {
+            $listing->user->notify(new ListingCommented($listing, $u->tenant, $comment));
         }
         $out = $this->transformer->transform($comment);
-        return $this->sendResponse($out, __('models.product.comment_created'));
+        return $this->sendResponse($out, __('models.listing.comment_created'));
     }
 
     /**
@@ -297,19 +297,19 @@ class CommentAPIController extends AppBaseController
      *      )
      * )
      *
-     * @param ListRequest $request
+     * @param ListRequest $listRequest
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function index(ListRequest $request)
+    public function index(ListRequest $listRequest)
     {
-        $this->commentRepository->pushCriteria(new RequestCriteria($request));
-        $this->commentRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->commentRepository->pushCriteria(new RequestCriteria($listRequest));
+        $this->commentRepository->pushCriteria(new LimitOffsetCriteria($listRequest));
         $this->commentRepository->pushCriteria(new FilterChildrenOutCriteria());
-        $this->commentRepository->pushCriteria(new FilterModelCriteria($request));
-        $this->commentRepository->pushCriteria(new FilterIdsOutCriteria($request));
+        $this->commentRepository->pushCriteria(new FilterModelCriteria($listRequest));
+        $this->commentRepository->pushCriteria(new FilterIdsOutCriteria($listRequest));
 
-        $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
+        $perPage = $listRequest->get('per_page', env('APP_PAGINATE', 10));
         $comments = $this->commentRepository->with([
             'user',
             'childrenCountRelation',

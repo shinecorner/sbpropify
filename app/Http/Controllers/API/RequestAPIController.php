@@ -24,8 +24,8 @@ use App\Http\Requests\API\Request\UpdateRequest;
 use App\Http\Requests\API\Request\ViewRequest;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
-use App\Models\ServiceRequest;
-use App\Models\ServiceRequestAssignee;
+use App\Models\Request;
+use App\Models\RequestAssignee;
 use App\Models\User;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\ServiceProviderRepository;
@@ -53,17 +53,12 @@ class RequestAPIController extends AppBaseController
     private $requestRepository;
 
     /**
-     * @var string
-     */
-    private $serviceRequestFileNotFound = "Service request file not found!";
-
-    /**
      * RequestAPIController constructor.
-     * @param RequestRepository $serviceRequestRepo
+     * @param RequestRepository $requestRepository
      */
-    public function __construct(RequestRepository $serviceRequestRepo)
+    public function __construct(RequestRepository $requestRepository)
     {
-        $this->requestRepository = $serviceRequestRepo;
+        $this->requestRepository = $requestRepository;
     }
 
     /**
@@ -117,30 +112,30 @@ class RequestAPIController extends AppBaseController
      *      )
      * )
      *
-     * @param ListRequest $request
+     * @param ListRequest $listRequest
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function index(ListRequest $request)
+    public function index(ListRequest $listRequest)
     {
-        $this->requestRepository->pushCriteria(new RequestCriteria($request));
-        $this->requestRepository->pushCriteria(new LimitOffsetCriteria($request));
-        $this->requestRepository->pushCriteria(new FilterByPermissionsCriteria($request));
-        $this->requestRepository->pushCriteria(new FilterByInternalFieldsCriteria($request));
-        $this->requestRepository->pushCriteria(new FilterPublicCriteria($request));
-        $this->requestRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
-        $this->requestRepository->pushCriteria(new FilterPendingCriteria($request));
-        $this->requestRepository->pushCriteria(new FilterNotAssignedCriteria($request));
+        $this->requestRepository->pushCriteria(new RequestCriteria($listRequest));
+        $this->requestRepository->pushCriteria(new LimitOffsetCriteria($listRequest));
+        $this->requestRepository->pushCriteria(new FilterByPermissionsCriteria($listRequest));
+        $this->requestRepository->pushCriteria(new FilterByInternalFieldsCriteria($listRequest));
+        $this->requestRepository->pushCriteria(new FilterPublicCriteria($listRequest));
+        $this->requestRepository->pushCriteria(new FilterByRelatedFieldsCriteria($listRequest));
+        $this->requestRepository->pushCriteria(new FilterPendingCriteria($listRequest));
+        $this->requestRepository->pushCriteria(new FilterNotAssignedCriteria($listRequest));
 
-        $getAll = $request->get('get_all', false);
+        $getAll = $listRequest->get('get_all', false);
         if ($getAll) {
-            $serviceRequests = $this->requestRepository
+            $requests = $this->requestRepository
                 ->with('category')->get();
-            $response = (new RequestTransformer)->transformCollection($serviceRequests);
+            $response = (new RequestTransformer)->transformCollection($requests);
             return $this->sendResponse($response, 'Requests retrieved successfully');
         }
-        $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $serviceRequests = $this->requestRepository
+        $perPage = $listRequest->get('per_page', env('APP_PAGINATE', 10));
+        $requests = $this->requestRepository
             ->with([
                 'media',
                 'tenant.user',
@@ -156,8 +151,8 @@ class RequestAPIController extends AppBaseController
                 'users'
             ])->paginate($perPage);
 
-        $serviceRequests->getCollection()->loadCount('allComments');
-        $response = (new RequestTransformer)->transformPaginator($serviceRequests);
+        $requests->getCollection()->loadCount('allComments');
+        $response = (new RequestTransformer)->transformPaginator($requests);
         return $this->sendResponse($response, 'Service Requests retrieved successfully');
     }
 
@@ -214,20 +209,21 @@ class RequestAPIController extends AppBaseController
      *      )
      * )
      *
-     * @param CreateRequest $request
+     * @param CreateRequest $createRequest
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(CreateRequest $request)
+    public function store(CreateRequest $createRequest)
     {
-        $input = $request->all();
+        $input = $createRequest->all();
         $input['internal_priority'] = $input['internal_priority'] ?? $input['priority'];
-        $serviceRequest = $this->requestRepository->create($input);
-        $this->requestRepository->notifyNewRequest($serviceRequest);
+        $request = $this->requestRepository->create($input);
+        $this->requestRepository->notifyNewRequest($request);
         if (isset($input['due_date'])) {
-            $this->requestRepository->notifyDue($serviceRequest);
+            $this->requestRepository->notifyDue($request);
         }
-        $serviceRequest->load([
+        $request->load([
             'media',
             'tenant.user',
             'tenant.building.address',
@@ -238,7 +234,7 @@ class RequestAPIController extends AppBaseController
             'managers.user',
             'users'
         ]);
-        $response = (new RequestTransformer)->transform($serviceRequest);
+        $response = (new RequestTransformer)->transform($request);
         return $this->sendResponse($response, __('models.request.saved'));
     }
 
@@ -278,26 +274,27 @@ class RequestAPIController extends AppBaseController
      * )
      *
      * @param $id
-     * @param ViewRequest $request
+     * @param ViewRequest $viewRequest
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function show($id, ViewRequest $request)
+    public function show($id, ViewRequest $viewRequest)
     {
-        /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->requestRepository->findWithoutFail($id);
+        /** @var Request $request */
+        $request = $this->requestRepository->findWithoutFail($id);
 
-        if (empty($serviceRequest)) {
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $serviceRequest->load([
+        $request->load([
             'media', 'tenant.user', 'tenant.building', 'category', 'managers', 'users', 'remainder_user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers',
             'tenant.rent_contracts' => function ($q) {
                 $q->with('building.address', 'unit');
             },
         ]);
-        $response = (new RequestTransformer)->transform($serviceRequest);
+        $response = (new RequestTransformer)->transform($request);
         return $this->sendResponse($response, 'Service Request retrieved successfully');
     }
 
@@ -348,21 +345,28 @@ class RequestAPIController extends AppBaseController
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function update($id, UpdateRequest $request)
+    /**
+     * @param $id
+     * @param UpdateRequest $updateRequest
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function update($id, UpdateRequest $updateRequest)
     {
-        $input = $request->only(ServiceRequest::Fillable);
-        /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->requestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        $input = $updateRequest->only(Request::Fillable);
+        /** @var Request $request */
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $oldStatus = $serviceRequest->status;
+        $oldStatus = $request->status;
         if (!$this->requestRepository->checkStatusPermission($input, $oldStatus)) {
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $updatedServiceRequest = $this->requestRepository->updateExisting($serviceRequest, $input);
+        $updatedServiceRequest = $this->requestRepository->updateExisting($request, $input);
 
         $updatedServiceRequest->load([
             'media', 'tenant.user', 'category', 'managers.user', 'users', 'remainder_user',
@@ -408,26 +412,27 @@ class RequestAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param ChangeStatusRequest $request
+     * @param ChangeStatusRequest $changeStatusRequest
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function changeStatus(int $id, ChangeStatusRequest $request)
+    public function changeStatus(int $id, ChangeStatusRequest $changeStatusRequest)
     {
-        /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->requestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        /** @var Request $request */
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $input = ['status' => $request->get('status', '')];
+        $input = ['status' => $changeStatusRequest->get('status', '')];
 
-        if (!$this->requestRepository->checkStatusPermission($input, $serviceRequest->status)) {
+        if (!$this->requestRepository->checkStatusPermission($input, $request->status)) {
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $serviceRequest = $this->requestRepository->updateExisting($serviceRequest, $input);
-        $response = (new RequestTransformer)->transform($serviceRequest);
+        $request = $this->requestRepository->updateExisting($request, $input);
+        $response = (new RequestTransformer)->transform($request);
         return $this->sendResponse($response, __('models.request.status_changed'));
     }
 
@@ -467,25 +472,26 @@ class RequestAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param ChangePriorityRequest $request
+     * @param ChangePriorityRequest $changePriorityRequest
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function changePriority(int $id, ChangePriorityRequest $request)
+    public function changePriority(int $id, ChangePriorityRequest $changePriorityRequest)
     {
-        /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->requestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        /** @var Request $request */
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $input = [
-            'priority' => $request->get('priority', '')
+            'priority' => $changePriorityRequest->get('priority', '')
         ];
 
-        $serviceRequest = $this->requestRepository->update($input, $id);
+        $request = $this->requestRepository->update($input, $id);
 
-        $response = (new RequestTransformer)->transform($serviceRequest);
+        $response = (new RequestTransformer)->transform($request);
         return $this->sendResponse($response, __('models.request.priority_changed'));
     }
 
@@ -525,31 +531,31 @@ class RequestAPIController extends AppBaseController
      * )
      *
      * @param $id
-     * @param DeleteRequest $r
+     * @param DeleteRequest $deleteRequest
      * @return mixed
      * @throws Exception
      */
-    public function destroy($id, DeleteRequest $r)
+    public function destroy($id, DeleteRequest $deleteRequest)
     {
-        /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->requestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        /** @var Request $request */
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $serviceRequest->delete();
+        $request->delete();
 
         return $this->sendResponse($id, __('models.request.deleted'));
     }
 
     /**
-     * @param DeleteRequest $request
+     * @param DeleteRequest $deleteRequest
      * @return mixed
      */
-    public function destroyWithIds(DeleteRequest $request){
-        $ids = $request->get('ids');
+    public function destroyWithIds(DeleteRequest $deleteRequest){
+        $ids = $deleteRequest->get('ids');
         try{
-            ServiceRequest::destroy($ids);
+            Request::destroy($ids);
         }
         catch (\Exception $e) {
             return $this->sendError(__('models.request.errors.deleted') . $e->getMessage());
@@ -600,38 +606,38 @@ class RequestAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param NotifyProviderRequest $request
-     * @param ServiceProviderRepository $spRepo
-     * @param PropertyManagerRepository $pmRepo
+     * @param NotifyProviderRequest $notifyProviderRequest
+     * @param ServiceProviderRepository $serviceProviderRepository
+     * @param PropertyManagerRepository $propertyManagerRepository
      * @return mixed
      */
     public function notifyProvider(
         int $id,
-        NotifyProviderRequest $request,
-        ServiceProviderRepository $spRepo,
-        PropertyManagerRepository $pmRepo
+        NotifyProviderRequest $notifyProviderRequest,
+        ServiceProviderRepository $serviceProviderRepository,
+        PropertyManagerRepository $propertyManagerRepository
     )
     {
-        $sr = $this->requestRepository->findWithoutFail($id);
-        if (empty($sr)) {
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $providerId = $request->service_provider_id;
-        $sp = $spRepo->findWithoutFail($providerId);
-        if (empty($sp)) {
+        $providerId = $notifyProviderRequest->service_provider_id;
+        $serviceProvider = $serviceProviderRepository->findWithoutFail($providerId);
+        if (empty($serviceProvider)) {
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
-        $managerId = $request->property_manager_id;
+        $managerId = $notifyProviderRequest->property_manager_id;
 
-        $propertyManager = $managerId ? $pmRepo->with('user:email,id')->find($managerId) : null;
-        $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
+        $propertyManager = $managerId ? $propertyManagerRepository->with('user:email,id')->find($managerId) : null;
+        $mailDetails = $notifyProviderRequest->only(['title', 'to', 'cc', 'bcc', 'body']);
 
-        $this->requestRepository->notifyProvider($sr, $sp, $propertyManager, $mailDetails);
-        $sr->touch();
-        $sp->touch();
-        return $this->sendResponse($sr, __('models.request.mail.success'));
+        $this->requestRepository->notifyProvider($request, $serviceProvider, $propertyManager, $mailDetails);
+        $request->touch();
+        $serviceProvider->touch();
+        return $this->sendResponse($request, __('models.request.mail.success'));
     }
 
     /**
@@ -664,17 +670,17 @@ class RequestAPIController extends AppBaseController
      *
      * @param int $id
      * @param int $pid
-     * @param ServiceProviderRepository $spRepo
-     * @param AssignRequest $r
+     * @param ServiceProviderRepository $serviceProviderRepository
+     * @param AssignRequest $assignRequest
      * @return mixed
      */
-    public function assignProvider(int $id, int $pid, ServiceProviderRepository $spRepo, AssignRequest $r)
+    public function assignProvider(int $id, int $pid, ServiceProviderRepository $serviceProviderRepository, AssignRequest $assignRequest)
     {
         $sr = $this->requestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
-        $sp = $spRepo->findWithoutFail($pid);
+        $sp = $serviceProviderRepository->findWithoutFail($pid);
         if (empty($sp)) {
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
@@ -1284,7 +1290,7 @@ class RequestAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/ServiceRequestAssignee")
+     *                  @SWG\Items(ref="#/definitions/RequestAssignee")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -1343,19 +1349,19 @@ class RequestAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param UnAssignRequest $request
+     * @param UnAssignRequest $unAssignRequest
      * @return mixed
      */
-    public function deleteRequestAssignee(int $id, UnAssignRequest $request)
+    public function deleteRequestAssignee(int $id, UnAssignRequest $unAssignRequest)
     {
-        $requestAssignee = ServiceRequestAssignee::find($id);
+        $requestAssignee = RequestAssignee::find($id);
         if (empty($requestAssignee)) {
             // @TODO fix message
             return $this->sendError(__('models.request.errors.not_found'));
         }
-        $sr = ServiceRequest::find($requestAssignee->request_id);
-        if ($sr) {
-            $sr->touch();
+        $request = Request::find($requestAssignee->request_id);
+        if ($request) {
+            $request->touch();
         }
 
         $type = $requestAssignee->assignee_type;
@@ -1410,22 +1416,22 @@ class RequestAPIController extends AppBaseController
      *
      * @param $id
      * @param TemplateRepository $tempRepo
-     * @param ViewRequest $request
+     * @param ViewRequest $viewRequest
      * @return mixed
      */
-    public function getCommunicationTemplates($id, TemplateRepository $tempRepo, ViewRequest $request)
+    public function getCommunicationTemplates($id, TemplateRepository $tempRepo, ViewRequest $viewRequest)
     {
-        /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->requestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        /** @var Request $request */
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $serviceRequest->load([
+        $request->load([
             'media', 'tenant.user', 'tenant.building', 'category',
         ]);
 
-        $templates = $tempRepo->getParsedCommunicationTemplates($serviceRequest, Auth::user());
+        $templates = $tempRepo->getParsedCommunicationTemplates($request, Auth::user());
 
         $response = (new TemplateTransformer)->transformCollection($templates);
         return $this->sendResponse($response, 'Communication Templates retrieved successfully');
@@ -1470,22 +1476,22 @@ class RequestAPIController extends AppBaseController
      *
      * @param $id
      * @param TemplateRepository $tempRepo
-     * @param ViewRequest $request
+     * @param ViewRequest $viewRequest
      * @return mixed
      */
-    public function getServiceCommunicationTemplates($id, TemplateRepository $tempRepo, ViewRequest $request)
+    public function getServiceCommunicationTemplates($id, TemplateRepository $tempRepo, ViewRequest $viewRequest)
     {
-        /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->requestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        /** @var Request $request */
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $serviceRequest->load([
+        $request->load([
             'media', 'tenant.user', 'tenant.building', 'category',
         ]);
 
-        $templates = $tempRepo->getParsedServiceCommunicationTemplates($serviceRequest, Auth::user());
+        $templates = $tempRepo->getParsedServiceCommunicationTemplates($request, Auth::user());
 
         $response = (new TemplateTransformer)->transformCollection($templates);
         return $this->sendResponse($response, 'Service Communication Templates retrieved successfully');
@@ -1530,22 +1536,22 @@ class RequestAPIController extends AppBaseController
      *
      * @param $id
      * @param TemplateRepository $tempRepo
-     * @param ViewRequest $request
+     * @param ViewRequest $viewRequest
      * @return mixed
      */
-    public function getServiceEmailTemplates($id, TemplateRepository $tempRepo, ViewRequest $request)
+    public function getServiceEmailTemplates($id, TemplateRepository $tempRepo, ViewRequest $viewRequest)
     {
-        /** @var ServiceRequest $serviceRequest */
-        $serviceRequest = $this->requestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        /** @var Request $request */
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $serviceRequest->load([
+        $request->load([
             'media', 'tenant.user', 'tenant.building', 'category',
         ]);
 
-        $templates = $tempRepo->getParsedServiceEmailTemplates($serviceRequest, Auth::user());
+        $templates = $tempRepo->getParsedServiceEmailTemplates($request, Auth::user());
 
         $response = (new TemplateTransformer)->transformCollection($templates);
         return $this->sendResponse($response, 'Service Email Templates retrieved successfully');
@@ -1602,11 +1608,11 @@ class RequestAPIController extends AppBaseController
      * )
      *
      *
-     * @param SeeRequestsCount $request
+     * @param SeeRequestsCount $seeRequestsCount
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function requestsCounts(SeeRequestsCount $request)
+    public function requestsCounts(SeeRequestsCount $seeRequestsCount)
     {
         $requestCount = $this->requestRepository->count();
 
@@ -1614,7 +1620,7 @@ class RequestAPIController extends AppBaseController
         $this->requestRepository->doesntHave('assignees');
         $notAssignedRequestsCount = $this->requestRepository->count();
 
-        $pendingStatues = ServiceRequest::PendingStatuses;
+        $pendingStatues = Request::PendingStatuses;
 
         $this->requestRepository->resetCriteria();
         $this->requestRepository->pushCriteria(new WhereInCriteria('status', $pendingStatues));
@@ -1626,7 +1632,7 @@ class RequestAPIController extends AppBaseController
             'all_pending_request_count' => $allPendingCount
         ];
 
-        $user = $request->user();
+        $user = $seeRequestsCount->user();
         if ($user->propertyManager()->exists()) {
             $response = $this->getLoggedRequestCount($user->propertyManager->id, $response, 'propertyManager', 'managers');
         } elseif ($user->serviceProvider()->exists()) {
@@ -1659,7 +1665,7 @@ class RequestAPIController extends AppBaseController
         $this->requestRepository->whereHas($requestRelation, function ($q) use ($relationId) {
             $q->where('assignee_id', $relationId);
         });
-        $this->requestRepository->pushCriteria(new WhereInCriteria('status', ServiceRequest::PendingStatuses));
+        $this->requestRepository->pushCriteria(new WhereInCriteria('status', Request::PendingStatuses));
         $response['my_pending_request_count'] = $this->requestRepository->count();
 
         return $response;
@@ -1669,10 +1675,10 @@ class RequestAPIController extends AppBaseController
      * @param $tenant
      * @return mixed
      */
-    protected function getPdfName(ServiceRequest $serviceRequest)
+    protected function getPdfName(Request $request)
     {
-        $serviceRequest->setDownloadPdf();
-        $pdfName = $serviceRequest->pdfFileName();
+        $request->setDownloadPdf();
+        $pdfName = $request->pdfFileName();
 
         return $pdfName ;
     }
@@ -1692,7 +1698,7 @@ class RequestAPIController extends AppBaseController
 
         $pdfName = $this->getPdfName($r);
         if (!\Storage::disk('service_request_downloads')->exists($pdfName)) {
-            return $this->sendError($this->serviceRequestFileNotFound);
+            return $this->sendError('Request file not found!');
         }
         return \Storage::disk('service_request_downloads')->download($pdfName, $pdfName);
     }

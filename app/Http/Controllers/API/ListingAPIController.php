@@ -10,14 +10,14 @@ use App\Criteria\Listing\FilterByStatusCriteria;
 use App\Criteria\Listing\FilterByQuarterCriteria;
 use App\Http\Requests\API\Listing\LikeRequest;
 use App\Http\Requests\API\Listing\ListRequest;
-use App\Notifications\ProductLiked;
+use App\Notifications\ListingLiked;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Listing\CreateRequest;
 use App\Http\Requests\API\Listing\DeleteRequest;
 use App\Http\Requests\API\Listing\PublishRequest;
 use App\Http\Requests\API\Listing\UpdateRequest;
 use App\Http\Requests\API\Listing\ViewRequest;
-use App\Models\Product;
+use App\Models\Listing;
 use App\Repositories\ListingRepository;
 use App\Repositories\SettingsRepository;
 use App\Transformers\ListingTransformer;
@@ -68,10 +68,10 @@ class ListingAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="/products",
-     *      summary="Get a listing of the Products.",
-     *      tags={"Marketplace"},
-     *      description="Get all Products",
+     *      path="/listings",
+     *      summary="Get a listing of the Listings.",
+     *      tags={"Listing"},
+     *      description="Get all Listings",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -121,14 +121,14 @@ class ListingAPIController extends AppBaseController
         $listings->getCollection()->loadCount('allComments');
 
         $out = $this->transformer->transformPaginator($listings);
-        return $this->sendResponse($out, 'Products retrieved successfully');
+        return $this->sendResponse($out, 'Listings retrieved successfully');
     }
 
     /**
      * @SWG\Post(
-     *      path="/products",
+     *      path="/listings",
      *      summary="Store a newly created Listing in storage",
-     *      tags={"Marketplace"},
+     *      tags={"Listing"},
      *      description="Store Listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -167,25 +167,25 @@ class ListingAPIController extends AppBaseController
     {
         $input = $request->all();
         $input['user_id'] = \Auth::id();
-        $input['status'] = Product::StatusUnpublished;
+        $input['status'] = Listing::StatusUnpublished;
 
         $settings = $this->settingsRepository->first();
         $input['needs_approval'] = false;
         if ($settings) {
-            $input['needs_approval'] = $settings->marketplace_approval_enable;
+            $input['needs_approval'] = $settings->listing_approval_enable;
         }
 
-        $product = $this->listingRepository->create($input);
+        $listing = $this->listingRepository->create($input);
 
-        $data = $this->transformer->transform($product);
-        return $this->sendResponse($data, __('models.product.saved'));
+        $data = $this->transformer->transform($listing);
+        return $this->sendResponse($data, __('models.listing.saved'));
     }
 
     /**
      * @SWG\Get(
-     *      path="/products/{id}",
+     *      path="/listings/{id}",
      *      summary="Display the specified Listing",
-     *      tags={"Marketplace"},
+     *      tags={"Listing"},
      *      description="Get Listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -222,8 +222,8 @@ class ListingAPIController extends AppBaseController
      */
     public function show($id, ViewRequest $request)
     {
-        /** @var Product $product */
-        $product = $this->listingRepository->with([
+        /** @var Listing $listing */
+        $listing = $this->listingRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -231,20 +231,20 @@ class ListingAPIController extends AppBaseController
             'likes.user',
         ])->withCount('allComments')->findWithoutFail($id);
 
-        if (empty($product)) {
-            return $this->sendError(__('models.product.errors.not_found'));
+        if (empty($listing)) {
+            return $this->sendError(__('models.listing.errors.not_found'));
         }
-        $product->likers = $product->collectLikers();
+        $listing->likers = $listing->collectLikers();
 
-        $data = $this->transformer->transform($product);
+        $data = $this->transformer->transform($listing);
         return $this->sendResponse($data, 'Listing retrieved successfully');
     }
 
     /**
      * @SWG\Put(
-     *      path="/products/{id}",
+     *      path="/listings/{id}",
      *      summary="Update the specified Listing in storage",
-     *      tags={"Marketplace"},
+     *      tags={"Listing"},
      *      description="Update Listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -289,26 +289,26 @@ class ListingAPIController extends AppBaseController
      */
     public function update($id, UpdateRequest $request)
     {
-        $input = $request->only(Product::Fillable);
+        $input = $request->only(Listing::Fillable);
 
-        /** @var Product $product */
-        $product = $this->listingRepository->findWithoutFail($id);
+        /** @var Listing $listing */
+        $listing = $this->listingRepository->findWithoutFail($id);
 
-        if (empty($product)) {
-            return $this->sendError(__('models.product.errors.not_found'));
+        if (empty($listing)) {
+            return $this->sendError(__('models.listing.errors.not_found'));
         }
 
-        $product = $this->listingRepository->update($input, $id);
+        $listing = $this->listingRepository->update($input, $id);
 
-        $data = $this->transformer->transform($product);
-        return $this->sendResponse($data, __('models.product.saved'));
+        $data = $this->transformer->transform($listing);
+        return $this->sendResponse($data, __('models.listing.saved'));
     }
 
     /**
      * @SWG\Delete(
-     *      path="/products/{id}",
+     *      path="/listings/{id}",
      *      summary="Remove the specified Listing from storage",
-     *      tags={"Marketplace"},
+     *      tags={"Listing"},
      *      description="Delete Listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -346,16 +346,16 @@ class ListingAPIController extends AppBaseController
      */
     public function destroy($id, DeleteRequest $request)
     {
-        /** @var Product $product */
-        $product = $this->listingRepository->findWithoutFail($id);
+        /** @var Listing $listing */
+        $listing = $this->listingRepository->findWithoutFail($id);
 
-        if (empty($product)) {
-            return $this->sendError(__('models.product.errors.not_found'));
+        if (empty($listing)) {
+            return $this->sendError(__('models.listing.errors.not_found'));
         }
 
-        $product->delete();
+        $listing->delete();
 
-        return $this->sendResponse($id, __('models.product.deleted'));
+        return $this->sendResponse($id, __('models.listing.deleted'));
     }
 
     /**
@@ -365,19 +365,19 @@ class ListingAPIController extends AppBaseController
     public function destroyWithIds(DeleteRequest $request){
         $ids = $request->get('ids');
         try{
-            Product::destroy($ids);
+            Listing::destroy($ids);
         }
         catch (\Exception $e) {
-            return $this->sendError(__('models.product.errors.deleted') . $e->getMessage());
+            return $this->sendError(__('models.listing.errors.deleted') . $e->getMessage());
         }
-        return $this->sendResponse($ids, __('models.product.deleted'));
+        return $this->sendResponse($ids, __('models.listing.deleted'));
     }
 
     /**
      * @SWG\Post(
-     *      path="/products/{id}/like",
-     *      summary="Like a product",
-     *      tags={"Marketplace"},
+     *      path="/listings/{id}/like",
+     *      summary="Like a listing",
+     *      tags={"Listing"},
      *      description="Like a Listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -415,30 +415,30 @@ class ListingAPIController extends AppBaseController
      */
     public function like($id, LikeRequest $likeRequest)
     {
-        $product = $this->listingRepository->findWithoutFail($id);
-        if (empty($product)) {
-            return $this->sendError(__('models.product.errors.not_found'));
+        $listing = $this->listingRepository->findWithoutFail($id);
+        if (empty($listing)) {
+            return $this->sendError(__('models.listing.errors.not_found'));
         }
 
         $u = \Auth::user();
-        $u->like($product);
+        $u->like($listing);
 
         // if logged in user is tenant and
-        // author of product is tenant and
-        // author of product is different than liker
-        if ($u->tenant && $product->user->tenant && $u->id != $product->user_id) {
-            $product->user->notify(new ProductLiked($product, $u->tenant));
+        // author of listing is tenant and
+        // author of listing is different than liker
+        if ($u->tenant && $listing->user->tenant && $u->id != $listing->user_id) {
+            $listing->user->notify(new ListingLiked($listing, $u->tenant));
         }
         return $this->sendResponse($this->uTransformer->transform($u),
-        __('models.product.liked'));
+        __('models.listing.liked'));
     }
 
     /**
      * @SWG\Post(
-     *      path="/products/{id}/unlike",
+     *      path="/listings/{id}/unlike",
      *      summary="Unlike a Listing",
-     *      tags={"Marketplace"},
-     *      description="Unlike a product",
+     *      tags={"Listing"},
+     *      description="Unlike a listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
@@ -475,23 +475,23 @@ class ListingAPIController extends AppBaseController
      */
     public function unlike($id, LikeRequest $likeRequest)
     {
-        $product = $this->listingRepository->findWithoutFail($id);
-        if (empty($product)) {
-            return $this->sendError(__('models.product.errors.not_found'));
+        $listing = $this->listingRepository->findWithoutFail($id);
+        if (empty($listing)) {
+            return $this->sendError(__('models.listing.errors.not_found'));
         }
 
         $u = \Auth::user();
-        $u->unlike($product);
+        $u->unlike($listing);
         return $this->sendResponse($this->uTransformer->transform($u),
-        __('models.product.unliked'));
+        __('models.listing.unliked'));
     }
 
     /**
      * @SWG\Post(
-     *      path="/products/{id}/publish",
-     *      summary="Publish a product",
-     *      tags={"Marketplace"},
-     *      description="Publish a product",
+     *      path="/listings/{id}/publish",
+     *      summary="Publish a listing",
+     *      tags={"Listing"},
+     *      description="Publish a listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
@@ -505,7 +505,7 @@ class ListingAPIController extends AppBaseController
      *          in="body",
      *          type="integer",
      *          format="int32",
-     *          description="The new status of the product",
+     *          description="The new status of the listing",
      *          required=true,
      *          @SWG\Schema(ref="#/definitions/Listing")
      *      ),
@@ -537,12 +537,12 @@ class ListingAPIController extends AppBaseController
     public function publish($id, PublishRequest $request)
     {
         $newStatus = $request->get('status');
-        $product = $this->listingRepository->findWithoutFail($id);
-        if (empty($product)) {
-            return $this->sendError(__('models.product.errors.not_found'));
+        $listing = $this->listingRepository->findWithoutFail($id);
+        if (empty($listing)) {
+            return $this->sendError(__('models.listing.errors.not_found'));
         }
 
-        $product = $this->listingRepository->setStatusExisting($product, $newStatus);
+        $listing = $this->listingRepository->setStatusExisting($listing, $newStatus);
 
         return $this->sendResponse($id, __('general.status_changed'));
     }

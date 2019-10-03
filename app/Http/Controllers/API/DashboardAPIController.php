@@ -12,11 +12,11 @@ use App\Http\Requests\API\Dashboard\SRequestStatisticRequest;
 use App\Http\Requests\API\Dashboard\TenantStatisticRequest;
 use App\Models\Building;
 use App\Models\LoginDevice;
-use App\Models\ServiceRequest;
-use App\Models\ServiceRequestCategory;
+use App\Models\Request;
+use App\Models\RequestCategory;
 use App\Models\State;
 use App\Models\Tenant;
-use App\Models\Product;
+use App\Models\Listing;
 use App\Models\Pinboard;
 use App\Models\Unit;
 use App\Models\UserSettings;
@@ -27,7 +27,6 @@ use App\Repositories\UnitRepository;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 
@@ -162,13 +161,13 @@ class DashboardAPIController extends AppBaseController
      */
     const PERMITTED_TABLES_GROUP = [
         'service_requests' => [
-            'class' => ServiceRequest::class,
+            'class' => Request::class,
             'columns' => [
                 'status'
             ]
         ],
         'requests' => [
-            'class' => ServiceRequest::class,
+            'class' => Request::class,
             'columns' => [
                 'status'
             ]
@@ -185,14 +184,14 @@ class DashboardAPIController extends AppBaseController
             ]
         ],
         'products' => [ // @TODO delete
-            'class' => Product::class,
+            'class' => Listing::class,
             'columns' => [
                 'status',
                 'type'
             ]
         ],
         'listings' => [
-            'class' => Product::class,
+            'class' => Listing::class,
             'columns' => [
                 'status',
                 'type'
@@ -212,13 +211,13 @@ class DashboardAPIController extends AppBaseController
      */
     const PERMITTED_TABLES_FOR_CREATED_DATE = [
         'products' => [ // @TODO delete
-            'class' => Product::class,
+            'class' => Listing::class,
             'columns' => [
                 'status',
             ]
         ],
         'listings' => [
-            'class' => Product::class,
+            'class' => Listing::class,
             'columns' => [
                 'status',
             ]
@@ -709,11 +708,11 @@ class DashboardAPIController extends AppBaseController
      */
     public function requestsStatistics(SRequestStatisticRequest $request)
     {
-        $serviceReq = (new ServiceRequest);
+        $serviceReq = (new Request);
 
         try {
             $averageRequestTime = $serviceReq->selectRaw('AVG(TIMESTAMPDIFF(MINUTE, `created_at`, `solved_date`)) as solved')
-                ->where('status', ServiceRequest::StatusDone)
+                ->where('status', Request::StatusDone)
                 ->first();
 
             $response = [
@@ -870,20 +869,20 @@ class DashboardAPIController extends AppBaseController
             'startDate' => null,
             'endDate' => null,
         ];
-        $timeDifInSeconds = ServiceRequest::where('status', ServiceRequest::StatusDone)->avg('resolution_time');
+        $timeDifInSeconds = Request::where('status', Request::StatusDone)->avg('resolution_time');
         $allStartDates = [
-            'requests' => $this->timeFormat(ServiceRequest::min('created_at')),
+            'requests' => $this->timeFormat(Request::min('created_at')),
             'tenants' => $this->timeFormat(Tenant::min('created_at')),
             'buildings' => $this->timeFormat(Building::min('created_at')),
-            'products' => $this->timeFormat(Product::min('created_at')), // @TODO delete
-            'listings' => $this->timeFormat(Product::min('created_at')),
+            'products' => $this->timeFormat(Listing::min('created_at')), // @TODO delete
+            'listings' => $this->timeFormat(Listing::min('created_at')),
             'pinboard' => $this->timeFormat(Pinboard::min('created_at')),
         ];
 
         $ret = [
             'avg_request_duration' => $this->formatTime($timeDifInSeconds),
             // all time total requests count and total request count of per status
-            'total_requests' => $this->thousandsFormat(ServiceRequest::count('id')),
+            'total_requests' => $this->thousandsFormat(Request::count('id')),
             'requests_per_status' => $this->donutChartByTable($request, $optionalArgs, 'requests'),
             'requests_per_category' => $this->_donutChartRequestByCategory($request, $optionalArgs),
 
@@ -895,10 +894,10 @@ class DashboardAPIController extends AppBaseController
             'total_buildings' => $this->thousandsFormat(Building::count('id')),
             'buildings_per_status' => $this->allBuildingStatistics(),
 
-            'total_products' => $this->thousandsFormat(Product::count('id')), // @TODO delete
+            'total_products' => $this->thousandsFormat(Listing::count('id')), // @TODO delete
             'products_per_status' => $this->donutChartByTable($request, $optionalArgs, 'listings'), // @TODO delete
 
-            'total_listings' => $this->thousandsFormat(Product::count('id')),
+            'total_listings' => $this->thousandsFormat(Listing::count('id')),
             'listings_per_status' => $this->donutChartByTable($request, $optionalArgs, 'listings'),
 
             'total_pinboard' => $this->thousandsFormat(Pinboard::count('id')),
@@ -986,8 +985,8 @@ class DashboardAPIController extends AppBaseController
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
 
         $name = get_translation_attribute_name('name');
-        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck($name, 'id')->toArray();
-        $serviceRequests = ServiceRequest::selectRaw($raw . ', IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
+        $parentCategories = RequestCategory::whereNull('parent_id')->pluck($name, 'id')->toArray();
+        $requests = Request::selectRaw($raw . ', IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
             ->join('request_categories AS cat1', 'requests.category_id', '=', 'cat1.id')
             ->leftJoin('request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
             ->whereDate('requests.created_at', '>=', $startDate->format('Y-m-d'))
@@ -996,7 +995,7 @@ class DashboardAPIController extends AppBaseController
             ->groupBy('category_parent_id')
             ->get();
 
-        $ret = $this->formatResponseGropedPeriodAndCol($periodValues, $serviceRequests, 'category_parent_id', $parentCategories);
+        $ret = $this->formatResponseGropedPeriodAndCol($periodValues, $requests, 'category_parent_id', $parentCategories);
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
             ? $this->sendResponse($ret, 'Request services statistics formatted successfully')
@@ -1359,9 +1358,9 @@ class DashboardAPIController extends AppBaseController
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $name = get_translation_attribute_name('name');
-        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck($name, 'id');
+        $parentCategories = RequestCategory::whereNull('parent_id')->pluck($name, 'id');
 
-        $serviceRequests = ServiceRequest::selectRaw('count(requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
+        $requests = Request::selectRaw('count(requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
             ->join('request_categories AS cat1', 'requests.category_id', '=', 'cat1.id')
             ->leftJoin('request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
             ->when($startDate, function ($q) use ($startDate) {$q->whereDate('requests.created_at', '>=', $startDate->format('Y-m-d'));})
@@ -1374,9 +1373,9 @@ class DashboardAPIController extends AppBaseController
             $statisticData[$category] = 0;
         }
 
-        foreach ($serviceRequests as $serviceRequest) {
-            $category = $parentCategories[$serviceRequest->category_parent_id];
-            $statisticData[$category] = $this->thousandsFormat($serviceRequest->count);
+        foreach ($requests as $request) {
+            $category = $parentCategories[$request->category_parent_id];
+            $statisticData[$category] = $this->thousandsFormat($request->count);
         }
 
         $response = [
@@ -1451,7 +1450,7 @@ class DashboardAPIController extends AppBaseController
             [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         }
 
-        $serviceRequestCount = ServiceRequest
+        $requestCount = Request
             ::when($startDate, function ($q) use ($startDate) {$q->whereDate('requests.created_at', '>=', $startDate->format('Y-m-d'));})
             ->whereHas('category', function ($q) {
                 $q->whereIn('id', [1, 2])->orWhereIn('parent_id', [1, 2]); // @TODO fix hard coding [1, 2]
@@ -1459,7 +1458,7 @@ class DashboardAPIController extends AppBaseController
             ->when($endDate, function ($q) use ($endDate) {$q->whereDate('requests.created_at', '<=', $endDate->format('Y-m-d'));})
             ->count();
 
-        $serviceRequestHasProviderCount = ServiceRequest
+        $requestHasProviderCount = Request
             ::has('providers')
             ->whereHas('category', function ($q) {
                 $q->whereIn('id', [1, 2])->orWhereIn('parent_id', [1, 2]); // @TODO fix hard coding [1, 2]
@@ -1474,8 +1473,8 @@ class DashboardAPIController extends AppBaseController
                 'request_wihout_service_providers'
             ],
             'data' => [
-                $serviceRequestHasProviderCount,
-                $serviceRequestCount - $serviceRequestHasProviderCount,
+                $requestHasProviderCount,
+                $requestCount - $requestHasProviderCount,
             ],
         ];
 
@@ -1564,7 +1563,7 @@ class DashboardAPIController extends AppBaseController
             ->orderBy('status')
             ->get();
 
-        $classStatus = ServiceRequest::Status;
+        $classStatus = Request::Status;
         $response = $this->formatForDonutChart($rsPerStatus, 'status', $classStatus);
 
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
@@ -1728,7 +1727,7 @@ class DashboardAPIController extends AppBaseController
             $endDate->setMonth(12);
             $raw = "CONCAT(DAY(created_at), ' ', MONTH(created_at))";
         }
-        $statistics = ServiceRequest::selectRaw($raw . " AS `interval`, COUNT(id) AS `count`")
+        $statistics = Request::selectRaw($raw . " AS `interval`, COUNT(id) AS `count`")
             ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
             ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy('interval')->get();
@@ -1754,7 +1753,7 @@ class DashboardAPIController extends AppBaseController
         foreach ($datePeriod as $date) {
             $intervalValues[$date->format('Y-m-d')] = $date->format('l');
         }
-        $colStats = $this->initializeServiceRequestCategoriesForChart($intervalValues, $hours);
+        $colStats = $this->initializeRequestCategoriesForChart($intervalValues, $hours);
 
         foreach ($statistics as $statistic) {
             $parts = explode(' ', $statistic['interval']);
@@ -1776,7 +1775,7 @@ class DashboardAPIController extends AppBaseController
         $hours = array_combine(range(1, 12), range(1, 12));
         $intervalValues = array_combine(range(1, 31), range(1, 31));
 
-        $colStats = $this->initializeServiceRequestCategoriesForChart($hours, array_flip($intervalValues));
+        $colStats = $this->initializeRequestCategoriesForChart($hours, array_flip($intervalValues));
         foreach ($statistics as $statistic) {
             $parts = explode(' ', $statistic['interval']);
             $day = $parts[0];
@@ -1979,7 +1978,7 @@ class DashboardAPIController extends AppBaseController
      * @param string $table
      * @return mixed
      */
-    protected function donutChartByTable(Request $request, $optionalArgs, $table = 'requests')
+    protected function donutChartByTable(\Illuminate\Http\Request $request, $optionalArgs, $table = 'requests')
     {
         return $this->_donutChart($request, array_merge($optionalArgs, ['table' => $table, 'column' => 'status']));
     }
@@ -1993,7 +1992,7 @@ class DashboardAPIController extends AppBaseController
      */
     protected function formatResponseGropedPeriodAndCol($periodValues, $statistics, $column, $columnValues)
     {
-        $colStats = $this->initializeServiceRequestCategoriesForChart($columnValues, $periodValues);
+        $colStats = $this->initializeRequestCategoriesForChart($columnValues, $periodValues);
         foreach ($statistics as $statistic) {
             $value = $columnValues[$statistic[$column]] ?? '';
             $colStats[$value][$statistic['period']] = $this->thousandsFormat($statistic['count']);
@@ -2094,7 +2093,7 @@ class DashboardAPIController extends AppBaseController
      * @param $periodValues
      * @return array
      */
-    protected function initializeServiceRequestCategoriesForChart($parentCategories, $periodValues)
+    protected function initializeRequestCategoriesForChart($parentCategories, $periodValues)
     {
         $categoryDayStatistic = [];
 
@@ -2228,7 +2227,7 @@ class DashboardAPIController extends AppBaseController
         $table = $optionalArgs['table'] ?? null;
         $table = $table ?? $request->{self::QUERY_PARAMS['table']};
         $table = key_exists($table, $permissions) ? $table : Arr::first(array_keys($permissions));
-        $table = 'products' == $table ? 'listings' : $table;  // @TODO delete
+        $table = 'listings' == $table ? 'listings' : $table;  // @TODO delete
         $table = 'service_requests' == $table ? 'requests' : $table; // @TODO delete
 
         $class = $permissions[$table]['class'];
