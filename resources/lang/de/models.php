@@ -129,14 +129,14 @@ return [
         'rent_end' => 'Mietende',
         'rent_start' => 'Mietbeginn',
         'rent_contract' => 'Mietvertrag',
-        'rent_type' => 'Mietart',
+        'rent_type' => 'Objekttyp',
         'rent_types' => [
             'private' => 'Wohnung',
             'business' => 'Gewerbe',
             'parking_lot' => 'Parkplatz',
             'parking_slot' => 'Parkplatz',
         ],
-        'rent_duration' => 'Mietdauer',
+        'rent_duration' => 'Vertragslaufzeit',
         'rent_durations' => [
             'unlimited' => 'Unbefristet',
             'limited' => 'Befristet',
@@ -145,8 +145,7 @@ return [
         'deposit_amount' => 'Kautionsbetrag',
         'type_of_deposit' => 'Art der Sicherheitsleistung',
         'deposit_types' => [
-            'bank_deposit' => 'Bankdepost',
-            'bank_deposit' => 'Bankdepost',
+            'bank_deposit' => 'Bankdepot',
             'bank_guarantee' => 'Bankgarantie',
             'insurance' => 'Kautionsversicherung',
             'other' => 'Sonstiges',
@@ -156,7 +155,7 @@ return [
         'parking_price' => 'Miete',
         'gross_rent' => 'Bruttomiete',
         'deposit_status' => [
-            'label' => 'Einzahlungsstatus',
+            'label' => 'Mietkaution gesichert',
             'yes' => 'Ja',
             'no' => 'Nein',
         ],
@@ -234,9 +233,9 @@ return [
         'other' => 'Sonstiges',
         'files' => 'Dokumente',
         'add_files' => 'Dokumente hinzufügen',
-        'add_companies' => 'Dienstleister hinzufügen',
+        'add_companies' => 'Dienstleister zuweisen',
         'companies' => 'Dienstleister',
-        'no_services' => 'Keine Dienstleister hunzugefügt.',
+        'no_services' => 'Keine Dienstleister zugewiesen.',
         'select_media_category' => 'Kategorie der Mediendatei wählen',
         'quarter' => 'Überbauung',
         'managers' => 'Bewirtschafter',
@@ -333,7 +332,7 @@ return [
                 'required' => 'Monatsmiete ist obligatorisch',
             ],
             'floor' => [
-                'required' => 'Etagen ist obligatorisch',
+                'required' => 'Etage ist obligatorisch',
             ],
             'room_no' => [
                 'required' => 'Nummer der Einheit ist obligatorisch',
@@ -380,7 +379,7 @@ return [
                 'required' => 'Hausnummer ist obligatorisch',
             ],
             'zip' => [
-                'required' => 'Postleitzahl  ist obligatorisch',
+                'required' => 'Postleitzahl ist obligatorisch',
             ],
         ],
     ],
@@ -521,7 +520,7 @@ return [
         ],
     ],
     'settings' => [
-        'title' => 'Einstellungen Liegenschaftsverwaltung',
+        'title' => 'App Einstellungen',
         'settings' => 'Einstellungen',
         'saved' => "Einstellung(en) gespeichert",
         'tenants_portal' => 'Mieterportal',
@@ -536,8 +535,6 @@ return [
         'login_variation_slider' => 'Möchten Sie den Slider it Vorteilen anzeigen?',
         'quarter_enable' => 'Überbauungen aktivieren',
         'marketplace_approval_enable' => 'Marktplatz aktivieren',
-        'gocaution' => 'Vorsicht',
-        'gocaution_desc' => 'Vorsicht',
         'blank_pdf' => 'PDF ohne Briefkopf verwenden',
         'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
         'font_family' => 'Schriftfamilie',
@@ -555,16 +552,18 @@ return [
         'templates' => 'Vorlagen',
         'contact_enable' => 'Dienstleister-Kontakte für Mieter aktivieren',
         'contact_enable_desc' => 'Mieter können die Kontaktdaten der involvierten Dienstleister im Mieterportal sehen.',
+        'iframe_enable' => 'Freie Mietobjekte',
+        'iframe_enable_desc' => 'Im Mieterportal wird eine Rubrik mit Ihren freien Mietobjekten angezeigt. Hintelegen Sie hier die URL mit Ihren Objekten, beispielsweise von ImmoScou24 oder Homegate.',
+        'gocaution' => 'goCaution',
+        'gocaution_desc' => 'Mit der Kautionsbürgschaft entfällt die Hinterlegung einer Mietkaution. Sowohl Mieter als auch Vermieter profitieren von der bargeldlosen Mietkaution von goCaution.',
         'cleanify_email' => 'Cleanify email',
-        'cleanify_email_desc' => 'Cleanify email',
-        'cleanify_email_url' => 'Cleanify Email URL',
+		'cleanify_email_desc' => 'Cleanify',
+        'cleanify_email_url' => 'Über Cleanify können Reinigungsfirmen kostenlose Offerten und verglichen werden.',
         'mail_encryption' => 'Verschlüsselung',
         'primary_color' => 'Primärfarbe',
         'accent_color' => 'Akzentfarbe',
-        'iframe_enable' => 'Iframe aktivieren',
-        'iframe_enable_desc' => 'Im Mieterportal wird eine Rubrik mit Ihren freien Mietobjekten angezeigt.',
         'iframe_url' => [
-            'label' => 'URL mit Ihren Objekten (z.B. Immoscout24 oder Homegate)',
+            'label' => 'URL mit Ihren Objekten',
             'validation' => 'Bitte geben Sie eine korrekte URL ein.',
         ],
         "mail_from_name" => [
@@ -702,8 +701,8 @@ return [
             'reactivated' => 'Reaktiviert',
             'done' => 'Erledigt',
             'archived' => 'Archiviert',
-            'solved' => "Erledigte",
-            'pending' => "Hängige??"
+            'solved' => "Erledigt",
+            'pending' => "Pendent"
         ],
         'sub_category_fields' => [
             'location' => [
@@ -746,7 +745,7 @@ return [
             'payer' => [
                 'landlord' => 'Vermieter',
                 'tenant' => 'Mieter',
-                'tenant/landlord' => 'Mieter/Vermieter'
+                'tenant/landlord' => 'Mieter u. Vermieter'
             ]
         ],
         'category_options' => [
@@ -758,7 +757,7 @@ return [
             'component' => 'Bauteil',
             'acquisition' => 'Erfassungsphase',
             'cost' => 'Zu Lasten von',
-            'keywords' => 'Stichworte',
+            'keywords' => 'Tags',
         ],
         'placeholders' => [
             'category' => 'Kategorie wählen',

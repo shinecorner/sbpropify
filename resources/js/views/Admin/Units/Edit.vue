@@ -56,7 +56,7 @@
                             </el-col>
 
                             <el-col :md="6" >
-                                <el-form-item :label="$t('models.unit.monthly_rent_net')"
+                                <el-form-item :label="$t('general.monthly_rent_net')"
                                               :rules="validationRules.monthly_rent_net"
                                               prop="monthly_rent_net">
                                     <el-input autocomplete="off" step="0.01" type="number"
