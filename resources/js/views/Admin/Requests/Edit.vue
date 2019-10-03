@@ -876,8 +876,14 @@
                 padding: 16px !important;
             }
         }
-        .el-tabs--border-card .el-tabs__header {
-            border-radius: 6px 6px 0 0;
+        .el-tabs--border-card {
+            border-radius: 6px;
+            .el-tabs__header {
+                border-radius: 6px 6px 0 0;
+            }
+            .el-tabs__nav-wrap.is-top {
+                border-radius: 6px 6px 0 0;
+            }
         }
         #pane-is_public {
 
