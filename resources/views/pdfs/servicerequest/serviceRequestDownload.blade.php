@@ -22,7 +22,7 @@
                                     </p>
                                     <p style="margin:7px 0 0;">
                                         <b>@lang('models.request.status.label',[],$language):</b>
-                                        @lang('models.request.status.'.\App\Models\ServiceRequest::Status[$request->status],[],$language) ({{ now()->format('d.m.Y, H:i') }})
+                                        @lang('models.request.status.'.\App\Models\Request::Status[$request->status],[],$language) ({{ now()->format('d.m.Y, H:i') }})
                                     </p>
                                     <p style="margin:7px 0 0;">
                                         <b>@lang('models.address.name',[],$language):</b>
@@ -74,7 +74,7 @@
                                                     </strong>
                                                 </td>
                                                 <td class="no_border">
-                                                    @lang('models.request.qualification.'.\App\Models\ServiceRequest::Qualification[$request->qualification],[],$language)
+                                                    @lang('models.request.qualification.'.\App\Models\Request::Qualification[$request->qualification],[],$language)
                                                 </td>
                                            @endif
                                         </tr>
@@ -159,10 +159,10 @@
 
                                {{-- <tr>
                                     <td><strong>@lang('models.request.visibility.label',[],$language)</strong></td>
-                                    <td>@lang('models.request.visibility.'.\App\Models\ServiceRequest::Visibility[$request->visibility],[],$language)</td>
+                                    <td>@lang('models.request.visibility.'.\App\Models\Request::Visibility[$request->visibility],[],$language)</td>
 
                                     <td><strong>@lang('models.request.priority.label',[],$language)</strong></td>
-                                    <td>@lang('models.request.priority.'.\App\Models\ServiceRequest::Priority[$request->priority],[],$language)</td>
+                                    <td>@lang('models.request.priority.'.\App\Models\Request::Priority[$request->priority],[],$language)</td>
 
                                 </tr>--}}
 
