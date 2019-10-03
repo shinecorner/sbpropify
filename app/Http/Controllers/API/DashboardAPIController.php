@@ -2227,7 +2227,7 @@ class DashboardAPIController extends AppBaseController
         $table = $optionalArgs['table'] ?? null;
         $table = $table ?? $request->{self::QUERY_PARAMS['table']};
         $table = key_exists($table, $permissions) ? $table : Arr::first(array_keys($permissions));
-        $table = 'listings' == $table ? 'listings' : $table;  // @TODO delete
+        $table = 'products' == $table ? 'listings' : $table;  // @TODO delete
         $table = 'service_requests' == $table ? 'requests' : $table; // @TODO delete
 
         $class = $permissions[$table]['class'];
