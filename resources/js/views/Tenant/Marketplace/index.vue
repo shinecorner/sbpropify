@@ -79,7 +79,7 @@
                 filters: {
                     schema: [{
                         type: 'el-switch',
-                        title: 'My offerings',
+                        title: 'tenant.my_offerings',
                         name: 'user_id',
                         props: {
                             activeValue: this.$store.getters.loggedInUser.id.toString(),
