@@ -8,8 +8,8 @@ use App\Http\Requests\API\RequestCategory\DeleteRequest;
 use App\Http\Requests\API\RequestCategory\ListRequest;
 use App\Http\Requests\API\RequestCategory\UpdateRequest;
 use App\Http\Requests\API\RequestCategory\ViewRequest;
-use App\Models\ServiceRequest;
-use App\Models\ServiceRequestCategory;
+use App\Models\Request;
+use App\Models\RequestCategory;
 use App\Repositories\RequestCategoryRepository;
 use App\Transformers\RequestCategoryTransformer;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,19 +28,19 @@ class RequestCategoryAPIController extends AppBaseController
 
     /**
      * RequestCategoryAPIController constructor.
-     * @param RequestCategoryRepository $serviceRequestCategoryRepo
+     * @param RequestCategoryRepository $requestCategoryRepo
      */
-    public function __construct(RequestCategoryRepository $serviceRequestCategoryRepo)
+    public function __construct(RequestCategoryRepository $requestCategoryRepo)
     {
-        $this->requestCategoryRepository = $serviceRequestCategoryRepo;
+        $this->requestCategoryRepository = $requestCategoryRepo;
     }
 
     /**
      * @SWG\Get(
      *      path="/requestCategories",
-     *      summary="Get a listing of the ServiceRequestCategories.",
-     *      tags={"ServiceRequestCategory"},
-     *      description="Get all ServiceRequestCategories",
+     *      summary="Get a listing of the RequestCategories.",
+     *      tags={"RequestCategory"},
+     *      description="Get all RequestCategories",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -54,7 +54,7 @@ class RequestCategoryAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/ServiceRequestCategory")
+     *                  @SWG\Items(ref="#/definitions/RequestCategory")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -73,38 +73,38 @@ class RequestCategoryAPIController extends AppBaseController
         $this->requestCategoryRepository->pushCriteria(new RequestCriteria($request));
         $this->requestCategoryRepository->pushCriteria(new LimitOffsetCriteria($request));
 
-        $parentServiceRequestCategories = $this->requestCategoryRepository->with('categories')
+        $parentRequestCategories = $this->requestCategoryRepository->with('categories')
             ->findWhere([
                 'parent_id' => null
             ]);
 
         $tree = $request->get('tree', false);
         if ($tree) {
-            $serviceRequestCategories = new Collection();
+            $requestCategories = new Collection();
 
-            foreach ($parentServiceRequestCategories as $parent) {
-                $serviceRequestCategories->push($parent);
+            foreach ($parentRequestCategories as $parent) {
+                $requestCategories->push($parent);
                 if ($parent->categories) {
                     foreach ($parent->categories as $children) {
-                        $serviceRequestCategories->push($children);
+                        $requestCategories->push($children);
                     }
                 }
             }
 
-            $response = (new RequestCategoryTransformer())->transformCollection($serviceRequestCategories);
+            $response = (new RequestCategoryTransformer())->transformCollection($requestCategories);
             return $this->sendResponse($response, 'Service Requests Categories retrieved successfully');
         }
 
-        $response = (new RequestCategoryTransformer())->transformCollection($parentServiceRequestCategories);
+        $response = (new RequestCategoryTransformer())->transformCollection($parentRequestCategories);
         return $this->sendResponse($response, 'Service Request Categories retrieved successfully');
     }
 
     /**
      * @SWG\Get(
      *      path="/categoryTree",
-     *      summary="Get a Tree listing of the ServiceRequestCategories.",
-     *      tags={"ServiceRequestCategory"},
-     *      description="Get all ServiceRequestCategories",
+     *      summary="Get a Tree listing of the RequestCategories.",
+     *      tags={"RequestCategory"},
+     *      description="Get all RequestCategories",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -118,7 +118,7 @@ class RequestCategoryAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/ServiceRequestCategory")
+     *                  @SWG\Items(ref="#/definitions/RequestCategory")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -137,12 +137,12 @@ class RequestCategoryAPIController extends AppBaseController
         $this->requestCategoryRepository->pushCriteria(new RequestCriteria($request));
         $this->requestCategoryRepository->pushCriteria(new LimitOffsetCriteria($request));
 
-        $serviceRequestCategories = $this->requestCategoryRepository->with('categories')
+        $requestCategories = $this->requestCategoryRepository->with('categories')
             ->findWhere([
                 'parent_id' => null
             ]);
 
-        $response = (new RequestCategoryTransformer())->transformCollection($serviceRequestCategories);
+        $response = (new RequestCategoryTransformer())->transformCollection($requestCategories);
 
         return $this->sendResponse($response, 'Service Requests Categories retrieved successfully');
     }
@@ -150,16 +150,16 @@ class RequestCategoryAPIController extends AppBaseController
     /**
      * @SWG\Post(
      *      path="/requestCategories",
-     *      summary="Store a newly created ServiceRequestCategory in storage",
-     *      tags={"ServiceRequestCategory"},
-     *      description="Store ServiceRequestCategory",
+     *      summary="Store a newly created RequestCategory in storage",
+     *      tags={"RequestCategory"},
+     *      description="Store RequestCategory",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="ServiceRequestCategory that should be stored",
+     *          description="RequestCategory that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/ServiceRequestCategory")
+     *          @SWG\Schema(ref="#/definitions/RequestCategory")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -172,7 +172,7 @@ class RequestCategoryAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequestCategory"
+     *                  ref="#/definitions/RequestCategory"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -188,12 +188,12 @@ class RequestCategoryAPIController extends AppBaseController
      */
     public function store(CreateRequest $request)
     {
-        $input = $request->only((new ServiceRequestCategory)->getFillable());
+        $input = $request->only((new RequestCategory)->getFillable());
         $input['has_qualifications'] = false;
 
         $parentId = $request->get('parent_id');
         if ($parentId) {
-            /** @var ServiceRequestCategory $serviceRequestCategory */
+            /** @var RequestCategory $requestCategory */
             $parentCategory = $this->requestCategoryRepository->findWithoutFail((int)$parentId);
             if (empty($parentCategory)) {
                 return $this->sendError(__('models.requestCategory.errors.parent_not_found'));
@@ -206,22 +206,22 @@ class RequestCategoryAPIController extends AppBaseController
             $input['has_qualifications'] = $parentCategory->has_qualifications;
         }
 
-        $serviceRequestCategories = $this->requestCategoryRepository->create($input);
+        $requestCategories = $this->requestCategoryRepository->create($input);
 
-        $response = (new RequestCategoryTransformer)->transform($serviceRequestCategories);
-        return $this->sendResponse($response, __('models.user.serviceRequestCategorySaved'));
+        $response = (new RequestCategoryTransformer)->transform($requestCategories);
+        return $this->sendResponse($response, __('models.user.requestCategorySaved'));
     }
 
     /**
      * @SWG\Get(
      *      path="/requestCategories/{id}",
-     *      summary="Display the specified ServiceRequestCategory",
-     *      tags={"ServiceRequestCategory"},
-     *      description="Get ServiceRequestCategory",
+     *      summary="Display the specified RequestCategory",
+     *      tags={"RequestCategory"},
+     *      description="Get RequestCategory",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of ServiceRequestCategory",
+     *          description="id of RequestCategory",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -237,7 +237,7 @@ class RequestCategoryAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequestCategory"
+     *                  ref="#/definitions/RequestCategory"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -253,26 +253,26 @@ class RequestCategoryAPIController extends AppBaseController
      */
     public function show($id, ViewRequest $r)
     {
-        /** @var ServiceRequestCategory $serviceRequestCategory */
-        $serviceRequestCategory = $this->requestCategoryRepository->findWithoutFail($id);
-        if (empty($serviceRequestCategory)) {
+        /** @var RequestCategory $requestCategory */
+        $requestCategory = $this->requestCategoryRepository->findWithoutFail($id);
+        if (empty($requestCategory)) {
             return $this->sendError(__('models.requestCategory.errors.not_found'));
         }
 
-        $response = (new RequestCategoryTransformer)->transform($serviceRequestCategory);
+        $response = (new RequestCategoryTransformer)->transform($requestCategory);
         return $this->sendResponse($response, 'Service Request Category retrieved successfully');
     }
 
     /**
      * @SWG\Put(
      *      path="/requestCategories/{id}",
-     *      summary="Update the specified ServiceRequestCategory in storage",
-     *      tags={"ServiceRequestCategory"},
-     *      description="Update ServiceRequestCategory",
+     *      summary="Update the specified RequestCategory in storage",
+     *      tags={"RequestCategory"},
+     *      description="Update RequestCategory",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of ServiceRequestCategory",
+     *          description="id of RequestCategory",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -280,9 +280,9 @@ class RequestCategoryAPIController extends AppBaseController
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="ServiceRequestCategory that should be updated",
+     *          description="RequestCategory that should be updated",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/ServiceRequestCategory")
+     *          @SWG\Schema(ref="#/definitions/RequestCategory")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -295,7 +295,7 @@ class RequestCategoryAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequestCategory"
+     *                  ref="#/definitions/RequestCategory"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -312,19 +312,19 @@ class RequestCategoryAPIController extends AppBaseController
      */
     public function update(int $id, UpdateRequest $request)
     {
-        $input = $request->only((new ServiceRequestCategory)->getFillable());
+        $input = $request->only((new RequestCategory)->getFillable());
 
-        /** @var ServiceRequestCategory $serviceRequestCategory */
-        $serviceRequestCategory = $this->requestCategoryRepository->findWithoutFail($id);
-        if (empty($serviceRequestCategory)) {
+        /** @var RequestCategory $requestCategory */
+        $requestCategory = $this->requestCategoryRepository->findWithoutFail($id);
+        if (empty($requestCategory)) {
             return $this->sendError(__('models.requestCategory.errors.not_found'));
         }
 
-        $input['has_qualifications'] = $serviceRequestCategory->has_qualifications;
+        $input['has_qualifications'] = $requestCategory->has_qualifications;
 
         $parentId = $request->get('parent_id');
         if ($parentId) {
-            /** @var ServiceRequestCategory $serviceRequestCategory */
+            /** @var RequestCategory $requestCategory */
             $parentCategory = $this->requestCategoryRepository->findWithoutFail((int)$parentId);
             if (empty($parentCategory)) {
                 return $this->sendError(__('models.requestCategory.errors.parent_not_found'));
@@ -337,22 +337,22 @@ class RequestCategoryAPIController extends AppBaseController
             $input['has_qualifications'] = $parentCategory->has_qualifications;
         }
 
-        $serviceRequestCategory = $this->requestCategoryRepository->update($input, $id);
+        $requestCategory = $this->requestCategoryRepository->update($input, $id);
 
-        $response = (new RequestCategoryTransformer())->transform($serviceRequestCategory);
-        return $this->sendResponse($response, __('models.user.serviceRequestCategorySaved'));
+        $response = (new RequestCategoryTransformer())->transform($requestCategory);
+        return $this->sendResponse($response, __('models.user.requestCategorySaved'));
     }
 
     /**
      * @SWG\Delete(
      *      path="/requestCategories/{id}",
-     *      summary="Remove the specified ServiceRequestCategory from storage",
-     *      tags={"ServiceRequestCategory"},
-     *      description="Delete ServiceRequestCategory",
+     *      summary="Remove the specified RequestCategory from storage",
+     *      tags={"RequestCategory"},
+     *      description="Delete RequestCategory",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of ServiceRequestCategory",
+     *          description="id of RequestCategory",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -385,18 +385,18 @@ class RequestCategoryAPIController extends AppBaseController
      */
     public function destroy(int $id, DeleteRequest $r)
     {
-        /** @var ServiceRequestCategory $serviceRequestCategory */
-        $serviceRequestCategory = $this->requestCategoryRepository->findWithoutFail($id);
-        if (empty($serviceRequestCategory)) {
+        /** @var RequestCategory $requestCategory */
+        $requestCategory = $this->requestCategoryRepository->findWithoutFail($id);
+        if (empty($requestCategory)) {
             return $this->sendError(__('models.requestCategory.errors.not_found'));
         }
 
-        $usedCategory = ServiceRequest::where('category_id', $serviceRequestCategory->id)->first();
+        $usedCategory = Request::where('category_id', $requestCategory->id)->first();
         if ($usedCategory) {
             return $this->sendError(__('models.requestCategory.errors.used_by_request'));
         }
 
-        $serviceRequestCategory->delete();        
-        return $this->sendResponse($id, __('models.user.serviceRequestCategoryDeleted'));
+        $requestCategory->delete();
+        return $this->sendResponse($id, __('models.user.requestCategoryDeleted'));
     }
 }

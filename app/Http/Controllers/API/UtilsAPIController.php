@@ -5,10 +5,10 @@ namespace App\Http\Controllers\API;
 use App;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Pinboard;
-use App\Models\Product;
+use App\Models\Listing;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Models\TemplateCategory;
 use App\Models\Tenant;
 use App\Repositories\BuildingRepository;
@@ -118,10 +118,11 @@ class UtilsAPIController extends AppBaseController
             'tenants' => $this->getTenantConstants(),
             'rentContracts' => $this->getRentContractConstants(),
             'serviceProviders' => $this->getServiceProviderConstants(),
-            'serviceRequests' => $this->getServiceRequestsConstants(),
+            'requests' => $this->getRequestsConstants(),
             'propertyManager' => $this->getPropertyManagerConstants(),
             'pinboard' => $this->getPinboardConstants(),
-            'products' => $this->getProductConstants(),
+            'products' => $this->getListingConstants(),
+            'listings' => $this->getListingConstants(),
             'templates' => $this->getTemplateConstants(),
             'audits' => $this->getAuditConstants(),
             'colors' => $colors,
@@ -198,21 +199,21 @@ class UtilsAPIController extends AppBaseController
     /**
      * @return array
      */
-    protected function getServiceRequestsConstants()
+    protected function getRequestsConstants()
     {
         $result = [
-            'status' => ServiceRequest::Status,
-            'priority' => ServiceRequest::Priority,
-            'internal_priority' => ServiceRequest::Priority,
-            'qualification' => ServiceRequest::Qualification,
-            'statusByTenant' => ServiceRequest::StatusByTenant,
-            'statusByService' => ServiceRequest::StatusByService,
-            'statusByAgent' => ServiceRequest::StatusByAgent,
-            'visibility' => ServiceRequest::Visibility,
-            'location' => ServiceRequest::Location,
-            'room' => ServiceRequest::Room,
-            'capture_phase' => ServiceRequest::CapturePhase,
-            'payer' => ServiceRequest::Payer,
+            'status' => Request::Status,
+            'priority' => Request::Priority,
+            'internal_priority' => Request::Priority,
+            'qualification' => Request::Qualification,
+            'statusByTenant' => Request::StatusByTenant,
+            'statusByService' => Request::StatusByService,
+            'statusByAgent' => Request::StatusByAgent,
+            'visibility' => Request::Visibility,
+            'location' => Request::Location,
+            'room' => Request::Room,
+            'capture_phase' => Request::CapturePhase,
+            'payer' => Request::Payer,
         ];
 
         return $result;
@@ -250,12 +251,12 @@ class UtilsAPIController extends AppBaseController
     /**
      * @return array
      */
-    protected function getProductConstants()
+    protected function getListingConstants()
     {
         $result = [
-            'type' => Product::Type,
-            'visibility' => Product::Visibility,
-            'status' => Product::Status,
+            'type' => Listing::Type,
+            'visibility' => Listing::Visibility,
+            'status' => Listing::Status,
         ];
 
         return $result;
