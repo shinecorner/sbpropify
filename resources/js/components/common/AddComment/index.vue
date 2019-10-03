@@ -1,4 +1,5 @@
 <template>
+<div>
     <div :class="['add-comment', {'with-templates': showTemplates}]">
         <el-tooltip :content="user.name" effect="dark" placement="top-start">
             <ui-avatar :name="user.name" :size="32" :src="user.avatar" />
@@ -31,6 +32,25 @@
             <el-button circle icon="icon-paper-plane" size="small" :disabled="!content" :loading="loading" @click="save" />
         </el-tooltip>
     </div>
+    <div v-if="type === 'internalNotices'" style="margin: 10px 41px 0 35px;">
+        <el-row :gutter="10">
+            <el-col :span="12">
+                <el-form-item class="switcher">
+                    <label class="switcher__label">
+                        Select property manager/admin?
+                        <span class="switcher__desc">Do you want to select property manager/administrator?</span>
+                    </label>
+                    <el-switch v-model="isManagerSelect" @change="resetList"/>
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-select v-if="isManagerSelect" v-model="selectedManagerLists" multiple filterable remote reserve-keyword placeholder="Please enter a keyword" :remote-method="remoteSearch" :loading="loading" style="width: 100%">
+                    <el-option v-for="item in managerLists" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                </el-select>
+            </el-col>
+        </el-row>
+    </div>
+</div>
 </template>
 
 <script>
@@ -74,12 +94,48 @@
                 loadingTemplates: false,
                 dropdownTemplatesVisible: false,
                 errorFallback: ErrorFallback,
+                               
+                managerLists: [],
+                selectedManagerLists: [],
+                loadingList: false,
+                isManagerSelect: false
             }
         },
         methods: {
             ...mapActions({
                 getTemplates: 'getRequestTemplates',
+                getPropertyManagers: 'getPropertyManagers',
             }),
+            async remoteSearch(search) {
+                if (search === '') {
+                    this.managerList = [];
+                } else {
+                    this.loadingList = true;
+                    try {
+                        let resp = [];
+                        const respAssignee = await this.getPropertyManagers({request_id: this.$route.params.id});                        
+                        let exclude_ids = [];                                                
+                            respAssignee.data.data.map(item => {
+                                if(item.type === 'manager'){
+                                    exclude_ids.push(item.edit_id);
+                                }                                
+                            })
+                            resp = await this.getPropertyManagers({
+                                get_all: true,
+                                search,
+                                exclude_ids
+                            });
+                        this.managerLists = resp.data;
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.loadingList = false;
+                    }
+                }           
+            },
+            resetList(){
+                this.selectedManagerLists = []
+            },
 
             focus () {
                 this.$refs.content.focus()
@@ -117,6 +173,7 @@
                         user_id: this.user.id,
                         comment: this.content,
                         commentable: this.type,
+                        selectedManagerLists: this.selectedManagerLists
                     }
 
                     await this.$store.dispatch('comments/create', body);                    
