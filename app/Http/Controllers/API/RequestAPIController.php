@@ -22,6 +22,7 @@ use App\Http\Requests\API\Request\SeeRequestsCount;
 use App\Http\Requests\API\Request\UnAssignRequest;
 use App\Http\Requests\API\Request\UpdateRequest;
 use App\Http\Requests\API\Request\ViewRequest;
+use App\Http\Requests\API\Tenant\DownloadPdfRequest;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\Request;
@@ -366,13 +367,13 @@ class RequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $updatedServiceRequest = $this->requestRepository->updateExisting($request, $input);
+        $updatedRequest = $this->requestRepository->updateExisting($request, $input);
 
-        $updatedServiceRequest->load([
+        $updatedRequest->load([
             'media', 'tenant.user', 'category', 'managers.user', 'users', 'remainder_user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
         ]);
-        $response = (new RequestTransformer)->transform($updatedServiceRequest);
+        $response = (new RequestTransformer)->transform($updatedRequest);
         return $this->sendResponse($response, __('models.request.saved'));
     }
 
@@ -1672,8 +1673,8 @@ class RequestAPIController extends AppBaseController
     }
 
     /**
-     * @param $tenant
-     * @return mixed
+     * @param Request $request
+     * @return string
      */
     protected function getPdfName(Request $request)
     {

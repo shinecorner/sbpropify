@@ -1,4 +1,4 @@
-@extends('pdfs.servicerequest.layout')
+@extends('pdfs.request.layout')
 @section('title')
     @lang("models.request.download_pdf.service_request", [], $language)
 @endsection
@@ -61,8 +61,8 @@
                                             </td>
 
                                             <td class="no_border">
-                                                @if(key_exists($request->capture_phase, \App\Models\ServiceRequest::CapturePhase))
-                                                    @lang('models.request.sub_category_fields.capture_phase.' . \App\Models\ServiceRequest::CapturePhase[$request->capture_phase], [], $language)
+                                                @if(key_exists($request->capture_phase, \App\Models\Request::CapturePhase))
+                                                    @lang('models.request.sub_category_fields.capture_phase.' . \App\Models\Request::CapturePhase[$request->capture_phase], [], $language)
                                                 @endif
                                             </td>
 
@@ -91,8 +91,8 @@
                                                     <strong> @lang('models.request.category_options.range',[],$language):</strong>
                                                 </td>
                                                 <td class="border_btm">
-                                                    @if(key_exists($request->location, \App\Models\ServiceRequest::Location))
-                                                        @lang('models.request.sub_category_fields.location.' . \App\Models\ServiceRequest::Location[$request->location], [], $language);
+                                                    @if(key_exists($request->location, \App\Models\Request::Location))
+                                                        @lang('models.request.sub_category_fields.location.' . \App\Models\Request::Location[$request->location], [], $language);
                                                     @endif
                                                 </td>
                                             @endif
@@ -100,8 +100,8 @@
                                             @if($category->room == 1 || ($category->parentCategory != null && $category->parentCategory->room))
                                              <td class="border_btm"><strong>@lang('models.request.category_options.room',[],$language):</strong></td>
                                                 <td class="border_btm">
-                                                    @if(key_exists($request->room, \App\Models\ServiceRequest::Room))
-                                                        @lang('models.request.sub_category_fields.room.' . \App\Models\ServiceRequest::Room[$request->room], [], $language);
+                                                    @if(key_exists($request->room, \App\Models\Request::Room))
+                                                        @lang('models.request.sub_category_fields.room.' . \App\Models\Request::Room[$request->room], [], $language);
                                                     @endif
                                                 </td>
                                             @endif

@@ -593,18 +593,17 @@ class MediaAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param RequestUploadRequest $request
+     * @param RequestUploadRequest $requestUploadRequest
      * @return Response
      */
-    public function requestUpload(int $id, RequestUploadRequest $request)
+    public function requestUpload(int $id, RequestUploadRequest $requestUploadRequest)
     {
         $request = $this->requestRepository->findWithoutFail($id);
         if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
-
-        $data = $request->get('media', '');
-        if (!$media = $this->requestRepository->uploadFile('media', $data, $request, $request->merge_in_audit)) {
+        $data = $requestUploadRequest->get('media', '');
+        if (!$media = $this->requestRepository->uploadFile('media', $data, $request, $requestUploadRequest->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
         $request->touch();
@@ -649,25 +648,25 @@ class MediaAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param int $media_id
+     * @param int $mediaId
      * @param RequestDeleteRequest $r
      * @return Response
      */
-    public function requestDestroy(int $id, int $media_id, RequestDeleteRequest $r)
+    public function requestDestroy(int $id, int $mediaId, RequestDeleteRequest $r)
     {
         $request = $this->requestRepository->findWithoutFail($id);
         if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $media = $request->media->find($media_id);
+        $media = $request->media->find($mediaId);
         if (empty($media)) {
             return $this->sendError(__('general.media_not_found'));
         }
 
         $media->delete();
         $request->touch();
-        return $this->sendResponse($media_id, __('general.swal.media.deleted'));
+        return $this->sendResponse($mediaId, __('general.swal.media.deleted'));
     }
 
     /**

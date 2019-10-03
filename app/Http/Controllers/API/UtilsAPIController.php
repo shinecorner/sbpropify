@@ -119,9 +119,10 @@ class UtilsAPIController extends AppBaseController
             'rentContracts' => $this->getRentContractConstants(),
             'serviceProviders' => $this->getServiceProviderConstants(),
             'requests' => $this->getRequestsConstants(),
+            'serviceRequests' => $this->getRequestsConstants(), // @TODO delete
             'propertyManager' => $this->getPropertyManagerConstants(),
             'pinboard' => $this->getPinboardConstants(),
-            'products' => $this->getListingConstants(),
+            'products' => $this->getListingConstants(), // @TODO delete
             'listings' => $this->getListingConstants(),
             'templates' => $this->getTemplateConstants(),
             'audits' => $this->getAuditConstants(),

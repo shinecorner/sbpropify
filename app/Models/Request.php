@@ -636,7 +636,7 @@ class Request extends AuditableModel implements HasMedia
             'language'  => $this->tenant->settings->language
         ];
 
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdfs.servicerequest.requestDownload', $data);
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdfs.request.requestDownload', $data);
 
         return Storage::disk('service_request_downloads')->put($this->pdfFileName(), $pdf->output());
     }
