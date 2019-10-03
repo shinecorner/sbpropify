@@ -370,44 +370,4 @@
         }
     }
 
-    .switcher {
-        .el-form-item__content {
-            display: block;
-        }
-        span {
-            display: block;
-        }
-        &__label {
-            line-height: 1.4em;
-            color: #606266;
-        }
-        &__label-title {
-            display: flex;
-            align-items: center;
-            min-height: 40px;
-        }
-        &__label-desc {
-            margin-top: 0.5em;
-            display: block;
-            font-size: 0.9em;
-        }
-        .el-switch {
-            margin-top: 10px;
-            margin-left: auto;
-        }
-    }
-
-    .card-boxs span.switcher__desc {
-        text-align: center;
-        font-weight: normal;
-        margin-top: 10px;
-        line-height: 20px;
-        font-size: 13px;
-        color: #333;
-    }
-
-    .switcher-frist .el-switch {
-        margin-top: 10px;
-    }
-
 </style>
