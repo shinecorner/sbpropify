@@ -97,10 +97,10 @@ return [
             'visibility' => 'public',
         ],
 
-        'products_media' => [
+        'listings_media' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/products/media'),
-            'url' => env('APP_URL').'/storage/products/media',
+            'root' => storage_path('app/public/listings/media'),
+            'url' => env('APP_URL').'/storage/listings/media',
             'visibility' => 'public',
         ],
 
