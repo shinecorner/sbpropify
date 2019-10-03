@@ -1,15 +1,15 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Models\Product;
+use App\Models\Listing;
 use App\Models\User;
 
-$factory->define(App\Models\Product::class, function (Faker $f) {
+$factory->define(Listing::class, function (Faker $f) {
     $u = [
         User::where('deleted_at', null)->inRandomOrder()->first(),
         User::where('email', 'tenant@example.com')->first(),
     ][rand(0, 1)];
-    $t = [Product::TypeSell, Product::TypeLend][rand(0, 1)];
+    $t = [Listing::TypeSell, Listing::TypeLend][rand(0, 1)];
 
     $statDate = $u->created_at;
     $now = now();
@@ -19,8 +19,8 @@ $factory->define(App\Models\Product::class, function (Faker $f) {
     $ret = [
         'user_id' => $u->id,
         'type' => $t,
-        'status' => Product::StatusPublished,
-        'visibility' => Product::VisibilityAll,
+        'status' => Listing::StatusPublished,
+        'visibility' => Listing::VisibilityAll,
         'content' => $f->paragraph(),
         'title' => $f->sentence(),
         'published_at' => \Carbon\Carbon::now(),

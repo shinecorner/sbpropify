@@ -15,7 +15,7 @@ class FillRequestAssigneesTable extends Migration
     {
         $requestProviders = \Illuminate\Support\Facades\DB::table('request_provider')->get();
         foreach ($requestProviders as $requestProvider) {
-            \App\Models\ServiceRequestAssignee::create([
+            \App\Models\RequestAssignee::create([
                 'request_id' => $requestProvider->request_id,
                 'assignee_id' => $requestProvider->provider_id,
                 'assignee_type' => array_flip(\Illuminate\Database\Eloquent\Relations\Relation::$morphMap)[\App\Models\ServiceProvider::class] ?? 'provider',
@@ -36,7 +36,7 @@ class FillRequestAssigneesTable extends Migration
                 continue;
             }
 
-            \App\Models\ServiceRequestAssignee::create([
+            \App\Models\RequestAssignee::create([
                 'request_id' => $requestAssigner->request_id,
                 'assignee_id' => $user->propertyManager->id,
                 'assignee_type' => array_flip(\Illuminate\Database\Eloquent\Relations\Relation::$morphMap)[\App\Models\PropertyManager::class] ?? \App\Models\PropertyManager::class,

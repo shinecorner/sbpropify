@@ -1,17 +1,17 @@
 <?php
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\ServiceRequest::class, function (Faker $faker) {
+$factory->define(App\Models\Request::class, function (Faker $faker) {
 
-    $category = (new App\Models\ServiceRequestCategory)->inRandomOrder()->first();
+    $category = (new App\Models\RequestCategory)->inRandomOrder()->first();
     $tenant = (new App\Models\Tenant)->where('unit_id', '>', 0)->inRandomOrder()->first();
 
-    $status = $faker->randomElement(array_keys(ServiceRequest::Status));
-    $priority = $faker->randomElement(array_keys(ServiceRequest::Priority));
-    $qualification = $faker->randomElement(array_keys(ServiceRequest::Qualification));
-    $solvedDate = $status >= ServiceRequest::StatusDone ? $faker->dateTimeBetween('now', '30 days') : null;
+    $status = $faker->randomElement(array_keys(Request::Status));
+    $priority = $faker->randomElement(array_keys(Request::Priority));
+    $qualification = $faker->randomElement(array_keys(Request::Qualification));
+    $solvedDate = $status >= Request::StatusDone ? $faker->dateTimeBetween('now', '30 days') : null;
 
     return [
         'category_id' => $category->id,
