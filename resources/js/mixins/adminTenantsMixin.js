@@ -44,6 +44,7 @@ export default (config = {}) => {
                 },
                 visibleDrawer: false,
                 editingRentContract: null,
+                editingRentContractIndex: -1,
                 validationRules: {
                     first_name: [{
                         required: true,
@@ -104,10 +105,11 @@ export default (config = {}) => {
             },
             editRentContract(index) {
                 this.editingRentContract = this.model.rent_contracts[index];
+                this.editingRentContractIndex = index;
                 this.visibleDrawer = true;
             },
-            updateRentContract(params) {
-                
+            updateRentContract(index, params) {
+                this.model.rent_contracts[index] = params;
             },
             deleteRentContract(index) {
 

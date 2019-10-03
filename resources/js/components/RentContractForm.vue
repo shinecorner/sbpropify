@@ -330,6 +330,9 @@
             data: {
                 type: Object
             },
+            edit_index: {
+                type: Number
+            },
             visible: {
                 type: Boolean,
                 default: false
@@ -394,7 +397,7 @@
                                 this.$emit('add-rent-contract', params)
                             }
                             else {
-                                this.$emit('update-rent-contract', params)
+                                this.$emit('update-rent-contract', this.edit_index, params)
                             }
                             
                         }
