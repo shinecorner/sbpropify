@@ -49,13 +49,22 @@
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.rent_type')"
                             class="label-block">
-                    <el-select placeholder="Select" style="display: block" 
+                    <!-- <el-select placeholder="Select" style="display: block" 
                                 v-model="model.type">
                         <el-option
                                 :key="type.value"
                                 :label="type.name"
                                 :value="type.value"
                                 v-for="type in rent_types">
+                        </el-option>
+                    </el-select> -->
+                    <el-select :placeholder="$t('models.unit.type.label')"
+                                v-model="model.type">
+                        <el-option
+                                :key="key"
+                                :label="$t('models.unit.type.' + value )"
+                                :value="+key"
+                                v-for="(value, key) in $constants.units.type">
                         </el-option>
                     </el-select>
                 </el-form-item>
@@ -370,16 +379,18 @@
                 this.$refs.form.validate(async valid => {
                     if (valid) {
                         this.loading = true;
-                        
+                        const {...params} = this.model
+
+                        console.log('params', params)
+
                         console.log('tenant_id', this.tenant_id)
                         if(this.tenant_id == undefined || this.tenant_id == 0) 
                         {
-
+                            this.$emit('add-rent-contract', params)
+                            this.$emit('update:visible', false);
                         }
                         else {
-                            const {...params} = this.model
-
-                            console.log('params', params)
+                            
                             
                             params.tenant_id = this.tenant_id
 

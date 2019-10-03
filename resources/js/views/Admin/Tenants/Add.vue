@@ -190,7 +190,7 @@
         </div>
         <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
             <div class="content">
-                <rent-contract-form mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer"/>
+                <rent-contract-form mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer" @add-rent-contract="addRentContract"/>
             </div>
         </ui-drawer>
     </div>
@@ -220,6 +220,12 @@
         mounted() {
             this.$root.$on('changeLanguage', () => this.getCountries());
         },
+        methods: {
+            addRentContract (data) {
+                this.model.rent_contracts.push(data);
+                console.log('contracts', this.model.rent_contracts)
+            }
+        }
     }
 </script>
 
