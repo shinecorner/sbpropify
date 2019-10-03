@@ -139,10 +139,14 @@
                         </card>
                         
                         
-                        <card class="mt15" :header="$t('models.tenant.rent_contract')">
-                            <el-row :gutter="20" class="new-rentcontract-box">
-                                    <el-button type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>
-                                </el-row>
+                        <card class="mt15 rentcontract-box">
+                            <template slot="header">
+                                
+                                {{ $t('models.tenant.rent_contract') }}
+                                <el-button style="float:right" type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>    
+                            
+                            </template>
+                            
                                 <el-table
                                     :data="model.rent_contracts"
                                     style="width: 100%"
@@ -190,8 +194,9 @@
         </div>
         </div>
         <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
-            <div class="content">
-                <rent-contract-form mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer" @add-rent-contract="addRentContract"/>
+            <div class="content" v-if="visibleDrawer">
+                <rent-contract-form v-if="editingRentContract" mode="edit" :data="editingRentContract" :tenant_id="model.id" :visible.sync="visibleDrawer"/>
+                <rent-contract-form v-else mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer" @add-rent-contract="addRentContract"/>
             </div>
         </ui-drawer>
     </div>
@@ -224,7 +229,6 @@
         methods: {
             addRentContract (data) {
                 this.model.rent_contracts.push(data);
-                console.log('contracts', this.model.rent_contracts)
             }
         }
     }
@@ -258,20 +262,12 @@
         margin-bottom: 15px;
     }
 
-    /deep/ .chart-card-header{
-        font-size: 16px;
-        font-weight: 400;
-        padding: 0 20px 16px;
-        margin: -4px -10px 10px;
-        border-bottom: 1px solid #EBEEF5;
-
-        h3 {
-            font-size: 24px;
-            font-weight: 500;
+    /deep/ .rentcontract-box.el-card {
+        .el-card__header {
+            display: block;
         }
-
     }
-    
+
     .ui-drawer {
         .content {
             height: calc(100% - 32px);

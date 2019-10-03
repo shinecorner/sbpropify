@@ -209,10 +209,9 @@
                                     <h3 class="chart-card-header">
                                         <i class="icon-handshake-o ti-user icon "/>
                                             &nbsp;{{ $t('models.tenant.rent_contract') }}
+                                        <el-button style="float:right" type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>    
                                     </h3>
-                                </el-row>
-                                <el-row :gutter="20" class="new-rentcontract-box">
-                                    <el-button type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>
+                                    
                                 </el-row>
                                 <el-table
                                     :data="model.rent_contracts"
@@ -253,7 +252,7 @@
                                         </template>
                                     </el-table-column>
                                 </el-table>
-                                
+
                         </el-card>
                         </el-col>
 
@@ -305,12 +304,6 @@
             EditActions,
             SelectLanguage,
             RentContractForm
-        },
-        data() {
-            return {
-                avatar: '',
-                editingRentContract: null,
-            }
         },
         methods: {
             pickFile(){
