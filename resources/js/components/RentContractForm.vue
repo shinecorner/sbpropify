@@ -162,7 +162,7 @@
         </el-row>
         <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition rent-data" 
                 style="width: 100%;"
-                v-if=" model.type != 3">
+                v-if=" model.type < 3">
             <div class="el-table__header-wrapper">
                 <table cellspacing="0" cellpadding="0" border="0" class="el-table__header">
                     <thead>
@@ -228,12 +228,14 @@
                 </table>
             </div>
         </div>
-        <el-row :gutter="20" v-if="model.type == 3">
+        <el-row :gutter="20" v-if="model.type >= 3">
             <el-col :md="8">
                 <el-form-item :label="$t('general.monthly_rent_net')" class="label-block">
                     <el-input type="text"
                             v-model="model.monthly_rent_net"
-                    ></el-input>
+                    >
+                        <template slot="prepend">CHF</template>
+                    </el-input>
                 </el-form-item>
             </el-col>
         </el-row>
@@ -411,6 +413,7 @@
                             }
                             else {
                                 const resp = await this.$store.dispatch('rentContracts/update', params);
+                                this.$emit('update-rent-contract', this.edit_index, params)
                             }
                         }
 
@@ -580,6 +583,14 @@
         }
     }
 
+    /deep/ .el-input.el-input-group {
+        .el-input-group__prepend {
+            padding: 2px 8px 0;
+            font-weight: 600;
+        }
+        
+    }
+    
     .el-alert {
         line-height: 19px;
         margin-bottom: 10px;
