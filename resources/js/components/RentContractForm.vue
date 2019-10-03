@@ -98,7 +98,7 @@
                             value-format="yyyy-MM-dd"/>
                 </el-form-item>
             </el-col>
-            <el-col :md="12" >
+            <el-col :md="12" v-if="model.duration == 2">
                 <el-form-item :label="$t('models.tenant.rent_end')">
                     <el-date-picker
                         :picker-options="{disabledDate: disabledRentEnd}"
@@ -142,7 +142,6 @@
                                 prop="deposit_amount">
                     <el-input type="text"
                             v-model="model.deposit_amount"
-                            class="dis-autofill"
                     ></el-input>
                 </el-form-item>
             </el-col>
@@ -195,24 +194,28 @@
                                 <div class="cell">
                                     <el-input type="text"
                                             v-model="model.monthly_rent_net"
-                                    ></el-input>
+                                    >
+                                        <template slot="prepend">CHF</template>
+                                    </el-input>
                                 </div>
                             </td>
                             <td class="symbol">
                                 <div class="cell">
-                                    <i class="icon-plus"></i>
+                                    +
                                 </div>
                             </td>
                             <td class="data">
                                 <div class="cell">
                                     <el-input type="text"
                                         v-model="model.monthly_maintenance"
-                                ></el-input>
+                                    >
+                                        <template slot="prepend">CHF</template>
+                                    </el-input>
                                 </div>
                             </td>
                             <td class="symbol">
                                 <div class="cell">
-                                    <i class="icon-eq"></i>
+                                    =
                                 </div>
                             </td>
                             <td class="data">
@@ -327,6 +330,9 @@
             data: {
                 type: Object
             },
+            edit_index: {
+                type: Number
+            },
             visible: {
                 type: Boolean,
                 default: false
@@ -337,7 +343,6 @@
                 remoteLoading: false,
                 buildings: [],
                 units: [],
-                rent_types: [],
                 rent_durations: [],
                 deposit_statuses: [],
                 rentcontract_statuses: [],
@@ -384,18 +389,29 @@
                         console.log('params', params)
 
                         console.log('tenant_id', this.tenant_id)
-                        if(this.tenant_id == undefined || this.tenant_id == 0) 
+                        if (this.tenant_id == undefined || this.tenant_id == 0) 
                         {
-                            this.$emit('add-rent-contract', params)
-                            this.$emit('update:visible', false);
+                            params.unit = this.units.find(item => item.id == this.model.unit_id)
+                            params.building = this.buildings.find(item => item.id == this.model.building_id)
+                            if (this.mode == "add") {
+                                this.$emit('add-rent-contract', params)
+                            }
+                            else {
+                                this.$emit('update-rent-contract', this.edit_index, params)
+                            }
+                            
                         }
                         else {
                             
                             
                             params.tenant_id = this.tenant_id
 
-                            const resp = await this.$store.dispatch('rentContracts/create', params);
-                        
+                            if (this.mode == "add") {
+                                const resp = await this.$store.dispatch('rentContracts/create', params);
+                            }
+                            else {
+                                const resp = await this.$store.dispatch('rentContracts/update', params);
+                            }
                         }
 
                         this.loading = false
@@ -467,17 +483,18 @@
             },
             changeRentContractUnit() {
                 let unit = this.units.find(item => item.id == this.model.unit_id)
+                console.log('unit', unit);
                 this.model.monthly_rent_net = unit.monthly_rent_net
                 this.model.monthly_maintenance = unit.monthly_maintenance
                 this.model.monthly_rent_gross = unit.monthly_rent_gross
-            },
-            deleteRentContract( c_index ) {
-                //this.model.rent_contracts.splice(c_index, 1)
+                this.model.type = unit.type
+                this.model.duration = 1
             },
             addPDFtoRentContract(file) {
-                //console.log('file', file)
-                let toUploadRentContractFile = file.src
-                //let toUploadRentContractFile = {...file, url: URL.createObjectURL(file.raw)};
+                console.log('file', file)
+                //let toUploadRentContractFile = file.src
+                //let toUploadRentContractFile = {...file, url: URL.createObjectURL(file.raw)}
+                let toUploadRentContractFile = {media : file.src, name: file.raw.name}
                 this.model.media.push(toUploadRentContractFile)
             },
             deletePDFfromRentContract(index) {
@@ -500,7 +517,7 @@
                     this.model.unit_id = this.model.unit.id
                 }
             }
-            this.rent_types = Object.entries(this.$constants.rentContracts.type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_types.${label}`)}))
+
             this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
             this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))
             this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
@@ -512,6 +529,9 @@
 </script>
 
 <style lang="scss" scoped>
+    .el-form-item {
+        margin-bottom: 0;
+    }
     /deep/ .rent-data {
         table {
             width: 100%;
@@ -530,16 +550,29 @@
 
                         .cell {
                             width: 100%;
+                            
+                            /deep/ .el-input.el-input-group {
+                                .el-input-group__prepend {
+                                    padding: 2px 8px 0;
+                                    font-weight: 600;
+                                }
+                                .el-input__inner {
+                                    padding: 5px;
+                                }
+                            }
                         }
                     }
                     
                     .symbol {
                         display: flex;
                         align-items: center;
-                        width: 30px;
+                        justify-content: center;
+                        width: 20px;
 
                         .cell {
                             text-overflow: initial;
+                            font-size: 16px;
+                            padding: 0;
                         }
                     }
                 }
@@ -548,6 +581,7 @@
     }
 
     .el-alert {
+        line-height: 19px;
         margin-bottom: 10px;
     }
 
@@ -564,4 +598,6 @@
     /deep/ .rentcontract-file-table {
         margin-bottom: 10px;
     }
+
+    
 </style>

@@ -209,10 +209,9 @@
                                     <h3 class="chart-card-header">
                                         <i class="icon-handshake-o ti-user icon "/>
                                             &nbsp;{{ $t('models.tenant.rent_contract') }}
+                                        <el-button style="float:right" type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>    
                                     </h3>
-                                </el-row>
-                                <el-row :gutter="20" class="new-rentcontract-box">
-                                    <el-button type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>
+                                    
                                 </el-row>
                                 <el-table
                                     :data="model.rent_contracts"
@@ -253,7 +252,7 @@
                                         </template>
                                     </el-table-column>
                                 </el-table>
-                                
+
                         </el-card>
                         </el-col>
 
@@ -264,7 +263,7 @@
             </div>
             <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
                 <div class="content" v-if="visibleDrawer">
-                    <rent-contract-form v-if="editingRentContract" mode="edit" :data="editingRentContract" :tenant_id="model.id" :visible.sync="visibleDrawer"/>
+                    <rent-contract-form v-if="editingRentContract" mode="edit" :data="editingRentContract" :tenant_id="model.id" :visible.sync="visibleDrawer" :edit_index="editingRentContractIndex" @update-rent-contract="updateRentContract"/>
                     <rent-contract-form v-else mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer"/>
                 </div>
             </ui-drawer>
@@ -305,12 +304,6 @@
             EditActions,
             SelectLanguage,
             RentContractForm
-        },
-        data() {
-            return {
-                avatar: '',
-                editingRentContract: null,
-            }
         },
         methods: {
             pickFile(){

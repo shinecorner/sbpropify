@@ -52,80 +52,13 @@ export default {
             return data;
         },
         async update ({commit}, {id, ...params}) {
-            const {data} = await this._vm.axios.put(`pinboard/${id}`, params, {showMessage: true})
-
-            commit('update', data.data)
+            const {data} = await this._vm.axios.put(`rent-contracts/${id}`, params, {showMessage: true})
             return data;
         },
         async delete ({commit}, {id}) {
-            await this._vm.axios.delete(`pinboard/${id}`, {showMessage: true})
-
-            commit('delete', id)
+            await this._vm.axios.delete(`rent-contracts/${id}`, {showMessage: true})
         },
-        async publish ({commit}, {id, ...params}) {
-            const {data} = await this._vm.axios.post(`pinboard/${id}/publish`, params)
-
-            commit('update', data.data)
-        },
-        async like ({commit, getters}, {id}) {
-            const {data} = await this._vm.axios.post(`pinboard/${id}/like`)
-            // const newData = getters[TYPES.getters.getById](id)
-            const newData = getters.getById(id)
-            
-            Object.assign(newData, {
-                liked: true,
-                likes: newData.likes.concat([data.data]),
-                likes_count: newData.likes_count + 1
-            })
-
-            commit('update', newData)
-        },
-        async unlike ({commit, getters}, {id}) {
-            const {data} = await this._vm.axios.post(`pinboard/${id}/unlike`)
-            // const newData = getters[TYPES.getters.getById](id)
-            const newData = getters.getById(id)
-
-            Object.assign(newData, {
-                liked: false,
-                likes: newData.likes.filter(user => user.id !== data.data.id),
-                likes_count: newData.likes_count - 1
-            })
-
-            commit('update', newData)
-        },
-        async assignBuilding ({commit}, {id, buildingId}) {
-            const {data} = await this._vm.axios.post(`pinboard/${id}/buildings/${buildingId}`)
-
-            commit('update', data.data)
-        },
-        async unassignBuilding ({commit}, {id, buildingId}) {
-            const {data} = await this._vm.axios.delete(`pinboard/${id}/buildings/${buildingId}`)
-
-            commit('update', data.data)
-        },
-        async assignQuarter ({commit}, {id, quarterId}) {
-            const {data} = await this._vm.axios.post(`pinboard/${id}/quarters/${quarterId}`)
-
-            commit('update', data.data)
-        },
-        async unassignQuarter ({commit}, {id, quarterId}) {
-            const {data} = await this._vm.axios.delete(`pinboard/${id}/quarters/${quarterId}`)
-
-            commit('update', data.data)
-        },
-        async assignProvider ({commit}, {id, providerId}) {
-            const {data} = await this._vm.axios.post(`pinboard/${id}/providers/${providerId}`)
-
-            commit('update', data.data)
-        },
-        async unassignProvider ({commit}, {id, providerId}) {
-            const {data} = await this._vm.axios.delete(`pinboard/${id}/providers/${providerId}`)
-
-            commit('update', data.data)
-        },
-        async getComments ({commit}, {parent_id, ...params}) {
-            const {data} = await this._vm.axios.get('comments', {params})
-        },
+        
         async addMedia({ commit}, {id, media}) {
             commit('addmedia', {data_id : id, media})
         },
