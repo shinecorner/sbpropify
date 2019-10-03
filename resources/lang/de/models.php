@@ -107,7 +107,25 @@ return [
             ],
             'language' => [
                 'required' => 'Sprache ist obligatorisch',
-            ]
+            ],
+            'deposit_amount' => [
+                'required' => "Der Einzahlungsbetrag ist erforderlich.",
+            ],
+            'deposit_type' => [
+                'required' => "Die Einzahlungsart ist erforderlich.",
+            ],
+            'start_date' => [
+                'required' => "Startdatum ist erforderlich",
+            ],
+            'rent_type' => [
+                'required' => "Mietart ist erforderlich",
+            ],
+            'rent_duration' => [
+                'required' => "Mietdauer ist erforderlich",
+            ],
+            'status' => [
+                'required' => "Status ist erforderlich",
+            ],
         ],
         'errors' => [
             'not_found' => "Mieter nicht gefunden",

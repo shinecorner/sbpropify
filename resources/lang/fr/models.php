@@ -107,7 +107,25 @@ return [
             ],
             'language' => [
                 'required' => "La langue est obligatoire",
-            ]
+            ],
+            'deposit_amount' => [
+                'required' => "Le montant du dépôt est requis",
+            ],
+            'deposit_type' => [
+                'required' => "Le type de dépôt est requis",
+            ],
+            'start_date' => [
+                'required' => "La date de début est requise",
+            ],
+            'rent_type' => [
+                'required' => "Le type de location est requis",
+            ],
+            'rent_duration' => [
+                'required' => "La durée de location est requise",
+            ],
+            'status' => [
+                'required' => "Le statut est requis",
+            ],
         ],
         'errors' => [
             'not_found' => "Locataire introuvable",

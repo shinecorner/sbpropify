@@ -107,7 +107,25 @@ return [
             ],
             'language' => [
                 'required' => 'Language is required',
-            ]
+            ],
+            'deposit_amount' => [
+                'required' => "Deposit amount is required",
+            ],
+            'deposit_type' => [
+                'required' => "Deposit type is required",
+            ],
+            'start_date' => [
+                'required' => "Start date is required",
+            ],
+            'rent_type' => [
+                'required' => "Rent type is required",
+            ],
+            'rent_duration' => [
+                'required' => "Rent duration is required",
+            ],
+            'status' => [
+                'required' => "Status is required",
+            ],
         ],
         'errors' => [
             'not_found' => "Tenant not found",

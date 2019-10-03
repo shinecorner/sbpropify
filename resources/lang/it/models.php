@@ -107,7 +107,25 @@ return [
             ],
             'language' => [
                 'required' => "La lingua è richiesta",
-            ]
+            ],
+            'deposit_amount' => [
+                'required' => "L'importo del deposito è richiesto",
+            ],
+            'deposit_type' => [
+                'required' => "Il tipo di deposito è richiesto",
+            ],
+            'start_date' => [
+                'required' => "La data d'inizio è obbligatoria",
+            ],
+            'rent_type' => [
+                'required' => "Il tipo di affitto è richiesto",
+            ],
+            'rent_duration' => [
+                'required' => "La durata dell'affitto è richiesta",
+            ],
+            'status' => [
+                'required' => "Lo stato è richiesto",
+            ],
         ],
         'errors' => [
             'not_found' => "L'inquilino non trovato",

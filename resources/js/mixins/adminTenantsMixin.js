@@ -105,6 +105,9 @@ export default (config = {}) => {
                 const ext = file.name.split('.').pop()
                 return ['.pdf'].includes(ext);
             },
+            addRentContract (data) {
+                this.model.rent_contracts.push(data);
+            },
             editRentContract(index) {
                 this.editingRentContract = this.model.rent_contracts[index];
                 this.editingRentContractIndex = index;

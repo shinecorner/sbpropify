@@ -228,11 +228,6 @@
         },
         mounted() {
             this.$root.$on('changeLanguage', () => this.getCountries());
-        },
-        methods: {
-            addRentContract (data) {
-                this.model.rent_contracts.push(data);
-            }
         }
     }
 </script>
