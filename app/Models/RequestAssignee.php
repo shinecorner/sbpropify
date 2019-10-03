@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 /**
  * @SWG\Definition(
- *      definition="ServiceRequestAssignee",
+ *      definition="RequestAssignee",
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -45,7 +45,7 @@ use Illuminate\Support\Str;
  *      ),
  * )
  */
-class ServiceRequestAssignee extends AuditableModel
+class RequestAssignee extends AuditableModel
 {
     protected $table = 'request_assignees';
 
@@ -71,7 +71,7 @@ class ServiceRequestAssignee extends AuditableModel
             return $data;
         }
         $data['auditable_id'] = $this->request_id;
-        $data['auditable_type'] = get_morph_type_of(\App\Models\ServiceRequest::class);
+        $data['auditable_type'] = get_morph_type_of(\App\Models\Request::class);
 
         [$event, $olddata] = $this->getAuditData();
         $data['old_values'] = $olddata;

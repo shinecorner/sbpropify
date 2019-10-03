@@ -119,7 +119,7 @@ use Storage;
  *      )
  * )
  */
-class ServiceRequest extends AuditableModel implements HasMedia
+class Request extends AuditableModel implements HasMedia
 {
     use SoftDeletes;
     use HasMediaTrait;
@@ -141,15 +141,15 @@ class ServiceRequest extends AuditableModel implements HasMedia
     const VisibilityQuarter = 3;
 
     const PendingStatuses = [
-        ServiceRequest::StatusReceived,
-        ServiceRequest::StatusInProcessing,
-        ServiceRequest::StatusAssigned,
-        ServiceRequest::StatusReactivated,
+        self::StatusReceived,
+        self::StatusInProcessing,
+        self::StatusAssigned,
+        self::StatusReactivated,
     ];
 
     const SolvedStatuses = [
-        ServiceRequest::StatusDone,
-        ServiceRequest::StatusArchived,
+        self::StatusDone,
+        self::StatusArchived,
     ];
 
     const Status = [
@@ -498,7 +498,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
      **/
     public function category()
     {
-        return $this->hasOne(ServiceRequestCategory::class, 'id', 'category_id');
+        return $this->hasOne(RequestCategory::class, 'id', 'category_id');
     }
 
     /**
@@ -542,7 +542,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
 
     public function assignees()
     {
-        return $this->hasMany(ServiceRequestAssignee::class, 'request_id');
+        return $this->hasMany(RequestAssignee::class, 'request_id');
     }
 
     public function conversations()
@@ -579,32 +579,32 @@ class ServiceRequest extends AuditableModel implements HasMedia
 
     public function requestsReceived()
     {
-        return $this->where('status', ServiceRequest::StatusReceived);
+        return $this->where('status', Request::StatusReceived);
     }
 
     public function requestsInProcessing()
     {
-        return $this->where('status', ServiceRequest::StatusInProcessing);
+        return $this->where('status', Request::StatusInProcessing);
     }
 
     public function requestsAssigned()
     {
-        return $this->where('status', ServiceRequest::StatusAssigned);
+        return $this->where('status', Request::StatusAssigned);
     }
 
     public function requestsDone()
     {
-        return $this->where('status', ServiceRequest::StatusDone);
+        return $this->where('status', Request::StatusDone);
     }
 
     public function requestsReactivated()
     {
-        return $this->where('status', ServiceRequest::StatusReactivated);
+        return $this->where('status', Request::StatusReactivated);
     }
 
     public function requestsArchived()
     {
-        return $this->where('status', ServiceRequest::StatusArchived);
+        return $this->where('status', Request::StatusArchived);
     }
 
     public function getPriorityStrAttribute()
@@ -636,7 +636,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
             'language'  => $this->tenant->settings->language
         ];
 
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdfs.servicerequest.serviceRequestDownload', $data);
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdfs.servicerequest.requestDownload', $data);
 
         return Storage::disk('service_request_downloads')->put($this->pdfFileName(), $pdf->output());
     }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @SWG\Definition(
- *      definition="ServiceRequestCategory",
+ *      definition="RequestCategory",
  *      required={"name", "description"},
  *      @SWG\Property(
  *          property="id",
@@ -49,7 +49,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class ServiceRequestCategory extends Model
+class RequestCategory extends Model
 {
     use SoftDeletes;
 
@@ -103,7 +103,7 @@ class ServiceRequestCategory extends Model
      **/
     public function categories()
     {
-        return $this->hasMany(ServiceRequestCategory::class, 'parent_id', 'id');
+        return $this->hasMany(RequestCategory::class, 'parent_id', 'id');
     }
 
     /**
@@ -111,6 +111,6 @@ class ServiceRequestCategory extends Model
      **/
     public function parentCategory()
     {
-        return $this->belongsTo(ServiceRequestCategory::class, 'parent_id', 'id');
+        return $this->belongsTo(RequestCategory::class, 'parent_id', 'id');
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @SWG\Definition(
  *      definition="UserSettings",
- *      required={"language", "summary", "news_notification", "marketplace_notification", "service_notification"},
+ *      required={"language", "summary", "news_notification", "listing_notification", "service_notification"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -43,8 +43,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="marketplace_notification",
- *          description="marketplace_notification",
+ *          property="listing_notification",
+ *          description="listing_notification",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -84,7 +84,7 @@ class UserSettings extends Model
         'summary',
         'admin_notification',
         'news_notification',
-        'marketplace_notification',
+        'listing_notification',
         'service_notification'
     ];
 
@@ -99,7 +99,7 @@ class UserSettings extends Model
         'summary' => 'string',
         'admin_notification' => 'boolean',
         'news_notification' => 'boolean',
-        'marketplace_notification' => 'boolean',
+        'listing_notification' => 'boolean',
         'service_notification' => 'boolean'
     ];
 
@@ -112,7 +112,7 @@ class UserSettings extends Model
         'language' => 'required',
         'summary' => 'required',
         'news_notification' => 'required',
-        'marketplace_notification' => 'required',
+        'listing_notification' => 'required',
         'service_notification' => 'required'
     ];
 

@@ -261,7 +261,7 @@ class Building extends AuditableModel implements HasMedia
      */
     public function requests()
     {
-        return $this->hasManyThrough(ServiceRequest::class, Tenant::class);
+        return $this->hasManyThrough(Request::class, Tenant::class);
     }
 
     public function registerMediaCollections()
