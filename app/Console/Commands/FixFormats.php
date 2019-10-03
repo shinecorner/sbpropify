@@ -6,7 +6,7 @@ use App\Models\Building;
 use App\Models\PropertyManager;
 use App\Models\Quarter;
 use App\Models\ServiceProvider;
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Models\Tenant;
 use App\Models\Unit;
 use Illuminate\Console\Command;
@@ -65,7 +65,7 @@ class FixFormats extends Command
             $quarter->quarter_format  = $quarter->getUniqueIDFormat($quarter->id);
             $quarter->save();
         });
-        ServiceRequest::get(['id', 'created_at'])->each(function (ServiceRequest $request) {
+        Request::get(['id', 'created_at'])->each(function (Request $request) {
             $request->request_format  = $request->getUniqueIDFormat($request->id);
             $request->save();
         });

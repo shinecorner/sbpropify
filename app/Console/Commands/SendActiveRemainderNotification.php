@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\RentContract;
-use App\Models\ServiceRequest;
-use App\Models\Tenant;
+use App\Models\Request;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -22,7 +20,7 @@ class SendActiveRemainderNotification extends Command
      *
      * @var string
      */
-    protected $description = 'make rent contract inactive after expiration';
+    protected $description = 'send active remainder notification';
 
     /**
      * Create a new command instance.
@@ -42,23 +40,23 @@ class SendActiveRemainderNotification extends Command
     public function handle()
     {
 
-        $serviceRequests = ServiceRequest::where('due_date', '>=', now()->format('Y-m-d'))
+        $requests = Request::where('due_date', '>=', now()->format('Y-m-d'))
             ->where('active_reminder', 1) // @TODO need use class constant or not
             ->with('remainder_user')
             ->whereRaw("sent_reminder_user_ids not like CONCAT('%', reminder_user_id, '%') ") // each user send only one time
             ->whereColumn('days_left_due_date', '=', DB::raw('DATEDIFF(due_date, CURDATE())'))
             ->get(['id', 'reminder_user_id', 'sent_reminder_user_ids']);
 
-        foreach ($serviceRequests as $serviceRequest) {
-            if ($serviceRequest->remainder_user) {
-                $serviceRequest->remainder_user->notify(new \App\Notifications\SendActiveRemainderNotification($serviceRequest));
-                $sentReminderUserIds = $serviceRequest->sent_reminder_user_ids ?? [];
-                $sentReminderUserIds[] = $serviceRequest->remainder_user->id; // diff user send email when each day update service request
-                $serviceRequest->sent_reminder_user_ids = $sentReminderUserIds;
-                $serviceRequest->save();
+        foreach ($requests as $request) {
+            if ($request->remainder_user) {
+                $request->remainder_user->notify(new \App\Notifications\SendActiveRemainderNotification($request));
+                $sentReminderUserIds = $request->sent_reminder_user_ids ?? [];
+                $sentReminderUserIds[] = $request->remainder_user->id; // diff user send email when each day update service request
+                $request->sent_reminder_user_ids = $sentReminderUserIds;
+                $request->save();
             } else {
-                $serviceRequest->reminder_user_id = null; // when user is deleted or wrong id
-                $serviceRequest->save();
+                $request->reminder_user_id = null; // when user is deleted or wrong id
+                $request->save();
             }
         }
     }
