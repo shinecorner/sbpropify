@@ -17,6 +17,8 @@ export default (config = {}) => {
         data() {
             return {
                 remoteLoading: false,
+                buildings: [],
+                units: [],
                 user: {},
                 unit: {},
                 birthDatePickerOptions: {

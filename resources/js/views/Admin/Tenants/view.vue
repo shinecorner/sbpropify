@@ -416,7 +416,7 @@
                 constants: 'constants'
             }),
             lastMedia() {
-                return this.model.media[this.model.media.length - 1];
+                return this.model.media ? this.model.media[this.model.media.length - 1] : null;
             },
         }
     };

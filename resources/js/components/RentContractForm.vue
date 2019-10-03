@@ -533,6 +533,7 @@
     /deep/ .rent-data {
         table {
             width: 100%;
+            cursor: initial;
 
             thead, tbody {
                 width: 100%;

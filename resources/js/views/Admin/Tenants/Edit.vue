@@ -216,7 +216,7 @@
                                     <el-table
                                         :data="model.rent_contracts"
                                         style="width: 100%"
-                                        class="rentcontract-file-table"
+                                        class="rentcontract-table"
                                         >
                                         <el-table-column
                                             :label="$t('models.tenant.rentcontract_id')"
@@ -554,7 +554,7 @@
             }
         }
 
-        .rentcontract-file-table {
+        .rentcontract-table {
             .clickable {
                 display: block;
                 width: 100%;
