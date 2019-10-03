@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     
         <div class="tenants-edit mb20 tenants-edit-new">
             <div>
@@ -13,6 +14,156 @@
                     <el-form :model="model" label-position="top" label-width="192px" ref="form">
                         <el-row  :gutter="20">
                             <el-col>
+=======
+    <div class="tenants-edit mb20 tenants-edit-new">
+        <heading :title="$t('models.tenant.edit_title')" icon="icon-group">
+            <template slot="description" v-if="model.tenant_format">
+                <div class="subtitle">{{model.tenant_format}}</div>
+            </template>
+            <edit-actions :saveAction="submit" route="adminTenants"/>
+        </heading>
+        <el-row :gutter="20" class="crud-view">
+                <el-form :model="model" label-position="top" label-width="192px" ref="form">
+                    <el-row  :gutter="20">
+                        <el-col>
+                          <el-card class="chart-card">
+                                <el-row :gutter="20">
+                                    <h3 class="chart-card-header">
+                                        <i class="ti-user"/>
+                                       {{ $t('models.tenant.personal_details_card') }}
+                                    </h3>
+                                </el-row>
+                                <el-row :gutter="20">
+                                    <el-col :md="4" class="tenant_avatar">
+                                        <cropper :resize="false" :viewportType="'circle'" @cropped="cropped"/>
+                                        <img
+                                            src="~img/man.png"
+                                            class="user-image"
+                                            v-if="model.avatar==null && model.title == 'mr'"/>
+                                        <img
+                                            src="~img/woman.png"
+                                            class="user-image"
+                                            v-else-if="model.avatar==null && model.title == 'mrs'"/>
+                                        <img
+                                            src="~img/company.png"
+                                            class="user-image"
+                                            v-else-if="model.avatar==null && model.title == 'company'"/>
+                                        <img :src="`/${user.avatar}?${Date.now()}`"
+                                             class="user-image"
+                                             v-if="avatar.length == 0 && user.avatar">
+
+                                    </el-col>
+                                    <el-col :md="20">
+                                            <el-col :md="6">
+                                                <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
+                                                              prop="title">
+                                                    <el-select placeholder="Select" style="display: block" v-model="model.title">
+                                                        <el-option
+                                                                :key="title"
+                                                                :label="$t(`general.salutation_option.${title}`)"
+                                                                :value="title"
+                                                                v-for="title in titles">
+                                                        </el-option>
+                                                    </el-select>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :md="6">
+                                                <el-form-item :label="$t('models.tenant.company')" :rules="validationRules.company"
+                                                              prop="company"
+                                                              v-if="model.title === titles.company">
+                                                    <el-input autocomplete="off" type="text" v-model="model.company"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :md="6">
+                                                <el-form-item :label="$t('models.tenant.first_name')"
+                                                              :rules="validationRules.first_name"
+                                                              prop="first_name">
+                                                    <el-input autocomplete="off" type="text" v-model="model.first_name"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :md="6">
+                                                <el-form-item :label="$t('models.tenant.last_name')"
+                                                              :rules="validationRules.last_name"
+                                                              prop="last_name">
+                                                    <el-input autocomplete="off" type="text" v-model="model.last_name"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :md="6">
+                                                <el-form-item :label="$t('models.tenant.birth_date')"
+                                                              :rules="validationRules.birth_date"
+                                                              prop="birth_date">
+                                                    <el-date-picker
+                                                            :placeholder="$t('models.tenant.birth_date')"
+                                                            format="dd.MM.yyyy"
+                                                            style="width: 100%;"
+                                                            type="date"
+                                                            v-model="model.birth_date"
+                                                            :picker-options="birthDatePickerOptions"
+                                                            value-format="yyyy-MM-dd"/>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :md="6">
+                                                <el-form-item :label="$t('general.language')" :rules="validationRules.language" 
+                                                        prop="settings.language">
+                                                    <select-language :activeLanguage.sync="model.settings.language" />
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :md="6">
+                                                <el-form-item :label="$t('models.tenant.nation')"
+                                                              prop="nation">
+                                                    <el-select filterable
+                                                               v-model="model.nation">
+                                                        <el-option :key="country.id"
+                                                                   :label="country.name"
+                                                                   :value="country.id"
+                                                                   v-for="country in countries"></el-option>
+                                                    </el-select>
+                                                </el-form-item>
+                                            </el-col>
+                                    </el-col>
+                                </el-row>
+                          </el-card>
+                        </el-col>
+                        <el-col :md="12">
+                           <el-card class="chart-card">
+                                <el-row :gutter="20">
+                                    <h3 class="chart-card-header">
+                                        <i class="ti-user"/>
+                                        {{ $t('models.tenant.contact_info_card') }}
+                                    </h3>
+                                    <el-col :md='12'>
+                                        <el-form-item :label="$t('models.tenant.mobile_phone')" prop="mobile_phone">
+                                            <el-input autocomplete="off" type="text"
+                                                      v-model="model.mobile_phone"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md='12'>
+                                        <el-form-item :label="$t('models.tenant.private_phone')" prop="private_phone">
+                                            <el-input autocomplete="off" type="text"
+                                                      v-model="model.private_phone"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="last-form-row" :gutter="20">
+                                    <el-col :md='12'>
+                                        <el-form-item :label="$t('models.tenant.work_phone')" prop="work_phone">
+                                            <el-input autocomplete="off"
+                                                      type="text"
+                                                      v-model="model.work_phone"
+                                                      class="dis-autofill"
+                                                      readonly
+                                                      onfocus="this.removeAttribute('readonly');"
+                                            ></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md='12'>
+
+                                    </el-col>
+                                </el-row>
+                           </el-card>
+                        </el-col>
+                        <el-col :md='12'>
+>>>>>>> 2fdedd87f5131d32140b080095a52b52b8798b72
                             <el-card class="chart-card">
                                     <el-row :gutter="20">
                                         <h3 class="chart-card-header">
@@ -307,6 +458,11 @@
         data() {
             return {
                 avatar: '',
+                birthDatePickerOptions: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
+                }
             }
         },
         methods: {
