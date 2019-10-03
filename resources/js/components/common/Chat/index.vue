@@ -7,6 +7,7 @@
 
 <script>
     import ErrorFallback from 'components/common/Chat/Error'
+    
     export default {
         props: {
             id: {
