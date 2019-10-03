@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Media;
 
-use App\Models\Product;
+use App\Models\Listing;
 use App\Http\Requests\BaseRequest;
 
 class ListingUploadRequest extends BaseRequest
@@ -18,7 +18,7 @@ class ListingUploadRequest extends BaseRequest
         if ($u->can('edit-listing')) {
             return true;
         }
-        return Product::where('id', $this->route('id'))
+        return Listing::where('id', $this->route('id'))
             ->where('user_id', $u->id)->exists();
     }
 

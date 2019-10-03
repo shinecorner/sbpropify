@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API\Listing;
 
 use App\Http\Requests\BaseRequest;
-use App\Models\Product;
+use App\Models\Listing;
 
 class UpdateRequest extends BaseRequest
 {
@@ -18,7 +18,7 @@ class UpdateRequest extends BaseRequest
         if ($u->can('edit-listing')) {
             return true;
         }
-        return Product::where('id', $this->route('listing'))
+        return Listing::where('id', $this->route('listing'))
             ->where('user_id', $u->id)->exists();
     }
 
@@ -29,6 +29,6 @@ class UpdateRequest extends BaseRequest
      */
     public function rules()
     {
-        return Product::rules();
+        return Listing::rules();
     }
 }

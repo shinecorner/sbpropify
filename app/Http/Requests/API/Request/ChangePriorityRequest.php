@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Request;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Http\Requests\BaseRequest;
 
 class ChangePriorityRequest extends BaseRequest
@@ -24,7 +24,7 @@ class ChangePriorityRequest extends BaseRequest
      */
     public function rules()
     {
-        $validValues = '|in:' . implode(',', array_keys(ServiceRequest::Priority));
+        $validValues = '|in:' . implode(',', array_keys(Request::Priority));
 
         $rules = [
             'priority' => 'required|integer' . $validValues,

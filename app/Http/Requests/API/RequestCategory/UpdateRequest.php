@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\RequestCategory;
 
-use App\Models\ServiceRequestCategory;
+use App\Models\RequestCategory;
 use App\Http\Requests\BaseRequest;
 
 class UpdateRequest extends BaseRequest
@@ -24,6 +24,6 @@ class UpdateRequest extends BaseRequest
      */
     public function rules()
     {
-        return ServiceRequestCategory::$rules;
+        return RequestCategory::$rules;
     }
 }

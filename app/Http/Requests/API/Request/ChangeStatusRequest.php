@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Request;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Http\Requests\BaseRequest;
 
 class ChangeStatusRequest extends BaseRequest
@@ -24,7 +24,7 @@ class ChangeStatusRequest extends BaseRequest
      */
     public function rules()
     {
-        $validValues = '|in:' . implode(',', array_keys(ServiceRequest::Status));
+        $validValues = '|in:' . implode(',', array_keys(Request::Status));
 
         $rules = [
             'status' => 'required|integer' . $validValues,

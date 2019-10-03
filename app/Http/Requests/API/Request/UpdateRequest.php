@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Request;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\BaseRequest;
 use Illuminate\Validation\Rule;
@@ -28,13 +28,13 @@ class UpdateRequest extends BaseRequest
     {
         $user = Auth::user();
         if ($user->can('edit-request_tenant')) {
-            return ServiceRequest::$rulesPutTenant;
+            return Request::$rulesPutTenant;
         }
 
         if ($user->can('edit-request_service')) {
-            return ServiceRequest::$rulesPutService;
+            return Request::$rulesPutService;
         }
-        $putRoles =  ServiceRequest::$rulesPut;
+        $putRoles =  Request::$rulesPut;
         $putRoles['reminder_user_id'] = Rule::requiredIf(function () {
             return $this->active_reminder == true;
         });

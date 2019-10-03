@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Listing;
 
-use App\Models\Product;
+use App\Models\Listing;
 use App\Http\Requests\BaseRequest;
 
 class DeleteRequest extends BaseRequest
@@ -19,7 +19,7 @@ class DeleteRequest extends BaseRequest
         }
 
         $u = \Auth::user();
-        return Product::where('id', $this->route('listing'))
+        return Listing::where('id', $this->route('listing'))
             ->where('user_id', $u->id)->exists();
     }
 }

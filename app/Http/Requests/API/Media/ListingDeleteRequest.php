@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Media;
 
-use App\Models\Product;
+use App\Models\Listing;
 use App\Http\Requests\BaseRequest;
 
 class ListingDeleteRequest extends BaseRequest
@@ -18,7 +18,7 @@ class ListingDeleteRequest extends BaseRequest
         if ($u->can('edit-listing')) {
             return true;
         }
-        $p = Product::where('id', $this->route('id'))
+        $p = Listing::where('id', $this->route('id'))
             ->where('user_id', $u->id)->first();
         return (bool)$p;
     }

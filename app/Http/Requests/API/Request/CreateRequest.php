@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\API\Request;
 
-use App\Models\ServiceRequest;
-use App\Models\ServiceRequestCategory;
+use App\Models\Request;
+use App\Models\RequestCategory;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\BaseRequest;
 
@@ -32,12 +32,12 @@ class CreateRequest extends BaseRequest
     {
         $user = Auth::user();
         if ($user->tenant) { // @TODO @TODO
-            return ServiceRequest::$rulesPostTenant;
+            return Request::$rulesPostTenant;
         }
 
-        $rules = ServiceRequest::$rulesPost;
-        $serviceRequestCategories = ServiceRequestCategory::where('has_qualifications', 1)->pluck('id');
-        $rules['qualification'] = 'required_if:category_id,'  . $serviceRequestCategories->implode(',') .  '|integer';// todo improve permit only specific integers
+        $rules = Request::$rulesPost;
+        $requestCategories = RequestCategory::where('has_qualifications', 1)->pluck('id');
+        $rules['qualification'] = 'required_if:category_id,'  . $requestCategories->implode(',') .  '|integer';// todo improve permit only specific integers
         return $rules;
     }
 }

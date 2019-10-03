@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Listing;
 
-use App\Models\Product;
+use App\Models\Listing;
 use App\Http\Requests\BaseRequest;
 
 class PublishRequest extends BaseRequest
@@ -24,6 +24,6 @@ class PublishRequest extends BaseRequest
      */
     public function rules()
     {
-        return Product::publishRules();
+        return Listing::publishRules();
     }
 }
