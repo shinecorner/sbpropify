@@ -156,6 +156,9 @@
                                         :label="$t('models.tenant.rentcontract_id')"
                                         prop="id"
                                     >
+                                        <template slot-scope="scope">
+                                            <span class="clickable" @click="editRentContract(scope.$index)">{{scope.row.id}}</span>
+                                        </template>
                                     </el-table-column>
                                     <el-table-column
                                         :label="$t('models.tenant.building.name')"
@@ -266,6 +269,13 @@
         .el-card__header {
             display: block;
         }
+
+        .rentcontract-file-table {
+            .clickable {
+                display: block;
+                width: 100%;
+            }
+        }
     }
 
     .ui-drawer {
@@ -284,7 +294,5 @@
         }
     }
 
-    .new-rentcontract-box {
-        text-align: right;
-    }
+    
 </style>
