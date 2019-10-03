@@ -3,6 +3,7 @@ import {mapActions} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
 import UploadDocument from 'components/UploadDocument';
 import RequestMedia from 'components/RequestMedia';
+import {subDays,compareAsc} from 'date-fns'
 
 export default (config = {}) => {
     let mixin = {
@@ -19,6 +20,13 @@ export default (config = {}) => {
         },
         data() {
             return {
+                dueDatePickerOptions: {
+                    disabledDate(time) {
+                        // return time.getTime() < Date.now();
+                        // console.log(time.getDate())
+                        return (compareAsc(time.getTime(), subDays(Date.now(),1)) == -1)
+                    },
+                },
                 model: {
                     title: '',
                     category: '',

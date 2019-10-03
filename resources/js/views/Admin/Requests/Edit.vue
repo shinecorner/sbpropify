@@ -529,12 +529,7 @@
                 activeActionTab: 'actions',
                 conversationVisible: false,
                 selectedConversation: {},
-                constants: this.$constants,
-                dueDatePickerOptions: {
-                    disabledDate(time) {
-                        return time.getTime() < Date.now();
-                    },
-                },
+                constants: this.$constants,                
                 assigneesColumns: [{
                     type: 'assignProviderManagerAvatars',
                     width: 70,
