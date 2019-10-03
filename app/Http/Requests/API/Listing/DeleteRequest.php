@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\API\Product;
+namespace App\Http\Requests\API\Listing;
 
 use App\Models\Product;
 use App\Http\Requests\BaseRequest;

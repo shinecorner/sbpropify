@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\API\ServiceRequest;
+namespace App\Http\Requests\API\Request;
 
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
@@ -9,7 +9,7 @@ use App\Http\Requests\BaseRequest;
 
 /**
  * Class CreateRequest
- * @package App\Http\Requests\API\ServiceRequest
+ * @package App\Http\Requests\API\Request
  */
 class CreateRequest extends BaseRequest
 {

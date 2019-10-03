@@ -28,8 +28,8 @@ class ServiceRequestRepositoryTest extends TestCase
         $createdServiceRequest = $this->serviceRequestRepo->create($serviceRequest);
         $createdServiceRequest = $createdServiceRequest->toArray();
         $this->assertArrayHasKey('id', $createdServiceRequest);
-        $this->assertNotNull($createdServiceRequest['id'], 'Created ServiceRequest must have id specified');
-        $this->assertNotNull(ServiceRequest::find($createdServiceRequest['id']), 'ServiceRequest with given id must be in DB');
+        $this->assertNotNull($createdServiceRequest['id'], 'Created Request must have id specified');
+        $this->assertNotNull(ServiceRequest::find($createdServiceRequest['id']), 'Request with given id must be in DB');
         $this->assertModelData($serviceRequest, $createdServiceRequest);
     }
 
@@ -65,6 +65,6 @@ class ServiceRequestRepositoryTest extends TestCase
         $serviceRequest = $this->makeServiceRequest();
         $resp = $this->serviceRequestRepo->delete($serviceRequest->id);
         $this->assertTrue($resp);
-        $this->assertNull(ServiceRequest::find($serviceRequest->id), 'ServiceRequest should not exist in DB');
+        $this->assertNull(ServiceRequest::find($serviceRequest->id), 'Request should not exist in DB');
     }
 }

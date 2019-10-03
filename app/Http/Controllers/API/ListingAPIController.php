@@ -8,15 +8,15 @@ use App\Criteria\Products\FilterByTypeCriteria;
 use App\Criteria\Products\FilterByUserCriteria;
 use App\Criteria\Products\FilterByStatusCriteria;
 use App\Criteria\Products\FilterByQuarterCriteria;
-use App\Http\Requests\API\Product\LikeRequest;
-use App\Http\Requests\API\Product\ListRequest;
+use App\Http\Requests\API\Listing\LikeRequest;
+use App\Http\Requests\API\Listing\ListRequest;
 use App\Notifications\ProductLiked;
 use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\API\Product\CreateRequest;
-use App\Http\Requests\API\Product\DeleteRequest;
-use App\Http\Requests\API\Product\PublishRequest;
-use App\Http\Requests\API\Product\UpdateRequest;
-use App\Http\Requests\API\Product\ViewRequest;
+use App\Http\Requests\API\Listing\CreateRequest;
+use App\Http\Requests\API\Listing\DeleteRequest;
+use App\Http\Requests\API\Listing\PublishRequest;
+use App\Http\Requests\API\Listing\UpdateRequest;
+use App\Http\Requests\API\Listing\ViewRequest;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
 use App\Repositories\SettingsRepository;
@@ -85,7 +85,7 @@ class ListingAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/Product")
+     *                  @SWG\Items(ref="#/definitions/Listing")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -127,16 +127,16 @@ class ListingAPIController extends AppBaseController
     /**
      * @SWG\Post(
      *      path="/products",
-     *      summary="Store a newly created Product in storage",
+     *      summary="Store a newly created Listing in storage",
      *      tags={"Marketplace"},
-     *      description="Store Product",
+     *      description="Store Listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="Product that should be stored",
+     *          description="Listing that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Product")
+     *          @SWG\Schema(ref="#/definitions/Listing")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -149,7 +149,7 @@ class ListingAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Product"
+     *                  ref="#/definitions/Listing"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -184,13 +184,13 @@ class ListingAPIController extends AppBaseController
     /**
      * @SWG\Get(
      *      path="/products/{id}",
-     *      summary="Display the specified Product",
+     *      summary="Display the specified Listing",
      *      tags={"Marketplace"},
-     *      description="Get Product",
+     *      description="Get Listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Product",
+     *          description="id of Listing",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -206,7 +206,7 @@ class ListingAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Product"
+     *                  ref="#/definitions/Listing"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -237,19 +237,19 @@ class ListingAPIController extends AppBaseController
         $product->likers = $product->collectLikers();
 
         $data = $this->transformer->transform($product);
-        return $this->sendResponse($data, 'Product retrieved successfully');
+        return $this->sendResponse($data, 'Listing retrieved successfully');
     }
 
     /**
      * @SWG\Put(
      *      path="/products/{id}",
-     *      summary="Update the specified Product in storage",
+     *      summary="Update the specified Listing in storage",
      *      tags={"Marketplace"},
-     *      description="Update Product",
+     *      description="Update Listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Product",
+     *          description="id of Listing",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -257,9 +257,9 @@ class ListingAPIController extends AppBaseController
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="Product that should be updated",
+     *          description="Listing that should be updated",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Product")
+     *          @SWG\Schema(ref="#/definitions/Listing")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -272,7 +272,7 @@ class ListingAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Product"
+     *                  ref="#/definitions/Listing"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -307,13 +307,13 @@ class ListingAPIController extends AppBaseController
     /**
      * @SWG\Delete(
      *      path="/products/{id}",
-     *      summary="Remove the specified Product from storage",
+     *      summary="Remove the specified Listing from storage",
      *      tags={"Marketplace"},
-     *      description="Delete Product",
+     *      description="Delete Listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Product",
+     *          description="id of Listing",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -378,11 +378,11 @@ class ListingAPIController extends AppBaseController
      *      path="/products/{id}/like",
      *      summary="Like a product",
      *      tags={"Marketplace"},
-     *      description="Like a Product",
+     *      description="Like a Listing",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Product",
+     *          description="id of Listing",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -436,13 +436,13 @@ class ListingAPIController extends AppBaseController
     /**
      * @SWG\Post(
      *      path="/products/{id}/unlike",
-     *      summary="Unlike a Product",
+     *      summary="Unlike a Listing",
      *      tags={"Marketplace"},
      *      description="Unlike a product",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Product",
+     *          description="id of Listing",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -495,7 +495,7 @@ class ListingAPIController extends AppBaseController
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Product",
+     *          description="id of Listing",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -507,7 +507,7 @@ class ListingAPIController extends AppBaseController
      *          format="int32",
      *          description="The new status of the product",
      *          required=true,
-     *          @SWG\Schema(ref="#/definitions/Product")
+     *          @SWG\Schema(ref="#/definitions/Listing")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -520,7 +520,7 @@ class ListingAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Product"
+     *                  ref="#/definitions/Listing"
      *              ),
      *              @SWG\Property(
      *                  property="message",

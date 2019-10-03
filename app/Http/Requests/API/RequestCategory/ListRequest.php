@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\API\Product;
+namespace App\Http\Requests\API\RequestCategory;
 
 use App\Http\Requests\BaseRequest;
 
-class LikeRequest extends BaseRequest
+class ListRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,6 +13,6 @@ class LikeRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->can('list-request');
     }
 }

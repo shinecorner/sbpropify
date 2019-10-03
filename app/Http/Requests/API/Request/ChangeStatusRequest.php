@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\API\ServiceRequest;
+namespace App\Http\Requests\API\Request;
 
 use App\Models\ServiceRequest;
 use App\Http\Requests\BaseRequest;

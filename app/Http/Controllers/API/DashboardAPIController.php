@@ -673,7 +673,7 @@ class DashboardAPIController extends AppBaseController
      *      path="/requests/{id}/statistics",
      *      summary="Display the specified Tenant statistics",
      *      tags={"Building"},
-     *      description="Get ServiceRequest statistics",
+     *      description="Get Request statistics",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
@@ -740,7 +740,7 @@ class DashboardAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/admin/statistics",
      *      summary="statistics for request, building, pinboard, listing",
-     *      tags={"ServiceRequest", "Pinboard", "Tenant", "Product"},
+     *      tags={"Request", "Pinboard", "Tenant", "Listing"},
      *      description="statistics for request, building, pinboard, listing",
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -940,7 +940,7 @@ class DashboardAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/admin/chartRequestByCreationDate",
      *      summary="get statistics for Grouped Report for request",
-     *      tags={"ServiceRequest", "CreationDate"},
+     *      tags={"Request", "CreationDate"},
      *      description="get statistics for Grouped Report for request",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -1007,7 +1007,7 @@ class DashboardAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/admin/chartByCreationDate",
      *      summary="get statistics for Grouped Report by listings:status | tenants:status | pinboard:status ",
-     *      tags={"Tenant", "Product", "Pinboard", "CreationDate"},
+     *      tags={"Tenant", "Listing", "Pinboard", "CreationDate"},
      *      description="get statistics for Grouped Report by listings:status | tenants:status | pinboard:status",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -1189,7 +1189,7 @@ class DashboardAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/admin/donutChart",
      *      summary="requests, listings, tenants,  pinboard statistics for Donut Chart",
-     *      tags={"Tenant", "ServiceRequest", "Pinboard", "Product", "Donut"},
+     *      tags={"Tenant", "Request", "Pinboard", "Listing", "Donut"},
      *      description="requests:status | tenants:status,title | listings:status,type |  pinboard:status,type statistics for Donut Chart",
      *      produces={"application/json"},
      *     @SWG\Parameter(
@@ -1288,7 +1288,7 @@ class DashboardAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/admin/donutChartRequestByCategory",
      *      summary="Get request statistics for Donut Chart by request_categories",
-     *      tags={"ServiceRequest", "Donut"},
+     *      tags={"Request", "Donut"},
      *      description="Get request statistics for Donut Chart by request_categories",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -1395,7 +1395,7 @@ class DashboardAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/admin/chartRequestByAssignedProvider",
      *      summary="Requests by service_providers statistics for donut chart",
-     *      tags={"ServiceRequest", "Donut"},
+     *      tags={"Request", "Donut"},
      *      description="Requests by service_providers statistics for donut chart",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -1606,7 +1606,7 @@ class DashboardAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/admin/heatMapByDatePeriod",
      *      summary="Get Service Request statistics for Heat Map Graph",
-     *      tags={"ServiceRequest", "HeatMap"},
+     *      tags={"Request", "HeatMap"},
      *      description="Get Service Request statistics for Heat Map Graph",
      *      produces={"application/json"},
      *      @SWG\Parameter(

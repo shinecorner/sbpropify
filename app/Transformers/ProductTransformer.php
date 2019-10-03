@@ -14,7 +14,7 @@ class ProductTransformer extends BaseTransformer
     protected $defaultIncludes = [];
 
     /**
-     * Transform the Product entity.
+     * Transform the Listing entity.
      *
      * @param \App\Models\Product $model
      *

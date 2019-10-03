@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\API\SRequestCategory;
+namespace App\Http\Requests\API\RequestCategory;
 
 use App\Models\ServiceRequestCategory;
 use App\Http\Requests\BaseRequest;

@@ -250,7 +250,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/requests/statistics', 'DashboardAPIController@requestsStatistics')->name('requests.statistics');
     Route::get('/requests/{id}', 'RequestAPIController@show')->name('requests.show');
     Route::post('/requests', 'RequestAPIController@store')->name('requests.store');
-    Route::post('/requests/{id}/media', 'MediaAPIController@serviceRequestUpload')->name('requests.media.upload');
+    Route::post('/requests/{id}/media', 'MediaAPIController@requestUpload')->name('requests.media.upload');
     Route::post('/requests/{id}/comments', 'CommentAPIController@storeRequestComment')->name('requests.comment.store');
     Route::post('/requests/{id}/notify', 'RequestAPIController@notifyProvider')->name('requests.notify');
     Route::put('/requests/{id}', 'RequestAPIController@update')->name('requests.update');
@@ -258,7 +258,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('/requests/{id}/priority', 'RequestAPIController@changePriority')->name('requests.changePriority');
     Route::delete('/requests/{id}', 'RequestAPIController@destroy')->name('requests.destroy');
     Route::post('/requests/deletewithids', 'RequestAPIController@destroyWithIds')->name('requests.destroyWithIds');
-    Route::delete('/requests/{id}/media/{media_id}', 'MediaAPIController@serviceRequestDestroy')->name('requests.media.destroy');
+    Route::delete('/requests/{id}/media/{media_id}', 'MediaAPIController@requestDestroy')->name('requests.media.destroy');
     Route::post('/requests/{id}/download-pdf', 'RequestAPIController@downloadPdf');
 
     Route::get('/requests/{id}/tags', 'RequestAPIController@getTags');

@@ -7,7 +7,7 @@ use App\Repositories\ServiceRequestRepository;
 trait MakeServiceRequestTrait
 {
     /**
-     * Create fake instance of ServiceRequest and save it in database
+     * Create fake instance of Request and save it in database
      *
      * @param array $serviceRequestFields
      * @return ServiceRequest
@@ -21,7 +21,7 @@ trait MakeServiceRequestTrait
     }
 
     /**
-     * Get fake instance of ServiceRequest
+     * Get fake instance of Request
      *
      * @param array $serviceRequestFields
      * @return ServiceRequest
@@ -32,7 +32,7 @@ trait MakeServiceRequestTrait
     }
 
     /**
-     * Get fake data of ServiceRequest
+     * Get fake data of Request
      *
      * @param array $postFields
      * @return array

@@ -28,8 +28,8 @@ class ProductRepositoryTest extends TestCase
         $createdProduct = $this->productRepo->create($product);
         $createdProduct = $createdProduct->toArray();
         $this->assertArrayHasKey('id', $createdProduct);
-        $this->assertNotNull($createdProduct['id'], 'Created Product must have id specified');
-        $this->assertNotNull(Product::find($createdProduct['id']), 'Product with given id must be in DB');
+        $this->assertNotNull($createdProduct['id'], 'Created Listing must have id specified');
+        $this->assertNotNull(Product::find($createdProduct['id']), 'Listing with given id must be in DB');
         $this->assertModelData($product, $createdProduct);
     }
 
@@ -65,6 +65,6 @@ class ProductRepositoryTest extends TestCase
         $product = $this->makeProduct();
         $resp = $this->productRepo->delete($product->id);
         $this->assertTrue($resp);
-        $this->assertNull(Product::find($product->id), 'Product should not exist in DB');
+        $this->assertNull(Product::find($product->id), 'Listing should not exist in DB');
     }
 }

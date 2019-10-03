@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\API\SRequestCategory;
+namespace App\Http\Requests\API\Request;
 
-use App\Models\ServiceRequestCategory;
+use App\Models\ServiceRequest;
 use App\Http\Requests\BaseRequest;
 
-class UpdateRequest extends BaseRequest
+class ChangePriorityRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,13 @@ class UpdateRequest extends BaseRequest
      */
     public function rules()
     {
-        return ServiceRequestCategory::$rules;
+        $validValues = '|in:' . implode(',', array_keys(ServiceRequest::Priority));
+
+        $rules = [
+            'priority' => 'required|integer' . $validValues,
+            'internal_priority' => 'integer' . $validValues,
+        ];
+
+        return $rules;
     }
 }

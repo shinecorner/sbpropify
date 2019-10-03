@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\API\ServiceRequest;
+namespace App\Http\Requests\API\Listing;
 
 use App\Http\Requests\BaseRequest;
 
-class SeeRequestsCount extends BaseRequest
+class LikeRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,11 +13,6 @@ class SeeRequestsCount extends BaseRequest
      */
     public function authorize()
     {
-        if ($this->user()->tenant()->exists()) {
-            return false;
-        }
-        
         return true;
     }
 }
-

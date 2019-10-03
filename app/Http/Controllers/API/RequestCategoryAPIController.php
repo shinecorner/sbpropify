@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\API\SRequestCategory\CreateRequest;
-use App\Http\Requests\API\SRequestCategory\DeleteRequest;
-use App\Http\Requests\API\SRequestCategory\ListRequest;
-use App\Http\Requests\API\SRequestCategory\UpdateRequest;
-use App\Http\Requests\API\SRequestCategory\ViewRequest;
+use App\Http\Requests\API\RequestCategory\CreateRequest;
+use App\Http\Requests\API\RequestCategory\DeleteRequest;
+use App\Http\Requests\API\RequestCategory\ListRequest;
+use App\Http\Requests\API\RequestCategory\UpdateRequest;
+use App\Http\Requests\API\RequestCategory\ViewRequest;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
 use App\Repositories\ServiceRequestCategoryRepository;

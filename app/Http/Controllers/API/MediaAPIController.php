@@ -562,7 +562,7 @@ class MediaAPIController extends AppBaseController
      * @SWG\Post(
      *      path="/requests/{id}/media",
      *      summary="Store a newly created Request Media in storage",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Store Media",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -570,7 +570,7 @@ class MediaAPIController extends AppBaseController
      *          in="body",
      *          description="Media that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/ServiceRequest")
+     *          @SWG\Schema(ref="#/definitions/Request")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -583,7 +583,7 @@ class MediaAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -597,7 +597,7 @@ class MediaAPIController extends AppBaseController
      * @param SRequestUploadRequest $request
      * @return Response
      */
-    public function serviceRequestUpload(int $id, SRequestUploadRequest $request)
+    public function requestUpload(int $id, SRequestUploadRequest $request)
     {
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
@@ -618,7 +618,7 @@ class MediaAPIController extends AppBaseController
      * @SWG\Delete(
      *      path="/requests/{id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Delete Media",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -654,7 +654,7 @@ class MediaAPIController extends AppBaseController
      * @param SRequestDeleteRequest $r
      * @return Response
      */
-    public function serviceRequestDestroy(int $id, int $media_id, SRequestDeleteRequest $r)
+    public function requestDestroy(int $id, int $media_id, SRequestDeleteRequest $r)
     {
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
@@ -683,7 +683,7 @@ class MediaAPIController extends AppBaseController
      *          in="body",
      *          description="Media that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Product")
+     *          @SWG\Schema(ref="#/definitions/Listing")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -696,7 +696,7 @@ class MediaAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Product"
+     *                  ref="#/definitions/Listing"
      *              ),
      *              @SWG\Property(
      *                  property="message",

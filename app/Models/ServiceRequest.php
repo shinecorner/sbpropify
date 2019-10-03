@@ -13,7 +13,7 @@ use Storage;
 
 /**
  * @SWG\Definition(
- *      definition="ServiceRequest",
+ *      definition="Request",
  *      required={"description", "status", "priority", "due_date"},
  *      @SWG\Property(
  *          property="id",

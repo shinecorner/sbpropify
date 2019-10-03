@@ -11,18 +11,17 @@ use App\Criteria\ServiceRequests\FilterNotAssignedCriteria;
 use App\Criteria\ServiceRequests\FilterPendingCriteria;
 use App\Criteria\ServiceRequests\FilterPublicCriteria;
 use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\API\ServiceRequest\AssignRequest;
-use App\Http\Requests\API\ServiceRequest\ChangePriorityRequest;
-use App\Http\Requests\API\ServiceRequest\ChangeStatusRequest;
-use App\Http\Requests\API\ServiceRequest\CreateRequest;
-use App\Http\Requests\API\ServiceRequest\DeleteRequest;
-use App\Http\Requests\API\ServiceRequest\ListRequest;
-use App\Http\Requests\API\ServiceRequest\NotifyProviderRequest;
-use App\Http\Requests\API\ServiceRequest\SeeRequestsCount;
-use App\Http\Requests\API\ServiceRequest\UnAssignRequest;
-use App\Http\Requests\API\ServiceRequest\UpdateRequest;
-use App\Http\Requests\API\ServiceRequest\ViewRequest;
-use App\Http\Requests\API\Tenant\DownloadPdfRequest;
+use App\Http\Requests\API\Request\AssignRequest;
+use App\Http\Requests\API\Request\ChangePriorityRequest;
+use App\Http\Requests\API\Request\ChangeStatusRequest;
+use App\Http\Requests\API\Request\CreateRequest;
+use App\Http\Requests\API\Request\DeleteRequest;
+use App\Http\Requests\API\Request\ListRequest;
+use App\Http\Requests\API\Request\NotifyProviderRequest;
+use App\Http\Requests\API\Request\SeeRequestsCount;
+use App\Http\Requests\API\Request\UnAssignRequest;
+use App\Http\Requests\API\Request\UpdateRequest;
+use App\Http\Requests\API\Request\ViewRequest;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
@@ -71,7 +70,7 @@ class RequestAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/requests",
      *      summary="Get a listing of the ServiceRequests.",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Get all ServiceRequests",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -108,7 +107,7 @@ class RequestAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/ServiceRequest")
+     *                  @SWG\Items(ref="#/definitions/Request")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -165,16 +164,16 @@ class RequestAPIController extends AppBaseController
     /**
      * @SWG\Post(
      *      path="/requests",
-     *      summary="Store a newly created ServiceRequest in storage",
-     *      tags={"ServiceRequest"},
-     *      description="Store ServiceRequest",
+     *      summary="Store a newly created Request in storage",
+     *      tags={"Request"},
+     *      description="Store Request",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="ServiceRequest that should be stored",
+     *          description="Request that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/ServiceRequest")
+     *          @SWG\Schema(ref="#/definitions/Request")
      *      ),
      *     @SWG\Parameter(
      *          name="media",
@@ -205,7 +204,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -246,13 +245,13 @@ class RequestAPIController extends AppBaseController
     /**
      * @SWG\Get(
      *      path="/requests/{id}",
-     *      summary="Display the specified ServiceRequest",
-     *      tags={"ServiceRequest"},
-     *      description="Get ServiceRequest",
+     *      summary="Display the specified Request",
+     *      tags={"Request"},
+     *      description="Get Request",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of ServiceRequest",
+     *          description="id of Request",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -268,7 +267,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -305,13 +304,13 @@ class RequestAPIController extends AppBaseController
     /**
      * @SWG\Put(
      *      path="/requests/{id}",
-     *      summary="Update the specified ServiceRequest in storage",
-     *      tags={"ServiceRequest"},
-     *      description="Update ServiceRequest",
+     *      summary="Update the specified Request in storage",
+     *      tags={"Request"},
+     *      description="Update Request",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of ServiceRequest",
+     *          description="id of Request",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -319,9 +318,9 @@ class RequestAPIController extends AppBaseController
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="ServiceRequest that should be updated",
+     *          description="Request that should be updated",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/ServiceRequest")
+     *          @SWG\Schema(ref="#/definitions/Request")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -334,7 +333,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -376,16 +375,16 @@ class RequestAPIController extends AppBaseController
     /**
      * @SWG\Post(
      *      path="/requests/{id}/changeStatus",
-     *      summary="Change status on ServiceRequest",
-     *      tags={"ServiceRequest"},
-     *      description="Change status on ServiceRequest",
+     *      summary="Change status on Request",
+     *      tags={"Request"},
+     *      description="Change status on Request",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="ServiceRequest that should be stored",
+     *          description="Request that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/ServiceRequest")
+     *          @SWG\Schema(ref="#/definitions/Request")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -398,7 +397,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -435,16 +434,16 @@ class RequestAPIController extends AppBaseController
     /**
      * @SWG\Post(
      *      path="/requests/{id}/changePriority",
-     *      summary="Change status on ServiceRequest",
-     *      tags={"ServiceRequest"},
-     *      description="Change priority on ServiceRequest",
+     *      summary="Change status on Request",
+     *      tags={"Request"},
+     *      description="Change priority on Request",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="ServiceRequest that should be stored",
+     *          description="Request that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/ServiceRequest")
+     *          @SWG\Schema(ref="#/definitions/Request")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -457,7 +456,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -493,13 +492,13 @@ class RequestAPIController extends AppBaseController
     /**
      * @SWG\Delete(
      *      path="/requests/{id}",
-     *      summary="Remove the specified ServiceRequest from storage",
-     *      tags={"ServiceRequest"},
-     *      description="Delete ServiceRequest",
+     *      summary="Remove the specified Request from storage",
+     *      tags={"Request"},
+     *      description="Delete Request",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of ServiceRequest",
+     *          description="id of Request",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -562,12 +561,12 @@ class RequestAPIController extends AppBaseController
      * @SWG\Post(
      *      path="/requests/{id}/notify",
      *      summary="Notify the provided service provider",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Notify the provided service provider",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of ServiceRequest",
+     *          description="id of Request",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -639,7 +638,7 @@ class RequestAPIController extends AppBaseController
      * @SWG\Post(
      *      path="/requests/{id}/providers/{pid}",
      *      summary="Assign the provided service provider to the request",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Assign the provided service provider to the request",
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -653,7 +652,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -700,8 +699,8 @@ class RequestAPIController extends AppBaseController
      * @SWG\Delete(
      *      path="/requests/{id}/providers/{pid}",
      *      summary="Unassign the provided service provider from the request",
-     *      tags={"ServiceRequest"},
-     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/delete_requests_assignees__requests_assignee_id_'>/requests-assignees/{requests_assignee_id}</a>",
+     *      tags={"Request"},
+     *      description="use <a href='http://dev.propify.ch/api/docs#/Request/delete_requests_assignees__requests_assignee_id_'>/requests-assignees/{requests_assignee_id}</a>",
      *      deprecated=true,
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -715,7 +714,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -740,7 +739,7 @@ class RequestAPIController extends AppBaseController
      * @SWG\Post(
      *      path="/requests/{id}/users/{user_id}",
      *      summary="Assign admin user to the request",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Assign admin user to the request",
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -754,7 +753,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -801,8 +800,8 @@ class RequestAPIController extends AppBaseController
      * @SWG\Post(
      *      path="/requests/{id}/assignees/{uid}",
      *      summary="Assign the provided user to the request",
-     *      tags={"ServiceRequest"},
-     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/pinboard_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
+     *      tags={"Request"},
+     *      description="use <a href='http://dev.propify.ch/api/docs#/Request/pinboard_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
      *      deprecated=true,
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -816,7 +815,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -852,7 +851,7 @@ class RequestAPIController extends AppBaseController
      * @SWG\Post(
      *      path="/requests/{id}/managers/{pmid}",
      *      summary="Assign property manager to the request",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Assign property manager to the request",
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -866,7 +865,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -911,8 +910,8 @@ class RequestAPIController extends AppBaseController
      * @SWG\Delete(
      *      path="/requests/{id}/assignees/{uid}",
      *      summary="Unassign the provided user to the request",
-     *      tags={"ServiceRequest"},
-     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/delete_requests_assignees__requests_assignee_id_'>/requests-assignees/{requests_assignee_id}</a>",
+     *      tags={"Request"},
+     *      description="use <a href='http://dev.propify.ch/api/docs#/Request/delete_requests_assignees__requests_assignee_id_'>/requests-assignees/{requests_assignee_id}</a>",
      *      deprecated=true,
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -926,7 +925,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -950,9 +949,9 @@ class RequestAPIController extends AppBaseController
     /**
      * @SWG\Get(
      *      path="/requests/{id}/tags",
-     *      summary="Get a listing of the ServiceRequest tags.",
-     *      tags={"ServiceRequest", "Tag"},
-     *      description="Get a listing of the ServiceRequest tags.",
+     *      summary="Get a listing of the Request tags.",
+     *      tags={"Request", "Tag"},
+     *      description="Get a listing of the Request tags.",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -998,7 +997,7 @@ class RequestAPIController extends AppBaseController
      * @SWG\Post(
      *      path="/requests/{id}/tags/{tid}",
      *      summary="Assign the tag to the request",
-     *      tags={"ServiceRequest", "Tag"},
+     *      tags={"Request", "Tag"},
      *      description="Assign the tag to the request",
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -1012,7 +1011,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -1052,7 +1051,7 @@ class RequestAPIController extends AppBaseController
      * @SWG\Post(
      *      path="/requests/{id}/tags",
      *      summary="Assign many tags to the request",
-     *      tags={"ServiceRequest", "Tag"},
+     *      tags={"Request", "Tag"},
      *      description="Assign many tags to the request",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -1078,7 +1077,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -1138,7 +1137,7 @@ class RequestAPIController extends AppBaseController
      * @SWG\Delete(
      *      path="/requests/{id}/tags",
      *      summary="Un assign many tags from the request",
-     *      tags={"ServiceRequest", "Tag"},
+     *      tags={"Request", "Tag"},
      *      description="Un assign many tags from the request",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -1164,7 +1163,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -1216,7 +1215,7 @@ class RequestAPIController extends AppBaseController
      * @SWG\Delete(
      *      path="/requests/{id}/tags/{tid}",
      *      summary="Unassign single tag from the request",
-     *      tags={"ServiceRequest", "Tag"},
+     *      tags={"Request", "Tag"},
      *      description="Unassign single tag from the request",
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -1230,7 +1229,7 @@ class RequestAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -1269,9 +1268,9 @@ class RequestAPIController extends AppBaseController
     /**
      * @SWG\Get(
      *      path="/requests/{id}/assignees",
-     *      summary="Get a listing of the ServiceRequest assignees.",
-     *      tags={"ServiceRequest"},
-     *      description="Get a listing of the ServiceRequest assignees.",
+     *      summary="Get a listing of the Request assignees.",
+     *      tags={"Request"},
+     *      description="Get a listing of the Request assignees.",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -1319,7 +1318,7 @@ class RequestAPIController extends AppBaseController
      * @SWG\Delete(
      *      path="/requests-assignees/{requests_assignee_id}",
      *      summary="Unassign the provider,user or manager to the request",
-     *      tags={"ServiceRequest", "User", "PropertyManager", "ServiceProvider"},
+     *      tags={"Request", "User", "PropertyManager", "ServiceProvider"},
      *      description="Unassign the provider,user or manager to the request",
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -1376,12 +1375,12 @@ class RequestAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/requests/{id}/comunicationTemplates",
      *      summary="Display the list of Comunication templates filled with request data",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Get CommunicationTemplates",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of ServiceRequest",
+     *          description="id of Request",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -1399,7 +1398,7 @@ class RequestAPIController extends AppBaseController
      *
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -1436,12 +1435,12 @@ class RequestAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/requests/{id}/serviceComunicationTemplates",
      *      summary="Display the list of Service Comunication templates filled with request data",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Get Service Communication Templates",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of ServiceRequest",
+     *          description="id of Request",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -1459,7 +1458,7 @@ class RequestAPIController extends AppBaseController
      *
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -1496,12 +1495,12 @@ class RequestAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/requests/{id}/serviceemailTemplates",
      *      summary="Display the list of Service Email templates filled with request data",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Get Service Email Templates",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of ServiceRequest",
+     *          description="id of Request",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -1519,7 +1518,7 @@ class RequestAPIController extends AppBaseController
      *
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -1556,7 +1555,7 @@ class RequestAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/requestsCounts",
      *      summary="get recuests count",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Get request count when logged as admin and property manager",
      *      produces={"application/json"},
      *      @SWG\Response(

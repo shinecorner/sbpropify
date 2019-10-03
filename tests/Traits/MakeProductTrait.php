@@ -7,7 +7,7 @@ use App\Repositories\ProductRepository;
 trait MakeProductTrait
 {
     /**
-     * Create fake instance of Product and save it in database
+     * Create fake instance of Listing and save it in database
      *
      * @param array $productFields
      * @return Product
@@ -21,7 +21,7 @@ trait MakeProductTrait
     }
 
     /**
-     * Get fake instance of Product
+     * Get fake instance of Listing
      *
      * @param array $productFields
      * @return Product
@@ -32,7 +32,7 @@ trait MakeProductTrait
     }
 
     /**
-     * Get fake data of Product
+     * Get fake data of Listing
      *
      * @param array $postFields
      * @return array

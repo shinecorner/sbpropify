@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\API\Product;
+namespace App\Http\Requests\API\RequestCategory;
 
 use App\Http\Requests\BaseRequest;
 
-class ListRequest extends BaseRequest
+class ViewRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,6 +13,6 @@ class ListRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('list-product');
+        return $this->can('view-request');
     }
 }

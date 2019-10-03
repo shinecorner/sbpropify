@@ -13,7 +13,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 /**
  * @SWG\Definition(
- *      definition="Product",
+ *      definition="Listing",
  *      required={"content", "contact"},
  *      @SWG\Property(
  *          property="id",
