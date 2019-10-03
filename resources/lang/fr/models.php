@@ -705,17 +705,8 @@ return [
             "solved" => "Résolues",
             "pending" => "En attente"
         ],
-        'category_options' => [
-            "disturbance" => "Perturbation",
-            "defect" => "Défaut",
-            "other" => "Autre",
-            'room' => 'Chambre',
-            'range' => 'Gamme',
-            'component' => 'Composante',
-            'acquisition' => 'Phase d\'acquisition',
-            'cost' => 'Incidence sur les coûts',
-            'keywords' => 'Mots-clés',
-            'building_locations' => [
+        'sub_category_fields' => [
+            'location' => [
                 'house_entrance' => 'Entrée de maison',
                 'staircase' => 'Escalier',
                 'elevator' => 'Ascenseur',
@@ -727,7 +718,7 @@ return [
                 'roof' => 'Toit',
                 'other' => 'Autre'
             ],
-            'apartment_rooms' => [
+            'room' => [
                 'bath' => 'Salle de bains/WC',
                 'shower' => 'Douche/WC',
                 'entrance' => 'L\'entrée',
@@ -743,7 +734,7 @@ return [
                 'all' => 'Tous',
                 'other' => 'Autre'
             ],
-            'acquisitions' => [
+            'capture_phase' => [
                 'other' => 'Autre',
                 'construction' => 'Phase de construction',
                 'shell' => 'Acceptation de la coquille',
@@ -752,11 +743,22 @@ return [
                 'surrender' => 'Rendez-vous',
                 'inspection' => 'Acceptation'
             ],
-            'costs' => [
+            'payer' => [
                 'landlord' => 'Propriétaire',
                 'tenant' => 'Locataire',
                 'tenant/landlord' => 'Locataire/Propriétaire'
             ]
+        ],
+        'category_options' => [
+            "disturbance" => "Perturbation",
+            "defect" => "Défaut",
+            "other" => "Autre",
+            'room' => 'Chambre',
+            'range' => 'Gamme',
+            'component' => 'Composante',
+            'acquisition' => 'Phase d\'acquisition',
+            'cost' => 'Incidence sur les coûts',
+            'keywords' => 'Mots-clés',
         ],
         'placeholders' => [
             "category" => "Sélectionnez une catégorie",
