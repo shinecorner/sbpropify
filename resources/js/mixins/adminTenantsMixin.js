@@ -17,13 +17,6 @@ export default (config = {}) => {
         data() {
             return {
                 remoteLoading: false,
-                buildings: [],
-                units: [],
-                rent_types: [],
-                rent_durations: [],
-                deposit_statuses: [],
-                rentcontract_statuses: [],
-                deposit_types: [],
                 user: {},
                 unit: {},
                 birthDatePickerOptions: {
@@ -50,25 +43,8 @@ export default (config = {}) => {
                     rent_contracts: [],
                 },
                 visibleDrawer: false,
-                rent_contract: {
-                    type: '',
-                    duration: '',
-                    start_date: '',
-                    end_date: '',
-                    deposit_amount: '',
-                    deposit_type: '',
-                    monthly_rent_net: '',
-                    monthly_maintenance: '',
-                    status: 1,
-                    deposit_status: 1,
-                    monthly_rent_gross: '',
-                    parking_price: 0,
-                    unit_id: '',
-                    building_id: '',
-                    media: [],
-                    buildings: [],
-                    units: [],
-                },
+                editingRentContract: null,
+                editingRentContractIndex: -1,
                 validationRules: {
                     first_name: [{
                         required: true,
@@ -129,33 +105,49 @@ export default (config = {}) => {
             },
             editRentContract(index) {
                 this.editingRentContract = this.model.rent_contracts[index];
-                console.log('editing', this.editingRentContract)
+                this.editingRentContractIndex = index;
                 this.visibleDrawer = true;
+            },
+            updateRentContract(index, params) {
+                this.model.rent_contracts[index] = params;
             },
             deleteRentContract(index) {
 
+                this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
+                    type: 'warning'
+                }).then(async () => {
+                    if(config.mode == "edit" ) {
+                        await this.$store.dispatch('rentContracts/delete', {id: this.model.rent_contracts[index].id})
+                    }
+                    this.model.rent_contracts.splice(index, 1)
+                }).catch(() => {
+                });
             },
             toggleDrawer() {
                 this.visibleDrawer = true;
             },
-            ...mapActions(['getBuildings', 'getUnits', 'getCountries', 'uploadMediaFile']),
+            ...mapActions(['getCountries', 'uploadMediaFile']),
         },
         async mounted() {
             await this.getCountries();
-
-            this.rent_types = Object.entries(this.$constants.rentContracts.type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_types.${label}`)}))
-            this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
-            this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))
-            this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
-            this.rentcontract_statuses = Object.entries(this.$constants.rentContracts.status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_status.${label}`)}));
-
         },
         computed: {
             form() {
                 return this.$refs.form;
             },
             ...mapGetters(['countries'])
-        }
+        },
+        watch: {
+            'visibleDrawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        this.editingRentContract = null
+                    }
+                }
+            }
+        },
     };
 
     if (config.mode) {
