@@ -489,45 +489,45 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Product $product
+     * @param Product $listing
      * @param User $user
      * @return array
      */
-    public function getProductLikedParsedTemplate(Product $product, User $user): array
+    public function getProductLikedParsedTemplate(Product $listing, User $user): array
     {
-        $template = $this->getByCategoryName('product_liked');
+        $template = $this->getByCategoryName('listing_liked');
 
-        $product->user->redirect = '/marketplace';
+        $listing->user->redirect = '/listing';
         $context = [
             'user' => $user,
-            'product' => $product,
+            'listing' => $listing,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplateData($template, $tags, $product->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $listing->user->settings->language);
     }
 
     /**
-     * @param Product $product
+     * @param Product $listing
      * @param User $user
      * @param Comment $comment
      * @return array
      */
-    public function getProductCommentedParsedTemplate(Product $product, User $user, Comment $comment): array
+    public function getProductCommentedParsedTemplate(Product $listing, User $user, Comment $comment): array
     {
-        $template = $this->getByCategoryName('product_commented');
+        $template = $this->getByCategoryName('listing_commented');
 
-        $product->user->redirect = '/marketplace';
+        $listing->user->redirect = '/listing';
         $context = [
             'user' => $user,
-            'product' => $product,
+            'listing' => $listing,
             'comment' => $comment,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplateData($template, $tags, $product->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $listing->user->settings->language);
     }
 
     /**
