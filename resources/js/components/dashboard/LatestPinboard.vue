@@ -62,7 +62,7 @@
                 }, {
                     type: 'actions',
                     label: 'dashboard.actions',
-                    width: '125px',
+                    width: '130px',
                     actions: [ 
                         {
                             type: 'default',

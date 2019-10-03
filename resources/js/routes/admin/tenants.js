@@ -38,17 +38,6 @@ export default [{
             title: 'Edit Tenant'
         }
     }, {
-        path: ':id',
-        name: 'adminTenantsEdit2',
-        component: () => import ( /* webpackChunkName: "admin/tenants/edit" */ 'views/Admin/Tenants/Edit'),
-        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.tenant)]),
-        props: {
-            title: 'Edit tenant'
-        },
-        meta: {
-            title: 'Edit Tenant'
-        }
-    }, {
         path: ':id/view',
         name: 'adminTenantsView',
         component: () => import ( /* webpackChunkName: "admin/tenants/view" */ 'views/Admin/Tenants/view'),

@@ -35,10 +35,6 @@
                 type: String,
                 default: ""
             },
-            rentContractIndex: {
-                type: Number,
-                default: 0
-            }
         },
         methods: {
             beforeDocumentUpload(file) {
@@ -61,7 +57,7 @@
                 };
                 this.base64(e.file, (dataUrl) => {
                     file.src = dataUrl;
-                    this.$emit("fileUploaded", file, this.rentContractIndex);
+                    this.$emit("fileUploaded", file);
                 });
             }
         }

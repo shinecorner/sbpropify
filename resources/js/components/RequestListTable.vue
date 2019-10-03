@@ -120,8 +120,8 @@
         <!--                {{$t('general.actions.delete')}}-->
         <!--            </el-button>-->
         <!--        </div>-->
-        <el-popover placement="left-end" trigger="click" :width="192" style="float:right;padding: 0 5px 10px 0px">
-            <span slot="reference" class="el-icon-sort popover-button">&nbsp;{{ $t('models.request.sort')}}</span>
+        <el-popover placement="left-end" trigger="click" :width="192" style="float:right">
+            <span slot="reference" class="el-icon-sort popover-button"><span style="font-family: 'Nunito', sans-serif !important;">&nbsp;{{ $t('models.request.sort')}}</span></span>
             <div class="sorters">
                 <template v-for="(sorter, key) in this.Sorters">
                     <el-radio-group v-if="sorter.type=='el-radio'" v-model="filterModel[sorter.key]" @change="sortChanged(sorter)" :key="key">
@@ -647,8 +647,8 @@
     }
     .popover-button {
         cursor:pointer;
-        font-weight:bold;
-        font-size: 18px;
+        font-size: 14px;
+        font-weight: bold;
         color: var(--color-text-regular);
     }
     .el-table {

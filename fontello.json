@@ -503,6 +503,12 @@
       "css": "attention-alt",
       "code": 61738,
       "src": "fontawesome"
+    },
+    {
+      "uid": "yb3vdwfxck5hmudxna4fq8fcwo9xari9",
+      "css": "eq",
+      "code": 59428,
+      "src": "typicons"
     }
   ]
 }
