@@ -106,6 +106,9 @@ export default (config = {}) => {
                 this.editingRentContract = this.model.rent_contracts[index];
                 this.visibleDrawer = true;
             },
+            updateRentContract(params) {
+                
+            },
             deleteRentContract(index) {
 
                 this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {

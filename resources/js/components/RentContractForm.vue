@@ -394,7 +394,7 @@
                                 this.$emit('add-rent-contract', params)
                             }
                             else {
-                                this.$emit('edit-rent-contract', params)
+                                this.$emit('update-rent-contract', params)
                             }
                             
                         }
@@ -486,9 +486,6 @@
                 this.model.monthly_rent_gross = unit.monthly_rent_gross
                 this.model.type = unit.type
                 this.model.duration = 1
-            },
-            deleteRentContract( c_index ) {
-                //this.model.rent_contracts.splice(c_index, 1)
             },
             addPDFtoRentContract(file) {
                 console.log('file', file)
