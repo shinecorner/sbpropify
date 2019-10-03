@@ -578,6 +578,7 @@
 
                         .cell {
                             width: 100%;
+                            text-align: left;
                             
                             /deep/ .el-input.el-input-group {
                                 .el-input-group__prepend {
