@@ -163,7 +163,7 @@ class UtilsAPIController extends AppBaseController
     protected function getRentContractConstants()
     {
         $result = [
-            'type' => App\Models\RentContract::Type,
+            //'type' => App\Models\RentContract::Type,
             'duration' => App\Models\RentContract::Duration,
             'status' => App\Models\RentContract::Status,
             'deposit_type' => App\Models\RentContract::DepositType,

@@ -23,7 +23,6 @@ class RequestCategoryTransformer extends BaseTransformer
         $response = [
             'id' => $model->id,
             'parent_id' => $model->parent_id,
-            'name' => $model->name,
             'name_en' => $model->name,
             'name_de' => $model->name_de,
             'name_fr' => $model->name_fr,
