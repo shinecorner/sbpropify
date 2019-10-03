@@ -26,6 +26,11 @@ export default (config = {}) => {
                 deposit_types: [],
                 user: {},
                 unit: {},
+                birthDatePickerOptions: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
+                },
                 model: {
                     first_name: '',
                     last_name: '',
@@ -44,8 +49,7 @@ export default (config = {}) => {
                     nation: '',
                     rent_contracts: [],
                 },
-                rent_row: [1],
-                activeRentContractIndex: 0,
+                visibleDrawer: false,
                 rent_contract: {
                     type: '',
                     duration: '',
@@ -100,14 +104,6 @@ export default (config = {}) => {
                         required: true,
                         message: this.$t('models.tenant.validation.birth_date.required')
                     }],
-                    building_id: [{
-                        required: true,
-                        message: this.$t('models.tenant.validation.building.required')
-                    }],
-                    unit_id: [{
-                        required: true,
-                        message: this.$t('models.tenant.validation.unit.required')
-                    }],
                     title: [{
                         required: true,
                         message: this.$t('models.tenant.validation.title.required')
@@ -131,126 +127,16 @@ export default (config = {}) => {
                 const ext = file.name.split('.').pop()
                 return ['.pdf'].includes(ext);
             },
-            async remoteSearchBuildings(search) {
-                if (search === '') {
-                    this.buildings = [];
-                } else {
-                    this.remoteLoading = true;
+            editRentContract(index) {
+                this.editingRentContract = this.model.rent_contracts[index];
+                console.log('editing', this.editingRentContract)
+                this.visibleDrawer = true;
+            },
+            deleteRentContract(index) {
 
-                    try {
-                        const resp = await this.getBuildings({get_all: true, search});
-                        this.buildings = resp.data;
-                    } catch (err) {
-                        displayError(err);
-                    } finally {
-                        this.remoteLoading = false;
-                    }
-                }
             },
-            async searchUnits() {
-                this.model.unit_id = '';
-                try {
-                    const resp = await this.getUnits({
-                        get_all: true,
-                        building_id: this.model.building_id
-                    });
-
-                    this.units = resp.data;
-                } catch (err) {
-                    displayError(err);
-                } finally {
-                    this.remoteLoading = false;
-                }
-            },
-            disabledRentStart(date) {
-                const d = new Date(date).getTime();
-                const rentEnd = new Date(this.model.rent_contracts[this.activeRentContractIndex].end_date).getTime();
-                return d >= rentEnd;
-            },
-            disabledRentEnd(date) {
-                const d = new Date(date).getTime();
-                const rentStart = new Date(this.model.rent_contracts[this.activeRentContractIndex].start_date).getTime();
-                return d <= rentStart;
-            },
-            rentContractUploaded(file) {
-                this.uploadMediaFile({
-                    id: this.model.id,
-                    media: file.src
-                }).then(r => {                    
-                    displaySuccess(r);
-
-                    this.model.media.push(r.data);
-                }).catch(err => {
-                    displayError(err);
-                });
-            },
-            async remoteRentContractdSearchBuildings(search, index) {
-                if (search === '') {
-                    this.model.rent_contracts[index].buildings = [];
-                } else {
-                    this.remoteLoading = true;
-
-                    try {
-                        const resp = await this.getBuildings({get_all: true, search});
-                        this.model.rent_contracts[index].buildings = resp.data;
-                    } catch (err) {
-                        displayError(err);
-                    } finally {
-                        this.remoteLoading = false;
-                    }
-                }
-            },
-            async searchRentContractUnits(c_index, shouldKeepValue) {
-                this.activeRentContractIndex = c_index
-                if(!shouldKeepValue)
-                    this.model.rent_contracts[c_index].unit_id = '';
-                try {
-                    const resp = await this.getUnits({
-                        get_all: true,
-                        building_id: this.model.rent_contracts[c_index].building_id
-                    });
-
-                    
-                    this.model.rent_contracts.forEach((rent_contract, cc_index) => {
-                        if(cc_index != c_index)
-                            resp.data = resp.data.filter( item => item.id != rent_contract.unit_id )
-                    })
-
-                    this.$set(this.model.rent_contracts, c_index, { ...this.model.rent_contracts[c_index], units: resp.data})
-                } catch (err) {
-                    displayError(err);
-                } finally {
-                    this.remoteLoading = false;
-                }
-            },
-            changeRentContractUnit(c_index) {
-                this.activeRentContractIndex = c_index
-                let unit = this.model.rent_contracts[c_index].units.find(item => item.id == this.model.rent_contracts[c_index].unit_id)
-                this.model.rent_contracts[c_index].monthly_rent_net = unit.monthly_rent_net
-                this.model.rent_contracts[c_index].monthly_maintenance = unit.monthly_maintenance
-                this.model.rent_contracts[c_index].monthly_rent_gross = unit.monthly_rent_gross
-            },
-            async addRentContract() {
-                this.rent_contract.media = [];
-                this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
-            },
-            deleteRentContract( c_index ) {
-                this.model.rent_contracts.splice(c_index, 1)
-            },
-            addPDFtoRentContract(file, index) {
-                this.activeRentContractIndex = index;
-                //console.log('file', file)
-                let toUploadRentContractFile = file.src
-                //let toUploadRentContractFile = {...file, url: URL.createObjectURL(file.raw)};
-                this.model.rent_contracts[this.activeRentContractIndex].media.push(toUploadRentContractFile)
-            },
-            deletePDFfromRentContract(c_index, index) {
-                console.log('rent_contracts', this.model.rent_contracts)
-                console.log('indexes', c_index, index)
-                this.model.rent_contracts[c_index].media.splice(index, 1)
-            },
-            selectRentContract(c_index) {
-                this.activeRentContractIndex = c_index
+            toggleDrawer() {
+                this.visibleDrawer = true;
             },
             ...mapActions(['getBuildings', 'getUnits', 'getCountries', 'uploadMediaFile']),
         },
@@ -263,8 +149,6 @@ export default (config = {}) => {
             this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
             this.rentcontract_statuses = Object.entries(this.$constants.rentContracts.status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_status.${label}`)}));
 
-            if( config.mode == 'add' )
-                this.model.rent_contracts.push(Object.assign({}, this.rent_contract))
         },
         computed: {
             form() {
@@ -412,18 +296,6 @@ export default (config = {}) => {
                         this.model.email = user.email;
                         this.model.avatar = user.avatar;
                         this.model.nation = +this.model.nation
-
-
-                        this.model.rent_contracts.forEach(async (rent_contract, c_index) => {
-                            
-                            if(rent_contract.building) {
-                                await this.remoteRentContractdSearchBuildings(rent_contract.building.name, c_index)
-                            }
-
-                            if (rent_contract.unit) {
-                                await this.searchRentContractUnits(c_index, true)
-                            }
-                        })
 
                     } catch (err) {
                         this.$router.replace({

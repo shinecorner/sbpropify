@@ -52,7 +52,11 @@ export default {
             })
         },
         async create ({commit, rootGetters}, {id, ...params}) {
-            let url = params.commentable == 'internalNotices' ? '' : `/${id}/comments`;
+            let managerParams = '';
+            for (const index in params.selectedManagerLists) {
+                managerParams += `property_managers[]=${params.selectedManagerLists[index]}`
+            }
+            let url = params.commentable == 'internalNotices' ? `?${managerParams}` : `/${id}/comments`;
             const {data} = await this._vm.axios.post({
                 pinboard: 'pinboard',
                 product: 'products',

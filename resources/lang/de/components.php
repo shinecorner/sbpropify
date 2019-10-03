@@ -156,10 +156,10 @@ return [
             ],
         ],
         'listingcommentsList' => [
-            'loadMore' => 'Lade {count} weitere Kommentare',
+            'loadMore' => 'Lade {count} weitere Anfragen',
             'emptyPlaceholder' => [
-                'title' => 'Es gibt keine Kommentare',
-                'description' => 'Verfassen Sie den ersten Kommentar.',
+                'title' => 'Es gibt keine Anfragen',
+                'description' => 'Übermitteln Sie die erste Anfrage.',
             ],
         ],
         'pinboardcommentsList' => [
@@ -180,7 +180,7 @@ return [
             'deletedCommentPlaceholder' => 'Der Kommentar wurde gelöscht.',
         ],
         'addComment' => [
-            'placeholder' => 'Schreibe einen Kommentar...',
+            'placeholder' => 'Schreiben Sie einen Kommentar...',
             'tooltipTemplates' => 'Wählen Sie eine Vorlage',
             'loadingTemplates' => 'Vorlagen werden geladen...',
             'saveShortcut' => 'oder verwende {shortcut} Abkürzung',

@@ -288,7 +288,7 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
 
     public function quarters()
     {
-        return $this->belongsToMany(Quarter::class, 'quarter_pinboard');
+        return $this->belongsToMany(Quarter::class, 'pinboard_quarter');
     }
 
     public function providers()

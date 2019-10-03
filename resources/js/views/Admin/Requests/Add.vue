@@ -198,6 +198,7 @@
                                     type="date"
                                     v-model="model.due_date"
                                     value-format="yyyy-MM-dd"
+                                    :picker-options="dueDatePickerOptions"
                                 >
                                 </el-date-picker>
                             </el-form-item>
