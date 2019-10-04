@@ -275,20 +275,50 @@ class QuarterAPIController extends AppBaseController
      * @param $id
      * @param UpdateRequest $request
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Repository\Exceptions\RepositoryException
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update($id, UpdateRequest $request)
     {
         $input = $request->all();
 
         /** @var Quarter $quarter */
-        $quarter = $this->quarterRepository->findWithoutFail($id);
+        $quarter = $this->quarterRepository->with('address')->findWithoutFail($id);
 
         if (empty($quarter)) {
             return $this->sendError(__('models.quarter.errors.not_found'));
         }
 
+        DB::beginTransaction();
+        $addressInput = $request->get('address');
+        if ($addressInput) {
+            $validator = Validator::make($addressInput, Address::$rules);
+            if ($validator->fails()) {
+                DB::rollBack();
+                return $this->sendError($validator->errors());
+            }
+
+            if ($quarter->address) {
+                $address = $this->addressRepository->updateExisting($quarter->address, $addressInput);
+
+            } else {
+                $address = $this->addressRepository->create($addressInput);
+                $input['address_id'] = $address->id;
+            }
+
+            $input['address_id'] = $address->id;
+            unset($input['address']);
+        }
+
+
         $quarter = $this->quarterRepository->updateExisting($quarter, $input);
+        if ($quarter) {
+            DB::commit();
+            $quarter->load('address');
+        } else {
+            DB::rollBack();
+        }
 
         $response = (new QuarterTransformer)->transform($quarter);
         return $this->sendResponse($response, __('models.quarter.saved'));
