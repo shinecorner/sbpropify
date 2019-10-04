@@ -20,7 +20,7 @@
             <el-timeline v-else>
                 <template v-for="(audit, date) in audits.data">
                     <el-timeline-item  v-for="(content, index) in audit.content" :key="audit.id+'-'+index" :timestamp="`${audit.userName} • ${formatDatetime(date)}`">
-                        {{content}}
+                        <span v-html="content">{{content}}</span>
                     </el-timeline-item>
                 </template>
                 <el-timeline-item v-if="loading">

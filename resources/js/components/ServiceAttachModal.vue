@@ -32,6 +32,7 @@
                                         <el-select
                                             style="width: 100%"
                                             v-model="model.manager"
+                                            clearable
                                         >
                                             <el-option :key="manager.id" :label="manager.name" :value="manager.id"
                                                        v-for="manager in managers"></el-option>
