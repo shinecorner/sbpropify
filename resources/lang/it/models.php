@@ -75,7 +75,7 @@ return [
         "created_date" => "Data di creazione",
         "contract" => "Contratto",
         "pinboard" => "Bacheca",
-        "products" => "Prodotti",
+        "listings" => "Prodotti",
         "company" => "Nome dell'azienda",
         "no_building" => "Niente edificio",
         'building' => [
@@ -894,13 +894,13 @@ return [
             'deleted' => "Errore cancellato dal Property Manager: ",
         ],
     ],
-    'product' => [
+    'listing' => [
         "title" => "Prodotti",
         "add" => "Aggiungi prodotto",
         "edit_title" => "Modifica prodotto",
         "delete_action" => "Cancellare",
         "content" => "Contenuto",
-        "product_title" => "Titolo",
+        "listing_title" => "Titolo",
         "published_at" => "Pubblicato",
         "publish" => "Pubblicare",
         "unpublish" => "Non pubblicare",

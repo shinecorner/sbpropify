@@ -27,7 +27,7 @@ return [
     'addresses' => 'Liegenschaften',
     'pinboard' => 'Pinnwand',
     'quarters' => 'Überbauungen',
-    'products' => 'Marktplatz',
+    'listings' => 'Marktplatz',
     'requestCategories' => 'Kategorien',
     'services' => 'Dienstleister',
     'activity' => 'Aktivität',

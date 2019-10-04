@@ -75,7 +75,7 @@ return [
         'created_date' => 'Erstelldatum',
         'contract' => 'Mietvertrag',
         'pinboard' => 'Beiträge',
-        'products' => 'Marktplatz',
+        'listings' => 'Marktplatz',
         'company' => 'Firmenname',
         'no_building' => 'Keine Liegenschaft(en) zugewiesen.',
         'building' => [
@@ -896,13 +896,13 @@ return [
             'deleted' => "Bewirtschafter löschte Fehler: ",
         ],
     ],
-    'product' => [
+    'listing' => [
         'title' => 'Marktplatz',
         'add' => 'Inserat hinzufügen',
         'edit_title' => 'Inserat bearbeiten',
         'delete_action' => 'Löschen',
         'content' => 'Inhalt',
-        'product_title' => 'Titel',
+        'listing_title' => 'Titel',
         'published_at' => 'Hinzugefügt am',
         'publish' => 'Veröffentlicht',
         'unpublish' => 'Unveröffentlicht',
