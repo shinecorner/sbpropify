@@ -189,6 +189,7 @@
                 v-for="(column, key) in headerWithCounts">
                 <template slot-scope="scope">
                     <request-count :countsData="items[scope.$index]" ></request-count>
+                    <rent-contract-count :countsData="items[scope.$index]" ></rent-contract-count>
                 </template>
             </el-table-column>
 
@@ -332,7 +333,8 @@
     // TODO - add transition to do things smoothly
     import {Avatar} from 'vue-avatar'
     import uuid from 'uuid/v1'
-    import RequestCount from 'components/RequestCount.vue'
+    import RequestCount from 'components/RequestCount'
+    import RentContractCount from 'components/RentContractCount'
     import tableAvatar from 'components/Avatar';
     import RequestDetailCard from 'components/RequestDetailCard';
     import SelectLanguage from 'components/SelectLanguage';
@@ -343,6 +345,7 @@
         components: {
             Avatar,
             RequestCount,
+            RentContractCount,
             'table-avatar': tableAvatar,
             RequestDetailCard,
             SelectLanguage,
