@@ -74,7 +74,7 @@
                                         <span>{{ new Date(element.created_at) | formatDate}}</span>
                                 </el-tooltip> 
                             </p>
-                             <div class="reactions" v-if="fetchAction == 'getProducts'">
+                             <div class="reactions" v-if="fetchAction == 'getListings'">
                                 <div><i class="ti-thumb-up"  />{{element.likes_count}}</div>
                                 <div><i class="ti-comments" /> {{element.comments_count}} </div>
                                 <div><i class="ti-gallery"  /> {{element.media.length}}</div>
@@ -154,9 +154,9 @@ import { mapGetters } from 'vuex';
                        }
                    });
                 }
-                if (action === 'getProducts') {
+                if (action === 'getListings') {
                     this.$router.push({
-                       name: 'adminProductsEdit',
+                       name: 'adminListingsEdit',
                        params: {
                            id : data.id
                        }
@@ -190,7 +190,7 @@ import { mapGetters } from 'vuex';
                                     name: null
                                 }
                                 break;
-                            case 'getProducts':
+                            case 'getListings':
                                 data.category = {
                                     ...data.category,
                                     name: null

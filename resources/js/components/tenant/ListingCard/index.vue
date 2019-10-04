@@ -11,16 +11,16 @@
         <div class="content">
             <div class="title">{{data.title}}</div>
             <div class="date">{{$t('tenant.added_at')}} {{formatDatetime(data.published_at)}}</div>
-            <likes type="product" :data="data.likes" v-if="false"/>
-            <like :id="data.id" type="product" readonly>
+            <likes type="listing" :data="data.likes" v-if="false"/>
+            <like :id="data.id" type="listing" readonly>
                 <div>
                     <i class="icon-picture"></i> {{data.media.length}}
                 </div>
-                <el-button size="mini" @click.stop="$emit('edit-product', $event, data)" type="primary" v-if="showAction"> 
+                <el-button size="mini" @click.stop="$emit('edit-listing', $event, data)" type="primary" v-if="showAction">
                     <i class="ti-pencil"></i>
                     <span>{{ $t('general.actions.update') }}</span>
                 </el-button>
-                <!-- <el-button size="mini" @click.stop="$emit('delete-product', $event, data)" type="danger"> 
+                <!-- <el-button size="mini" @click.stop="$emit('delete-listing', $event, data)" type="danger">
                     <i class="ti-close"></i>
                 </el-button> -->
             </like>
@@ -34,7 +34,7 @@
     import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
 
     export default {
-        name: 'p-product-card',
+        name: 'p-listing-card',
         mixins: [
             PriceFormatMixin,
             FormatDateTimeMixin
@@ -51,7 +51,7 @@
         },
         computed: {
             isFree () {
-                return !+(this.data.price || '0.00').replace(/\D/g, '') || this.data.type == (Object.values(this.$constants.products.type).find(name => name === 'giveaway') || [])[0]
+                return !+(this.data.price || '0.00').replace(/\D/g, '') || this.data.type == (Object.values(this.$constants.listings.type).find(name => name === 'giveaway') || [])[0]
             }
         }
     }

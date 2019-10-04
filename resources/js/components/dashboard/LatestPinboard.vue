@@ -70,12 +70,12 @@
                             onClick: this.edit,
                             editUrl: 'adminPinboardEdit',
                             permissions: [
-                                this.$permissions.update.product
+                                this.$permissions.update.listing
                             ]
                         }
                     ]
                 }],
-                product: {},
+                listing: {},
             };
         },
         computed: {

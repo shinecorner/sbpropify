@@ -34,9 +34,9 @@
                         </component>
                     </div>
                
-                    <div v-if="column.type == 'product-details'" class="product-details">
+                    <div v-if="column.type == 'listing-details'" class="listing-details">
                         <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
-                        <div class="image" v-else :style="{backgroundImage: `url(${productDefaultImg})`}"></div>
+                        <div class="image" v-else :style="{backgroundImage: `url(${listingDefaultImg})`}"></div>
                         <div class="text">
                             <div class="title">
                                 {{ scope.row['title'] }}
@@ -238,7 +238,7 @@
                 selectedItems: [],
                 userMaleDefaultImg: require('img/male.png'),
                 userFemaleDefaultImg: require('img/female.png'),
-                productDefaultImg: require('img/latest-product-default.png'),
+                listingDefaultImg: require('img/latest-listing-default.png'),
 
             }
         },
@@ -521,7 +521,7 @@
                 }
             }
         }
-        .product-details {
+        .listing-details {
             display: flex;
             align-items: center;
             justify-content: flex-start;

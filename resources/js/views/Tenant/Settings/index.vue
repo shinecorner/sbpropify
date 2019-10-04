@@ -72,7 +72,7 @@
                         <el-form-item :label="$t('settings.pinboard')">
                             <el-switch v-model="loggedInUser.settings.pinboard_notification"></el-switch>
                         </el-form-item>
-                        <el-form-item :label="$t('settings.marketplace')">
+                        <el-form-item :label="$t('settings.listing')">
                             <el-switch v-model="loggedInUser.settings.martketplace_notification"></el-switch>
                         </el-form-item>
                         <el-form-item :label="$t('settings.admin')">

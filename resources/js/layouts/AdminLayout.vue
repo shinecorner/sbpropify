@@ -282,12 +282,12 @@
                             name: 'adminPinboard'
                         }
                     },
-                    "products": {
-                        title: this.$t('menu.products'),
+                    "listings": {
+                        title: this.$t('menu.listings'),
                         icon: 'icon-basket',
-                        permission: this.$permissions.list.product,
+                        permission: this.$permissions.list.listing,
                         route: {
-                            name: 'adminProducts'
+                            name: 'adminListings'
                         }
                     },
                     "admins": {
@@ -311,7 +311,7 @@
                             menu_items.propertyManagers,
                             menu_items.services,
                             menu_items.pinboard,
-                            menu_items.products,
+                            menu_items.listings,
                        ];
                 }
                 else if (this.rolename == 'service') {

@@ -1,12 +1,12 @@
 <template>
-    <div class="product-details">
+    <div class="listing-details">
         <ui-images-carousel :images="data.media.map(({url}) => url)" />
         <el-tabs value="overview" stretch>
             <el-tab-pane name="overview">
                 <div slot="label">
                     <i class="icon-th"></i> {{$t('tenant.overview')}}
                 </div>
-                <div class="type">{{this.$t(`models.product.type.${$constants.products.type[data.type]}`)}}</div>
+                <div class="type">{{this.$t(`models.listing.type.${$constants.listings.type[data.type]}`)}}</div>
                 <div class="title">{{data.title}}</div>
                 <div class="datetime">{{$t('tenant.added_at')}} {{formatDatetime(data.published_at)}}</div>
                 <ui-divider />
@@ -21,7 +21,7 @@
                 </div>
                 <ui-divider />
                 <read-more class="description" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
-                <like :id="data.id" type="product" />
+                <like :id="data.id" type="listing" />
                 <ui-divider />
                 <div class="contact" v-if="showContactInformations">
                     {{data.contact}}
@@ -35,7 +35,7 @@
                 <div slot="label">
                     <i class="icon-chat-empty"></i> {{$t('tenant.comments')}}
                 </div>
-                <chat :id="data.id" type="product" size="100%" max-size="512px" />
+                <chat :id="data.id" type="listing" size="100%" max-size="512px" />
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -63,14 +63,14 @@
         },
         computed: {
             isFree () {
-                return !+(this.data.price || '0.00').replace(/\D/g, '') || this.data.type == (Object.entries(this.$constants.products.type).find(([_, name]) => name === 'giveaway') || [])[0]
+                return !+(this.data.price || '0.00').replace(/\D/g, '') || this.data.type == (Object.entries(this.$constants.listings.type).find(([_, name]) => name === 'giveaway') || [])[0]
             }
         }
     }
 </script>
 
 <style lang="sass" scoped>
-    .product-details
+    .listing-details
         display: grid
         grid-template-columns: 1fr minmax(auto, 384px)
 

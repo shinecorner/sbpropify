@@ -364,11 +364,11 @@
                     }
                 })
             },
-            productEditView(product) {
+            listingEditView(listing) {
                 this.$router.push({
-                    name: 'adminProductsEdit',
+                    name: 'adminListingsEdit',
                     params: {
-                        id: product.id
+                        id: listing.id
                     }
                 })
             },

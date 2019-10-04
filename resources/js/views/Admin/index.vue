@@ -194,23 +194,23 @@
                             </el-col>
                         </el-row>
                     </el-tab-pane>
-                    <el-tab-pane :label="$t('menu.marketplace')" name="marketplace">
+                    <el-tab-pane :label="$t('menu.listing')" name="listing">
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
-                                <el-card class="chart-card" :header="$t('dashboard.products_by_creation_date')">
-                                    <chart-stacked-column type="products_by_creation_date" :startDate="startDates.products"></chart-stacked-column>
+                                <el-card class="chart-card" :header="$t('dashboard.listings_by_creation_date')">
+                                    <chart-stacked-column type="listings_by_creation_date" :startDate="startDates.listings"></chart-stacked-column>
                                 </el-card>
                             </el-col>
                          </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
-                                <el-card class="chart-card col-3" :header="$t('dashboard.products_by_type')">
-                                    <chart-pie-and-donut type="products_by_type" :colNum="3" :startDate="startDates.products"></chart-pie-and-donut>
+                                <el-card class="chart-card col-3" :header="$t('dashboard.listings_by_type')">
+                                    <chart-pie-and-donut type="listings_by_type" :colNum="3" :startDate="startDates.listings"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="16">
-                                <el-card class="chart-card" :header="$t('dashboard.latest_products')">
-                                    <latest-products type="latest_products"></latest-products>
+                                <el-card class="chart-card" :header="$t('dashboard.latest_listings')">
+                                    <latest-listings type="latest_listings"></latest-listings>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -240,7 +240,7 @@
     import TenantsStatisticsCard from 'components/dashboard/TenantsStatisticsCard';
     import ChartTenantsByAge from 'components/dashboard/ChartTenantsByAge';
 
-    import LatestProducts from 'components/dashboard/LatestProducts';
+    import LatestListings from 'components/dashboard/LatestListings';
     import GoogleMap from 'components/dashboard/GoogleMap';
     import LatestBuildings from 'components/dashboard/LatestBuildings';
     import LatestTenants from 'components/dashboard/LatestTenants';
@@ -265,7 +265,7 @@
             ChartTenantsByGender,
             ChartUsersByDevice,
             TenantsStatisticsCard,
-            LatestProducts,
+            LatestListings,
             GoogleMap,
             LatestBuildings,
             LatestTenants,
@@ -317,7 +317,7 @@
                     icon: 'ti-shopping-cart',
                     color: '#1a237e',
                     value: 256,
-                    description: 'Products'
+                    description: 'Listings'
                 }],
                 headingIcon: 'icon-chat-empty',
                 activeName: 'requests',
@@ -327,7 +327,7 @@
                     requests: '',
                     buildings: '',
                     pinboard: '',
-                    products: '',
+                    listings: '',
                     tenants: ''
                 },
             }
@@ -366,7 +366,7 @@
                     'requests': 'icon-chat-empty',
                     'buildings': 'icon-commerical-building',
                     'pinboard': 'icon-megaphone-1',
-                    'marketplace': 'icon-basket',
+                    'listing': 'icon-basket',
                     'tenants': 'icon-group'
                 };
                 this.headingIcon = icons[tab.name];

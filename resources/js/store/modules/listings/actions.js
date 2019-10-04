@@ -2,70 +2,70 @@ import axios from '@/axios';
 import {buildFetchUrl} from 'helpers/url';
 
 export default {
-    getProducts({commit}, payload) {
+    getListings({commit}, payload) {
         return new Promise((resolve, reject) =>
-            axios.get(buildFetchUrl('products', payload))
-                .then(({data: r}) => (r && commit('SET_PRODUCTS', r.data), resolve(r)))
+            axios.get(buildFetchUrl('listings', payload))
+                .then(({data: r}) => (r && commit('SET_LISTINGS', r.data), resolve(r)))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    getProduct(_, {id}) {
+    getListing(_, {id}) {
         return new Promise((resolve, reject) =>
-            axios.get(`products/${id}`)
+            axios.get(`listings/${id}`)
                 .then(({data: r}) => resolve(r.data))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    createProduct(_, payload) {
+    createListing(_, payload) {
         return new Promise((resolve, reject) =>
-            axios.post('products', payload)
+            axios.post('listings', payload)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    updateProduct(_, {id, ...restPayload}) {
+    updateListing(_, {id, ...restPayload}) {
         return new Promise((resolve, reject) =>
-            axios.put(`products/${id}`, restPayload)
+            axios.put(`listings/${id}`, restPayload)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    deleteProduct(_, {id}) {
+    deleteListing(_, {id}) {
         return new Promise((resolve, reject) =>
-            axios.delete(`products/${id}`)
+            axios.delete(`listings/${id}`)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    deleteProductWithIds({}, payload) {        
+    deleteListingWithIds({}, payload) {
         return new Promise((resolve, reject) => {
-            axios.post(`products/deletewithids`, {ids: _.map(payload, 'id')}).then((resp) => {                
+            axios.post(`listings/deletewithids`, {ids: _.map(payload, 'id')}).then((resp) => {
                 resolve(resp.data);
             }).catch(({response: {data: err}}) => reject(err))
         });
     },
-    likeProduct(_, id) {
+    likeListing(_, id) {
         return new Promise((resolve, reject) =>
-            axios.post(`products/${id}/like`)
+            axios.post(`listings/${id}/like`)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    unlikeProduct(_, id) {
+    unlikeListing(_, id) {
         return new Promise((resolve, reject) =>
-            axios.post(`products/${id}/unlike`)
+            axios.post(`listings/${id}/unlike`)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    changeProductPublish(_, {id, ...body}) {
+    changeListingPublish(_, {id, ...body}) {
         return new Promise((resolve, reject) =>
-            axios.post(`products/${id}/publish`, body)
+            axios.post(`listings/${id}/publish`, body)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    uploadProductMedia(_, {id, ...restPayload}) {
+    uploadListingMedia(_, {id, ...restPayload}) {
         return new Promise((resolve, reject) =>
-            axios.post(`products/${id}/media`, restPayload)
+            axios.post(`listings/${id}/media`, restPayload)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    deleteProductMedia({}, {id, media_id}) {
+    deleteListingMedia({}, {id, media_id}) {
         return new Promise((resolve, reject) => {
-            axios.delete(`products/${id}/media/${media_id}`).then((resp) => {
+            axios.delete(`listings/${id}/media/${media_id}`).then((resp) => {
                 resolve(resp.data);
             }).catch((error) => {
                 reject(error.response.data);

@@ -55,8 +55,8 @@ return [
         'latest_tenants' => 'Latest tenants',
         'go_to_tenants' => 'go to tenants'
     ],
-    'marketplace' => [
-        'go_to_marketplace' => 'go to marketplace'
+    'listing' => [
+        'go_to_listing' => 'go to listing'
     ],
     'pinboard' => [
         'latest_pinboard' => 'Latest pinboard',

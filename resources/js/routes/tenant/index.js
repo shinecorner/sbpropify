@@ -4,7 +4,7 @@ import PinboardRoutes from 'routes/tenant/pinboard'
 import RequestsRoutes from 'routes/tenant/requests'
 import SettingsRoutes from 'routes/tenant/settings'
 import DashboardRoutes from 'routes/tenant/dashboard'
-import MarketplaceRoutes from 'routes/tenant/marketplace'
+import ListingRoutes from 'routes/tenant/listing'
 import CleanifyRoutes from 'routes/tenant/cleanify'
 import MyNeighboursRoutes from 'routes/tenant/myNeighbours'
 import PropertyManagersRoutes from 'routes/tenant/propertyManagers'
@@ -19,7 +19,7 @@ export default [{
         SettingsRoutes,
         DashboardRoutes,
         CleanifyRoutes,
-        MarketplaceRoutes,
+        ListingRoutes,
         MyNeighboursRoutes,
         PropertyManagersRoutes
     ]

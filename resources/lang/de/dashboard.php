@@ -55,8 +55,8 @@ return [
         'latest_tenants' => 'Neueste Mieter',
         'go_to_tenants' => 'zu den Mietern gehen'
     ],
-    'marketplace' => [
-        'go_to_marketplace' => 'zum Marktplatz gehen'
+    'listing' => [
+        'go_to_listing' => 'zum Marktplatz gehen'
     ],
     'pinboard' => [
         'latest_pinboard' => 'Neueste Beiträge',

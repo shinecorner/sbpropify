@@ -36,7 +36,7 @@ export default (config = {}) => {
                 validationRules: {
                     title: [{
                         required: true,
-                        message: this.$t('validation.required', {attribute: this.$t('models.product.product_title')})
+                        message: this.$t('validation.required', {attribute: this.$t('models.listing.listing_title')})
                     }],
                     content: [{
                         required: true,
@@ -60,15 +60,15 @@ export default (config = {}) => {
             mediaFiles() {
                 return [...this.model.media, ...this.media];
             },
-            productConstants() {
-                return this.$constants.products;
+            listingConstants() {
+                return this.$constants.listings;
             },
-            productPrice() {
+            listingPrice() {
                 return `${this.price.integer}.${this.price.decimals}`;
             }
         },
         methods: {
-            ...mapActions(['uploadProductMedia', 'deleteProductMedia']),
+            ...mapActions(['uploadListingMedia', 'deleteListingMedia']),
             uploadFiles(file) {
                 const allowedFiles = [
                     'jpeg', 'png'
@@ -91,7 +91,7 @@ export default (config = {}) => {
                 if (this.media.length) {
                     for (let i = 0; i < this.media.length; i++) {
                         const image = this.media[i];
-                        await this.uploadProductMedia({
+                        await this.uploadListingMedia({
                             id,
                             media: image.url.split('base64,')[1]
                         });
@@ -105,10 +105,10 @@ export default (config = {}) => {
                     });
                     displaySuccess({
                         success: true,
-                        message: this.$t('models.product.media.removed')
+                        message: this.$t('models.listing.media.removed')
                     });
                 } else {
-                    const resp = await this.deleteProductMedia({
+                    const resp = await this.deleteListingMedia({
                         id: image.model_id,
                         media_id: image.id
                     });
@@ -150,14 +150,14 @@ export default (config = {}) => {
             case 'add':
                 mixin.methods = {
                     ...mixin.methods,
-                    ...mapActions(['createProduct']),
+                    ...mapActions(['createListing']),
                     submit() {
                         this.form.validate(async valid => {
                             if (valid) {
                                 this.loading.state = true;
                                 try {
-                                    this.model.price = this.productPrice;
-                                    const resp = await this.createProduct(this.model);
+                                    this.model.price = this.listingPrice;
+                                    const resp = await this.createListing(this.model);
 
                                     await this.uploadNewMedia(resp.data.id);
 
@@ -180,7 +180,7 @@ export default (config = {}) => {
             case 'edit':
                 mixin.methods = {
                     ...mixin.methods,
-                    ...mapActions(['getProduct', 'updateProduct']),
+                    ...mapActions(['getListing', 'updateListing']),
                     submit() {
                         return new Promise((resolve, reject) => {
                             this.form.validate(async valid => {
@@ -190,9 +190,9 @@ export default (config = {}) => {
                                 }
                                 this.loading.state = true;
                                 try {
-                                    this.model.price = this.productPrice;
+                                    this.model.price = this.listingPrice;
                                     await this.uploadNewMedia(this.model.id);
-                                    const resp = await this.updateProduct(this.model);
+                                    const resp = await this.updateListing(this.model);
                                     this.model = Object.assign({}, this.model, resp.data);
                                     this.media = [];
                                     displaySuccess(resp);
@@ -211,7 +211,7 @@ export default (config = {}) => {
                 mixin.created = async function () {
                     this.loading.state = true;
 
-                    const resp = await this.getProduct({id: this.$route.params.id});
+                    const resp = await this.getListing({id: this.$route.params.id});
 
                     this.model = resp;
 

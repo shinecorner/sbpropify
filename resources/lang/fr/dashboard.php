@@ -55,8 +55,8 @@ return [
         'latest_tenants' => 'Derniers locataires',
         'go_to_tenants' => 'Aller aux locataires  '
     ],
-    'marketplace' => [
-        'go_to_marketplace' => 'Aller au marché'
+    'listing' => [
+        'go_to_listing' => 'Aller au marché'
     ],
     'pinbord' => [
         'latest_pinbord' => 'Dernier panneau d\'affichage',

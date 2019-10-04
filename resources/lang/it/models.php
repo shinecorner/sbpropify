@@ -553,7 +553,7 @@ return [
         'login_variation' => 'Variazione del login',
         'login_variation_slider' => 'Vuoi mostrare il cursore?',
         "quarter_enable" => "Quartiere",
-        "marketplace_approval_enable" => "Attivare il mercato",
+        "listing_approval_enable" => "Attivare il mercato",
         'gocaution' => 'Gocauzione',
         'gocaution_desc' => 'Gocauzione',
         "blank_pdf" => "PDF in bianco",

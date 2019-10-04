@@ -3,7 +3,7 @@ return [
     "notifications" => "Notifications et langue",
     "admin" => "Notifications admin",
     "pinboard" => "Notifications par tableau d'affichage",
-    "marketplace" => "Notifications de marché",
+    "listing" => "Notifications de marché",
     "service" => "Avis de service",
     "updated" => "Mise à jour des paramètres",
     "language" => "Langue",

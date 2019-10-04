@@ -552,7 +552,7 @@ return [
         'login_variation' => 'Login-Variante',
         'login_variation_slider' => 'Möchten Sie den Slider it Vorteilen anzeigen?',
         'quarter_enable' => 'Überbauungen aktivieren',
-        'marketplace_approval_enable' => 'Marktplatz aktivieren',
+        'listing_approval_enable' => 'Marktplatz aktivieren',
         'blank_pdf' => 'PDF ohne Briefkopf verwenden',
         'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
         'font_family' => 'Schriftfamilie',

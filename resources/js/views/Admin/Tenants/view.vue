@@ -307,12 +307,12 @@
                             <el-card class="chart-card">
                                 <h3 class="right-card">
                                     <i class="icon-basket icon"/>
-                                    {{ $t('models.tenant.products') }}
+                                    {{ $t('models.tenant.listings') }}
                                 </h3>
                                 <Timeline
                                         :filterValue="user.id"
                                         :noDataMessage="$t('general.no_listings')"
-                                        fetchAction="getProducts"
+                                        fetchAction="getListings"
                                         filter="user_id"
                                         v-if="!_.isEmpty(user)"
                                 />
@@ -354,7 +354,7 @@
             return {
                 requests: [],
                 pinboard: [],
-                products: [],
+                listings: [],
 
             };
         },

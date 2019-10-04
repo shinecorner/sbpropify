@@ -7,7 +7,7 @@ return [
     'myPendingRequests' => 'Le mie richieste pendenti',
     'notAssigned' => 'Non assegnato',
     'allPendingRequests' => 'Tutte le richieste pendenti',
-    'marketplace' => 'Mercato',
+    'listing' => 'Mercato',
     'settings' => 'Impostazioni',
     'logout' => 'Logout',
     'profile' => 'Profilo',

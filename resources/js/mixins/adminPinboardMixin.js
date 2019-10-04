@@ -7,7 +7,7 @@ import UploadDocument from 'components/UploadDocument';
 import Media from 'components/RequestMedia';
 import RequestMedia from 'components/RequestMedia';
 
-// TODO make a common mixin for pinboard and products mixins(media upload at least)
+// TODO make a common mixin for pinboard and listings mixins(media upload at least)
 export default (config = {}) => {
     let mixin = {
         components: {

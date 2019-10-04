@@ -282,17 +282,8 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/requests/{id}/serviceCommunicationTemplates', 'RequestAPIController@getServiceCommunicationTemplates');
     Route::get('/requests/{id}/serviceEmailTemplates', 'RequestAPIController@getServiceEmailTemplates');
 
-    // Listings // @TODO delete
-    Route::resource('products', 'ListingAPIController');
-    Route::post('products/{id}/like', 'ListingAPIController@like')->name('products.like');
-    Route::post('products/{id}/unlike', 'ListingAPIController@unlike')->name('products.unlike');
-    Route::post('products/{id}/media', 'MediaAPIController@listingUpload')->name('products.media.upload');
-    Route::delete('products/{id}/media/{media_id}', 'MediaAPIController@listingDestroy')->name('products.media.destroy');
-    Route::post('/products/deletewithids', 'ListingAPIController@destroyWithIds')->name('products.destroyWithIds');
-    Route::post('products/{id}/comments', 'CommentAPIController@storeProductComment')->name('products.store.comment');
-    Route::post('products/{id}/publish', 'ListingAPIController@publish')->name('products.publish');
 
-    // Products
+    // Listings
     Route::resource('listings', 'ListingAPIController');
     Route::post('listings/{id}/like', 'ListingAPIController@like')->name('listings.like');
     Route::post('listings/{id}/unlike', 'ListingAPIController@unlike')->name('listings.unlike');
