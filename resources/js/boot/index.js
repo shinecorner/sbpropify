@@ -60,7 +60,7 @@ Vue.prototype.$permissions = AdminPermissions
 Vue.prototype._ = window._
 
 Vue.config.performance = true
-Vue.config.listingionTips = false
+Vue.config.productionTips = false
 
 Vue.mixin({
     data () {
