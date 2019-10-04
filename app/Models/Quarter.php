@@ -113,4 +113,12 @@ class Quarter extends AuditableModel
         return $this->hasOne(Address::class, 'id', 'address_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function buildings()
+    {
+        return $this->hasMany(Building::class);
+    }
+
 }
