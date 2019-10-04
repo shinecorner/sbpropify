@@ -31,7 +31,7 @@
                     <div class="item">
                         {{$t('tenant.cost_impact')}}:
                         <div class="label">
-                            {{$t(`models.request.category_options.costs.${this.data.payer}`)}}
+                            {{$t(`models.request.payer.${$constants.serviceRequests.payer[data.payer]}`)}}
                         </div>
                     </div>
                 </div>                  

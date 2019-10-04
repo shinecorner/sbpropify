@@ -372,29 +372,12 @@ export default (config = {}) => {
 
             },
             getLanguageI18n() {
-                let building_locations = this.$t('models.request.category_options.building_locations');
-                this.locations = [];
-                for (var key in building_locations) {
-                    this.locations.push({name : building_locations[key], value : key})
-                }
 
-                let apartment_rooms = this.$t('models.request.category_options.apartment_rooms');
-                this.rooms = [];
-                for (var key in apartment_rooms) {
-                    this.rooms.push({name : apartment_rooms[key], value : key})
-                }
-
-                let acquisitions = this.$t('models.request.category_options.acquisitions');
-                this.acquisitions = [];
-                for (var key in acquisitions) {
-                    this.acquisitions.push({name : acquisitions[key], value : key})
-                }
-
-                let costs = this.$t('models.request.category_options.costs');
-                this.costs = [];
-                for (var key in costs) {
-                    this.costs.push({name : costs[key], value : key})
-                }
+                this.locations = Object.entries(this.$constants.serviceRequests.location).map(([value, label]) => ({value: +value, name: this.$t(`models.request.location.${label}`)}))
+                this.rooms = Object.entries(this.$constants.serviceRequests.room).map(([value, label]) => ({value: +value, name: this.$t(`models.request.room.${label}`)}))
+                this.acquisitions = Object.entries(this.$constants.serviceRequests.capture_phase).map(([value, label]) => ({value: +value, name: this.$t(`models.request.capture_phase.${label}`)}))
+                this.costs = Object.entries(this.$constants.serviceRequests.payer).map(([value, label]) => ({value: +value, name: this.$t(`models.request.payer.${label}`)}))
+                
             },
             async deleteTag(tag) {
                 

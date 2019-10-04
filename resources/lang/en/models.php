@@ -107,7 +107,25 @@ return [
             ],
             'language' => [
                 'required' => 'Language is required',
-            ]
+            ],
+            'deposit_amount' => [
+                'required' => "Deposit amount is required",
+            ],
+            'deposit_type' => [
+                'required' => "Deposit type is required",
+            ],
+            'start_date' => [
+                'required' => "Start date is required",
+            ],
+            'rent_type' => [
+                'required' => "Rent type is required",
+            ],
+            'rent_duration' => [
+                'required' => "Rent duration is required",
+            ],
+            'status' => [
+                'required' => "Status is required",
+            ],
         ],
         'errors' => [
             'not_found' => "Tenant not found",
@@ -697,6 +715,48 @@ return [
             '2_year_warranty' => '2 Year Warranty',
             'cost_consequences' => 'Cost consequences',
         ],
+        'location' => [
+            'house_entrance' => 'House Entrance',
+            'staircase' => 'Staircase',
+            'elevator' => 'Elevator',
+            'car_park' => 'Underground Car park',
+            'washing' => 'Washing/Drying',
+            'heating' => 'Technology/Heating',
+            'electro' => 'Technology/Electro',
+            'facade' => 'Facade',
+            'roof' => 'Roof',
+            'other' => 'Other'
+        ],
+        'room' => [
+            'bath' => 'Bathroom/WC',
+            'shower' => 'Shower/WC',
+            'entrance' => 'Entrance',
+            'passage' => 'Passage',
+            'basement' => 'Basement',
+            'kitchen' => 'Kitchen',
+            'storeroom' => 'Reduite',
+            'habitation' => 'Habitation',
+            'room1' => 'Room 1',
+            'room2' => 'Room 2',
+            'room3' => 'Room 3',
+            'room4' => 'Room 4',
+            'all' => 'All',
+            'other' => 'Other'
+        ],
+        'capture_phase' => [
+            'other' => 'Other',
+            'construction' => 'Construction phase',
+            'shell' => 'Shell Acceptance',
+            'preliminary' => 'Preliminary Acceptance',
+            'work' => 'Acceptance of Work',
+            'surrender' => 'Surrender',
+            'inspection' => 'Acceptance'
+        ],
+        'payer' => [
+            'landlord' => 'Landlord',
+            'tenant' => 'Tenant',
+            'tenant/landlord' => 'Tenant/Landlord'
+        ],
         'status' => [
             'label' => 'Status',
             'received' => 'Received',
@@ -707,50 +767,6 @@ return [
             'archived' => 'Archived',
             'solved' => 'Solved',
             'pending' => 'Pending'
-        ],
-        'sub_category_fields' => [
-            'location' => [
-                'house_entrance' => 'House Entrance',
-                'staircase' => 'Staircase',
-                'elevator' => 'Elevator',
-                'car_park' => 'Underground Car park',
-                'washing' => 'Washing/Drying',
-                'heating' => 'Technology/Heating',
-                'electro' => 'Technology/Electro',
-                'facade' => 'Facade',
-                'roof' => 'Roof',
-                'other' => 'Other'
-            ],
-            'room' => [
-                'bath' => 'Bathroom/WC',
-                'shower' => 'Shower/WC',
-                'entrance' => 'Entrance',
-                'passage' => 'Passage',
-                'basement' => 'Basement',
-                'kitchen' => 'Kitchen',
-                'storeroom' => 'Reduite',
-                'habitation' => 'Habitation',
-                'room1' => 'Room 1',
-                'room2' => 'Room 2',
-                'room3' => 'Room 3',
-                'room4' => 'Room 4',
-                'all' => 'All',
-                'other' => 'Other'
-            ],
-            'capture_phase' => [
-                'other' => 'Other',
-                'construction' => 'Construction phase',
-                'shell' => 'Shell Acceptance',
-                'preliminary' => 'Preliminary Acceptance',
-                'work' => 'Acceptance of Work',
-                'surrender' => 'Surrender',
-                'inspection' => 'Acceptance'
-            ],
-            'payer' => [
-                'landlord' => 'Landlord',
-                'tenant' => 'Tenant',
-                'tenant/landlord' => 'Tenant/Landlord'
-            ]
         ],
         'category_options' => [
             'disturbance' => 'Disturbance',

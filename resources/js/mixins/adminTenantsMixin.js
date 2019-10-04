@@ -17,6 +17,8 @@ export default (config = {}) => {
         data() {
             return {
                 remoteLoading: false,
+                buildings: [],
+                units: [],
                 user: {},
                 unit: {},
                 birthDatePickerOptions: {
@@ -103,6 +105,9 @@ export default (config = {}) => {
                 const ext = file.name.split('.').pop()
                 return ['.pdf'].includes(ext);
             },
+            addRentContract (data) {
+                this.model.rent_contracts.push(data);
+            },
             editRentContract(index) {
                 this.editingRentContract = this.model.rent_contracts[index];
                 this.editingRentContractIndex = index;
@@ -134,6 +139,9 @@ export default (config = {}) => {
         computed: {
             form() {
                 return this.$refs.form;
+            },
+            used_units() {
+                return this.model.rent_contracts.map(item => item.unit_id)
             },
             ...mapGetters(['countries'])
         },
