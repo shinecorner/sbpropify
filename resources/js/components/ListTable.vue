@@ -197,7 +197,7 @@
                             <span
                                 :key="value"
                                 v-for="(value,v_index) in scope.row[column.props]"
-                                
+                                v-if="v_index > 0"
                             >
                                 {{value}}
                             </span>
