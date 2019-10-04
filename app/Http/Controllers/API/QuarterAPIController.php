@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Criteria\Quarter\FilterByStateCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Quarter\AssigneeListRequest;
 use App\Http\Requests\API\Quarter\BatchAssignManagers;
@@ -91,6 +92,7 @@ class QuarterAPIController extends AppBaseController
     {
         $this->quarterRepository->pushCriteria(new RequestCriteria($request));
         $this->quarterRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->quarterRepository->pushCriteria(new FilterByStateCriteria($request));
 
         $getAll = $request->get('get_all', false);
         if ($getAll) {
