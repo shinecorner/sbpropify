@@ -14,7 +14,7 @@
                             :loading="remoteLoading"
                             :placeholder="$t('models.tenant.search_building')"
                             :remote-method="remoteRentContractdSearchBuildings"
-                            @change="searchRentContractUnits()"
+                            @change="searchRentContractUnits(false)"
                             filterable
                             remote
                             reserve-keyword
@@ -488,10 +488,11 @@
                     }
                 }
             },
-            async searchRentContractUnits() {
-
-                this.model.unit_id = '';
+            async searchRentContractUnits(shouldKeepValue) {
+                if(!shouldKeepValue)
+                    this.model.unit_id = '';
                 try {
+                    
                     const resp = await this.getUnits({
                         get_all: true,
                         building_id: this.model.building_id
@@ -499,11 +500,12 @@
 
 
                     this.used_units.forEach(id => {
-                        resp.data = resp.data.filter( item => item.id != id )
+                        if(this.model.unit.id != id)
+                            resp.data = resp.data.filter( item => item.id != id )
                     })
 
                     this.units = resp.data
-
+                    
                 } catch (err) {
                     displayError(err);
                 } finally {
@@ -538,14 +540,14 @@
             if(this.mode == "edit") {
                 this.model = this.data
 
+                this.buildings.push(this.model.building)
+                this.units.push(this.model.unit)
+
                 if(this.model.building) {
                     await this.remoteRentContractdSearchBuildings(this.model.building.name)
-                    await this.searchRentContractUnits()
+                    await this.searchRentContractUnits(true)
                 }
 
-                if (this.model.unit) {
-                    this.model.unit_id = this.model.unit.id
-                }
             }
         }
     }
