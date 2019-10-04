@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Users;
+namespace App\Criteria\User;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +9,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
  * Class WhereCriteria
- * @package App\Criteria\Users
+ * @package App\Criteria\User
  */
 class WhereCriteria implements CriteriaInterface
 {

@@ -9,7 +9,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
  * Class WhereCriteria
- * @package App\Criteria\Users
+ * @package App\Criteria\User
  */
 class WhereInCriteria implements CriteriaInterface
 {
