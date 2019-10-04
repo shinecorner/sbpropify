@@ -50,7 +50,7 @@ class QuarterTransformer extends BaseTransformer
         $counts['buildings'] = $buildings->count();
         $counts['active_tenants'] = $units->pluck('rent_contracts.*.tenant_id')->collapse()->unique()->count();
         $counts['units'] = [
-            'all' => $units->count(),
+            'total' => $units->count(),
             'occupied' => $occupiedUnits->count(),
             'free' => $units->count() - $occupiedUnits->count(),
         ];
