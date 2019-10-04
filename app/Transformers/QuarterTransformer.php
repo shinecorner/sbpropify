@@ -32,4 +32,29 @@ class QuarterTransformer extends BaseTransformer
 
         return $response;
     }
+
+    /**
+     * @param Quarter $model
+     * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function transformWIthStatistics(Quarter $model)
+    {
+        $response = $this->transform($model);
+        $buildings = $model->buildings;
+        $units = $buildings->pluck('units')->collapse();
+        $occupiedUnits = $units->filter(function ($unit) {
+            return $unit->rent_contracts->isNotEmpty();
+        });
+
+        $counts['buildings'] = $buildings->count();
+        $counts['active_tenants'] = $units->pluck('rent_contracts.*.tenant_id')->collapse()->unique()->count();
+        $counts['units'] = [
+            'all' => $units->count(),
+            'occupied' => $occupiedUnits->count(),
+            'free' => $units->count() - $occupiedUnits->count(),
+        ];
+        $response['counts'] = $counts;
+        return $response;
+    }
 }

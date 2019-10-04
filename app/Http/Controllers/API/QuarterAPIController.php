@@ -16,6 +16,7 @@ use App\Models\Address;
 use App\Models\PropertyManager;
 use App\Models\Quarter;
 use App\Models\QuarterAssignee;
+use App\Models\RentContract;
 use App\Models\User;
 use App\Repositories\AddressRepository;
 use App\Repositories\QuarterRepository;
@@ -99,9 +100,20 @@ class QuarterAPIController extends AppBaseController
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $quarters = $this->quarterRepository->with('address')->paginate($perPage);
-
-        $response = (new QuarterTransformer)->transformPaginator($quarters);
+        $quarters = $this->quarterRepository->with(['buildings' => function ($q) {
+            $q->select('id', 'quarter_id')
+                ->with([
+                    'units' => function ($q) {
+                        $q ->select('id', 'building_id')
+                            ->with([
+                                'rent_contracts' => function ($q) {
+                                    $q->where('status', RentContract::StatusActive)->select('unit_id', 'tenant_id');
+                                }
+                            ]);
+                    }
+                ]);
+        }])->paginate($perPage);
+        $response = (new QuarterTransformer)->transformPaginator($quarters, 'transformWIthStatistics');
         return $this->sendResponse($response, 'Quarters retrieved successfully');
     }
 
@@ -480,9 +492,11 @@ class QuarterAPIController extends AppBaseController
      *      )
      * )
      *
+     *
      * @param int $id
      * @param BatchAssignManagers $request
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function assignManagers(int $id, BatchAssignManagers $request)
     {
@@ -554,6 +568,7 @@ class QuarterAPIController extends AppBaseController
      * @param int $id
      * @param BatchAssignUsers $request
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function assignUsers(int $id, BatchAssignUsers $request)
     {
