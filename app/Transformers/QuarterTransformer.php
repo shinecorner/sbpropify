@@ -12,11 +12,9 @@ use App\Models\Quarter;
 class QuarterTransformer extends BaseTransformer
 {
     /**
-     * Transform the QuarterT entity.
-     *
-     * @param \App\Models\Quarter $model
-     *
+     * @param Quarter $model
      * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function transform(Quarter $model)
     {
@@ -27,6 +25,10 @@ class QuarterTransformer extends BaseTransformer
             'description' => $model->description,
             'count_of_buildings' => $model->count_of_buildings,
         ];
+
+        if ($model->relationExists('address')) {
+            $response['address'] = (new AddressTransformer)->transform($model->address);
+        }
 
         return $response;
     }

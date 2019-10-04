@@ -14,7 +14,7 @@ class AddAddressIdColumnInQuartersTable extends Migration
     public function up()
     {
         Schema::table('quarters', function (Blueprint $table) {
-            $table->integer('address_id')->nullable()->unsigned();
+            $table->integer('address_id')->nullable()->unsigned()->after('id');
             $table->foreign('address_id')->references('id')->on('loc_addresses');
         });
     }

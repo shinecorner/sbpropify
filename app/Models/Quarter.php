@@ -16,6 +16,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *      @SWG\Property(
+ *          property="address_id",
+ *          description="address_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="name",
  *          description="name",
  *          type="string"
@@ -61,7 +67,8 @@ class Quarter extends AuditableModel
         'name',
         'description',
         'quarter_format',
-        'count_of_buildings'
+        'count_of_buildings',
+        'address_id',
     ];
     protected $dates = ['deleted_at'];
     /**
@@ -70,6 +77,7 @@ class Quarter extends AuditableModel
      * @var array
      */
     protected $casts = [
+        'address_id' => 'integer',
         'name' => 'string',
         'description' => 'string',
         'quarter_format' => 'string',
@@ -96,4 +104,13 @@ class Quarter extends AuditableModel
     {
         return $this->hasMany(QuarterAssignee::class, 'quarter_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     **/
+    public function address()
+    {
+        return $this->hasOne(Address::class, 'id', 'address_id');
+    }
+
 }
