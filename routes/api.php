@@ -179,30 +179,6 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('pinboard/rss.xml', 'PinboardAPIController@showNewsRSS');
     Route::get('pinboard/weather.json', 'PinboardAPIController@showWeatherJSON');
 
-
-    // Pinboard
-    Route::resource('posts', 'PinboardAPIController');
-    Route::post('/posts/deletewithids', 'PinboardAPIController@destroyWithIds')->name('posts.destroyWithIds');
-    Route::post('posts/{id}/publish', 'PinboardAPIController@publish')->name('posts.publish');
-    Route::post('posts/{id}/like', 'PinboardAPIController@like')->name('posts.like');
-    Route::post('posts/{id}/unlike', 'PinboardAPIController@unlike')->name('posts.unlike');
-    Route::post('posts/{id}/media', 'MediaAPIController@pinboardUpload')->name('posts.media.upload');
-    Route::delete('posts/{id}/media/{media_id}', 'MediaAPIController@pinboardDestroy')->name('posts.media.destroy');
-    Route::post('posts/{id}/comments', 'CommentAPIController@storePinboardComment')->name('posts.store.comment');
-    Route::get('/posts/{id}/locations', 'PinboardAPIController@getLocations');
-    Route::post('/posts/{id}/buildings/{building_id}', 'PinboardAPIController@assignBuilding');
-    Route::delete('/posts/{id}/buildings/{building_id}', 'PinboardAPIController@unassignBuilding');
-    Route::post('/posts/{id}/quarters/{quarter_id}', 'PinboardAPIController@assignQuarter');
-    Route::delete('/posts/{id}/quarters/{quarter_id}', 'PinboardAPIController@unassignQuarter');
-    Route::post('/posts/{id}/providers/{provider_id}', 'PinboardAPIController@assignProvider');
-    Route::delete('/posts/{id}/providers/{provider_id}', 'PinboardAPIController@unassignProvider');
-    Route::put('/posts/{id}/views', 'PinboardAPIController@incrementViews');
-    Route::get('/posts/{id}/views', 'PinboardAPIController@indexViews');
-
-    // News
-    Route::get('news/rss.xml', 'PinboardAPIController@showNewsRSS');
-    Route::get('news/weather.json', 'PinboardAPIController@showWeatherJSON');
-
     //Internal Notices
     Route::resource('internalNotices', 'InternalNoticeAPIController');
 
