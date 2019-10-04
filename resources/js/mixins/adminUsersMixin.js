@@ -27,18 +27,18 @@ export default (config = {}) => {
                 validationRules: {
                     name: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.name')})
                     }],
                     language: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.language')})
                     }],
                     email: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.email')})
                     }, {
                         type: 'email',
-                        message: 'This field is required'
+                        message: this.$t('validation.email', {attribute: this.$t('general.email')})
                     }, {
                         validator: this.checkavailabilityEmail
                     }],
@@ -46,16 +46,16 @@ export default (config = {}) => {
                         validator: this.validatePassword
                     }, {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.password')})
                     }, {
                         min: 6,
-                        message: 'This field must be at least 6 characters'
+                        message: this.$t('validation.min.string', {attribute: this.$t('general.password'), min: 6})
                     }],
                     password_confirmation: [{
                         validator: this.validateConfirmPassword
                     }, {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.confirm_password')})
                     }]
                 },
                 loading: {

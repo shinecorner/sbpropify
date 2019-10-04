@@ -57,22 +57,22 @@ export default (config = {}) => {
                 validationRules: {
                     first_name: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('models.propertyManager.firstName')})
                     }],
                     last_name: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('models.propertyManager.lastName')})
                     }],
                     language: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.language')})
                     }],
                     email: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.email')})
                     }, {
                         type: 'email',
-                        message: 'This field is required'
+                        message: this.$t('validation.email', {attribute: this.$t('general.email')})
                     }, {
                         validator: this.checkavailabilityEmail
                     }],
@@ -80,24 +80,24 @@ export default (config = {}) => {
                         validator: this.validatePassword
                     }, {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.password')})
                     }, {
                         min: 6,
-                        message: 'This field must be at least 6 characters'
+                        message: this.$t('validation.min.string', {attribute: this.$t('general.password'), min: 6})
                     }],
                     password_confirmation: [{
                         validator: this.validateConfirmPassword
                     }, {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.confirm_password')})
                     }],
                     linkedin_url: [{
                         type: 'url',
-                        message: 'This field should be valid url'
+                        message: this.$t('validation.url', {attribute: this.$t('models.propertyManager.linkedin_url')})
                     }],
                     xing_url: [{
                         type: 'url',
-                        message: 'This field should be valid url'
+                        message: this.$t('validation.url', {attribute: this.$t('models.propertyManager.xing_url')})
                     }],
                     title: [{
                         required: true,
