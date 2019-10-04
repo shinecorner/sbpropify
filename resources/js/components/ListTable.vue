@@ -206,20 +206,6 @@
                 </template>
             </el-table-column>
 
-            <!-- <el-table-column
-                :key="column.label"
-                :label="$t(column.label)"
-                :width="column.width"
-                v-for="(column, key) in headerWithCollapsables">
-                <template slot-scope="scope">
-                    <el-collapse class="table-collapsable">
-                        <el-collapse-item :title="items[scope.$index].building_name">
-                            {{scope.row[column.props]}}
-                        </el-collapse-item>
-                    </el-collapse>
-                </template>
-            </el-table-column>
-             -->
             <el-table-column
                 :key="column.label"
                 :label="$t(column.label)"
