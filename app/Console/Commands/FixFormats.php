@@ -2,6 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Building;
+use App\Models\PropertyManager;
+use App\Models\Quarter;
+use App\Models\ServiceProvider;
+use App\Models\Request;
+use App\Models\Tenant;
+use App\Models\Unit;
 use Illuminate\Console\Command;
 
 class FixFormats extends Command
@@ -38,33 +45,33 @@ class FixFormats extends Command
     public function handle()
     {
         dump('start correct _formats of tables');
-        \App\Models\ServiceProvider::get(['id', 'created_at'])->each(function ($service_request) {
-            $service_request->service_provider_format  = $service_request->getUniqueIDFormat($service_request->id, $service_request->created_at);
-            $service_request->save();
+        ServiceProvider::get(['id', 'created_at'])->each(function (ServiceProvider $serviceProvider) {
+            $serviceProvider->service_provider_format  = $serviceProvider->getUniqueIDFormat($serviceProvider->id);
+            $serviceProvider->save();
         });
-        \App\Models\Tenant::get(['id', 'created_at'])->each(function ($tenant) {
+        Tenant::get(['id', 'created_at'])->each(function (Tenant $tenant) {
             $tenant->tenant_format  = $tenant->getUniqueIDFormat($tenant->id);
             $tenant->save();
         });
-        \App\Models\Building::get(['id', 'created_at'])->each(function ($building) {
-            $building->building_format  = $building->getUniqueIDFormat($building->id, $building->created_at);
+        Building::get(['id', 'created_at'])->each(function (Building $building) {
+            $building->building_format  = $building->getUniqueIDFormat($building->id);
             $building->save();
         });
-        \App\Models\Unit::get(['id', 'created_at'])->each(function ($unit) {
-            $unit->unit_format  = $unit->getUniqueIDFormat($unit->id, $unit->created_at);
+        Unit::get(['id', 'created_at'])->each(function (Unit $unit) {
+            $unit->unit_format  = $unit->getUniqueIDFormat($unit->id);
             $unit->save();
         });
-        \App\Models\Quarter::get(['id', 'created_at'])->each(function ($quarter) {
-            $quarter->quarter_format  = $quarter->getUniqueIDFormat($quarter->id, $quarter->created_at);
+        Quarter::get(['id', 'created_at'])->each(function (Quarter $quarter) {
+            $quarter->quarter_format  = $quarter->getUniqueIDFormat($quarter->id);
             $quarter->save();
         });
-        \App\Models\ServiceRequest::get(['id', 'created_at'])->each(function ($service_request) {
-            $service_request->service_request_format  = $service_request->getUniqueIDFormat($service_request->id, $service_request->created_at);
-            $service_request->save();
+        Request::get(['id', 'created_at'])->each(function (Request $request) {
+            $request->request_format  = $request->getUniqueIDFormat($request->id);
+            $request->save();
         });
-        \App\Models\PropertyManager::get(['id', 'created_at'])->each(function ($service_request) {
-            $service_request->property_manager_format  = $service_request->getUniqueIDFormat($service_request->id, $service_request->created_at);
-            $service_request->save();
+        PropertyManager::get(['id', 'created_at'])->each(function (PropertyManager $propertyManager) {
+            $propertyManager->property_manager_format  = $propertyManager->getUniqueIDFormat($propertyManager->id);
+            $propertyManager->save();
         });
         dump('all _formats correct successfully');
     }

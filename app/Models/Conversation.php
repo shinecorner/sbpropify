@@ -51,12 +51,12 @@ class Conversation extends Model
 
     public function notifyComment(Comment $comment)
     {
-        $cType = get_morph_type_of(ServiceRequest::class);
+        $cType = get_morph_type_of(Request::class);
         if ($this->conversationable_type != $cType) {
             return;
         }
 
-        $sr = ServiceRequest::findOrFail($this->conversationable_id);
+        $sr = Request::findOrFail($this->conversationable_id);
         // If this is a service request conversation
         foreach ($this->users as $user) {
             if ($user->id != \Auth::id()) {

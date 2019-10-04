@@ -13,7 +13,7 @@ class FillServiceRequestFormatInServiceRequestsTable extends Migration
      */
     public function up()
     {
-        \App\Models\ServiceRequest::get(['id', 'created_at'])->each(function ($service_request) {
+        \App\Models\Request::get(['id', 'created_at'])->each(function ($service_request) {
             $service_request->service_request_format  = $service_request->getUniqueIDFormat($service_request->id, $service_request->created_at);
             $service_request->save();
         });

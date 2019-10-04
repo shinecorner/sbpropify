@@ -4,15 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
-use App\Models\ServiceRequest;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use InfyOm\Generator\Utils\ResponseUtil;
-use OwenIt\Auditing\Models\Audit;
 
 /**
  * @SWG\Swagger(

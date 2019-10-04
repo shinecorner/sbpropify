@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -20,17 +20,17 @@ class SendActiveRemainderNotification extends Notification implements ShouldQueu
     public $tries = 3;
 
     /**
-     * @var ServiceRequest
+     * @var Request
      */
-    protected $serviceRequest;
+    protected $request;
 
     /**
      * SendActiveRemainderNotification constructor.
-     * @param ServiceRequest $serviceRequest
+     * @param Request $request
      */
-    public function __construct(ServiceRequest $serviceRequest)
+    public function __construct(Request $request)
     {
-        $this->serviceRequest = $serviceRequest;
+        $this->request = $request;
     }
 
     /**
@@ -52,7 +52,7 @@ class SendActiveRemainderNotification extends Notification implements ShouldQueu
      */
     public function toMail($notifiable)
     {
-        $data = ['user' => $notifiable, 'serviceRequest' => $this->serviceRequest];
+        $data = ['user' => $notifiable, 'request' => $this->request];
         $data['subject'] = 'SendActiveRemainderNotification';
         return (new MailMessage)
             ->view('mails.sendActiveRemainderNotification', $data)

@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -26,17 +26,20 @@ class StatusChangedRequest extends Notification implements ShouldQueue
     public $tries = 3;
 
     /**
-     * @var ServiceRequest
+     * @var Request
      */
     protected $request;
+
     /**
-     * @var ServiceRequest
+     * @var Request
      */
     protected $originalRequest;
+
     /**
      * @var
      */
     protected $originalStatus;
+
     /**
      * @var User
      */
@@ -44,11 +47,11 @@ class StatusChangedRequest extends Notification implements ShouldQueue
 
     /**
      * StatusChangedRequest constructor.
-     * @param ServiceRequest $request
-     * @param ServiceRequest $originalRequest
+     * @param Request $request
+     * @param Request $originalRequest
      * @param User $user
      */
-    public function __construct(ServiceRequest $request, ServiceRequest $originalRequest, User $user)
+    public function __construct(Request $request, Request $originalRequest, User $user)
     {
         $this->request = $request;
         $this->user = $user;

@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Product;
-use App\Repositories\ProductRepository;
+use App\Repositories\ListingRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ProductRepositoryTest extends TestCase
@@ -9,14 +9,14 @@ class ProductRepositoryTest extends TestCase
     use MakeProductTrait, ApiTestTrait, DatabaseTransactions;
 
     /**
-     * @var ProductRepository
+     * @var ListingRepository
      */
     protected $productRepo;
 
     public function setUp()
     {
         parent::setUp();
-        $this->productRepo = App::make(ProductRepository::class);
+        $this->productRepo = App::make(ListingRepository::class);
     }
 
     /**
@@ -28,8 +28,8 @@ class ProductRepositoryTest extends TestCase
         $createdProduct = $this->productRepo->create($product);
         $createdProduct = $createdProduct->toArray();
         $this->assertArrayHasKey('id', $createdProduct);
-        $this->assertNotNull($createdProduct['id'], 'Created Product must have id specified');
-        $this->assertNotNull(Product::find($createdProduct['id']), 'Product with given id must be in DB');
+        $this->assertNotNull($createdProduct['id'], 'Created Listing must have id specified');
+        $this->assertNotNull(Product::find($createdProduct['id']), 'Listing with given id must be in DB');
         $this->assertModelData($product, $createdProduct);
     }
 
@@ -65,6 +65,6 @@ class ProductRepositoryTest extends TestCase
         $product = $this->makeProduct();
         $resp = $this->productRepo->delete($product->id);
         $this->assertTrue($resp);
-        $this->assertNull(Product::find($product->id), 'Product should not exist in DB');
+        $this->assertNull(Product::find($product->id), 'Listing should not exist in DB');
     }
 }

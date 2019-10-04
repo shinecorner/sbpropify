@@ -12,7 +12,7 @@ use App\Models\TemplateCategory;
 class TemplateCategoryTransformer extends BaseTransformer
 {
     /**
-     * Transform the ServiceRequestCategory entity.
+     * Transform the RequestCategory entity.
      *
      * @param \App\Models\TemplateCategory $model
      *

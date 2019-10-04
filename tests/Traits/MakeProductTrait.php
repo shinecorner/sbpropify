@@ -2,26 +2,26 @@
 
 use Faker\Factory as Faker;
 use App\Models\Product;
-use App\Repositories\ProductRepository;
+use App\Repositories\ListingRepository;
 
 trait MakeProductTrait
 {
     /**
-     * Create fake instance of Product and save it in database
+     * Create fake instance of Listing and save it in database
      *
      * @param array $productFields
      * @return Product
      */
     public function makeProduct($productFields = [])
     {
-        /** @var ProductRepository $productRepo */
-        $productRepo = App::make(ProductRepository::class);
+        /** @var ListingRepository $productRepo */
+        $productRepo = App::make(ListingRepository::class);
         $theme = $this->fakeProductData($productFields);
         return $productRepo->create($theme);
     }
 
     /**
-     * Get fake instance of Product
+     * Get fake instance of Listing
      *
      * @param array $productFields
      * @return Product
@@ -32,7 +32,7 @@ trait MakeProductTrait
     }
 
     /**
-     * Get fake data of Product
+     * Get fake data of Listing
      *
      * @param array $postFields
      * @return array

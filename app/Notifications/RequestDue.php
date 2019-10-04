@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,15 +20,15 @@ class RequestDue extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * @var ServiceRequest
+     * @var Request
      */
     protected $request;
 
     /**
      * RequestCommented constructor.
-     * @param ServiceRequest $request
+     * @param Request $request
      */
-    public function __construct(ServiceRequest $request)
+    public function __construct(Request $request)
     {
         $this->request = $request;
     }
@@ -90,22 +90,22 @@ class RequestDue extends Notification implements ShouldQueue
 
     public function dontSend($notifiable)
     {
-        $req = ServiceRequest::find($this->request->id);
-        if (!$req) {
+        $request = Request::find($this->request->id);
+        if (!$request) {
             return true;
         }
-        if (!$req->due_date) {
+        if (!$request->due_date) {
             return true;
         }
 
         $undoneStatuses = [
-            ServiceRequest::StatusReceived,
-            ServiceRequest::StatusInProcessing,
-            ServiceRequest::StatusAssigned,
-            ServiceRequest::StatusReactivated,
+            Request::StatusReceived,
+            Request::StatusInProcessing,
+            Request::StatusAssigned,
+            Request::StatusReactivated,
         ];
-        foreach ($undoneStatuses as $s) {
-            if ($req->status == $s) {
+        foreach ($undoneStatuses as $status) {
+            if ($request->status == $status) {
                 return false;
             }
         }

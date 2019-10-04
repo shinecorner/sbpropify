@@ -46,7 +46,7 @@ class TemplateCategoriesTableSeeder extends Seeder
             ],
             [
                 'parent_id' => null,
-                'name' => 'product',
+                'name' => 'listing',
                 'description' => '',
             ],
             [
@@ -328,47 +328,47 @@ HTML
         $templates = [
             [
                 'parent_id' => 4,
-                'name' => 'product_liked',
-                'description' => 'Email sent to product author when tenant liked the product in marketplace',
+                'name' => 'listing_liked',
+                'description' => 'Email sent to listing author when tenant liked the listing in marketplace',
                 'tag_map' => [
                     'salutation' => 'user.title',
                     'name' => 'user.name',
-                    'authorSalutation' => 'product.user.title',
-                    'authorName' => 'product.user.name',
-                    'title' => 'product.title',
-                    'type' => 'product.type',
-                    'autologin' => 'product.user.autologinUrl',
+                    'authorSalutation' => 'listing.user.title',
+                    'authorName' => 'listing.user.name',
+                    'title' => 'listing.title',
+                    'type' => 'listing.type',
+                    'autologin' => 'listing.user.autologinUrl',
                 ],
                 'subject' => '{{salutation}} {{name}} liked your pinboard',
                 'body' => <<<HTML
 <p>Hello {{authorSalutation}} {{authorName}},</p>
-<p>Tenant {{salutation}} {{name}} liked your product:</p>
+<p>Tenant {{salutation}} {{name}} liked your listing:</p>
 <p>{{title}}.</p>
-<p>Use <a href="{{autologin}}">this link</a> to view the product.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the listing.</p>
 HTML
             ],
             [
                 'parent_id' => 4,
-                'name' => 'product_commented',
-                'description' => 'Email sent to product author when tenant comments on the product',
+                'name' => 'listing_commented',
+                'description' => 'Email sent to listing author when tenant comments on the listing',
                 'tag_map' => [
                     'salutation' => 'user.title',
                     'name' => 'user.name',
-                    'authorSalutation' => 'product.user.title',
-                    'authorName' => 'product.user.name',
-                    'title' => 'product.title',
-                    'type' => 'product.type',
+                    'authorSalutation' => 'listing.user.title',
+                    'authorName' => 'listing.user.name',
+                    'title' => 'listing.title',
+                    'type' => 'listing.type',
                     'comment' => 'comment.comment',
-                    'autologin' => 'product.user.autologinUrl',
+                    'autologin' => 'listing.user.autologinUrl',
                 ],
                 'subject' => '{{salutation}} {{name}} commented on your pinboard',
                 'body' => <<<HTML
 <p>Hello {{authorSalutation}} {{authorName}},</p>
-<p>Tenant {{salutation}} {{name}} commented on  your product:</p>
+<p>Tenant {{salutation}} {{name}} commented on  your listing:</p>
 <p><em>{{title}}</em>.</p>
 <p>Comment:</p>
 <p><em>{{comment}}</em>.</p>
-<p>Use <a href="{{autologin}}">this link</a> to view the product.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the listing.</p>
 HTML
             ],
         ];

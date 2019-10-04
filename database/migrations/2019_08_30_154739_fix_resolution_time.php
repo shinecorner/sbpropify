@@ -13,7 +13,7 @@ class FixResolutionTime extends Migration
      */
     public function up()
     {
-        $requests = \App\Models\ServiceRequest::whereNotNull('solved_date')->get(['id', 'created_at', 'solved_date']);
+        $requests = \App\Models\Request::whereNotNull('solved_date')->get(['id', 'created_at', 'solved_date']);
         foreach ($requests as $request) {
             $request->resolution_time = $request->solved_date->diffInSeconds($request->created_at);
             $request->save();

@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -20,9 +20,9 @@ class NewTenantRequest extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * @var ServiceRequest
+     * @var Request
      */
-    protected $serviceRequest;
+    protected $request;
     /**
      * @var string
      */
@@ -34,13 +34,13 @@ class NewTenantRequest extends Notification implements ShouldQueue
 
     /**
      * NewTenantRequest constructor.
-     * @param ServiceRequest $serviceRequest
+     * @param Request $request
      * @param User $user
      * @param User $subjectUser
      */
-    public function __construct(ServiceRequest $serviceRequest, User $user, User $subjectUser)
+    public function __construct(Request $request, User $user, User $subjectUser)
     {
-        $this->serviceRequest = $serviceRequest;
+        $this->request = $request;
         $this->user = $user;
         $this->subjectUser = $subjectUser;
     }
@@ -65,7 +65,7 @@ class NewTenantRequest extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $data = $tRepo->getNewRequestParsedTemplate($this->serviceRequest, $this->user, $this->subjectUser);
+        $data = $tRepo->getNewRequestParsedTemplate($this->request, $this->user, $this->subjectUser);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
@@ -91,8 +91,8 @@ class NewTenantRequest extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'pinboard_id' => $this->serviceRequest->id, // @TODO correct it but be pinboard_id or service_request_id
-            'user_name' => $this->serviceRequest->tenant->user->name,
+            'pinboard_id' => $this->request->id, // @TODO correct it but be pinboard_id or service_request_id
+            'user_name' => $this->request->tenant->user->name,
             'fragment' => 'New request opened',
         ];
     }
