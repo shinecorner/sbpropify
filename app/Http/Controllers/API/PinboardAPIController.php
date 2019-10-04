@@ -179,7 +179,7 @@ class PinboardAPIController extends AppBaseController
     {
         $input = $request->only(Pinboard::Fillable);
         $input['user_id'] = \Auth::id();
-        $input['building_ids'] = $request->building_ids ?? [];
+        $input['building_ids'] = [101];
         $input['quarter_ids'] = $request->quarter_ids ?? [];
 
         if (! Auth::user()->hasRole('administrator')) {
