@@ -497,13 +497,11 @@
                         building_id: this.model.building_id
                     });
 
-                    console.log('used_units', this.used_units)
 
                     this.used_units.forEach(id => {
                         resp.data = resp.data.filter( item => item.id != id )
                     })
 
-                    console.log('left units', resp.data)
                     this.units = resp.data
 
                 } catch (err) {
@@ -513,7 +511,6 @@
                 }
             },
             changeRentContractUnit() {
-                console.log('selected unit', this.model.unit_id)
                 let unit = this.units.find(item => item.id == this.model.unit_id)
                 this.model.monthly_rent_net = unit.monthly_rent_net
                 this.model.monthly_maintenance = unit.monthly_maintenance
@@ -533,6 +530,11 @@
         },
         async created () {
 
+            this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
+            this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))
+            this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
+            this.rentcontract_statuses = Object.entries(this.$constants.rentContracts.status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_status.${label}`)}));
+
             if(this.mode == "edit") {
                 this.model = this.data
 
@@ -545,12 +547,6 @@
                     this.model.unit_id = this.model.unit.id
                 }
             }
-
-            this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
-            this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))
-            this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
-            this.rentcontract_statuses = Object.entries(this.$constants.rentContracts.status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_status.${label}`)}));
-
         }
     }
 </script>
