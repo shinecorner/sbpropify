@@ -36,11 +36,11 @@ export default (config = {}) => {
                 validationRules: {
                     title: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('models.product.product_title')})
                     }],
                     content: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.content')})
                     }],
                     price: [{
                         validator: this.validatePrice
