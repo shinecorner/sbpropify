@@ -553,7 +553,7 @@ return [
         'login_variation' => 'Login variation',
         'login_variation_slider' => 'Do you want to show slider?',
         'quarter_enable' => 'Quarter',
-        'marketplace_approval_enable' => 'Enable Market',
+        'listing_approval_enable' => 'Enable Market',
         'gocaution' => 'Gocaution',
         'gocaution_desc' => 'Gocaution',
         'blank_pdf' => 'Blank pdf',

@@ -553,7 +553,7 @@ return [
         'login_variation' => 'Modification de l\'ouverture de session',
         'login_variation_slider' => 'Voulez-vous montrer le slider ?',
         "quarter_enable" => "Trimestre",
-        "marketplace_approval_enable" => "Activer le marché",
+        "listing_approval_enable" => "Activer le marché",
         'gocaution' => 'Gocaution',
         'gocaution_desc' => 'Gocaution',
         "blank_pdf" => "PDF vierge",

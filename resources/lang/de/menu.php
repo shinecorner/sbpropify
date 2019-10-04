@@ -7,7 +7,7 @@ return [
     'myPendingRequests' => 'Meine offenen Anfragen',
     'notAssigned' => 'Nicht zugeordnet',
     'allPendingRequests' => 'Alle offenen Anfragen',
-    'marketplace' => 'Marktplatz',
+    'listing' => 'Marktplatz',
     'settings' => 'Einstellungen',
     'logout' => 'Abmelden',
     'profile' => 'Profil',

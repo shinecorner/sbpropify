@@ -8,12 +8,12 @@ export default {
             commit('reset')
         },
         async get ({state, commit}, {id, ...params} = {}) {
-            const {data} = await this._vm.axios.get(id ? `products/${id}` : 'products', {params})
+            const {data} = await this._vm.axios.get(id ? `listings/${id}` : 'listings', {params})
 
             commit('set', data.data)
         },
         async create ({state, commit}, params) {
-            const {data} = await this._vm.axios.post('products', params, {showMessage: true})
+            const {data} = await this._vm.axios.post('listings', params, {showMessage: true})
             const newData = state
 
             newData.data.unshift(data.data)                        
@@ -21,18 +21,18 @@ export default {
             return data;
         },
         async update ({commit}, {id, ...params}) {
-            const {data} = await this._vm.axios.put(`products/${id}`, params, {showMessage: true})
+            const {data} = await this._vm.axios.put(`listings/${id}`, params, {showMessage: true})
 
             commit('update', data.data)
             return data;
         },
         async delete ({commit}, {id}) {
-            await this._vm.axios.delete(`products/${id}`, {showMessage: true})
+            await this._vm.axios.delete(`listings/${id}`, {showMessage: true})
 
             commit('delete', id)
         },
         async like ({commit, getters}, {id}) {
-            const {data} = await this._vm.axios.post(`products/${id}/like`)
+            const {data} = await this._vm.axios.post(`listings/${id}/like`)
             const newData = getters.getById(id)
 
             Object.assign(newData, {
@@ -44,7 +44,7 @@ export default {
             commit('update', newData)
         },
         async unlike ({commit, getters}, {id}) {
-            const {data} = await this._vm.axios.post(`products/${id}/unlike`)
+            const {data} = await this._vm.axios.post(`listings/${id}/unlike`)
             const newData = getters.getById(id)
 
             Object.assign(newData, {
@@ -56,22 +56,22 @@ export default {
             commit('update', newData)
         },
         async publish ({commit}) {
-            const {data} = await this._vm.axios.post(`products/${id}/publish`, params, {showMessage: true})
+            const {data} = await this._vm.axios.post(`listings/${id}/publish`, params, {showMessage: true})
 
             commit('update', data.data)
         },
         async uploadMedia ({commit}, {id, ...params}) {
-            await this._vm.axios.post(`products/${id}/media`, params)
+            await this._vm.axios.post(`listings/${id}/media`, params)
         },
         async deleteMedia ({commit}, {id, media_id}) {
-            await this._vm.axios.delete(`products/${id}/media/${media_id}`)
+            await this._vm.axios.delete(`listings/${id}/media/${media_id}`)
         },
         async addMedia({ commit}, {id, media}) {
             commit('addmedia', {data_id : id, media})
         },
     },
     getters: {
-        getById: ({data}) => id => data.find(product => product.id === id)
+        getById: ({data}) => id => data.find(listing => listing.id === id)
     },
     mutations: {
         reset: state => Object.assign(state, {

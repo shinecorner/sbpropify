@@ -52,7 +52,7 @@
             },
             type: {
                 type: String,
-                validator: type => ['pinboard', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
+                validator: type => ['pinboard', 'listing', 'request', 'conversation', 'internalNotices'].includes(type)
             },
             data: {
                 type: Object
@@ -209,7 +209,7 @@
                     macros.title = 'components.common.tenantconversationsList.emptyPlaceholder.title';
                     macros.description = 'components.common.tenantconversationsList.emptyPlaceholder.description';                    
                 }
-                else if((this.type === 'product') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'tenant') > -1)){ 
+                else if((this.type === 'listing') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'tenant') > -1)){
                     macros.title = 'components.common.listingcommentsList.emptyPlaceholder.title';
                     macros.description = 'components.common.listingcommentsList.emptyPlaceholder.description';                    
                 }

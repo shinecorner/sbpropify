@@ -55,9 +55,9 @@ export default {
         url = 'admin/chartByCreationDate?table=pinboard';
         langPrefix = 'models.pinboard.status.';
       }
-      else if (this.type === 'products_by_creation_date') {
-        url = 'admin/chartByCreationDate?table=products';
-        langPrefix = 'models.product.status.';
+      else if (this.type === 'listings_by_creation_date') {
+        url = 'admin/chartByCreationDate?table=listings';
+        langPrefix = 'models.listing.status.';
       }
       else if (this.type === 'tenants_by_creation_date') {
         url = 'admin/chartByCreationDate?table=tenants';

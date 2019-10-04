@@ -55,8 +55,8 @@ return [
         'latest_tenants' => 'Ultimi inquilini',
         'go_to_tenants' => 'andare dagli inquilini'
     ],
-    'marketplace' => [
-        'go_to_marketplace' => 'vai al mercato'
+    'listing' => [
+        'go_to_listing' => 'vai al mercato'
     ],
     'pinboard' => [
         'latest_pinboard' => 'Ultima bacheca',
