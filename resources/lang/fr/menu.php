@@ -27,7 +27,7 @@ return [
     'addresses' => 'Adresses',
     'pinboard' => 'Panneau d\'affichage',
     'quarters' => 'Trimestres',
-    'products' => 'Produits',
+    'listings' => 'Produits',
     'requestCategories' => 'Catégories de demandes',
     'services' => 'Partenaires de service',
     'activity' => 'Activité',

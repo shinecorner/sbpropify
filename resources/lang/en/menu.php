@@ -27,7 +27,7 @@ return [
     'addresses' => 'Addresses',
     'pinboard' => 'Pinboard',
     'quarters' => 'Quarters',
-    'products' => 'Products',
+    'listings' => 'Listings',
     'requestCategories' => 'Request categories',
     'services' => 'Service Partners',
     'activity' => 'Activity',

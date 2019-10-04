@@ -27,7 +27,7 @@ return [
     'addresses' => 'Indirizzi',
     'pinboard' => 'Bacheca',
     'quarters' => 'Quartieri',
-    'products' => 'Prodotti',
+    'listings' => 'Prodotti',
     'requestCategories' => 'Richiesta categorie',
     'services' => 'Partner di servizio',
     'activity' => 'Attività',
