@@ -1,9 +1,8 @@
 <template>
     <div class="services">
-        <heading icon="icon-user" :title="$t('menu.admins')" shadow="heavy">
+        <heading icon="icon-user" :title="$t('menu.admins')" shadow="heavy">            
             <template v-if="$can($permissions.create.user)">
-                <el-button route="adminUsersAdd" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}} {{ $t('general.roles.administrator') }}</el-button>
-
+                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}} {{ $t('general.roles.administrator') }}</el-button>
             </template>
             <template v-if="$can($permissions.delete.user)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
@@ -95,7 +94,15 @@
                         id
                     }
                 });
-            }
+            },
+            add() {
+                this.$router.push({
+                    params: {
+                        type: 'new'
+                    },
+                    name: 'adminUsersAdd'
+                });
+            },
         }
     }
 </script>
