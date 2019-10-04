@@ -70,12 +70,14 @@
                     props: ['user_email', 'private_phone']
                 }, {
                     label: 'models.tenant.building.name',
-                    withMultipleProps: true,
-                    props: ['building_address_row', 'building_address_zip']
+                    withCollapsables: true,
+                    width: 150,
+                    props: ['building_names']
                 }, {
                     label: 'models.tenant.unit.name',
-                    withMultipleProps: true,
-                    props: ['unit_name']
+                    withCollapsables: true,
+                    width: 100,
+                    props: ['unit_names']
                 }, {
                     label: 'models.tenant.status.label',
                     prop: 'status',
@@ -93,12 +95,12 @@
                     withCounts: true,
                     counts: [
                         {
-                            prop: 'counts.rent_contracts.active',
+                            prop: 'rent_contract_active_count',
                             background: '#aaa',
                             color: '#fff',
                             label: this.$t('models.tenant.status.active')
                         }, {
-                            prop: 'counts.rent_contracts.inactive',
+                            prop: 'rent_contract_inactive_count',
                             background: '#bbb',
                             color: '#fff',
                             label: this.$t('models.tenant.status.not_active')

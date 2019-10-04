@@ -1,36 +1,19 @@
 <template>
     <div class="avatars-wrapper square-avatars">
-        <span v-if="countsData.counts.rent_contracts.active > 0">
+        <span :key="index" v-for="(count, index) in counts">
             <el-tooltip
-                :content="$t('models.tenant.status.active')"
+                :content="`${count.label}: ${countsData[count.prop]}`"
                 class="item"
                 effect="light" placement="top"
-
+                v-if="countsData[count.prop]"
             >
                 <avatar 
-                    background-color="#5fad64"
-                    color="#fff"
-                    :initials="` ${countsData.counts.rent_contracts.active}`"
+                    :background-color="count.background"
+                    :color="count.color"
+                    :initials="` ${countsData[count.prop]}`"
                     :size="30"
-                    :style="{'z-index': 800}"
-                    :username="`${countsData.counts.rent_contracts.active}`"
-                />
-            </el-tooltip>
-        </span>
-        <span v-if="countsData.counts.rent_contracts.not_active > 0">
-            <el-tooltip
-                :content="$t('models.tenant.status.not_active')"
-                class="item"
-                effect="light" placement="top"
-
-            >
-                <avatar 
-                    background-color="#dd6161"
-                    color="#fff"
-                    :initials="` ${countsData.counts.rent_contracts.not_active}`"
-                    :size="30"
-                    :style="{'z-index': 799}"
-                    :username="`${countsData.counts.rent_contracts.not_active}`"
+                    :style="{'z-index': (800 - index)}"
+                    :username="`${countsData[count.prop]}`"
                 />
             </el-tooltip>
         </span>
@@ -45,12 +28,12 @@
             return {
                 counts: [
                 {
-                    prop: 'counts.rent_contracts.active',
+                    prop: 'rent_contract_active_count',
                     background: '#5fad64',
                     color: '#fff',
                     label: this.$t('models.tenant.status.active')
                 }, {
-                    prop: 'counts.rent_contracts.inactive',
+                    prop: 'rent_contract_inactive_count',
                     background: '#dd6161',
                     color: '#fff',
                     label: this.$t('models.tenant.status.not_active')
