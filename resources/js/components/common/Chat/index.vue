@@ -53,6 +53,7 @@
         mounted () {
             if (this.autofocus) {
                 this.focusOnAddComment()
+                
             }
         }
     }

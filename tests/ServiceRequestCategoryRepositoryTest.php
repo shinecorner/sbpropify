@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\ServiceRequestCategory;
-use App\Repositories\ServiceRequestCategoryRepository;
+use App\Repositories\RequestCategoryRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ServiceRequestCategoryRepositoryTest extends TestCase
@@ -9,14 +9,14 @@ class ServiceRequestCategoryRepositoryTest extends TestCase
     use MakeServiceRequestCategoryTrait, ApiTestTrait, DatabaseTransactions;
 
     /**
-     * @var ServiceRequestCategoryRepository
+     * @var RequestCategoryRepository
      */
     protected $serviceRequestCategoryRepo;
 
     public function setUp()
     {
         parent::setUp();
-        $this->serviceRequestCategoryRepo = App::make(ServiceRequestCategoryRepository::class);
+        $this->serviceRequestCategoryRepo = App::make(RequestCategoryRepository::class);
     }
 
     /**

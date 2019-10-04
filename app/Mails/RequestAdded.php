@@ -2,7 +2,7 @@
 
 namespace App\Mails;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -12,17 +12,17 @@ class RequestAdded extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $serviceRequest;
+    public $request;
 
     /**
      * Create a new message instance.
      *
-     * @param ServiceRequest $serviceRequest
+     * @param Request $request
      * @return void
      */
-    public function __construct(ServiceRequest $serviceRequest)
+    public function __construct(Request $request)
     {
-        $this->serviceRequest = $serviceRequest;
+        $this->request = $request;
     }
 
     /**
@@ -32,11 +32,11 @@ class RequestAdded extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.serviceRequest')
+        return $this->view('mails.requestAdded')
             ->subject(__("A new request was added"))
             ->with([
-                'tenant' => $this->serviceRequest->tenant,
-                'lang' => $this->serviceRequest->tenant->settings->language ?? App::getLocale()
+                'tenant' => $this->request->tenant,
+                'lang' => $this->request->tenant->settings->language ?? App::getLocale()
             ]);
     }
 }

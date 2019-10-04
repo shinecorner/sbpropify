@@ -1,9 +1,7 @@
 <?php
 
-use App\Repositories\ProductRepository;
+use App\Repositories\ListingRepository;
 use Illuminate\Database\Seeder;
-use App\Models\Unit;
-use Faker\Factory as Faker;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -14,11 +12,11 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        //$pRepo = new ProductRepository(app());
+        //$listingRepository = new ListingRepository(app());
         if (App::environment('local')) {
-            $products = factory(App\Models\Product::class, 200)->create();
-//            foreach ($products as $product) {
-//                $pRepo->notify($product);
+            $listings = factory(App\Models\Listing::class, 200)->create();
+//            foreach ($listings as $listing) {
+//                $listingRepository->notify($listing);
 //            }
         }
     }

@@ -150,7 +150,7 @@
                                 <el-table
                                     :data="model.rent_contracts"
                                     style="width: 100%"
-                                    class="rentcontract-file-table"
+                                    class="rentcontract-table"
                                     >
                                     <el-table-column
                                         :label="$t('models.tenant.rentcontract_id')"
@@ -198,8 +198,8 @@
         </div>
         <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
             <div class="content" v-if="visibleDrawer">
-                <rent-contract-form v-if="editingRentContract" mode="edit" :data="editingRentContract" :tenant_id="model.id" :visible.sync="visibleDrawer" :edit_index="editingRentContractIndex" @update-rent-contract="updateRentContract"/>
-                <rent-contract-form v-else mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer" @add-rent-contract="addRentContract"/>
+                <rent-contract-form v-if="editingRentContract" mode="edit" :data="editingRentContract" :tenant_id="model.id" :visible.sync="visibleDrawer" :edit_index="editingRentContractIndex" @update-rent-contract="updateRentContract" :used_units="used_units"/>
+                <rent-contract-form v-else mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer" @add-rent-contract="addRentContract" :used_units="used_units"/>
             </div>
         </ui-drawer>
     </div>
@@ -228,11 +228,6 @@
         },
         mounted() {
             this.$root.$on('changeLanguage', () => this.getCountries());
-        },
-        methods: {
-            addRentContract (data) {
-                this.model.rent_contracts.push(data);
-            }
         }
     }
 </script>
@@ -265,7 +260,7 @@
                 display: block;
             }
 
-            .rentcontract-file-table {
+            .rentcontract-table {
                 .clickable {
                     display: block;
                     width: 100%;

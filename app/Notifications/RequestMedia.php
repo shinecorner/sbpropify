@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -22,7 +22,7 @@ class RequestMedia extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * @var ServiceRequest
+     * @var Request
      */
     protected $request;
     /**
@@ -36,11 +36,11 @@ class RequestMedia extends Notification implements ShouldQueue
 
     /**
      * RequestMedia constructor.
-     * @param ServiceRequest $request
+     * @param Request $request
      * @param User $uploader
      * @param Media $media
      */
-    public function __construct(ServiceRequest $request, User $uploader, Media $media)
+    public function __construct(Request $request, User $uploader, Media $media)
     {
         $this->request = $request;
         $this->uploader = $uploader;

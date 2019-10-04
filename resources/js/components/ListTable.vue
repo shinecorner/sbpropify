@@ -539,13 +539,13 @@
                 } else if (this.withSearch) {
                     delete query.search;
                 }
-                if(this.$route.name=='adminUsers') {
+                /*if(this.$route.name=='adminUsers') {
                     query = {roles: ['administrator'], ...query};
                     if(query.role)
                         delete query.roles;
                     else
                         delete query.role;
-                }
+                }*/
 
                 this.$router.replace({name: this.$route.name, query, params});
             },

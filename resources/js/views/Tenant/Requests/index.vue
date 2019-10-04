@@ -61,13 +61,14 @@
                     <request-add-form ref="request-add-form" />
                 </div>
             </ui-drawer> -->
-            <request-status-change-modal
+            
+        </div>
+        <request-status-change-modal
                 :statusChangeModalVisible="statusChangeModalVisible"
                 :statusChangeModalType="statusChangeModalType"
                 :closeModal="closeStatusChangeModal"
                 :changeStatus="changeStatus"
             />
-        </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked @update:visibleDrawer="resetDataFromDrawer">
             <el-tabs type="card" v-model="activeDrawerTab" stretch v-if="openedRequest">
                 <el-tab-pane name="chat" lazy>
@@ -379,7 +380,19 @@
         mounted () {
             //this.$refs['dynamic-scroller'].forceUpdate()
             this.getFilterCategories();
-        }
+        },
+        watch: {
+            'visibleDrawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        this.openedRequest = null
+                        this.changingRequest = null
+                    }
+                }
+            }
+        },
     }
 </script>
 

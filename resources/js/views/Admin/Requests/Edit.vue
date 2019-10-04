@@ -916,6 +916,16 @@
             position: absolute;
             top: -100%;
             right: 5px;
+            min-width: 150px;
+            display: flex;
+
+            .switcher__desc {
+                padding-right: 5px;
+            }
+
+            .el-switch {
+                margin-top: 0.3em;
+            }
         }
             
         .action-tabs {

@@ -48,6 +48,7 @@
         <el-row :gutter="20">
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.rent_type')"
+                            prop="type"
                             class="label-block">
                     <!-- <el-select placeholder="Select" style="display: block" 
                                 v-model="model.type">
@@ -71,6 +72,7 @@
             </el-col>
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.rent_duration')"
+                            prop="duration"
                             class="label-block">
                     <el-select placeholder="Select" style="display: block" 
                                 v-model="model.duration">
@@ -87,7 +89,7 @@
         <el-row :gutter="20" >
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.rent_start')"
-                        prop="rent_start">
+                        prop="start_date">
                     <el-date-picker
                             :picker-options="{disabledDate: disabledRentStart}"
                             :placeholder="$t('models.tenant.rent_start')"
@@ -122,7 +124,7 @@
                 </el-form-item>
             </el-col>
             <el-col :md="12">
-                <el-form-item :label="$t('models.tenant.status.label')" class="label-block">
+                <el-form-item :label="$t('models.tenant.status.label')" prop="status" class="label-block">
                     <el-select placeholder="Select" style="display: block" 
                                 v-model="model.status">
                         <el-option
@@ -147,7 +149,7 @@
             </el-col>
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.type_of_deposit')"
-                            class="label-block">
+                            prop="deposit_type">
                     <el-select placeholder="Select" style="display: block" 
                                 v-model="model.deposit_type">
                         <el-option
@@ -338,6 +340,9 @@
             visible: {
                 type: Boolean,
                 default: false
+            },
+            used_units: {
+                type: Array
             }
         },
         data () {
@@ -377,6 +382,30 @@
                         required: true,
                         message: this.$t('models.tenant.validation.unit.required')
                     }],
+                    deposit_amount: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.deposit_amount.required')
+                    }],
+                    deposit_type: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.deposit_type.required')
+                    }],
+                    start_date: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.start_date.required')
+                    }],
+                    type: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.rent_type.required')
+                    }],
+                    duration: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.rent_duration.required')
+                    }],
+                    status: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.status.required')
+                    }],
                 }
             }
         },
@@ -406,6 +435,7 @@
 
                             if (this.mode == "add") {
                                 const resp = await this.$store.dispatch('rentContracts/create', params);
+                                this.$emit('add-rent-contract', params)
                             }
                             else {
                                 const resp = await this.$store.dispatch('rentContracts/update', params);
@@ -467,10 +497,10 @@
                         building_id: this.model.building_id
                     });
 
-                    
-                    // this.model.rent_contracts.forEach((rent_contract, cc_index) => {
-                    //     resp.data = resp.data.filter( item => item.id != rent_contract.unit_id )
-                    // })
+
+                    this.used_units.forEach(id => {
+                        resp.data = resp.data.filter( item => item.id != id )
+                    })
 
                     this.units = resp.data
 
@@ -500,25 +530,23 @@
         },
         async created () {
 
-            if(this.mode == "edit") {
-                this.model = this.data
-
-                if(this.model.building) {
-                    await this.remoteRentContractdSearchBuildings(this.model.building.name)
-                }
-
-                if (this.model.unit) {
-
-                    await this.searchRentContractUnits()
-                    this.model.unit_id = this.model.unit.id
-                }
-            }
-
             this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
             this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))
             this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
             this.rentcontract_statuses = Object.entries(this.$constants.rentContracts.status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_status.${label}`)}));
 
+            if(this.mode == "edit") {
+                this.model = this.data
+
+                if(this.model.building) {
+                    await this.remoteRentContractdSearchBuildings(this.model.building.name)
+                    await this.searchRentContractUnits()
+                }
+
+                if (this.model.unit) {
+                    this.model.unit_id = this.model.unit.id
+                }
+            }
         }
     }
 </script>
@@ -530,6 +558,7 @@
     /deep/ .rent-data {
         table {
             width: 100%;
+            cursor: initial;
 
             thead, tbody {
                 width: 100%;
@@ -545,6 +574,7 @@
 
                         .cell {
                             width: 100%;
+                            text-align: left;
                             
                             /deep/ .el-input.el-input-group {
                                 .el-input-group__prepend {

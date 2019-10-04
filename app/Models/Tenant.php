@@ -299,7 +299,7 @@ class Tenant extends AuditableModel implements HasMedia
      **/
     public function requests()
     {
-        return $this->hasMany(ServiceRequest::class, 'tenant_id', 'id');
+        return $this->hasMany(Request::class, 'tenant_id', 'id');
     }
 
     /**

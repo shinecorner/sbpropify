@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\ServiceProviders\FilterByCategoryCriteria;
-use App\Criteria\ServiceProviders\FilterByRelationsCriteria;
-use App\Criteria\ServiceProviders\FilterByLanguageCriteria;
-use App\Criteria\ServiceProviders\FilterByPinboardCriteria;
+use App\Criteria\ServiceProvider\FilterByCategoryCriteria;
+use App\Criteria\ServiceProvider\FilterByRelationsCriteria;
+use App\Criteria\ServiceProvider\FilterByLanguageCriteria;
+use App\Criteria\ServiceProvider\FilterByPinboardCriteria;
 use App\Criteria\Common\HasRequestCriteria;
-use App\Criteria\ServiceProviders\FilterByStateCriteria;
+use App\Criteria\ServiceProvider\FilterByStateCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\ServiceProvider\AssignRequest;
 use App\Http\Requests\API\ServiceProvider\CreateRequest;
