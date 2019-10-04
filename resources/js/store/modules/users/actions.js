@@ -1,8 +1,13 @@
 import axios from '../../../axios';
 import {buildFetchUrl} from "../../../helpers/url";
+import router from 'routes'
 
 export default {
     getUsers({commit}, payload) {
+        if(router.currentRoute.name === 'adminUsers'){
+            payload['roles'] = [];
+            payload['roles'][0] = 'administrator';
+        }
         return new Promise((resolve, reject) =>
             axios.get(buildFetchUrl('users', payload))
                 .then(({data: r}) => (
