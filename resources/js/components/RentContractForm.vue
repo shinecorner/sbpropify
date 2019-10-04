@@ -551,24 +551,29 @@
 <style lang="scss" scoped>
     .el-form-item {
         margin-bottom: 0;
+
+        &.is-error {
+            margin-bottom: 10px;
+        }
     }
     /deep/ .rent-data {
+        background: transparent;
         table {
             width: 100%;
             cursor: initial;
-
+            background: transparent;
             thead, tbody {
                 width: 100%;
-
+                background: transparent;
                 tr {
                     display: flex;
                     width: 100%;
-
+                    background: transparent;
                     .data {
                         flex: 1;
                         display: flex;
                         align-items: center;
-
+                        background: transparent;
                         .cell {
                             width: 100%;
                             text-align: left;
@@ -590,18 +595,20 @@
                         align-items: center;
                         justify-content: center;
                         width: 20px;
-
+                        background: transparent;
                         .cell {
                             text-overflow: initial;
                             font-size: 16px;
                             padding: 0;
                         }
                     }
+
+                    td:last-child .cell {
+                        padding-left: 10px !important;
+                        text-align: left;
+                    }
                 }
             }
-        }
-        .el-table tbody tr td:last-child .cell {
-            padding-left: 10px !important;
         }
     }
 
