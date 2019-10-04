@@ -181,6 +181,17 @@
                 this.visibleDrawer = !this.visibleDrawer
             }
         },
+        watch: {
+            'visibleDrawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        this.openedRequest = null
+                    }
+                }
+            }
+        },
         mounted () {
             // TweenMax.staggerFrom(, 2, {scale:0.5, opacity:0, delay:0.5, ease:Elastic.easeOut, force3D:true}, 0.2)
         }

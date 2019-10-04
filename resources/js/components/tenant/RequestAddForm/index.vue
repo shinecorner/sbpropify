@@ -290,6 +290,7 @@
             }
         },
         async mounted () {
+            this.priorities = Object.entries(this.$constants.serviceRequests.priority).map(([value, label]) => ({value: +value, label}));
             try {
                 const {data} = await this.$store.dispatch('getRequestCategoriesTree', {get_all: true})
 
@@ -305,8 +306,7 @@
             } catch (err) {
                 displayError(err)
             }
-
-            this.priorities = Object.entries(this.$constants.serviceRequests.priority).map(([value, label]) => ({value: +value, label}));
+            
         },
         watch: {
             "$i18n.locale": {
