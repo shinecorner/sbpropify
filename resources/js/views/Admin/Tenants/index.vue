@@ -88,6 +88,22 @@
                         getter: "tenants",
                         onChange: this.listingSelectChangedNotify
                     }
+                }, {
+                    label: 'models.tenant.rent_contract',
+                    withCounts: true,
+                    counts: [
+                        {
+                            prop: 'active_count',
+                            background: '#aaa',
+                            color: '#fff',
+                            label: this.$t('models.tenant.active')
+                        }, {
+                            prop: 'not_active_count',
+                            background: '#bbb',
+                            color: '#fff',
+                            label: this.$t('models.tenant.not_active')
+                        }
+                    ]
                 }/*, {
                     width: 120,
                     actions: [{
