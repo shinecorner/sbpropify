@@ -16,11 +16,8 @@ use League\Fractal\TransformerAbstract;
 class BaseTransformer extends TransformerAbstract
 {
     /**
-     * Transform the collection.
-     *
-     * @param \Collection $collection
-     *
-     * @return array
+     * @param Collection $collection
+     * @return mixed
      */
     public function transformCollection(Collection $collection)
     {
@@ -30,16 +27,14 @@ class BaseTransformer extends TransformerAbstract
     }
 
     /**
-     * Transform the paginator.
-     *
-     * @param \LengthAwarePaginator $paginator
-     *
+     * @param LengthAwarePaginator $paginator
+     * @param string $method
      * @return LengthAwarePaginator
      */
-    public function transformPaginator(LengthAwarePaginator $paginator)
+    public function transformPaginator(LengthAwarePaginator $paginator, $method = 'transform')
     {
-        $data = $paginator->getCollection()->transform(function ($value) {
-            return $this->transform($value);
+        $data = $paginator->getCollection()->transform(function ($value) use ($method) {
+            return $this->{$method}($value);
         });
 
         return new LengthAwarePaginator(

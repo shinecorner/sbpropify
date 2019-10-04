@@ -12,6 +12,7 @@ use App\Http\Requests\API\Dashboard\SRequestStatisticRequest;
 use App\Http\Requests\API\Dashboard\TenantStatisticRequest;
 use App\Models\Building;
 use App\Models\LoginDevice;
+use App\Models\RentContract;
 use App\Models\Request;
 use App\Models\RequestCategory;
 use App\Models\State;
@@ -319,7 +320,9 @@ class DashboardAPIController extends AppBaseController
 
         $tenants = $this->tenantRepo->getTotalTenantsFromBuilding($building->id);
         $units = Unit::where('building_id', $id)->count();
-        $occupiedUnitsCount = Unit::where('building_id', $id)->has('tenant')->count();
+        $occupiedUnitsCount = Unit::where('building_id', $id)->whereHas('rent_contracts', function ($q) {
+            $q->where('status', RentContract::StatusActive);
+        })->count();
 
         if ($units) {
             $occupiedUnits = round($occupiedUnitsCount * 100 / $units);
