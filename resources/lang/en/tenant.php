@@ -157,7 +157,7 @@ return [
     "operating_instructions" => "Operating instructions",
     "care_instructions" => "Care instructions",
     "pinboard" => "Pinboard",
-    "listing" => "Marketplace",
+    "listing" => "Listing",
     "admin" => "Admin",
     "address" => "Address",
     "refresh" => "Refresh",

@@ -13,7 +13,7 @@ return [
             'myContactPersons' => 'Contact persons',
             'pinboard' => 'Pinboard',
             'requests' => 'Requests',
-            'listings' => 'Marketplace',
+            'listings' => 'Listing',
             'settings' => 'Settings',
         ],
     ],

@@ -3,7 +3,7 @@ return [
     'notifications' => 'Notifications and language',
     'admin' => 'Admin notifications',
     'pinboard' => 'Pinboard notifications',
-    'listing' => 'Marketplace notifications',
+    'listing' => 'Listing notifications',
     'service' => 'Service notifications',
     'updated' => 'Settings updated',
     'language' => 'Language',

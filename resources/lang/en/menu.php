@@ -7,7 +7,7 @@ return [
     'myPendingRequests' => 'My pending requests',
     'notAssigned' => 'Not Assigned',
     'allPendingRequests' => 'All pending requests',
-    'listing' => 'Marketplace',
+    'listing' => 'Listing',
     'settings' => 'Settings',
     'logout' => 'Logout',
     'profile' => 'Profile',
