@@ -48,6 +48,7 @@
         <el-row :gutter="20">
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.rent_type')"
+                            prop="type"
                             class="label-block">
                     <!-- <el-select placeholder="Select" style="display: block" 
                                 v-model="model.type">
@@ -71,6 +72,7 @@
             </el-col>
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.rent_duration')"
+                            prop="duration"
                             class="label-block">
                     <el-select placeholder="Select" style="display: block" 
                                 v-model="model.duration">
@@ -87,7 +89,7 @@
         <el-row :gutter="20" >
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.rent_start')"
-                        prop="rent_start">
+                        prop="start_date">
                     <el-date-picker
                             :picker-options="{disabledDate: disabledRentStart}"
                             :placeholder="$t('models.tenant.rent_start')"
@@ -98,7 +100,7 @@
                             value-format="yyyy-MM-dd"/>
                 </el-form-item>
             </el-col>
-            <el-col :md="12" >
+            <el-col :md="12" v-if="model.duration == 2">
                 <el-form-item :label="$t('models.tenant.rent_end')">
                     <el-date-picker
                         :picker-options="{disabledDate: disabledRentEnd}"
@@ -122,7 +124,7 @@
                 </el-form-item>
             </el-col>
             <el-col :md="12">
-                <el-form-item :label="$t('models.tenant.status.label')" class="label-block">
+                <el-form-item :label="$t('models.tenant.status.label')" prop="status" class="label-block">
                     <el-select placeholder="Select" style="display: block" 
                                 v-model="model.status">
                         <el-option
@@ -142,13 +144,12 @@
                                 prop="deposit_amount">
                     <el-input type="text"
                             v-model="model.deposit_amount"
-                            class="dis-autofill"
                     ></el-input>
                 </el-form-item>
             </el-col>
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.type_of_deposit')"
-                            class="label-block">
+                            prop="deposit_type">
                     <el-select placeholder="Select" style="display: block" 
                                 v-model="model.deposit_type">
                         <el-option
@@ -163,7 +164,7 @@
         </el-row>
         <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition rent-data" 
                 style="width: 100%;"
-                v-if=" model.type != 3">
+                v-if=" model.type < 3">
             <div class="el-table__header-wrapper">
                 <table cellspacing="0" cellpadding="0" border="0" class="el-table__header">
                     <thead>
@@ -195,24 +196,28 @@
                                 <div class="cell">
                                     <el-input type="text"
                                             v-model="model.monthly_rent_net"
-                                    ></el-input>
+                                    >
+                                        <template slot="prepend">CHF</template>
+                                    </el-input>
                                 </div>
                             </td>
                             <td class="symbol">
                                 <div class="cell">
-                                    <i class="icon-plus"></i>
+                                    +
                                 </div>
                             </td>
                             <td class="data">
                                 <div class="cell">
                                     <el-input type="text"
                                         v-model="model.monthly_maintenance"
-                                ></el-input>
+                                    >
+                                        <template slot="prepend">CHF</template>
+                                    </el-input>
                                 </div>
                             </td>
                             <td class="symbol">
                                 <div class="cell">
-                                    <i class="icon-eq"></i>
+                                    =
                                 </div>
                             </td>
                             <td class="data">
@@ -225,12 +230,14 @@
                 </table>
             </div>
         </div>
-        <el-row :gutter="20" v-if="model.type == 3">
+        <el-row :gutter="20" v-if="model.type >= 3">
             <el-col :md="8">
                 <el-form-item :label="$t('general.monthly_rent_net')" class="label-block">
                     <el-input type="text"
                             v-model="model.monthly_rent_net"
-                    ></el-input>
+                    >
+                        <template slot="prepend">CHF</template>
+                    </el-input>
                 </el-form-item>
             </el-col>
         </el-row>
@@ -327,9 +334,15 @@
             data: {
                 type: Object
             },
+            edit_index: {
+                type: Number
+            },
             visible: {
                 type: Boolean,
                 default: false
+            },
+            used_units: {
+                type: Array
             }
         },
         data () {
@@ -337,7 +350,6 @@
                 remoteLoading: false,
                 buildings: [],
                 units: [],
-                rent_types: [],
                 rent_durations: [],
                 deposit_statuses: [],
                 rentcontract_statuses: [],
@@ -370,6 +382,30 @@
                         required: true,
                         message: this.$t('models.tenant.validation.unit.required')
                     }],
+                    deposit_amount: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.deposit_amount.required')
+                    }],
+                    deposit_type: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.deposit_type.required')
+                    }],
+                    start_date: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.start_date.required')
+                    }],
+                    type: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.rent_type.required')
+                    }],
+                    duration: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.rent_duration.required')
+                    }],
+                    status: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.status.required')
+                    }],
                 }
             }
         },
@@ -381,21 +417,30 @@
                         this.loading = true;
                         const {...params} = this.model
 
-                        console.log('params', params)
-
-                        console.log('tenant_id', this.tenant_id)
-                        if(this.tenant_id == undefined || this.tenant_id == 0) 
+                        if (this.tenant_id == undefined || this.tenant_id == 0) 
                         {
-                            this.$emit('add-rent-contract', params)
-                            this.$emit('update:visible', false);
+                            params.unit = this.units.find(item => item.id == this.model.unit_id)
+                            params.building = this.buildings.find(item => item.id == this.model.building_id)
+                            if (this.mode == "add") {
+                                this.$emit('add-rent-contract', params)
+                            }
+                            else {
+                                this.$emit('update-rent-contract', this.edit_index, params)
+                            }
+                            
                         }
                         else {
                             
-                            
                             params.tenant_id = this.tenant_id
 
-                            const resp = await this.$store.dispatch('rentContracts/create', params);
-                        
+                            if (this.mode == "add") {
+                                const resp = await this.$store.dispatch('rentContracts/create', params);
+                                this.$emit('add-rent-contract', params)
+                            }
+                            else {
+                                const resp = await this.$store.dispatch('rentContracts/update', params);
+                                this.$emit('update-rent-contract', this.edit_index, params)
+                            }
                         }
 
                         this.loading = false
@@ -452,11 +497,13 @@
                         building_id: this.model.building_id
                     });
 
-                    
-                    // this.model.rent_contracts.forEach((rent_contract, cc_index) => {
-                    //     resp.data = resp.data.filter( item => item.id != rent_contract.unit_id )
-                    // })
+                    console.log('used_units', this.used_units)
 
+                    this.used_units.forEach(id => {
+                        resp.data = resp.data.filter( item => item.id != id )
+                    })
+
+                    console.log('left units', resp.data)
                     this.units = resp.data
 
                 } catch (err) {
@@ -466,18 +513,17 @@
                 }
             },
             changeRentContractUnit() {
+                console.log('selected unit', this.model.unit_id)
                 let unit = this.units.find(item => item.id == this.model.unit_id)
                 this.model.monthly_rent_net = unit.monthly_rent_net
                 this.model.monthly_maintenance = unit.monthly_maintenance
                 this.model.monthly_rent_gross = unit.monthly_rent_gross
-            },
-            deleteRentContract( c_index ) {
-                //this.model.rent_contracts.splice(c_index, 1)
+                this.model.type = unit.type
+                this.model.duration = 1
             },
             addPDFtoRentContract(file) {
-                //console.log('file', file)
-                let toUploadRentContractFile = file.src
-                //let toUploadRentContractFile = {...file, url: URL.createObjectURL(file.raw)};
+                //let toUploadRentContractFile = {...file, url: URL.createObjectURL(file.raw)}
+                let toUploadRentContractFile = {media : file.src, name: file.raw.name}
                 this.model.media.push(toUploadRentContractFile)
             },
             deletePDFfromRentContract(index) {
@@ -492,29 +538,31 @@
 
                 if(this.model.building) {
                     await this.remoteRentContractdSearchBuildings(this.model.building.name)
+                    await this.searchRentContractUnits()
                 }
 
                 if (this.model.unit) {
-
-                    await this.searchRentContractUnits()
                     this.model.unit_id = this.model.unit.id
                 }
             }
-            this.rent_types = Object.entries(this.$constants.rentContracts.type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_types.${label}`)}))
+
             this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
             this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))
             this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
             this.rentcontract_statuses = Object.entries(this.$constants.rentContracts.status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_status.${label}`)}));
 
-            console.log('model', this.model)
         }
     }
 </script>
 
 <style lang="scss" scoped>
+    .el-form-item {
+        margin-bottom: 0;
+    }
     /deep/ .rent-data {
         table {
             width: 100%;
+            cursor: initial;
 
             thead, tbody {
                 width: 100%;
@@ -530,16 +578,30 @@
 
                         .cell {
                             width: 100%;
+                            text-align: left;
+                            
+                            /deep/ .el-input.el-input-group {
+                                .el-input-group__prepend {
+                                    padding: 2px 8px 0;
+                                    font-weight: 600;
+                                }
+                                .el-input__inner {
+                                    padding: 5px;
+                                }
+                            }
                         }
                     }
                     
                     .symbol {
                         display: flex;
                         align-items: center;
-                        width: 30px;
+                        justify-content: center;
+                        width: 20px;
 
                         .cell {
                             text-overflow: initial;
+                            font-size: 16px;
+                            padding: 0;
                         }
                     }
                 }
@@ -547,7 +609,16 @@
         }
     }
 
+    /deep/ .el-input.el-input-group {
+        .el-input-group__prepend {
+            padding: 2px 8px 0;
+            font-weight: 600;
+        }
+        
+    }
+    
     .el-alert {
+        line-height: 19px;
         margin-bottom: 10px;
     }
 
@@ -564,4 +635,6 @@
     /deep/ .rentcontract-file-table {
         margin-bottom: 10px;
     }
+
+    
 </style>

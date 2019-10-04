@@ -1,6 +1,6 @@
 <template>
     <div class="tenants-add">
-        <div>
+        <div class="main-content">
         <heading :title="$t('models.tenant.add')" icon="icon-group" shadow="heavy">
             <add-actions :saveAction="submit" editRoute="adminTenantsEdit" route="adminTenants"/>
         </heading>
@@ -139,19 +139,26 @@
                         </card>
                         
                         
-                        <card class="mt15" :header="$t('models.tenant.rent_contract')">
-                            <el-row :gutter="20" class="new-rentcontract-box">
-                                    <el-button type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>
-                                </el-row>
+                        <card class="mt15 rentcontract-box">
+                            <template slot="header">
+                                
+                                {{ $t('models.tenant.rent_contract') }}
+                                <el-button style="float:right" type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>{{$t('models.request.add_rent_contract')}}</el-button>    
+                            
+                            </template>
+                            
                                 <el-table
                                     :data="model.rent_contracts"
                                     style="width: 100%"
-                                    class="rentcontract-file-table"
+                                    class="rentcontract-table"
                                     >
                                     <el-table-column
                                         :label="$t('models.tenant.rentcontract_id')"
                                         prop="id"
                                     >
+                                        <template slot-scope="scope">
+                                            <span class="clickable" @click="editRentContract(scope.$index)">{{scope.row.id}}</span>
+                                        </template>
                                     </el-table-column>
                                     <el-table-column
                                         :label="$t('models.tenant.building.name')"
@@ -190,8 +197,9 @@
         </div>
         </div>
         <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
-            <div class="content">
-                <rent-contract-form mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer" @add-rent-contract="addRentContract"/>
+            <div class="content" v-if="visibleDrawer">
+                <rent-contract-form v-if="editingRentContract" mode="edit" :data="editingRentContract" :tenant_id="model.id" :visible.sync="visibleDrawer" :edit_index="editingRentContractIndex" @update-rent-contract="updateRentContract" :used_units="used_units"/>
+                <rent-contract-form v-else mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer" @add-rent-contract="addRentContract" :used_units="used_units"/>
             </div>
         </ui-drawer>
     </div>
@@ -220,12 +228,6 @@
         },
         mounted() {
             this.$root.$on('changeLanguage', () => this.getCountries());
-        },
-        methods: {
-            addRentContract (data) {
-                this.model.rent_contracts.push(data);
-                console.log('contracts', this.model.rent_contracts)
-            }
         }
     }
 </script>
@@ -239,8 +241,64 @@
 </style>
 <style lang="scss" scoped>
     .tenants-add {
+        overflow: hidden;
+
+        .main-content { 
+            overflow-x: hidden;
+            overflow-y: scroll;
+            height: 100%;
+        }
+
         .heading {
             margin-bottom: 20px;
+        }
+
+        
+
+        /deep/ .rentcontract-box.el-card {
+            .el-card__header {
+                display: block;
+            }
+
+            .rentcontract-table {
+                .clickable {
+                    display: block;
+                    width: 100%;
+                }
+            }
+        }
+
+        
+
+        /deep/ .ui-drawer {
+            .content {
+                height: calc(100% - 32px);
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                padding: 16px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                position: relative;
+            }
+
+            .chart-card-header{
+                font-size: 16px;
+                font-weight: 400;
+                padding: 0 20px 16px;
+                margin: -4px -10px 10px;
+                border-bottom: 1px solid #EBEEF5;
+
+                h3 {
+                    font-size: 24px;
+                    font-weight: 500;
+                }
+
+            }
         }
     }
 
@@ -258,37 +316,4 @@
         margin-bottom: 15px;
     }
 
-    /deep/ .chart-card-header{
-        font-size: 16px;
-        font-weight: 400;
-        padding: 0 20px 16px;
-        margin: -4px -10px 10px;
-        border-bottom: 1px solid #EBEEF5;
-
-        h3 {
-            font-size: 24px;
-            font-weight: 500;
-        }
-
-    }
-    
-    .ui-drawer {
-        .content {
-            height: calc(100% - 32px);
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            padding: 16px;
-            overflow-y: auto;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            position: relative;
-        }
-    }
-
-    .new-rentcontract-box {
-        text-align: right;
-    }
 </style>

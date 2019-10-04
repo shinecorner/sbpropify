@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Criteria\CleanifyRequests\FilterByUserCriteria;
+use App\Criteria\CleanifyRequest\FilterByUserCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CleanifyRequest\CreateRequest;
 use App\Http\Requests\API\CleanifyRequest\ListRequest;

@@ -39,8 +39,7 @@ trait SaveMediaUploads
             }
         }
 
-        $model->setRelation('media', collect($savedMedia));
-
+        $model->setRelation('media', $model->newCollection($savedMedia));
         return $model;
     }
 }

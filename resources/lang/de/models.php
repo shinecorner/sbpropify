@@ -107,7 +107,25 @@ return [
             ],
             'language' => [
                 'required' => 'Sprache ist obligatorisch',
-            ]
+            ],
+            'deposit_amount' => [
+                'required' => "Der Einzahlungsbetrag ist erforderlich.",
+            ],
+            'deposit_type' => [
+                'required' => "Die Einzahlungsart ist erforderlich.",
+            ],
+            'start_date' => [
+                'required' => "Startdatum ist erforderlich",
+            ],
+            'rent_type' => [
+                'required' => "Mietart ist erforderlich",
+            ],
+            'rent_duration' => [
+                'required' => "Mietdauer ist erforderlich",
+            ],
+            'status' => [
+                'required' => "Status ist erforderlich",
+            ],
         ],
         'errors' => [
             'not_found' => "Mieter nicht gefunden",
@@ -693,6 +711,48 @@ return [
             '2_year_warranty' => '2-Jahresgarantie',
             'cost_consequences' => 'Kostenfolge',
         ],
+        'location' => [
+            'house_entrance' => 'Hauseingang',
+            'staircase' => 'Treppenhaus',
+            'elevator' => 'Lift',
+            'car_park' => 'Tiefgarage',
+            'washing' => 'Waschen/Trocknen',
+            'heating' => 'Technik/Heizung',
+            'electro' => 'Technik/Elektro',
+            'facade' => 'Fassade',
+            'roof' => 'Dach',
+            'other' => 'Anderes'
+        ],
+        'room' => [
+            'bath' => 'Bad/WC',
+            'shower' => 'Du/WC',
+            'entrance' => 'Entrée',
+            'passage' => 'Gang',
+            'basement' => 'Keller',
+            'kitchen' => 'Küche',
+            'storeroom' => 'Reduit',
+            'habitation' => 'Wohnen',
+            'room1' => 'Zimmer 1',
+            'room2' => 'Zimmer 2',
+            'room3' => 'Zimmer 3',
+            'room4' => 'Zimmer 4',
+            'all' => 'Alle',
+            'other' => 'Anderes'
+        ],
+        'capture_phase' => [
+            'other' => 'Andere',
+            'construction' => 'Bauphase (BP)',
+            'shell' => 'Rohbauabnahme (RA)',
+            'preliminary' => 'Vorabnahme (VA)',
+            'work' => 'Bauabnahme (BA)',
+            'surrender' => 'Übergabe (UEB)',
+            'inspection' => 'Abnahme (AB)'
+        ],
+        'payer' => [
+            'landlord' => 'Vermieter',
+            'tenant' => 'Mieter',
+            'tenant/landlord' => 'Mieter u. Vermieter'
+        ],
         'status' => [
             'label' => 'Status',
             'received' => 'Erhalten',
@@ -703,50 +763,6 @@ return [
             'archived' => 'Archiviert',
             'solved' => "Erledigt",
             'pending' => "Pendent"
-        ],
-        'sub_category_fields' => [
-            'location' => [
-                'house_entrance' => 'Hauseingang',
-                'staircase' => 'Treppenhaus',
-                'elevator' => 'Lift',
-                'car_park' => 'Tiefgarage',
-                'washing' => 'Waschen/Trocknen',
-                'heating' => 'Technik/Heizung',
-                'electro' => 'Technik/Elektro',
-                'facade' => 'Fassade',
-                'roof' => 'Dach',
-                'other' => 'Anderes'
-            ],
-            'room' => [
-                'bath' => 'Bad/WC',
-                'shower' => 'Du/WC',
-                'entrance' => 'Entrée',
-                'passage' => 'Gang',
-                'basement' => 'Keller',
-                'kitchen' => 'Küche',
-                'storeroom' => 'Reduit',
-                'habitation' => 'Wohnen',
-                'room1' => 'Zimmer 1',
-                'room2' => 'Zimmer 2',
-                'room3' => 'Zimmer 3',
-                'room4' => 'Zimmer 4',
-                'all' => 'Alle',
-                'other' => 'Anderes'
-            ],
-            'capture_phase' => [
-                'other' => 'Andere',
-                'construction' => 'Bauphase (BP)',
-                'shell' => 'Rohbauabnahme (RA)',
-                'preliminary' => 'Vorabnahme (VA)',
-                'work' => 'Bauabnahme (BA)',
-                'surrender' => 'Übergabe (UEB)',
-                'inspection' => 'Abnahme (AB)'
-            ],
-            'payer' => [
-                'landlord' => 'Vermieter',
-                'tenant' => 'Mieter',
-                'tenant/landlord' => 'Mieter u. Vermieter'
-            ]
         ],
         'category_options' => [
             'disturbance' => 'Störung',

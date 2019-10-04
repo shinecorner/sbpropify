@@ -27,7 +27,8 @@
         </el-form>
             <span class="dialog-footer" slot="footer">
                 <el-button @click="close" size="mini">{{$t('tenant.cancel')}}</el-button>
-                <el-button :disabled="model.message == null || model.message == ''" @click="changeStatus(statusChangeModalType, model.message)" size="mini" type="danger">{{statusChangeModalType=='done' ? $t('tenant.close_request') : $t('tenant.actions.to_reactivated')}}</el-button>
+                <el-button v-if="statusChangeModalType=='done'" :disabled="model.message == null || model.message == ''" @click="changeStatus(statusChangeModalType, model.message)" size="mini" type="danger">{{statusChangeModalType=='done' ? $t('tenant.close_request') : $t('tenant.actions.to_reactivated')}}</el-button>
+                <el-button v-else @click="changeStatus(statusChangeModalType, model.message)" size="mini" type="danger">{{statusChangeModalType=='done' ? $t('tenant.close_request') : $t('tenant.actions.to_reactivated')}}</el-button>
             </span>
         
     </el-dialog>

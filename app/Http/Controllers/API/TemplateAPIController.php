@@ -6,7 +6,6 @@ use App\Criteria\Common\RequestCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Template\CreateRequest;
 use App\Http\Requests\API\Template\DeleteRequest;
-use App\Http\Requests\API\Template\ListCategoriesRequest;
 use App\Http\Requests\API\Template\ListRequest;
 use App\Http\Requests\API\Template\UpdateRequest;
 use App\Http\Requests\API\Template\ViewRequest;

@@ -53,6 +53,7 @@
         mounted () {
             if (this.autofocus) {
                 this.focusOnAddComment()
+                
             }
         }
     }
@@ -74,6 +75,31 @@
 
         .add-comment
             width: auto
+
+    .switcher
+        .el-form-item__content
+            display: flex
+            align-items: center
+        &__label
+            line-height: 1.4em
+            color: #606266
+        &__desc
+            margin-top: 0.5em
+            display: block
+            font-size: 0.9em
+        .el-switch
+            margin-left: auto
+
+    .card-boxs span.switcher__desc
+        text-align: left
+        font-weight: normal
+        margin-top: 10px
+        line-height: 20px
+        font-size: 13px
+        color: #333
+
+    .switcher-frist .el-switch
+        margin-top: 10px
 </style>
 
 <style lang="scss" scoped>

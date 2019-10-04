@@ -4,7 +4,7 @@ namespace App\Http\Requests\API\Audit;
 
 use App\Http\Requests\BaseRequest;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use App\Models\ServiceRequest;
+use App\Models\Request;
 
 class ListRequest extends BaseRequest
 {
@@ -24,7 +24,7 @@ class ListRequest extends BaseRequest
             $u->tenant
             && !empty($this->auditable_type)
             && !empty(Relation::$morphMap[$this->auditable_type])
-            && Relation::$morphMap[$this->auditable_type] == ServiceRequest::class
+            && Relation::$morphMap[$this->auditable_type] == Request::class
         ) {
             return true;
         }

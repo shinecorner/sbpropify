@@ -173,7 +173,7 @@ class RentContract extends AuditableModel implements HasMedia
         'building_id' => 'integer|exists:buildings,id',
         'unit_id' => 'integer|exists:units,id',
         'start_date' => 'date',
-        'end_date' => 'date|after_or_equal:start_date',
+        'end_date' => 'nullable|date|after_or_equal:start_date',
         'status' => 'digits_between:1,2|numeric',
         'type' => 'digits_between:1,3|numeric',
         'duration' => 'digits_between:1,2|numeric',

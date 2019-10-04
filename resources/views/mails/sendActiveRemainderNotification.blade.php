@@ -10,6 +10,6 @@
 
 @section('body')
     USER: {{ $user->name }}
-    SERRVICE REQUEST: {{$serviceRequest->id}}
+    SERRVICE REQUEST: {{$request->id}}
     {!! $body ?? "" !!}
 @endsection

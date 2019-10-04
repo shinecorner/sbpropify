@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\FilterFullnameCriteria;
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\PropertyManagers\FilterByRelatedFieldsCriteria;
-use App\Criteria\PropertyManagers\HasRequestCriteria;
+use App\Criteria\PropertyManager\FilterByRelatedFieldsCriteria;
+use App\Criteria\PropertyManager\HasRequestCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\PropertyManager\AssignRequest;
 use App\Http\Requests\API\PropertyManager\BatchDeleteRequest;
@@ -669,7 +669,7 @@ class PropertyManagerAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/requests/{id}/assignments",
      *      summary="Get a listing of the ServiceProvider assigned buildings and quarters.",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Get a listing of the ServiceProvider assigned buildings and quarters.",
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -684,7 +684,7 @@ class PropertyManagerAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/ServiceRequest")
+     *                  @SWG\Items(ref="#/definitions/Request")
      *              ),
      *              @SWG\Property(
      *                  property="message",

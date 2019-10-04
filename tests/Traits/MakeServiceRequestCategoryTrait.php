@@ -2,7 +2,7 @@
 
 use Faker\Factory as Faker;
 use App\Models\ServiceRequestCategory;
-use App\Repositories\ServiceRequestCategoryRepository;
+use App\Repositories\RequestCategoryRepository;
 
 trait MakeServiceRequestCategoryTrait
 {
@@ -14,8 +14,8 @@ trait MakeServiceRequestCategoryTrait
      */
     public function makeServiceRequestCategory($serviceRequestCategoryFields = [])
     {
-        /** @var ServiceRequestCategoryRepository $serviceRequestCategoryRepo */
-        $serviceRequestCategoryRepo = App::make(ServiceRequestCategoryRepository::class);
+        /** @var RequestCategoryRepository $serviceRequestCategoryRepo */
+        $serviceRequestCategoryRepo = App::make(RequestCategoryRepository::class);
         $theme = $this->fakeServiceRequestCategoryData($serviceRequestCategoryFields);
         return $serviceRequestCategoryRepo->create($theme);
     }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\Units\FilterByRelatedFieldsCriteria;
-use App\Criteria\Units\FilterByTypeCriteria;
+use App\Criteria\Unit\FilterByRelatedFieldsCriteria;
+use App\Criteria\Unit\FilterByTypeCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Unit\AssignRequest;
 use App\Http\Requests\API\Unit\CreateRequest;

@@ -17,7 +17,7 @@ use App\Models\Permission;
 use App\Models\Pinboard;
 use App\Models\PinboardView;
 use App\Models\AnnouncementEmailReceptionist;
-use App\Models\Product;
+use App\Models\Listing;
 use App\Models\PropertyManager;
 use App\Models\Quarter;
 use App\Models\QuarterAssignee;
@@ -25,9 +25,9 @@ use App\Models\Settings;
 use App\Models\RentContract;
 use App\Models\Role;
 use App\Models\ServiceProvider;
-use App\Models\ServiceRequest;
-use App\Models\ServiceRequestAssignee;
-use App\Models\ServiceRequestCategory;
+use App\Models\Request;
+use App\Models\RequestAssignee;
+use App\Models\RequestCategory;
 use App\Models\State;
 use App\Models\Tag;
 use App\Models\Template;
@@ -123,7 +123,7 @@ class CleanDB extends Command
             ServiceProvider::class,
         ]);
         $requestAssignees[] = [
-            'relation' => (new ServiceRequest())->getTable(),
+            'relation' => (new Request())->getTable(),
             'relation_id' => 'request_id'
         ];
 
@@ -154,7 +154,7 @@ class CleanDB extends Command
                     'relation' => (new User())->getTable(),
                 ],
                 [
-                    'relation' => (new ServiceRequest())->getTable(),
+                    'relation' => (new Request())->getTable(),
                     'relation_id' => 'request_id'
                 ],
             ],
@@ -258,8 +258,8 @@ class CleanDB extends Command
             Pinboard::class,
             PinboardView::class,
             AnnouncementEmailReceptionist::class,
-            ServiceRequest::class,
-            Product::class,
+            Request::class,
+            Listing::class,
             PropertyManager::class,
             Quarter::class,
             QuarterAssignee::class,
@@ -267,9 +267,9 @@ class CleanDB extends Command
             RentContract::class,
             Role::class,
             ServiceProvider::class,
-            ServiceRequest::class,
-            ServiceRequestAssignee::class,
-            ServiceRequestCategory::class,
+            Request::class,
+            RequestAssignee::class,
+            RequestCategory::class,
             State::class,
             Tag::class,
             Template::class,

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Criteria\Buildings\FilterByRelatedFieldsCriteria;
+use App\Criteria\Building\FilterByRelatedFieldsCriteria;
 use App\Criteria\Common\HasRequestCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Http\Controllers\AppBaseController;
@@ -24,7 +24,7 @@ use App\Repositories\BuildingRepository;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\UnitRepository;
-use App\Repositories\ServiceRequestRepository;
+use App\Repositories\RequestRepository;
 use App\Transformers\BuildingAssigneeTransformer;
 use App\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
@@ -54,8 +54,8 @@ class BuildingAPIController extends AppBaseController
     /** @var  UnitRepository */
     private $unitRepository;
 
-    /** @var  ServiceRequestRepository */
-    private $serviceRequestRepository;
+    /** @var  RequestRepository */
+    private $requestRepository;
 
     /**
      * BuildingAPIController constructor.
@@ -64,7 +64,7 @@ class BuildingAPIController extends AppBaseController
      * @param UserRepository $ur
      * @param PropertyManagerRepository $pm
      * @param UnitRepository $un
-     * @param ServiceRequestRepository $sr
+     * @param RequestRepository $sr
      */
     public function __construct(
         BuildingRepository $buildingRepo,
@@ -72,7 +72,7 @@ class BuildingAPIController extends AppBaseController
         UserRepository $ur,
         PropertyManagerRepository $pm,
         UnitRepository $un,
-        ServiceRequestRepository $sr
+        RequestRepository $sr
     )
     {
         $this->buildingRepository = $buildingRepo;
@@ -80,7 +80,7 @@ class BuildingAPIController extends AppBaseController
         $this->userRepository = $ur;
         $this->propertyManagerRepository = $pm;
         $this->unitRepository = $un;
-        $this->serviceRequestRepository = $sr;
+        $this->requestRepository = $sr;
     }
 
     /**
@@ -542,7 +542,7 @@ class BuildingAPIController extends AppBaseController
             $units = $this->unitRepository->getUnitsIdwithBuildingIds($buildings->pluck('id'));
 
             if($request->get('is_requests')) {
-                $this->serviceRequestRepository->deleteRequesetWithUnitIds($units->pluck('id'));
+                $this->requestRepository->deleteRequesetWithUnitIds($units->pluck('id'));
             }            
 
             if($request->get('is_units')) {                
@@ -580,7 +580,7 @@ class BuildingAPIController extends AppBaseController
                 $request['isUnitExist'] = true;
             }
 
-            if($this->serviceRequestRepository->getRequestCountWithUnitIds($units->pluck('id')) > 0){
+            if($this->requestRepository->getRequestCountWithUnitIds($units->pluck('id')) > 0){
                 $request['isRequestExist'] = true;
             }
 

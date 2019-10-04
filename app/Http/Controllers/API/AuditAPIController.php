@@ -7,9 +7,9 @@ use App\Repositories\AuditRepository;
 use App\Transformers\AuditTransformer;
 use Prettus\Repository\Criteria\RequestCriteria;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
-use App\Criteria\Audits\FilterByUserCriteria;
-use App\Criteria\Audits\FilterByAuditableCriteria;
-use App\Criteria\Audits\FilterByEventCriteria;
+use App\Criteria\Audit\FilterByUserCriteria;
+use App\Criteria\Audit\FilterByAuditableCriteria;
+use App\Criteria\Audit\FilterByEventCriteria;
 use App\Http\Requests\API\Audit\ListRequest;
 
 /**

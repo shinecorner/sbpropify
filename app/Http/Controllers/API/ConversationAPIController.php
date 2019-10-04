@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\Conversations\FilterModelCriteria;
+use App\Criteria\Conversation\FilterModelCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Conversation\CommentRequest;
 use App\Http\Requests\API\Conversation\ListRequest;

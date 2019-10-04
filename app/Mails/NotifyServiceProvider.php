@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Models\ServiceProvider;
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
 
@@ -20,18 +20,21 @@ class NotifyServiceProvider extends Mailable
     private $request;
     private $mailDetails;
     private $receivingUser;
+
     /**
-     * Create a new message instance.
-     *
-     * @return void
+     * NotifyServiceProvider constructor.
+     * @param ServiceProvider $serviceProvider
+     * @param Request $request
+     * @param array $mailDetails
+     * @param null $user
      */
     public function __construct(
-        ServiceProvider $sp,
-        ServiceRequest $sr,
+        ServiceProvider $serviceProvider,
+        Request $request,
         array $mailDetails, $user = null)
     {
-        $this->provider = $sp;
-        $this->request = $sr;
+        $this->provider = $serviceProvider;
+        $this->request = $request;
         $this->mailDetails = $mailDetails;
         $this->receivingUser = $user;
     }
