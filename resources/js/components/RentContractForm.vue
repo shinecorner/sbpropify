@@ -28,7 +28,7 @@
                     </el-select>
                 </el-form-item>
             </el-col>
-            <el-col :md="12">
+            <el-col :md="12" v-if="model.building_id">
                 <el-form-item prop="unit_id" :label="$t('models.tenant.unit.name')"
                             class="label-block">
                     <el-select :placeholder="$t('models.tenant.search_unit')" 
@@ -170,19 +170,19 @@
                     <thead>
                         <tr>
                             <th class="data is-leaf">
-                                <div class="cell">Monthly rent</div>
+                                <div class="cell">{{$t('general.monthly_rent_net')}}</div>
                             </th>
                             <th class="symbol is-leaf">
                                 <div class="cell"></div>
                             </th>
                             <th class="data is-leaf">
-                                <div class="cell">Maintenance</div>
+                                <div class="cell">{{$t('models.tenant.maintenance')}}</div>
                             </th>
                             <th class="symbol is-leaf">
                                 <div class="cell"></div>
                             </th>
                             <th class="data is-leaf">
-                                <div class="cell">Gross rent</div>
+                                <div class="cell">{{$t('models.tenant.gross_rent')}}</div>
                             </th>
                         </tr>
                     </thead>
@@ -602,6 +602,9 @@
                     }
                 }
             }
+        }
+        .el-table tbody tr td:last-child .cell {
+            padding-left: 10px !important;
         }
     }
 

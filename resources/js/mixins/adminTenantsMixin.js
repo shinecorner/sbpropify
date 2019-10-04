@@ -112,6 +112,7 @@ export default (config = {}) => {
                 this.editingRentContract = this.model.rent_contracts[index];
                 this.editingRentContractIndex = index;
                 this.visibleDrawer = true;
+                //this.$el.querySelector('.footer').css('display: none');
             },
             updateRentContract(index, params) {
                 this.model.rent_contracts[index] = params;
@@ -130,6 +131,8 @@ export default (config = {}) => {
             },
             toggleDrawer() {
                 this.visibleDrawer = true;
+                //this.$root.$refs.footer.css('display: none');
+                //this.$el.querySelector('.footer').css('display: none');
             },
             ...mapActions(['getCountries', 'uploadMediaFile']),
         },
