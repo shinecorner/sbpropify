@@ -38,7 +38,7 @@
                                     v-model="filterModel[filter.key]">
                                     <el-option :label="`${$t('general.placeholders.select')+' '+filter.name}`" value=""></el-option>
                                     <el-option
-                                        :key="item.id + item.name"
+                                        :key="filter.key == 'category_id'? item.id + item.name_en : item.id + item.name "
                                         :label="filter.key == 'category_id'?item['name_'+$i18n.locale]:item.name"
                                         :value="item.id"
                                         v-for="item in filter.data">
