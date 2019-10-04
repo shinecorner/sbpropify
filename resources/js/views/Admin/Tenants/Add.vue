@@ -68,6 +68,7 @@
                                                   :label="$t('models.tenant.nation')"
                                                   prop="nation">
                                         <el-select filterable
+                                                    clearable
                                                    style="display: block"
                                                    v-model="model.nation">
                                             <el-option :key="country.id"
