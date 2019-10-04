@@ -1,5 +1,5 @@
 <template>
-    <footer class="footer">
+    <footer ref="footer" class="footer">
         <div class="footer-content">
             <div class="footer-content-left">
                 <p class="footer-content-left-text" v-html="$t('general.footerText.leftSideText')"></p>
