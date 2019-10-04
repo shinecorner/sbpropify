@@ -43,19 +43,19 @@ export default (config = {}) => {
                 validationRules: {
                     name: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.name')})
                     }],
                     body: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('models.template.body')})
                     }],
                     subject: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('models.template.subject')})
                     }],
                     category: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('models.template.category')})
                     }]
                 },
                 categories: [],
