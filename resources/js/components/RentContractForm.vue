@@ -1,11 +1,6 @@
 <template>
     <el-form :model="model" :rules="validationRules" label-position="top"  ref="form" v-loading="loading">
-        <el-row :gutter="20">
-            <h3 class="chart-card-header">
-                <i class="icon-handshake-o ti-user icon "/>
-                    &nbsp;{{ $t('models.tenant.rent_contract') }}
-            </h3>
-        </el-row>
+        
 
         <el-row :gutter="20">
             <el-col :md="12">
