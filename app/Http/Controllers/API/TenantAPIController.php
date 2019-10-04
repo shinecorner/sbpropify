@@ -27,14 +27,11 @@ use App\Models\User;
 use App\Notifications\TenantCredentials;
 use App\Repositories\PinboardRepository;
 use App\Repositories\TemplateRepository;
-use App\Repositories\RentContractRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\TenantTransformer;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Illuminate\Support\Facades\Validator;
@@ -131,7 +128,8 @@ class TenantAPIController extends AppBaseController
                 $q->with('building.address', 'unit');
             }])->paginate($perPage);
         $this->fixCreatedBy($tenants);
-        return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
+        $response = (new TenantTransformer())->transformPaginator($tenants);
+        return $this->sendResponse($response, 'Tenants retrieved successfully');
     }
 
     /**
