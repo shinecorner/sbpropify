@@ -125,9 +125,9 @@
                                         <!-- <el-form-item :label="$t('models.settings.quarter_enable')" prop="quarter_enable">
                                             <el-switch v-model="model.quarter_enable"/>
                                         </el-form-item>
-                                        <el-form-item :label="$t('models.settings.marketplace_approval_enable')"
-                                                      prop="marketplace_approval_enable">
-                                            <el-switch v-model="model.marketplace_approval_enable"/>
+                                        <el-form-item :label="$t('models.settings.listing_approval_enable')"
+                                                      prop="listing_approval_enable">
+                                            <el-switch v-model="model.listing_approval_enable"/>
                                         </el-form-item> -->
                                         <el-form-item class="switcher"
                                                       prop="pinboard_approval_enable">
@@ -266,9 +266,9 @@
                                      ref="microAppsSettingsForm">
                                 <el-row :gutter="20">
                                     <el-col :md="8">
-                                        <el-card class="marketplace-card card-boxs">
+                                        <el-card class="listing-card card-boxs">
                                             <span @click="Iframe_drawer" class="icon-cog"></span>
-                                            <el-form-item :label="$t('models.settings.iframe_enable')" class="switcher switcher-frist" prop="contact_enable">
+                                            <el-form-item :label="$t('models.settings.iframe_enable')" class="switcher switcher-block" prop="contact_enable">
                                                 <span class="switcher__desc">{{ $t('models.settings.iframe_enable_desc')}}</span>
                                                 <el-switch 
                                                     v-model="model.iframe_enable"
@@ -277,9 +277,9 @@
                                         </el-card>
                                     </el-col>
                                     <el-col :md="8">
-                                        <el-card class="marketplace-card card-boxs">
+                                        <el-card class="listing-card card-boxs">
                                             <span @click="Gocaution_drawer" class="icon-cog" style="display:none"></span>
-                                            <el-form-item :label="$t('models.settings.gocaution')" class="switcher">
+                                            <el-form-item :label="$t('models.settings.gocaution')" class="switcher switcher-block">
                                                 <span class="switcher__desc">{{$t('models.settings.gocaution_desc')}}</span>
                                                 <el-switch 
                                                 v-model="model.gocaution_enable"
@@ -288,10 +288,10 @@
                                         </el-card>
                                     </el-col>
                                     <el-col :md="8">
-                                        <el-card class="marketplace-card card-boxs">
+                                        <el-card class="listing-card card-boxs">
                                             <span @click="Cleanify_drawer" class="icon-cog"></span>
                                            <el-form-item :label="$t('models.settings.cleanify_email')"
-                                                        :rules="validationRules.cleanify_email" prop="cleanify_email" class="switcher">
+                                                        :rules="validationRules.cleanify_email" prop="cleanify_email" class="switcher switcher-block">
                                                 <span class="switcher__desc">{{$t('models.settings.cleanify_email_desc')}}</span>
                                                 <el-switch 
                                                 v-model="model.cleanify_enable"
@@ -544,7 +544,7 @@
                     favicon_icon_upload: '',
                     tenant_logo_upload: '',
                     tenant_logo_upload: '',
-                    marketplace_approval_enable: true,
+                    listing_approval_enable: true,
                     pinboard_approval_enable: false,
                     comment_update_timeout: 60,
                     iframe_url: '',
@@ -1105,10 +1105,16 @@
 
     .switcher {
         .el-form-item__content {
-            display: block;
+            display: flex;
+            align-items: center;
         }
-        span {
-            display: block;
+        &.switcher-block {
+            .el-form-item__content {
+                display: block;
+                span {
+                    display: block;
+                }
+            }
         }
         &__label {
             line-height: 1.4em;
@@ -1254,7 +1260,7 @@
         margin-right: 20px;
     }
 
-    .marketplace-card .el-form-item {
+    .listing-card .el-form-item {
         .el-form-item__label {
             display: block;
             margin-bottom: 5px;

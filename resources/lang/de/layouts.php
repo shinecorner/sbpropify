@@ -13,7 +13,7 @@ return [
             'myContactPersons' => 'Kontaktpersonen',
             'pinboard' => 'Pinnwand',
             'requests' => 'Anfragen',
-            'products' => 'Marktplatz',
+            'listings' => 'Marktplatz',
             'settings' => 'Einstellungen',
         ],
     ],

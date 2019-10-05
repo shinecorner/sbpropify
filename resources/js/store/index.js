@@ -10,7 +10,7 @@ import ServicesStore from 'store/modules/services'
 import RequestsStore from 'store/modules/requests'
 import RequestCategoriesStore from 'store/modules/requestCategories'
 import PropertyManagersStore from 'store/modules/propertyManagers'
-import ProductsStore from 'store/modules/products'
+import ListingsStore from 'store/modules/listings'
 import PinboardStore from 'store/modules/pinboard'
 import NotificationsStore from 'store/modules/notifications'
 import MediaStore from 'store/modules/media'
@@ -26,7 +26,7 @@ import TagsStore from 'store/modules/tags'
 // new ones - this will stay in the future, the above one will be removed at some point
 import NewPinboardStore from 'store/modules/newPinboard'
 import NewRequestsStore from 'store/modules/newRequests'
-import NewProductsStore from 'store/modules/newProducts'
+import NewListingsStore from 'store/modules/newListings'
 import rentContractsStore from 'store/modules/rentContracts'
 
 import createPersistedState from 'vuex-persistedstate'
@@ -58,7 +58,7 @@ export default new Vuex.Store({
         requests: RequestsStore,
         requestCategories: RequestCategoriesStore,
         propertyManagers: PropertyManagersStore,
-        products: ProductsStore,
+        listings: ListingsStore,
         templates: TemplatesStore,
         cleanify: CleanifyStore,
         application: {
@@ -75,7 +75,7 @@ export default new Vuex.Store({
         // this will stay in the future only
         comments: CommentsStore,
         newPinboard: NewPinboardStore,
-        newProducts: NewProductsStore,
+        newListings: NewListingsStore,
         newRequests: NewRequestsStore,
         rentContracts: rentContractsStore
     },

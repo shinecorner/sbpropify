@@ -75,7 +75,7 @@ return [
         "created_date" => "Date de création",
         "contract" => "Contrat",
         "pinboard" => "Panneau d'affichage",
-        "products" => "Produits",
+        "listings" => "Produits",
         "company" => "Nom de l'entreprise",
         "no_building" => "Pas de bâtiment",
         'building' => [
@@ -107,7 +107,25 @@ return [
             ],
             'language' => [
                 'required' => "La langue est obligatoire",
-            ]
+            ],
+            'deposit_amount' => [
+                'required' => "Le montant du dépôt est requis",
+            ],
+            'deposit_type' => [
+                'required' => "Le type de dépôt est requis",
+            ],
+            'start_date' => [
+                'required' => "La date de début est requise",
+            ],
+            'rent_type' => [
+                'required' => "Le type de location est requis",
+            ],
+            'rent_duration' => [
+                'required' => "La durée de location est requise",
+            ],
+            'status' => [
+                'required' => "Le statut est requis",
+            ],
         ],
         'errors' => [
             'not_found' => "Locataire introuvable",
@@ -535,7 +553,7 @@ return [
         'login_variation' => 'Modification de l\'ouverture de session',
         'login_variation_slider' => 'Voulez-vous montrer le slider ?',
         "quarter_enable" => "Trimestre",
-        "marketplace_approval_enable" => "Activer le marché",
+        "listing_approval_enable" => "Activer le marché",
         'gocaution' => 'Gocaution',
         'gocaution_desc' => 'Gocaution',
         "blank_pdf" => "PDF vierge",
@@ -694,6 +712,48 @@ return [
             "2_year_warranty" => "Garantie de 2 ans",
             "cost_consequences" => "Conséquences financières",
         ],
+        'location' => [
+            'house_entrance' => 'Entrée de maison',
+            'staircase' => 'Escalier',
+            'elevator' => 'Ascenseur',
+            'car_park' => 'Parking souterrain',
+            'washing' => 'Lavage/séchage',
+            'heating' => 'Technologie/Chauffage',
+            'electro' => 'Technologie/Électrotechnique',
+            'facade' => 'Façade',
+            'roof' => 'Toit',
+            'other' => 'Autre'
+        ],
+        'room' => [
+            'bath' => 'Salle de bains/WC',
+            'shower' => 'Douche/WC',
+            'entrance' => 'L\'entrée',
+            'passage' => 'Passage',
+            'basement' => 'Sous-sol',
+            'kitchen' => 'Cuisine',
+            'storeroom' => 'Reduite',
+            'habitation' => 'Habitation',
+            'room1' => 'Chambre 1',
+            'room2' => 'Chambre 2',
+            'room3' => 'Chambre 3',
+            'room4' => 'Chambre 4',
+            'all' => 'Tous',
+            'other' => 'Autre'
+        ],
+        'capture_phase' => [
+            'other' => 'Autre',
+            'construction' => 'Phase de construction',
+            'shell' => 'Acceptation de la coquille',
+            'preliminary' => 'Acceptation préliminaire',
+            'work' => 'Acceptation des travaux',
+            'surrender' => 'Rendez-vous',
+            'inspection' => 'Acceptation'
+        ],
+        'payer' => [
+            'landlord' => 'Propriétaire',
+            'tenant' => 'Locataire',
+            'tenant/landlord' => 'Locataire/Propriétaire'
+        ],
         'status' => [
             "label" => "Statut",
             "received" => "Reçu",
@@ -704,50 +764,6 @@ return [
             "archived" => "Archivé",
             "solved" => "Résolues",
             "pending" => "En attente"
-        ],
-        'sub_category_fields' => [
-            'location' => [
-                'house_entrance' => 'Entrée de maison',
-                'staircase' => 'Escalier',
-                'elevator' => 'Ascenseur',
-                'car_park' => 'Parking souterrain',
-                'washing' => 'Lavage/séchage',
-                'heating' => 'Technologie/Chauffage',
-                'electro' => 'Technologie/Électrotechnique',
-                'facade' => 'Façade',
-                'roof' => 'Toit',
-                'other' => 'Autre'
-            ],
-            'room' => [
-                'bath' => 'Salle de bains/WC',
-                'shower' => 'Douche/WC',
-                'entrance' => 'L\'entrée',
-                'passage' => 'Passage',
-                'basement' => 'Sous-sol',
-                'kitchen' => 'Cuisine',
-                'storeroom' => 'Reduite',
-                'habitation' => 'Habitation',
-                'room1' => 'Chambre 1',
-                'room2' => 'Chambre 2',
-                'room3' => 'Chambre 3',
-                'room4' => 'Chambre 4',
-                'all' => 'Tous',
-                'other' => 'Autre'
-            ],
-            'capture_phase' => [
-                'other' => 'Autre',
-                'construction' => 'Phase de construction',
-                'shell' => 'Acceptation de la coquille',
-                'preliminary' => 'Acceptation préliminaire',
-                'work' => 'Acceptation des travaux',
-                'surrender' => 'Rendez-vous',
-                'inspection' => 'Acceptation'
-            ],
-            'payer' => [
-                'landlord' => 'Propriétaire',
-                'tenant' => 'Locataire',
-                'tenant/landlord' => 'Locataire/Propriétaire'
-            ]
         ],
         'category_options' => [
             "disturbance" => "Perturbation",
@@ -881,13 +897,13 @@ return [
             'deleted' => "Le gestionnaire immobilier a supprimé l'erreur : ",
         ],
     ],
-    'product' => [
+    'listing' => [
         "title" => "Produits",
         "add" => "Ajouter un produit",
         "edit_title" => "Modifier le produit",
         "delete_action" => "Supprimer",
         "content" => "Contenu",
-        "product_title" => "Titre",
+        "listing_title" => "Titre",
         "published_at" => "Publié",
         "publish" => "Publier",
         "unpublish" => "Non publié",

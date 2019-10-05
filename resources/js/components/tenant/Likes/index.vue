@@ -19,7 +19,7 @@
             type: {
                 type: String,
                 required: true,
-                validator: value => ['pinboard', 'product'].includes(value)
+                validator: value => ['pinboard', 'listing'].includes(value)
             },
             data: {
                 type: Array,

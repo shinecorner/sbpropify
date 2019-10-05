@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\ServiceProvider;
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Models\User;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
@@ -24,35 +24,35 @@ class ServiceRequestsTableSeeder extends Seeder
                 $query->where('name', 'administrator');
             })->get();
 
-            $serviceRequests = [];
+            $requests = [];
             for ($i = 0; $i < 500; $i++) {
                 $date = $this->getRandomTime();
-                $serviceRequests[] = factory(App\Models\ServiceRequest::class)->create($this->getDateColumns($date));
+                $requests[] = factory(App\Models\Request::class)->create($this->getDateColumns($date));
             }
 
             $user = App\Models\User::where('email', 'tenant@example.com')->first();
-            foreach ($serviceRequests as $key => $serviceRequest) {
-                $this->addRequestComments($serviceRequest);
+            foreach ($requests as $key => $request) {
+                $this->addRequestComments($request);
                 if ($key < 3) {
                     continue;
                 }
 
-                $serviceRequest->tenant_id = $user->tenant->id;
-                $serviceRequest->unit_id = $user->tenant->unit_id;
-                $serviceRequest->status = array_rand(ServiceRequest::Status);
-                $serviceRequest->save();
+                $request->tenant_id = $user->tenant->id;
+                $request->unit_id = $user->tenant->unit_id;
+                $request->status = array_rand(Request::Status);
+                $request->save();
                 $providers = ServiceProvider::inRandomOrder()->take(2)->get();
                 foreach ($providers as $p) {
-                    $serviceRequest->providers()->sync([$p->id => ['created_at' => now()]]);
+                    $request->providers()->sync([$p->id => ['created_at' => now()]]);
                 }
 
                 $managers = \App\Models\PropertyManager::inRandomOrder()->take(2)->get();
                 foreach ($managers as $m) {
-                    $serviceRequest->managers()->sync([$m->id => ['created_at' => now()]]);
+                    $request->managers()->sync([$m->id => ['created_at' => now()]]);
                 }
                 foreach ($providers as $prov) {
                     foreach ($admins as $admin) {
-                        $c = $serviceRequest->conversationFor($admin, $prov->user);
+                        $c = $request->conversationFor($admin, $prov->user);
                         $c->commentAsUser($admin, "Knock Knock!");
                         usleep(1000);
                         $c->commentAsUser($prov->user, "Who's there?");
@@ -62,20 +62,20 @@ class ServiceRequestsTableSeeder extends Seeder
         }
     }
 
-    private function addRequestComments(ServiceRequest $serviceRequest)
+    private function addRequestComments(Request $request)
     {
         $totalComments = $this->faker->numberBetween(1, 2);
         $users = [
-            $serviceRequest->tenant->user,
+            $request->tenant->user,
         ];
 
-        if ($serviceRequest->agent) {
-            $users [] = $serviceRequest->agent;
+        if ($request->agent) {
+            $users [] = $request->agent;
         }
 
         for ($i = 0; $i < $totalComments; $i++) {
             $user = $users[rand(0, count($users) - 1)];
-            $serviceRequest->commentAsUser($user, $this->faker->sentence(3), null);
+            $request->commentAsUser($user, $this->faker->sentence(3), null);
         }
 
         DB::statement("UPDATE comments SET created_at = NOW() + INTERVAL -1 week + INTERVAL id second, updated_at = NOW() + INTERVAL -1 week + INTERVAL id second;");

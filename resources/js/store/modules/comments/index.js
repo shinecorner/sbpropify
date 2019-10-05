@@ -4,7 +4,7 @@ export default {
     state: {
         pinboard: {},
         request: {},
-        product: {},
+        listing: {},
         internalNotices: {}
     },
     actions: {
@@ -52,10 +52,14 @@ export default {
             })
         },
         async create ({commit, rootGetters}, {id, ...params}) {
-            let url = params.commentable == 'internalNotices' ? '' : `/${id}/comments`;
+            let managerParams = '';
+            for (const index in params.selectedManagerLists) {
+                managerParams += `property_managers[]=${params.selectedManagerLists[index]}`
+            }
+            let url = params.commentable == 'internalNotices' ? `?${managerParams}` : `/${id}/comments`;
             const {data} = await this._vm.axios.post({
                 pinboard: 'pinboard',
-                product: 'products',
+                listing: 'listings',
                 request: 'requests',
                 conversation: 'conversations',
                 internalNotices: 'internalNotices'
@@ -79,13 +83,13 @@ export default {
                     }
 
                     break
-                case 'product':
-                    let product = rootGetters['newPinboard/getById'](id)
+                case 'listing':
+                    let listing = rootGetters['newPinboard/getById'](id)
 
-                    if (product) {
-                        Object.assign(product, {comments_count: product.comments_count + 1})
+                    if (listing) {
+                        Object.assign(listing, {comments_count: listing.comments_count + 1})
                         
-                        commit('newProducts/update', product, {root: true})
+                        commit('newListings/update', listing, {root: true})
                     }
 
                     break
@@ -104,7 +108,7 @@ export default {
         async createOnly ({}, {id, ...params}) {
             const {data} = await this._vm.axios.post({
                 pinboards: 'pinboard',
-                product: 'products',
+                listing: 'listings',
                 request: 'requests',
                 conversation: 'conversations'
             }[params.commentable] + `/${id}/comments`, params)
@@ -238,7 +242,7 @@ export default {
         reset: state => Object.assign(state, {
             pinboard: {},
             request: {},
-            product: {},
+            listing: {},
             internalNotices: {}
         })
     }

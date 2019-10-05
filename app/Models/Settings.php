@@ -94,8 +94,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *     @SWG\Property(
- *          property="marketplace_approval_enable",
- *          description="marketplace_approval_enable",
+ *          property="listing_approval_enable",
+ *          description="listing_approval_enable",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -157,7 +157,7 @@ class Settings extends AuditableModel
         'blank_pdf',
         'quarter_enable',
         'contact_enable',
-        'marketplace_approval_enable',
+        'listing_approval_enable',
         'news_approval_enable',
         'comment_update_timeout',
         'free_apartments_enable',
@@ -205,7 +205,7 @@ class Settings extends AuditableModel
         'contact_enable' => 'boolean',
         'gocaution_enable' => 'boolean',
         'cleanify_enable' => 'boolean',
-        'marketplace_approval_enable' => 'boolean',
+        'listing_approval_enable' => 'boolean',
         'news_approval_enable' => 'boolean',
         'comment_update_timeout' => 'integer',
         'free_apartments_enable' => 'boolean',

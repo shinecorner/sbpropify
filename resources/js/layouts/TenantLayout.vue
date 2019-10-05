@@ -104,9 +104,9 @@
                     }
                 }, {
                     icon: 'icon-basket',
-                    title: 'tenant.add_product',
+                    title: 'tenant.add_listing',
                     route: {
-                        name: 'tenantMarketplace'
+                        name: 'tenantListing'
                     }
                 }],
                 routes: [{
@@ -172,9 +172,9 @@
                     }
                 }, {
                     icon: 'icon-basket',
-                    title: 'layouts.tenant.sidebar.products',
+                    title: 'layouts.tenant.sidebar.listings',
                     route: {
-                        name: 'tenantMarketplace'
+                        name: 'tenantListing'
                     }
                 }, {
                     icon: 'icon-water',

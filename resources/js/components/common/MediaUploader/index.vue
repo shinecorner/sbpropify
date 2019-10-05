@@ -92,7 +92,7 @@
             },
             type: {
                 type: String,
-                validator: type => ['pinboard', 'requests', 'products'].includes(type),
+                validator: type => ['pinboard', 'requests', 'listings'].includes(type),
                 required: true
             },
             layout: {
@@ -276,8 +276,8 @@
                             id : this.id, media: data.response.data
                         })  
                     }
-                    else if(this.type == "products") {
-                        this.$store.dispatch('newProducts/addMedia', {
+                    else if(this.type == "listings") {
+                        this.$store.dispatch('newListings/addMedia', {
                             id : this.id, media: data.response.data
                         })  
                     }

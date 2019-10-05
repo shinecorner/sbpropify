@@ -12,9 +12,9 @@ return [
     'pinbord_by_creation_date' => 'Tableau par date de création',
     'pinbord_by_status' => 'Tableau d\'affichage par statut',
     'pinbord_by_type' => 'Panneau d\'affichage par type',
-    'latest_products' => 'Derniers produits',
-    'products_by_creation_date' => 'Marché des produits par date de création',
-    'products_by_type' => 'Produits du marché par type',
+    'latest_listings' => 'Derniers produits',
+    'listings_by_creation_date' => 'Marché des produits par date de création',
+    'listings_by_type' => 'Produits du marché par type',
     'tenants_by_creation_date' => 'Locataires par date de création',
     'tenants_by_request_status' => 'Locataires selon le statut des demandes',
     'tenants_by_status' => 'Locataires par statut',
@@ -55,8 +55,8 @@ return [
         'latest_tenants' => 'Derniers locataires',
         'go_to_tenants' => 'Aller aux locataires  '
     ],
-    'marketplace' => [
-        'go_to_marketplace' => 'Aller au marché'
+    'listing' => [
+        'go_to_listing' => 'Aller au marché'
     ],
     'pinbord' => [
         'latest_pinbord' => 'Dernier panneau d\'affichage',

@@ -7,10 +7,10 @@ use App\Http\Requests\API\Media\BuildingDeleteRequest;
 use App\Http\Requests\API\Media\BuildingUploadRequest;
 use App\Http\Requests\API\Media\PinboardDeleteRequest;
 use App\Http\Requests\API\Media\PinboardUploadRequest;
-use App\Http\Requests\API\Media\ProductDeleteRequest;
-use App\Http\Requests\API\Media\ProductUploadRequest;
-use App\Http\Requests\API\Media\SRequestDeleteRequest;
-use App\Http\Requests\API\Media\SRequestUploadRequest;
+use App\Http\Requests\API\Media\ListingDeleteRequest;
+use App\Http\Requests\API\Media\ListingUploadRequest;
+use App\Http\Requests\API\Media\RequestDeleteRequest;
+use App\Http\Requests\API\Media\RequestUploadRequest;
 use App\Http\Requests\API\Media\TenantDeleteRequest;
 use App\Http\Requests\API\Media\RentContractDeleteRequest;
 use App\Http\Requests\API\Media\RentContractUploadRequest;
@@ -19,13 +19,12 @@ use App\Models\Building;
 use App\Repositories\AddressRepository;
 use App\Repositories\BuildingRepository;
 use App\Repositories\PinboardRepository;
-use App\Repositories\ProductRepository;
-use App\Repositories\ServiceRequestRepository;
+use App\Repositories\ListingRepository;
+use App\Repositories\RequestRepository;
 use App\Repositories\RentContractRepository;
 use App\Repositories\TenantRepository;
 use App\Transformers\MediaTransformer;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 
 /**
  * Class MediaController
@@ -42,8 +41,8 @@ class MediaAPIController extends AppBaseController
     /** @var  PinboardRepository */
     private $pinboardRepository;
 
-    /** @var  ProductRepository */
-    private $productRepository;
+    /** @var  ListingRepository */
+    private $listingRepository;
 
     /** @var  TenantRepository */
     private $tenantRepository;
@@ -53,35 +52,35 @@ class MediaAPIController extends AppBaseController
      */
     private $rentContractRepository;
 
-    /** @var  ServiceRequestRepository */
-    private $serviceRequestRepository;
+    /** @var  RequestRepository */
+    private $requestRepository;
 
     /**
      * MediaAPIController constructor.
      * @param BuildingRepository $buildingRepo
      * @param AddressRepository $addrRepo
      * @param PinboardRepository $pinboardRepo
-     * @param ProductRepository $productRepo
+     * @param ListingRepository $listingRepo
      * @param TenantRepository $tenantRepo
      * @param RentContractRepository $rentContractRepository
-     * @param ServiceRequestRepository $serviceRequestRepo
+     * @param RequestRepository $requestRepo
      */
     public function __construct(
         BuildingRepository $buildingRepo,
         AddressRepository $addrRepo,
         PinboardRepository $pinboardRepo,
-        ProductRepository $productRepo,
+        ListingRepository $listingRepo,
         TenantRepository $tenantRepo,
         RentContractRepository $rentContractRepository,
-        ServiceRequestRepository $serviceRequestRepo
+        RequestRepository $requestRepo
     )
     {
         $this->buildingRepository = $buildingRepo;
         $this->addressRepository = $addrRepo;
         $this->pinboardRepository = $pinboardRepo;
-        $this->productRepository = $productRepo;
+        $this->listingRepository = $listingRepo;
         $this->tenantRepository = $tenantRepo;
-        $this->serviceRequestRepository = $serviceRequestRepo;
+        $this->requestRepository = $requestRepo;
         $this->rentContractRepository = $rentContractRepository;
     }
 
@@ -562,7 +561,7 @@ class MediaAPIController extends AppBaseController
      * @SWG\Post(
      *      path="/requests/{id}/media",
      *      summary="Store a newly created Request Media in storage",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Store Media",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -570,7 +569,7 @@ class MediaAPIController extends AppBaseController
      *          in="body",
      *          description="Media that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/ServiceRequest")
+     *          @SWG\Schema(ref="#/definitions/Request")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -583,7 +582,7 @@ class MediaAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/ServiceRequest"
+     *                  ref="#/definitions/Request"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -594,22 +593,21 @@ class MediaAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param SRequestUploadRequest $request
+     * @param RequestUploadRequest $requestUploadRequest
      * @return Response
      */
-    public function serviceRequestUpload(int $id, SRequestUploadRequest $request)
+    public function requestUpload(int $id, RequestUploadRequest $requestUploadRequest)
     {
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
-
-        $data = $request->get('media', '');
-        if (!$media = $this->serviceRequestRepository->uploadFile('media', $data, $serviceRequest, $request->merge_in_audit)) {
+        $data = $requestUploadRequest->get('media', '');
+        if (!$media = $this->requestRepository->uploadFile('media', $data, $request, $requestUploadRequest->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
-        $serviceRequest->touch();
-        $this->serviceRequestRepository->notifyMedia($serviceRequest, \Auth::user(), $media);
+        $request->touch();
+        $this->requestRepository->notifyMedia($request, \Auth::user(), $media);
         $response = (new MediaTransformer)->transform($media);
         return $this->sendResponse($response, __('general.swal.media.added'));
     }
@@ -618,7 +616,7 @@ class MediaAPIController extends AppBaseController
      * @SWG\Delete(
      *      path="/requests/{id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
-     *      tags={"ServiceRequest"},
+     *      tags={"Request"},
      *      description="Delete Media",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -650,32 +648,32 @@ class MediaAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param int $media_id
-     * @param SRequestDeleteRequest $r
+     * @param int $mediaId
+     * @param RequestDeleteRequest $r
      * @return Response
      */
-    public function serviceRequestDestroy(int $id, int $media_id, SRequestDeleteRequest $r)
+    public function requestDestroy(int $id, int $mediaId, RequestDeleteRequest $r)
     {
-        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
-        if (empty($serviceRequest)) {
+        $request = $this->requestRepository->findWithoutFail($id);
+        if (empty($request)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $media = $serviceRequest->media->find($media_id);
+        $media = $request->media->find($mediaId);
         if (empty($media)) {
             return $this->sendError(__('general.media_not_found'));
         }
 
         $media->delete();
-        $serviceRequest->touch();
-        return $this->sendResponse($media_id, __('general.swal.media.deleted'));
+        $request->touch();
+        return $this->sendResponse($mediaId, __('general.swal.media.deleted'));
     }
 
     /**
      * @SWG\Post(
-     *      path="/products/{product_id}/media",
-     *      summary="Store a newly created product Media in storage",
-     *      tags={"Marketplace"},
+     *      path="/listings/{listing_id}/media",
+     *      summary="Store a newly created listing Media in storage",
+     *      tags={"Listing"},
      *      description="Store Media",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -683,7 +681,7 @@ class MediaAPIController extends AppBaseController
      *          in="body",
      *          description="Media that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Product")
+     *          @SWG\Schema(ref="#/definitions/Listing")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -696,7 +694,7 @@ class MediaAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Product"
+     *                  ref="#/definitions/Listing"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -708,18 +706,18 @@ class MediaAPIController extends AppBaseController
      *
      *
      * @param int $id
-     * @param ProductUploadRequest $request
+     * @param ListingUploadRequest $request
      * @return Response
      */
-    public function productUpload(int $id, ProductUploadRequest $request)
+    public function listingUpload(int $id, ListingUploadRequest $request)
     {
-        $product = $this->productRepository->findWithoutFail($id);
-        if (empty($product)) {
+        $listing = $this->listingRepository->findWithoutFail($id);
+        if (empty($listing)) {
             return $this->sendError(__('models.building.not_found'));
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->productRepository->uploadFile('media', $data, $product, $request->merge_in_audit)) {
+        if (!$media = $this->listingRepository->uploadFile('media', $data, $listing, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
 
@@ -729,9 +727,9 @@ class MediaAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="/products/{product_id}/media/{media_id}",
+     *      path="/listings/{listing_id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
-     *      tags={"Marketplace"},
+     *      tags={"Listing"},
      *      description="Delete Media",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -764,18 +762,18 @@ class MediaAPIController extends AppBaseController
      *
      * @param int $id
      * @param int $media_id
-     * @param ProductDeleteRequest $r
+     * @param ListingDeleteRequest $r
      * @return Response
      *
      */
-    public function productDestroy(int $id, int $media_id, ProductDeleteRequest $r)
+    public function listingDestroy(int $id, int $media_id, ListingDeleteRequest $r)
     {
-        $product = $this->productRepository->findWithoutFail($id);
-        if (empty($product)) {
-            return $this->sendError(__('models.product.errors.not_found'));
+        $listing = $this->listingRepository->findWithoutFail($id);
+        if (empty($listing)) {
+            return $this->sendError(__('models.listing.errors.not_found'));
         }
 
-        $media = $product->media->find($media_id);
+        $media = $listing->media->find($media_id);
         if (empty($media)) {
             return $this->sendError(__('general.media_not_found'));
         }

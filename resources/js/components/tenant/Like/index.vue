@@ -35,7 +35,7 @@
             type: {
                 type: String,
                 required: true,
-                validator: type => ['pinboard', 'product'].includes(type)
+                validator: type => ['pinboard', 'listing'].includes(type)
             },
             icons: {
                 type: Object,
@@ -72,8 +72,8 @@
                         await this.$store.dispatch(`newPinboard/${this.status.liked ? 'unlike' : 'like'}`, {id: this.id})
 
                         break
-                    case 'product':
-                        await this.$store.dispatch(`newProducts/${this.status.liked ? 'unlike' : 'like'}`, {id: this.id})
+                    case 'listing':
+                        await this.$store.dispatch(`newListings/${this.status.liked ? 'unlike' : 'like'}`, {id: this.id})
 
                         break
                 }
@@ -85,7 +85,7 @@
             status () {
                 const {liked = false, likes_count = 0} = this.$store.getters[{
                     pinboard: `newPinboard/getById`,
-                    product: `newProducts/getById`
+                    listing: `newListings/getById`
                 }[this.type]](this.id) || {}
 
                 return {liked, likes_count}

@@ -4,13 +4,13 @@ return [
         'audit' => [
             'type' => [
                 'pinboard' => 'Pinnwand',
-                'product' => 'Markplatz',
+                'listing' => 'Markplatz',
                 'request' => 'Anfragen'
             ],
             'filter' => [
                 'type' => [
                     'pinboard' => 'Pinnwand',
-                    'product' => 'Markplatz',
+                    'listing' => 'Markplatz',
                     'request' => 'Anfragen'
                 ],
                 'pinboard' => [
@@ -21,7 +21,7 @@ return [
                     'media_uploaded' => 'Mediendateien hinaufgeladen',
                     'media_deleted' => 'Mediendateien gelöscht'
                 ],
-                'product' => [
+                'listing' => [
 
                 ],
                 'request' => [
@@ -42,7 +42,7 @@ return [
                             'published_at' => 'Beitrag wurde am {new} veröffentlicht.'
                         ]
                     ],
-                    'product' => [
+                    'listing' => [
                         'created' => '{userName} dieses Inserat erstellt: {auditable_type}',
                         'updated' => [
                             'title' => 'Der Titel wurde von "{old}" zu "{new}" geändert.',
@@ -88,7 +88,7 @@ return [
                             'published_at' => 'Post published im {new} im {auditable_type} #{auditable_id}.'
                         ]
                     ],
-                    'product' => [
+                    'listing' => [
                         'created' => '{userName} hat dieses Inserat erstellt.',
                         'updated' => [
                             'title' => 'Der Titel wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',

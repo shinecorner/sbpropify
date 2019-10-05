@@ -5,10 +5,10 @@ namespace App\Providers;
 use App\Models\Building;
 use App\Models\Quarter;
 use App\Models\Pinboard;
-use App\Models\Product;
+use App\Models\Listing;
 use App\Models\PropertyManager;
 use App\Models\Settings;
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Models\Template;
 use App\Models\Conversation;
 use App\Models\Tenant;
@@ -20,7 +20,7 @@ use App\Notifications\NewTenantPinboard;
 use App\Notifications\NewTenantRequest;
 use App\Notifications\AnnouncementPinboardPublished;
 use App\Notifications\PinboardPublished;
-use App\Notifications\ProductPublished;
+use App\Notifications\ListingPublished;
 use App\Notifications\StatusChangedRequest;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -52,11 +52,11 @@ class AppServiceProvider extends ServiceProvider
             'user' => User::class,
             'pinboard' => Pinboard::class,
             'tenant' => Tenant::class,
-            'product' => Product::class,
+            'listing' => Listing::class,
             'quarter' => Quarter::class,
             'building' => Building::class,
             'templates' => Template::class,
-            'request' => ServiceRequest::class,
+            'request' => Request::class,
             'settings' => Settings::class,
             'manager' => PropertyManager::class,
             'translation' => \App\Models\Translation::class,
@@ -68,7 +68,7 @@ class AppServiceProvider extends ServiceProvider
             'new_tenant_pinboard' => NewTenantPinboard::class,
             'announcement_pinboard_published' => AnnouncementPinboardPublished::class,
             'new_tenant_in_neighbour' => NewTenantInNeighbour::class,
-            'product_published' => ProductPublished::class,
+            'listing_published' => ListingPublished::class,
             'new_tenant_request' => NewTenantRequest::class,
             'status_change_request' => StatusChangedRequest::class,
         ]);

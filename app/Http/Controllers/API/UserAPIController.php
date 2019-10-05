@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\Users\FilterByRolesCriteria;
-use App\Criteria\Users\WhereCriteria;
+use App\Criteria\User\FilterByRolesCriteria;
+use App\Criteria\User\WhereCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\User\ChangePasswordRequest;
 use App\Http\Requests\API\User\CreateRequest;

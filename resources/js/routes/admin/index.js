@@ -16,7 +16,7 @@ import PinbordRoutes from 'routes/admin/pinboard';
 import QuartersRoutes from 'routes/admin/quarters';
 import RequestsRoutes from 'routes/admin/requests';
 import PropertyManagersRoutes from 'routes/admin/propertyManagers';
-import ProductsRoutes from 'routes/admin/products';
+import ListingsRoutes from 'routes/admin/listings';
 import TemplatesRoutes from 'routes/admin/templates';
 
 
@@ -65,7 +65,7 @@ export default [{
         ...QuartersRoutes,
         ...RequestsRoutes,
         ...PropertyManagersRoutes,
-        ...ProductsRoutes,
+        ...ListingsRoutes,
         ...TemplatesRoutes,
     ],
     beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard]),

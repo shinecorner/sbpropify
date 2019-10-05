@@ -12,9 +12,9 @@ return [
     'pinboard_by_creation_date' => 'Nachrichten nach Erstellungsdatum',
     'pinboard_by_status' => 'Nachrichten nach Status',
     'pinboard_by_type' => 'Nachrichten nach Typ',
-    'latest_products' => 'Neueste Produkte',
-    'products_by_creation_date' => 'Marktplatz-Produkte nach Erstellungsdatum',
-    'products_by_type' => 'Marktplatz-Produkte nach Typ',
+    'latest_listings' => 'Neueste Produkte',
+    'listings_by_creation_date' => 'Marktplatz-Produkte nach Erstellungsdatum',
+    'listings_by_type' => 'Marktplatz-Produkte nach Typ',
     'tenants_by_creation_date' => 'Mieter nach Erstellungsdatum',
     'tenants_by_request_status' => 'Mieter nach Anfrage-Status',
     'tenants_by_status' => 'Mieter nach Status',
@@ -55,8 +55,8 @@ return [
         'latest_tenants' => 'Neueste Mieter',
         'go_to_tenants' => 'zu den Mietern gehen'
     ],
-    'marketplace' => [
-        'go_to_marketplace' => 'zum Marktplatz gehen'
+    'listing' => [
+        'go_to_listing' => 'zum Marktplatz gehen'
     ],
     'pinboard' => [
         'latest_pinboard' => 'Neueste Beiträge',

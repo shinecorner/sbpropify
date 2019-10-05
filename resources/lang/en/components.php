@@ -4,13 +4,13 @@ return [
         'audit' => [
             'type' => [
                 'pinboard' => 'Pinboard',
-                'product' => 'Product',
+                'listing' => 'Listing',
                 'request' => 'Request'
             ],
             'filter' => [
                 'type' => [
                     'pinboard' => 'Pinboard',
-                    'product' => 'Product',
+                    'listing' => 'Listing',
                     'request' => 'Request'
                 ],
                 'pinboard' => [
@@ -21,7 +21,7 @@ return [
                     'media_uploaded' => 'Media uploaded',
                     'media_deleted' => 'Media deleted'
                 ],
-                'product' => [
+                'listing' => [
 
                 ],
                 'request' => [
@@ -42,7 +42,7 @@ return [
                             'published_at' => 'Pinboard published on {new}.'
                         ]
                     ],
-                    'product' => [
+                    'listing' => [
                         'created' => '{userName} opened this {auditable_type}.',
                         'updated' => [
                             'title' => 'The title changed from "{old}" to "{new}".',
@@ -88,7 +88,7 @@ return [
                             'published_at' => 'Pinboard published on {new} on {auditable_type} #{auditable_id}.'
                         ]
                     ],
-                    'product' => [
+                    'listing' => [
                         'created' => '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'title' => 'The title changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',

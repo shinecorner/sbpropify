@@ -4,8 +4,8 @@ import LatestMyNeighboursCardLoader from './LatestMyNeighboursCard/Loader'
 import LatestPinboardCardError from './LatestPinboardCard/Error'
 import LatestPinboardCardLoader from './LatestPinboardCard/Loader'
 
-import LatestProductsCardError from './LatestProductsCard/Error'
-import LatestProductsCardLoader from './LatestProductsCard/Loader'
+import LatestListingsCardError from './LatestListingsCard/Error'
+import LatestListingsCardLoader from './LatestListingsCard/Loader'
 
 import LatestPropertyManagersCardError from './LatestPropertyManagersCard/Error'
 import LatestPropertyManagersCardLoader from './LatestPropertyManagersCard/Loader'
@@ -37,17 +37,17 @@ import PinboardEditFormLoader from './PinboardEditForm/Loader'
 import PinboardDeleteModalError from './PinboardDeleteModal/Error'
 import PinboardDeleteModalLoader from './PinboardDeleteModal/Loader'
 
-import ProductAddFormError from './ProductAddForm/Error'
-import ProductAddFormLoader from './ProductAddForm/Loader'
+import ListingAddFormError from './ListingAddForm/Error'
+import ListingAddFormLoader from './ListingAddForm/Loader'
 
-import ProductEditFormError from './ProductEditForm/Error'
-import ProductEditFormLoader from './ProductEditForm/Loader'
+import ListingEditFormError from './ListingEditForm/Error'
+import ListingEditFormLoader from './ListingEditForm/Loader'
 
-import ProductCardError from './ProductCard/Error'
-import ProductCardLoader from './ProductCard/Loader'
+import ListingCardError from './ListingCard/Error'
+import ListingCardLoader from './ListingCard/Loader'
 
-import ProductDetailsError from './ProductDetails/Error'
-import ProductDetailsLoader from './ProductDetails/Loader'
+import ListingDetailsError from './ListingDetails/Error'
+import ListingDetailsLoader from './ListingDetails/Loader'
 
 import RateCardError from './RateCard/Error'
 import RateCardLoader from './RateCard/Loader'
@@ -100,10 +100,10 @@ export default {
                 delay: 0,
                 timeout: 8000
             }),
-            latestProductsCard: () => ({
-                component: import(/* webpackChunkName: "latestProductsCard" */ './LatestProductsCard'),
-                loading: LatestProductsCardLoader,
-                error: LatestProductsCardError,
+            latestListingsCard: () => ({
+                component: import(/* webpackChunkName: "latestListingsCard" */ './LatestListingsCard'),
+                loading: LatestListingsCardLoader,
+                error: LatestListingsCardError,
                 delay: 0,
                 timeout: 8000
             }),
@@ -177,31 +177,31 @@ export default {
                 delay: 0,
                 timeout: 8000
             }),
-            productAddForm: () => ({
-                component: import(/* webpackChunkName: "productAddForm" */ './ProductAddForm'),
-                loading: ProductAddFormLoader,
-                error: ProductAddFormError,
+            listingAddForm: () => ({
+                component: import(/* webpackChunkName: "listingAddForm" */ './ListingAddForm'),
+                loading: ListingAddFormLoader,
+                error: ListingAddFormError,
                 delay: 0,
                 timeout: 8000
             }),
-            productEditForm: () => ({
-                component: import(/* webpackChunkName: "productEditForm" */ './ProductEditForm'),
-                loading: ProductEditFormLoader,
-                error: ProductEditFormError,
+            listingEditForm: () => ({
+                component: import(/* webpackChunkName: "listingEditForm" */ './ListingEditForm'),
+                loading: ListingEditFormLoader,
+                error: ListingEditFormError,
                 delay: 0,
                 timeout: 8000
             }),
-            productCard: () => ({
-                component: import(/* webpackChunkName: "productCard" */ './ProductCard'),
-                loading: ProductCardLoader,
-                error: ProductCardError,
+            listingCard: () => ({
+                component: import(/* webpackChunkName: "listingCard" */ './ListingCard'),
+                loading: ListingCardLoader,
+                error: ListingCardError,
                 delay: 0,
                 timeout: 8000
             }),
-            productDetails: () => ({
-                component: import(/* webpackChunkName: "productDetails" */ './ProductDetails'),
-                loading: ProductDetailsLoader,
-                error: ProductDetailsError,
+            listingDetails: () => ({
+                component: import(/* webpackChunkName: "listingDetails" */ './ListingDetails'),
+                loading: ListingDetailsLoader,
+                error: ListingDetailsError,
                 delay: 0,
                 timeout: 8000
             }),

@@ -20,7 +20,7 @@
             <el-timeline v-else>
                 <template v-for="(audit, date) in audits.data">
                     <el-timeline-item  v-for="(content, index) in audit.content" :key="audit.id+'-'+index" :timestamp="`${audit.userName} • ${formatDatetime(date)}`">
-                        {{content}}
+                        <span v-html="content">{{content}}</span>
                     </el-timeline-item>
                 </template>
                 <el-timeline-item v-if="loading">
@@ -51,7 +51,7 @@
             showFilter: Boolean,
             type: {
                 type: String,
-                validator: type => ['pinboard', 'product', 'request'].includes(type)
+                validator: type => ['pinboard', 'listing', 'request'].includes(type)
             }
         },
         components: {
@@ -216,7 +216,7 @@
                     break;
                     case 'pinboard': constant_variables = this.$constants.pinboard;
                     break;
-                    case 'product': constant_variables = this.$constants.products;
+                    case 'listing': constant_variables = this.$constants.listings;
                     break;
                 }
                 const translation_with_id = this.id ? 'withId': 'withNoId'

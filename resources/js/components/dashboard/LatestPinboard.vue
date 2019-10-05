@@ -62,7 +62,7 @@
                 }, {
                     type: 'actions',
                     label: 'dashboard.actions',
-                    width: '125px',
+                    width: '130px',
                     actions: [ 
                         {
                             type: 'default',
@@ -70,12 +70,12 @@
                             onClick: this.edit,
                             editUrl: 'adminPinboardEdit',
                             permissions: [
-                                this.$permissions.update.product
+                                this.$permissions.update.listing
                             ]
                         }
                     ]
                 }],
-                product: {},
+                listing: {},
             };
         },
         computed: {

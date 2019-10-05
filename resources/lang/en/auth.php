@@ -30,7 +30,7 @@ return [
 		'description' => 'In the Pinboard section you can post articles that are visible to your neighbours. For example, if noise is to be expected due to an event.'
 	],
 	'benefit_4' => [
-		'title' => 'Online rental and marketplace',
+		'title' => 'Online rental and listing',
 		'description' => "If you have items you don't need, you can advertise them in the app and offer them to your neighbours."
 	],
 	'login' => [

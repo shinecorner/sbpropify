@@ -67,18 +67,18 @@ export default (config = {}) => {
                 validationRules: {
                     name: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.name')})
                     }],
                     phone: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.phone')})
                     }],
                     email: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.email')})
                     }, {
                         type: 'email',
-                        message: 'This field is required'
+                        message: this.$t('validation.email', {attribute: this.$t('general.email')})
                     }, {
                         validator: this.checkavailabilityEmail
                     }],
@@ -86,40 +86,40 @@ export default (config = {}) => {
                         validator: this.validatePassword
                     }, {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.password')})
                     }, {
                         min: 6,
-                        message: 'This field must be at least 6 characters'
+                        message: this.$t('validation.min.string', {attribute: this.$t('general.password'), min: 6})
                     }],
                     password_confirmation: [{
                         validator: this.validateConfirmPassword
                     }, {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.confirm_password')})
                     }],
                     category: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.general.required')
                     }],
                     state_id: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('models.address.state.label')})
                     }],
                     city: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.city')})
                     }],
                     street: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('models.address.street')})
                     }],
                     house_num: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.general.required')
                     }],
                     zip: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required', {attribute: this.$t('general.zip')})
                     }],
                 },
                 loading: {

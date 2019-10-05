@@ -7,8 +7,6 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use App\Models\ServiceProvider;
-use App\Models\ServiceRequest;
 use App\Models\CleanifyRequest;
 use Illuminate\Support\Facades\App;
 

@@ -218,17 +218,10 @@
                 }
             },
             getLanguageI18n() {
-                let building_locations = this.$t('models.request.category_options.building_locations');
-                this.building_locations = [];
-                for (var key in building_locations) {
-                    this.building_locations.push({name : building_locations[key], value : key})
-                }
 
-                let apartment_rooms = this.$t('models.request.category_options.apartment_rooms');
-                this.apartment_rooms = [];
-                for (var key in apartment_rooms) {
-                    this.apartment_rooms.push({name : apartment_rooms[key], value : key})
-                }
+                this.building_locations = Object.entries(this.$constants.serviceRequests.location).map(([value, label]) => ({value: +value, name: this.$t(`models.request.location.${label}`)}))
+                this.apartment_rooms = Object.entries(this.$constants.serviceRequests.room).map(([value, label]) => ({value: +value, name: this.$t(`models.request.room.${label}`)}))
+                
             },
             submit () {
                 this.$refs.form.validate(async valid => {
@@ -290,6 +283,7 @@
             }
         },
         async mounted () {
+            this.priorities = Object.entries(this.$constants.serviceRequests.priority).map(([value, label]) => ({value: +value, label}));
             try {
                 const {data} = await this.$store.dispatch('getRequestCategoriesTree', {get_all: true})
 
@@ -305,8 +299,7 @@
             } catch (err) {
                 displayError(err)
             }
-
-            this.priorities = Object.entries(this.$constants.serviceRequests.priority).map(([value, label]) => ({value: +value, label}));
+            
         },
         watch: {
             "$i18n.locale": {

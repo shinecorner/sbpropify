@@ -3,7 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Comment;
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -22,7 +22,7 @@ class RequestCommented extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * @var ServiceRequest
+     * @var Request
      */
     protected $request;
     /**
@@ -36,11 +36,11 @@ class RequestCommented extends Notification implements ShouldQueue
 
     /**
      * RequestCommented constructor.
-     * @param ServiceRequest $request
+     * @param Request $request
      * @param User $user
      * @param Comment $comment
      */
-    public function __construct(ServiceRequest $request, User $user, Comment $comment)
+    public function __construct(Request $request, User $user, Comment $comment)
     {
         $this->request = $request;
         $this->user = $user;

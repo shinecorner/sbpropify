@@ -118,7 +118,7 @@
                     //     data: this.quarters,
                     // },
                     {
-                        name: this.$t('models.tenant.language'),
+                        name: this.$t('filters.language'),
                         type: 'language',
                         key: 'language'
                     }

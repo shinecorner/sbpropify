@@ -2,31 +2,30 @@
 
 namespace App\Traits;
 
-
-use App\Models\ServiceRequest;
+use App\Models\Request;
 use Illuminate\Support\Str;
 
 trait RequestRelation
 {
     public function requests()
     {
-        return $this->morphToMany(ServiceRequest::class, 'assignee', 'request_assignees', 'assignee_id', 'request_id');
+        return $this->morphToMany(Request::class, 'assignee', 'request_assignees', 'assignee_id', 'request_id');
     }
 
     public function pendingRequests()
     {
-        return $this->requests()->whereIn('service_requests.status', ServiceRequest::PendingStatuses);
+        return $this->requests()->whereIn('requests.status', Request::PendingStatuses);
     }
 
     public function solvedRequests()
     {
-        return $this->requests()->whereIn('service_requests.status', ServiceRequest::SolvedStatuses);
+        return $this->requests()->whereIn('requests.status', Request::SolvedStatuses);
     }
 
     public function scopeAllRequestStatusCount($q)
     {
         $withCount = [];
-        foreach (ServiceRequest::Status as $value) {
+        foreach (Request::Status as $value) {
             $withCount[] = 'requests' . str_replace('_', '', Str::title($value));
         }
 
@@ -38,7 +37,7 @@ trait RequestRelation
         $statusCounts = [];
         $attributes = $this->getAttributes();
 
-        foreach (ServiceRequest::Status as $value) {
+        foreach (Request::Status as $value) {
             $attribute = 'requests_' . $value . '_count';
             $statusCounts[$attribute] = $attributes[$attribute] ?? 0;
         }
@@ -65,9 +64,9 @@ trait RequestRelation
     {
         if (Str::startsWith($name, 'requests')) {
             $status = substr($name, strlen('requests'));
-            $statusFullName = ServiceRequest::class . '::Status' . $status;
+            $statusFullName = Request::class . '::Status' . $status;
             if (defined($statusFullName)) {
-                return $this->requests()->where('service_requests.status', constant($statusFullName));
+                return $this->requests()->where('requests.status', constant($statusFullName));
             }
         }
         return parent::__call($name, $arguments);

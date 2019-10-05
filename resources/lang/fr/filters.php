@@ -18,4 +18,5 @@ return [
     'tenant' => 'Locataire',
     'roles' => 'Roles',
     'type' => 'Type',
+    'language' => 'Langue',
 ];

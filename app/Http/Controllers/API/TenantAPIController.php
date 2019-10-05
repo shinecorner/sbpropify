@@ -5,12 +5,12 @@ namespace App\Http\Controllers\API;
 use App\Criteria\Common\FilterFullnameCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Common\WhereCriteria;
-use App\Criteria\Tenants\FilterByBuildingCriteria;
-use App\Criteria\Tenants\FilterByQuarterCriteria;
-use App\Criteria\Tenants\FilterByRequestCriteria;
-use App\Criteria\Tenants\FilterByStateCriteria;
-use App\Criteria\Tenants\FilterByStatusCriteria;
-use App\Criteria\Tenants\FilterByUnitCriteria;
+use App\Criteria\Tenant\FilterByBuildingCriteria;
+use App\Criteria\Tenant\FilterByQuarterCriteria;
+use App\Criteria\Tenant\FilterByRequestCriteria;
+use App\Criteria\Tenant\FilterByStateCriteria;
+use App\Criteria\Tenant\FilterByStatusCriteria;
+use App\Criteria\Tenant\FilterByUnitCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Tenant\CreateRequest;
 use App\Http\Requests\API\Tenant\DeleteRequest;
@@ -27,14 +27,11 @@ use App\Models\User;
 use App\Notifications\TenantCredentials;
 use App\Repositories\PinboardRepository;
 use App\Repositories\TemplateRepository;
-use App\Repositories\RentContractRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\TenantTransformer;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Illuminate\Support\Facades\Validator;
@@ -131,7 +128,8 @@ class TenantAPIController extends AppBaseController
                 $q->with('building.address', 'unit');
             }])->paginate($perPage);
         $this->fixCreatedBy($tenants);
-        return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
+        $response = (new TenantTransformer())->transformPaginator($tenants);
+        return $this->sendResponse($response, 'Tenants retrieved successfully');
     }
 
     /**

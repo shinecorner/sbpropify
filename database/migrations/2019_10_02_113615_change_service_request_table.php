@@ -13,10 +13,10 @@ class ChangeServiceRequestTable extends Migration
      */
     public function up()
     {
-        \App\Models\ServiceRequest::get()->each(function ($serviceRequest) {
-           $this->fixValue($serviceRequest, 'room', \App\Models\ServiceRequest::Room);
-           $this->fixValue($serviceRequest, 'payer', \App\Models\ServiceRequest::Payer);
-            $this->fixValue($serviceRequest, 'capture_phase', \App\Models\ServiceRequest::CapturePhase);
+        \App\Models\Request::get()->each(function ($serviceRequest) {
+           $this->fixValue($serviceRequest, 'room', \App\Models\Request::Room);
+           $this->fixValue($serviceRequest, 'payer', \App\Models\Request::Payer);
+            $this->fixValue($serviceRequest, 'capture_phase', \App\Models\Request::CapturePhase);
             $serviceRequest->save();
         });
 

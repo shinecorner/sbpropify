@@ -75,7 +75,7 @@ return [
         "created_date" => "Data di creazione",
         "contract" => "Contratto",
         "pinboard" => "Bacheca",
-        "products" => "Prodotti",
+        "listings" => "Prodotti",
         "company" => "Nome dell'azienda",
         "no_building" => "Niente edificio",
         'building' => [
@@ -107,7 +107,25 @@ return [
             ],
             'language' => [
                 'required' => "La lingua è richiesta",
-            ]
+            ],
+            'deposit_amount' => [
+                'required' => "L'importo del deposito è richiesto",
+            ],
+            'deposit_type' => [
+                'required' => "Il tipo di deposito è richiesto",
+            ],
+            'start_date' => [
+                'required' => "La data d'inizio è obbligatoria",
+            ],
+            'rent_type' => [
+                'required' => "Il tipo di affitto è richiesto",
+            ],
+            'rent_duration' => [
+                'required' => "La durata dell'affitto è richiesta",
+            ],
+            'status' => [
+                'required' => "Lo stato è richiesto",
+            ],
         ],
         'errors' => [
             'not_found' => "L'inquilino non trovato",
@@ -535,7 +553,7 @@ return [
         'login_variation' => 'Variazione del login',
         'login_variation_slider' => 'Vuoi mostrare il cursore?',
         "quarter_enable" => "Quartiere",
-        "marketplace_approval_enable" => "Attivare il mercato",
+        "listing_approval_enable" => "Attivare il mercato",
         'gocaution' => 'Gocauzione',
         'gocaution_desc' => 'Gocauzione',
         "blank_pdf" => "PDF in bianco",
@@ -691,6 +709,48 @@ return [
             "2_year_warranty" => "2 anni di garanzia",
             "cost_consequences" => "Conseguenze dei costi",
         ],
+        'location' => [
+            'house_entrance' => 'Ingresso Casa',
+            'staircase' => 'Scala',
+            'elevator' => 'Ascensore',
+            'car_park' => 'Parcheggio sotterraneo',
+            'washing' => 'Lavaggio/asciugatura',
+            'heating' => 'Tecnologia/riscaldamento',
+            'electro' => 'Tecnologia/Elettro',
+            'facade' => 'Facciata',
+            'roof' => 'Tetto',
+            'other' => 'Altro'
+        ],
+        'room' => [
+            'bath' => 'Bagno/WC',
+            'shower' => 'Doccia/WC',
+            'entrance' => 'Ingresso',
+            'passage' => 'Passaggio',
+            'basement' => 'Seminterrato',
+            'kitchen' => 'Cucina',
+            'storeroom' => 'Reduite',
+            'habitation' => 'Abitazione',
+            'room1' => 'Camera 1',
+            'room2' => 'Camera 2',
+            'room3' => 'Camera 3',
+            'room4' => 'Camera 4',
+            'all' => 'Tutti',
+            'other' => 'Altro'
+        ],
+        'capture_phase' => [
+            'other' => 'Altro',
+            'construction' => 'Fase di costruzione',
+            'shell' => 'Accettazione Shell',
+            'preliminary' => 'Accettazione Preliminare',
+            'work' => 'Accettazione del lavoro',
+            'surrender' => 'Arrendersi',
+            'inspection' => 'Accettazione'
+        ],
+        'payer' => [
+            'landlord' => 'Padrone di casa',
+            'tenant' => 'Affittuario',
+            'tenant/landlord' => 'Affittuario/Padrone di casa'
+        ],
         'status' => [
             "label" => "Situazione",
             "received" => "Ricevuto",
@@ -701,50 +761,6 @@ return [
             "archived" => "Archiviato",
             "solved" => "Risolte",
             "pending" => "Pendenti"
-        ],
-        'sub_category_fields' => [
-            'location' => [
-                'house_entrance' => 'Ingresso Casa',
-                'staircase' => 'Scala',
-                'elevator' => 'Ascensore',
-                'car_park' => 'Parcheggio sotterraneo',
-                'washing' => 'Lavaggio/asciugatura',
-                'heating' => 'Tecnologia/riscaldamento',
-                'electro' => 'Tecnologia/Elettro',
-                'facade' => 'Facciata',
-                'roof' => 'Tetto',
-                'other' => 'Altro'
-            ],
-            'room' => [
-                'bath' => 'Bagno/WC',
-                'shower' => 'Doccia/WC',
-                'entrance' => 'Ingresso',
-                'passage' => 'Passaggio',
-                'basement' => 'Seminterrato',
-                'kitchen' => 'Cucina',
-                'storeroom' => 'Reduite',
-                'habitation' => 'Abitazione',
-                'room1' => 'Camera 1',
-                'room2' => 'Camera 2',
-                'room3' => 'Camera 3',
-                'room4' => 'Camera 4',
-                'all' => 'Tutti',
-                'other' => 'Altro'
-            ],
-            'capture_phase' => [
-                'other' => 'Altro',
-                'construction' => 'Fase di costruzione',
-                'shell' => 'Accettazione Shell',
-                'preliminary' => 'Accettazione Preliminare',
-                'work' => 'Accettazione del lavoro',
-                'surrender' => 'Arrendersi',
-                'inspection' => 'Accettazione'
-            ],
-            'payer' => [
-                'landlord' => 'Padrone di casa',
-                'tenant' => 'Affittuario',
-                'tenant/landlord' => 'Affittuario/Padrone di casa'
-            ]
         ],
         'category_options' => [
             "disturbance" => "Perturbazione",
@@ -878,13 +894,13 @@ return [
             'deleted' => "Errore cancellato dal Property Manager: ",
         ],
     ],
-    'product' => [
+    'listing' => [
         "title" => "Prodotti",
         "add" => "Aggiungi prodotto",
         "edit_title" => "Modifica prodotto",
         "delete_action" => "Cancellare",
         "content" => "Contenuto",
-        "product_title" => "Titolo",
+        "listing_title" => "Titolo",
         "published_at" => "Pubblicato",
         "publish" => "Pubblicare",
         "unpublish" => "Non pubblicare",
