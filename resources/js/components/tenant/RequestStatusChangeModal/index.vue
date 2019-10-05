@@ -63,11 +63,21 @@
         },
         methods: {
             close() {
-                console.log('close called')
                 this.model.message = null;
                 this.closeModal();
             }
-        },  
+        },
+        watch: {
+            'statusChangeModalVisible': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        this.model.message = null
+                    }
+                }
+            },
+        },
     };
 </script>
 <style lang="scss">

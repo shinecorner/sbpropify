@@ -293,7 +293,7 @@
             background-repeat: no-repeat
             background-attachment: fixed
             background-position: top left
-            background-image: url('~img/5c3a1aefbaf4e.png')
+            // background-image: url('~img/5c3a1aefbaf4e.png')
 
         &.md .container .content /deep/ .ui-card__footer .el-pagination
             justify-content: center
