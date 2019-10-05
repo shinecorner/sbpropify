@@ -88,6 +88,11 @@ return [
         "delete_pinboard" => "Beitrag löschen",
         "status_change_requeset" => "Hier können Sie den Status der Anfrage ändern.",
     ],
+    "descriptions" => [
+        "address" => "Ihre Pinnwand ist nur für Mieter auf Ihrer Adresse sichtbar.",
+        "quarter" => "Ihre Pinnwand ist nur für Mieter auf Ihrem Quartier sichtbar.",
+        "all" => "Deine Pinnwand wird von jedem gesehen werden können.",
+    ],
     "heading_info" => [
         "property_manager" => "Ansprechpartner für Ihre Anliegen",
         "my_neighbour" => "Mieter aus der Nachbarschaft",

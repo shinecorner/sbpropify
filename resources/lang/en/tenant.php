@@ -88,6 +88,11 @@ return [
         "delete_pinboard" => "Delete pinboard",
         "status_change_requeset" => "Here you can change the status of request.",
     ],
+    "descriptions" => [
+        "address" => "Your pinboard will be visible for tenants on your address only.",
+        "quarter" => "Your pinboard will be visible for tenants within your quarter only.",
+        "all" => "Your pinboard will be able to be seen by everyone.",
+    ],
     "heading_info" => [
         "property_manager" => "Contact person for your concerns",
         "my_neighbour" => "Tenants from the neighbourhood",
