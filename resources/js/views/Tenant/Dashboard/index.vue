@@ -44,10 +44,7 @@
                         {{$t('tenant.media')}}
                     </div>
                     <ui-media-gallery :files="openedRequest.media.map(({url}) => url)" />
-                    <ui-divider class="upload-divider" content-position="left">
-                        <i class="el-icon-upload"></i>
-                        {{$t('tenant.request_upload_title')}}
-                    </ui-divider>
+                    <ui-divider content-position="left"><i class="el-icon-upload"></i> {{$t('tenant.request_upload_title')}}</ui-divider>
                     
                     <div class="upload-description">
                         <el-alert
@@ -297,14 +294,9 @@
                                     padding-top: 16px
                                     padding-right: 16px
 
-                        .upload-divider 
+                        .ui-divider
                             padding: 0
-                            width: calc(100% - 32px);
-
-                            /deep/ .ui-divider__content--aligned-left
-                                transform: translate(calc(208px - 50%), -50%)
-                                padding-left: 16px
-                        
+                       
                         .upload-description
                             margin: 16px;
                             padding: 0
@@ -329,7 +321,7 @@
                     left: 0
                     z-index: 1
                     padding-left: 0
-                    font-size: 20px
+                    font-size: 16px
                     font-weight: 700
                     color: var(--color-primary)
             .content

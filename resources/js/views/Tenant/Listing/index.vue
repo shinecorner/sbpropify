@@ -409,7 +409,7 @@
                         left: 0
                         z-index: 1
                         padding-left: 0
-                        font-size: 20px
+                        font-size: 16px
                         font-weight: 700
                         color: var(--color-primary)
 </style>
