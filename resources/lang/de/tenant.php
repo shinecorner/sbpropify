@@ -136,7 +136,7 @@ return [
     "rate_us" => "Bewerten Sie uns",
     "personal_data" => "Personenbezogene Daten",
     "my_personal_details" => "Meine persönlichen Daten",
-    "title" => "Anrede",
+    "title" => "Titel",
     "company_name" => "Firmenname",
     "first_name" => "Vorname",
     "last_name" => "Nachname",
