@@ -301,6 +301,10 @@
                 -ms-flex-direction: column;
                 flex-direction: column;
                 position: relative;
+
+                .ui-divider {
+                    margin: 32px 16px 16px 0;
+                }
                 
             }
 
