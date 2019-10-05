@@ -170,18 +170,21 @@ import Heading from 'components/Heading'
 
             .el-timeline {
                 padding: 0;
+                padding-top: 22px;
 
                 .el-timeline-item {
                     padding-bottom: 1px;
 
                     &:not(.letter) {
                         :global(.el-timeline-item__wrapper) {
-                            padding-left: 24px;
+                            padding-left: 38px;
                         }
                     }
 
                     &:first-child {
                         :global(.el-timeline-item__node) {
+                            display: none;
+
                             &:global(.el-timeline-item__node--large) {
                                 top: 0;
                             }
@@ -198,14 +201,28 @@ import Heading from 'components/Heading'
 
                     &:last-child {
                         :global(.el-timeline-item__node) {
+                            display: none;
+
                             &:not(:global(.el-timeline-item__node--large)) {
                                 top: 0;
                             }
                         }
                     }
 
+                    // &:not(.letter) {
+                    //     &:hover :global(.el-timeline-item__wrapper) :global(.el-timeline-item__content) {
+                    //         cursor: pointer;
+                    //     }
+
+                    //     :global(.el-timeline-item__wrapper) {
+                    //         padding-left: 38px;
+                    //     }
+
+                    // }
+
                     :global(.el-timeline-item__node) {
                         position: relative;
+                        display: none;
 
                         &:not(:global(.el-timeline-item__node--large)) {
                             top: 24px;
@@ -216,7 +233,13 @@ import Heading from 'components/Heading'
                         }
                     }
 
+                    :global(.el-timeline-item__tail) {
+                        border-left: none;
+                    }
+                    
                     :global(.el-timeline-item__wrapper) {
+                        padding-left: 0;
+                        
                         :global(.el-timeline-item__content) {
                             display: flex;
                             align-items: center;
