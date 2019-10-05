@@ -105,7 +105,7 @@
                                             :config="editorConfig"
                                             v-model="model.content"/>
                                 </el-form-item>
-                                <el-form-item v-if="this.model.type == 3 && this.model.sub_type == 3 && this.showdefaultimage == true">
+                                <!-- <el-form-item v-if="this.model.type == 3 && this.model.sub_type == 3 && this.showdefaultimage == true">
                                     <label>{{$t('models.pinboard.category_default_image_label')}}</label>
                                     <el-switch v-model="model.announcement_category"/>
                                     <el-row :gutter="20">
@@ -140,7 +140,7 @@
                                             width="50%" 
                                             height="50%"/>  
                                     </el-row>  
-                                </el-form-item> 
+                                </el-form-item>  -->
                                 <el-form-item :label="model.type == 3 ? $t('models.pinboard.attachments') : $t('models.pinboard.images')">
                                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple />   
                                     <div class="mt15" v-if="media.length || (model.media && model.media.length)">
