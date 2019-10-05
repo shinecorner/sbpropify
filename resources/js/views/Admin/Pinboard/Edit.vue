@@ -54,7 +54,7 @@
                                 <el-row :gutter="20">
                                     <el-col :lg="model.sub_type == 3 ? 12 : 24">
                                         <el-form-item :label="$t('models.pinboard.sub_type.label')">
-                                            <el-select style="display: block" v-model="model.sub_type">
+                                            <el-select style="display: block" v-model="model.sub_type" @change="changeSubType">
                                                 <el-option
                                                         :key="key"
                                                         :label="$t(`models.pinboard.sub_type.${subtype}`)"
@@ -66,7 +66,7 @@
                                     </el-col>
                                     <el-col :lg="12" v-if="model.sub_type == 3">
                                         <el-form-item :label="$t('models.pinboard.category.label')">
-                                            <el-select style="display: block" v-model="model.category"  @change="ShowSlide">
+                                            <el-select style="display: block" v-model="model.category">
                                                 <el-option
                                                         :key="key"
                                                         :label="$t(`models.pinboard.category.${category}`)"
@@ -105,9 +105,9 @@
                                             :config="editorConfig"
                                             v-model="model.content"/>
                                 </el-form-item>
-                                <!-- <el-form-item v-if="this.model.type == 3 && this.model.sub_type == 3 && this.showdefaultimage == true">
+                                <!-- <el-form-item v-if="this.model.type == 3 && this.model.sub_type == 3">
                                     <label>{{$t('models.pinboard.category_default_image_label')}}</label>
-                                    <el-switch v-model="model.announcement_category"/>
+                                    <el-switch v-model="model.category_image"/>
                                     <el-row :gutter="20">
                                         <img
                                             src="~img/announcement_category/1.png"
@@ -640,10 +640,6 @@
                 }).catch(async () => {
                     this.loading.status = false;
                 });
-            },
-            ShowSlide() {
-                this.showdefaultimage = '';
-                this.showdefaultimage = true;
             }
         }
     }
