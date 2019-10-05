@@ -579,7 +579,7 @@
             selectedRequestData() {
                 return {
                     tenant: this.model.tenant,
-                    service_request_format: this.model.service_request_format,
+                    request_format: this.model.request_format,
                     category: (this.model.category.parent_id == null)? this.model.category.name : this.model.category.parentCategory.name + " > " + this.model.category.name
                 }
             },
