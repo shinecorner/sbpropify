@@ -3,7 +3,7 @@
         <div class="request-card-header clearfix">
             <el-row  :gutter="20" type="flex">
                 <el-col :span="3" class="request-aside">
-                   <h4>{{ item.service_request_format }}</h4>
+                   <h4>{{ item.request_format }}</h4>
                 </el-col>
                 <el-col :span="18" class="request-content">
                     <h3>{{ item.title }}</h3>
