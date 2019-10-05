@@ -388,10 +388,18 @@
                     // TODO - auto blur container if visible is true first
                     if (!state) {
                         this.openedRequest = null
+                    }
+                }
+            },
+            'statusChangeModalVisible': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
                         this.changingRequest = null
                     }
                 }
-            }
+            },
         },
     }
 </script>
@@ -567,6 +575,9 @@
 
                     /deep/ .el-loading-mask
                         position: fixed
+
+                   
+
         /deep/ .el-button+.el-button
             margin-right: 10px;
             

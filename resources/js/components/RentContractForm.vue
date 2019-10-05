@@ -1,11 +1,6 @@
 <template>
     <el-form :model="model" :rules="validationRules" label-position="top"  ref="form" v-loading="loading">
-        <el-row :gutter="20">
-            <h3 class="chart-card-header">
-                <i class="icon-handshake-o ti-user icon "/>
-                    &nbsp;{{ $t('models.tenant.rent_contract') }}
-            </h3>
-        </el-row>
+        
 
         <el-row :gutter="20">
             <el-col :md="12">
@@ -556,24 +551,29 @@
 <style lang="scss" scoped>
     .el-form-item {
         margin-bottom: 0;
+
+        &.is-error {
+            margin-bottom: 10px;
+        }
     }
     /deep/ .rent-data {
+        background: transparent;
         table {
             width: 100%;
             cursor: initial;
-
+            background: transparent;
             thead, tbody {
                 width: 100%;
-
+                background: transparent;
                 tr {
                     display: flex;
                     width: 100%;
-
+                    background: transparent;
                     .data {
                         flex: 1;
                         display: flex;
                         align-items: center;
-
+                        background: transparent;
                         .cell {
                             width: 100%;
                             text-align: left;
@@ -595,18 +595,20 @@
                         align-items: center;
                         justify-content: center;
                         width: 20px;
-
+                        background: transparent;
                         .cell {
                             text-overflow: initial;
                             font-size: 16px;
                             padding: 0;
                         }
                     }
+
+                    td:last-child .cell {
+                        padding-left: 10px !important;
+                        text-align: left;
+                    }
                 }
             }
-        }
-        .el-table tbody tr td:last-child .cell {
-            padding-left: 10px !important;
         }
     }
 

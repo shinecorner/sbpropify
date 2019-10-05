@@ -198,6 +198,10 @@
         </div>
         </div>
         <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
+            <h3 class="chart-card-header">
+                <i class="icon-handshake-o ti-user icon "/>
+                    &nbsp;{{ $t('models.tenant.rent_contract') }}
+            </h3>
             <div class="content" v-if="visibleDrawer">
                 <rent-contract-form v-if="editingRentContract" mode="edit" :data="editingRentContract" :tenant_id="model.id" :visible.sync="visibleDrawer" :edit_index="editingRentContractIndex" @update-rent-contract="updateRentContract" :used_units="used_units"/>
                 <rent-contract-form v-else mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer" @add-rent-contract="addRentContract" :used_units="used_units"/>
@@ -273,7 +277,7 @@
 
         /deep/ .ui-drawer {
             .content {
-                height: calc(100% - 32px);
+                height: calc(100% - 70px);
                 display: -webkit-box;
                 display: -ms-flexbox;
                 display: flex;
@@ -290,8 +294,8 @@
             .chart-card-header{
                 font-size: 16px;
                 font-weight: 400;
-                padding: 0 20px 16px;
-                margin: -4px -10px 10px;
+                padding: 10px 20px;
+                margin: 0;
                 border-bottom: 1px solid #EBEEF5;
 
                 h3 {

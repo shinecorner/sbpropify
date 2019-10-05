@@ -317,6 +317,11 @@
         .el-form-item {
             margin-bottom: 0px;
 
+            &.is-error {
+                margin-bottom: 10px;
+            }
+
+                        
             &.switcher {
                 padding-top: 10px;
 
@@ -379,6 +384,7 @@
 
         .upload-divider {
             padding: 0;
+            background: transparent;
 
             /deep/ .ui-divider__content {
                 left: 0;
@@ -389,6 +395,7 @@
                 color: var(--color-primary);
                 transform: translate(calc(208px - 50%), -50%);
                 padding-left: 16px;
+                background: transparent;
             }
 
         }
