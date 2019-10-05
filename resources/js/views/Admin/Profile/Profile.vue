@@ -2,7 +2,18 @@
     <el-card>
         <el-form label-width="128px">
             <el-form-item :label="$t('models.user.profile_image')">
-                <cropper :resize="false" :viewportType="'circle'" @cropped="cropped"/>
+                <cropper
+                        :boundary="{
+                            width: 250,
+                            height: 360
+                        }"
+                        :viewport="{
+                            width: 250,
+                            height: 250
+                        }"
+                        :resize="true"
+                        @upload="upload"
+                        @cropped="cropped"/>
             </el-form-item>
             <el-form-item>
                 <el-button @click="upload" icon="ti-save" type="primary">{{$t('general.actions.upload')}}</el-button>
