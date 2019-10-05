@@ -119,7 +119,7 @@ export default (config = {}) => {
             },
             deleteRentContract(index) {
 
-                this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
+                this.$confirm(this.$t(`general.swal.delete_rentcontract.text`), this.$t(`general.swal.delete_rentcontract.title`), {
                     type: 'warning'
                 }).then(async () => {
                     if(config.mode == "edit" ) {

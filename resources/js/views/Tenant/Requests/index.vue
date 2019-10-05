@@ -549,6 +549,7 @@
                     font-size: 16px
                     font-weight: 700
                     color: var(--color-primary)
+                    
             .content
                 height: calc(100% - 32px)
                 display: flex
