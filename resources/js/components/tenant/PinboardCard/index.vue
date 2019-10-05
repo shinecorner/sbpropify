@@ -1,13 +1,7 @@
 <template>
-<<<<<<< HEAD
-    <el-card  :class="{announcement: data.announcement}" >
-        <div ref="container" >
-        <div class="announcement" v-if="data.announcement"><span>announcement</span></div>
-=======
     <el-card  :class="{announcement: data.announcement}">
         <div ref="container">
         <div class="announcement" v-if="data.announcement"><span> {{$t(`models.pinboard.sub_type.${$constants.pinboard.sub_type[3][data.sub_type]}`)}}</span></div>
->>>>>>> 7355fe6db6ff3539ca7659253a9a4bd2e5edf4b7
         <div class="user">
             <ui-avatar :name="data.user.name" :size="42" :src="data.user.avatar" />
             <div class="name">
