@@ -2,7 +2,7 @@
     <ui-card shadow="hover" v-on="$listeners">
         <div class="media">
             <ui-image :src="(data.media[0] || {}).url" />
-            <el-tooltip :content="$t('tenant.edit_listing')">
+            <el-tooltip :content="$t('tenant.edit_listing')" v-if="showAction && data.user_id == $store.getters.loggedInUser.id">
                 <div class="edit-btn" @click.stop="$emit('edit-listing', $event, data)"><i class="ti-pencil"></i></div>
             </el-tooltip>
             <!-- <ui-image src="https://placeimg.com/640/480/any" /> -->

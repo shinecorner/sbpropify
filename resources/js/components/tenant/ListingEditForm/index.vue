@@ -45,7 +45,7 @@
             </el-col>
         </el-row>
        
-        <ui-divider content-position="left"><i class="icon-file-image"></i> {{$t('tenant.image')}}</ui-divider>
+        <ui-divider content-position="left"><i class="icon-file-image"></i> {{$t('tenant.images')}}</ui-divider>
         <ui-media-gallery :files="data.media.map(({url}) => url)" />
         
         
@@ -275,7 +275,10 @@
                 color: var(--color-primary)
                 transform: translate(calc(208px - 50%), -50%)
                 padding-left: 16px
-            
+
+        .ui-divider
+            margin-top: 30px
+
         .upload-description
             padding: 0
 
