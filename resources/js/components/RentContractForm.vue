@@ -275,6 +275,10 @@
                         :label="$t('models.rent_contract.filename')"
                         prop="name"
                     >
+                        <template slot-scope="scope">
+                            <a v-if="scope.row.url" :href="scope.row.url" target="_blank"><strong>{{scope.row.name}}</strong></a>
+                            <span v-else><strong>{{scope.row.name}}</strong></span>
+                        </template>
                     </el-table-column>
                     <el-table-column
                         align="right"
@@ -558,7 +562,8 @@
 <style lang="scss" scoped>
 
     /deep/ .ui-divider {
-        margin: 32px 16px 0 16px;
+        margin: 32px 16px 16px 0;
+        
         i {
             padding-right: 0;
         }
