@@ -14,7 +14,7 @@
                             :loading="remoteLoading"
                             :placeholder="$t('models.tenant.search_building')"
                             :remote-method="remoteRentContractdSearchBuildings"
-                            @change="searchRentContractUnits()"
+                            @change="searchRentContractUnits(false)"
                             filterable
                             remote
                             reserve-keyword
@@ -28,7 +28,7 @@
                     </el-select>
                 </el-form-item>
             </el-col>
-            <el-col :md="12">
+            <el-col :md="12" v-if="model.building_id">
                 <el-form-item prop="unit_id" :label="$t('models.tenant.unit.name')"
                             class="label-block">
                     <el-select :placeholder="$t('models.tenant.search_unit')" 
@@ -45,7 +45,7 @@
                 </el-form-item>
             </el-col>
         </el-row>
-        <el-row :gutter="20">
+        <el-row :gutter="20" v-if="model.unit_id">
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.rent_type')"
                             prop="type"
@@ -70,7 +70,7 @@
                     </el-select>
                 </el-form-item>
             </el-col>
-            <el-col :md="12">
+            <el-col :md="12" v-if="model.unit_id">
                 <el-form-item :label="$t('models.tenant.rent_duration')"
                             prop="duration"
                             class="label-block">
@@ -86,7 +86,7 @@
                 </el-form-item>
             </el-col>
         </el-row>
-        <el-row :gutter="20" >
+        <el-row :gutter="20" v-if="model.unit_id">
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.rent_start')"
                         prop="start_date">
@@ -100,7 +100,7 @@
                             value-format="yyyy-MM-dd"/>
                 </el-form-item>
             </el-col>
-            <el-col :md="12" v-if="model.duration == 2">
+            <el-col :md="12" v-if="model.unit_id && model.duration == 2">
                 <el-form-item :label="$t('models.tenant.rent_end')">
                     <el-date-picker
                         :picker-options="{disabledDate: disabledRentEnd}"
@@ -113,7 +113,7 @@
                 </el-form-item>
             </el-col>
         </el-row>
-        <el-row :gutter="20">
+        <el-row :gutter="20" v-if="model.unit_id">
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.rentcontract_id')"
                                 class="label-block">
@@ -137,8 +137,8 @@
                 </el-form-item>
             </el-col>
         </el-row>
-        <ui-divider></ui-divider>
-        <el-row :gutter="20" >
+        <ui-divider v-if="model.unit_id"></ui-divider>
+        <el-row :gutter="20" v-if="model.unit_id">
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.deposit_amount')"
                                 prop="deposit_amount">
@@ -164,25 +164,25 @@
         </el-row>
         <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition rent-data" 
                 style="width: 100%;"
-                v-if=" model.type < 3">
+                v-if="model.unit_id && model.type < 3">
             <div class="el-table__header-wrapper">
                 <table cellspacing="0" cellpadding="0" border="0" class="el-table__header">
                     <thead>
                         <tr>
                             <th class="data is-leaf">
-                                <div class="cell">Monthly rent</div>
+                                <div class="cell">{{$t('general.monthly_rent_net')}}</div>
                             </th>
                             <th class="symbol is-leaf">
                                 <div class="cell"></div>
                             </th>
                             <th class="data is-leaf">
-                                <div class="cell">Maintenance</div>
+                                <div class="cell">{{$t('models.tenant.maintenance')}}</div>
                             </th>
                             <th class="symbol is-leaf">
                                 <div class="cell"></div>
                             </th>
                             <th class="data is-leaf">
-                                <div class="cell">Gross rent</div>
+                                <div class="cell">{{$t('models.tenant.gross_rent')}}</div>
                             </th>
                         </tr>
                     </thead>
@@ -230,7 +230,7 @@
                 </table>
             </div>
         </div>
-        <el-row :gutter="20" v-if="model.type >= 3">
+        <el-row :gutter="20" v-if="model.unit_id && model.type >= 3">
             <el-col :md="8">
                 <el-form-item :label="$t('general.monthly_rent_net')" class="label-block">
                     <el-input type="text"
@@ -241,7 +241,7 @@
                 </el-form-item>
             </el-col>
         </el-row>
-        <!-- <el-row :gutter="20">
+        <!-- <el-row :gutter="20" v-if="model.unit_id">
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.deposit_status.label')"
                                 class="label-block">
@@ -258,8 +258,8 @@
             </el-col>
         </el-row> -->
 
-        <ui-divider></ui-divider>
-        <el-row :gutter="20" >
+        <ui-divider v-if="model.unit_id"></ui-divider>
+        <el-row :gutter="20"  v-if="model.unit_id">
             <el-col :md="24">
                 <el-form-item :label="$t('models.tenant.rent_contract_pdf')">
 
@@ -488,10 +488,11 @@
                     }
                 }
             },
-            async searchRentContractUnits() {
-
-                this.model.unit_id = '';
+            async searchRentContractUnits(shouldKeepValue) {
+                if(!shouldKeepValue)
+                    this.model.unit_id = '';
                 try {
+                    
                     const resp = await this.getUnits({
                         get_all: true,
                         building_id: this.model.building_id
@@ -499,11 +500,12 @@
 
 
                     this.used_units.forEach(id => {
-                        resp.data = resp.data.filter( item => item.id != id )
+                        if(this.model.unit.id != id)
+                            resp.data = resp.data.filter( item => item.id != id )
                     })
 
                     this.units = resp.data
-
+                    
                 } catch (err) {
                     displayError(err);
                 } finally {
@@ -538,14 +540,14 @@
             if(this.mode == "edit") {
                 this.model = this.data
 
+                this.buildings.push(this.model.building)
+                this.units.push(this.model.unit)
+
                 if(this.model.building) {
                     await this.remoteRentContractdSearchBuildings(this.model.building.name)
-                    await this.searchRentContractUnits()
+                    await this.searchRentContractUnits(true)
                 }
 
-                if (this.model.unit) {
-                    this.model.unit_id = this.model.unit.id
-                }
             }
         }
     }
@@ -602,6 +604,9 @@
                     }
                 }
             }
+        }
+        .el-table tbody tr td:last-child .cell {
+            padding-left: 10px !important;
         }
     }
 

@@ -99,6 +99,7 @@
                                                         <el-form-item :label="$t('models.tenant.nation')"
                                                                     prop="nation">
                                                             <el-select filterable
+                                                                    clearable
                                                                     v-model="model.nation">
                                                                 <el-option :key="country.id"
                                                                         :label="country.name"
@@ -356,11 +357,11 @@
                     }
                 })
             },
-            productEditView(product) {
+            listingEditView(listing) {
                 this.$router.push({
-                    name: 'adminProductsEdit',
+                    name: 'adminListingsEdit',
                     params: {
-                        id: product.id
+                        id: listing.id
                     }
                 })
             },

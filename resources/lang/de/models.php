@@ -75,7 +75,7 @@ return [
         'created_date' => 'Erstelldatum',
         'contract' => 'Mietvertrag',
         'pinboard' => 'Beiträge',
-        'products' => 'Marktplatz',
+        'listings' => 'Marktplatz',
         'company' => 'Firmenname',
         'no_building' => 'Keine Liegenschaft(en) zugewiesen.',
         'building' => [
@@ -552,7 +552,7 @@ return [
         'login_variation' => 'Login-Variante',
         'login_variation_slider' => 'Möchten Sie den Slider it Vorteilen anzeigen?',
         'quarter_enable' => 'Überbauungen aktivieren',
-        'marketplace_approval_enable' => 'Marktplatz aktivieren',
+        'listing_approval_enable' => 'Marktplatz aktivieren',
         'blank_pdf' => 'PDF ohne Briefkopf verwenden',
         'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
         'font_family' => 'Schriftfamilie',
@@ -896,13 +896,13 @@ return [
             'deleted' => "Bewirtschafter löschte Fehler: ",
         ],
     ],
-    'product' => [
+    'listing' => [
         'title' => 'Marktplatz',
         'add' => 'Inserat hinzufügen',
         'edit_title' => 'Inserat bearbeiten',
         'delete_action' => 'Löschen',
         'content' => 'Inhalt',
-        'product_title' => 'Titel',
+        'listing_title' => 'Titel',
         'published_at' => 'Hinzugefügt am',
         'publish' => 'Veröffentlicht',
         'unpublish' => 'Unveröffentlicht',

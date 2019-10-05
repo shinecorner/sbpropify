@@ -1,8 +1,8 @@
 <template>
-    <div class="latest-products dashboard-table">
+    <div class="latest-listings dashboard-table">
         <div class="link-container">
-            <router-link :to="{name: 'adminProducts'}">
-                <span class="title">{{ $t('dashboard.marketplace.go_to_marketplace') }} </span>
+            <router-link :to="{name: 'adminListings'}">
+                <span class="title">{{ $t('dashboard.listing.go_to_listing') }} </span>
                 <i class="icon-right icon"/>
             </router-link>
         </div>
@@ -37,23 +37,23 @@
         data() {
             return {
                 header: [{
-                    type: 'product-details',
+                    type: 'listing-details',
                     label: 'general.actions.view',
                     props: ['title', 'created_at', 'image_url'],
                     minWidth: '300px'
                 }, {
                     type: 'tag',
                     minWidth: '100px',
-                    label: 'models.product.type.label',
+                    label: 'models.listing.type.label',
                     prop: 'type_label',
                     classSuffix: 'type'
                 }, {
                     type: 'plain',
-                    label: 'models.product.visibility.label',
+                    label: 'models.listing.visibility.label',
                     prop: 'visibility_label'
                 }, {
                     type: 'plain',
-                    label: 'models.product.price',
+                    label: 'models.listing.price',
                     prop: 'price',
                     style: {
                         color: '#5CC279'
@@ -67,26 +67,26 @@
                             type: 'default',
                             title: 'general.actions.edit',
                             onClick: this.edit,
-                            editUrl: 'adminProductsEdit',
+                            editUrl: 'adminListingsEdit',
                             permissions: [
-                                this.$permissions.update.product
+                                this.$permissions.update.listing
                             ]
                         }
                     ]
                 }],
-                product: {},
+                listing: {},
             };
         },
         computed: {
-            productConstants() {
-                return this.$constants.products;
+            listingConstants() {
+                return this.$constants.listings;
             },
 
         },
         methods: {
             edit({id}) {
                 this.$router.push({
-                    name: 'adminProductsEdit',
+                    name: 'adminListingsEdit',
                     params: {
                         id
                     }
@@ -96,15 +96,15 @@
               let that = this;
               let url = '';
               let toolTipSeriesName = '';
-              if(this.type === 'latest_products'){
-                url = 'products?per_page=5';
+              if(this.type === 'latest_listings'){
+                url = 'listings?per_page=5';
                 toolTipSeriesName = this.$t('models.building.title');
               }
               return axios.get(url)
               .then(function (response) {
                 const items = response.data.data.data.map(item => {
-                  item.visibility_label = that.$t(`models.product.visibility.${that.productConstants.visibility[item.visibility]}`);
-                  item.type_label = `models.product.type.${that.productConstants.type[item.type]}`;
+                  item.visibility_label = that.$t(`models.listing.visibility.${that.listingConstants.visibility[item.visibility]}`);
+                  item.type_label = `models.listing.type.${that.listingConstants.type[item.type]}`;
                   item.price = '$' + item.price;
                   item.image_url = item.media.length == 0 ? '' : item.media[0].url;
                   return item;

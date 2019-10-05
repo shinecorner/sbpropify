@@ -504,7 +504,7 @@ export default (config = {}) => {
 
                     this.validationRules.tenant_id = [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.general.required')
                     }];
 
                     this.getRealCategories();

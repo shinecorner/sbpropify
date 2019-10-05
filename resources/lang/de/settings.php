@@ -3,7 +3,7 @@ return [
     'notifications' => 'Benachrichtigungen und Sprache',
     'admin' => 'Benachrichtigungen vom Vermieter',
     'pinboard' => 'Pinnwand Moderation',
-    'marketplace' => 'Markplatz Moderation',
+    'listing' => 'Markplatz Moderation',
     'service' => 'Dienstleister',
     'updated' => 'Einstellungen wurden gespeichert.',
     'language' => 'Sprache',

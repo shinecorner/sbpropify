@@ -13,7 +13,7 @@ return [
             'myContactPersons' => 'Persone di contatto',
             'pinboard' => 'Bacheca',
             'requests' => 'Richieste',
-            'products' => 'Mercato',
+            'listings' => 'Mercato',
             'settings' => 'Impostazioni',
         ],
     ],

@@ -1,7 +1,7 @@
 <template>
-    <div class="units-edit product-edit mb20">
-        <heading :title="$t('models.product.edit_title')" icon="icon-basket" shadow="heavy" style="margin-bottom: 20px;">
-            <edit-actions :saveAction="submit" :deleteAction="deleteProduct" route="adminProducts"/>
+    <div class="units-edit listing-edit mb20">
+        <heading :title="$t('models.listing.edit_title')" icon="icon-basket" shadow="heavy" style="margin-bottom: 20px;">
+            <edit-actions :saveAction="submit" :deleteAction="deleteListing" route="adminListings"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -9,43 +9,43 @@
                     <el-form :model="model" label-position="top" label-width="192px" ref="form">
                         <el-row :gutter="20">
                             <el-col :lg="12">
-                                <el-form-item :label="$t('models.product.status.label')">
+                                <el-form-item :label="$t('models.listing.status.label')">
                                     <el-select class="custom-select" v-model="model.status">
                                         <el-option
                                             :key="key"
-                                            :label="$t(`models.product.status.${status}`)"
+                                            :label="$t(`models.listing.status.${status}`)"
                                             :value="parseInt(key)"
-                                            v-for="(status, key) in productConstants.status">
+                                            v-for="(status, key) in listingConstants.status">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :lg="12">
-                                <el-form-item :label="$t('models.product.type.label')">
+                                <el-form-item :label="$t('models.listing.type.label')">
                                     <el-select class="custom-select" v-model="model.type">
                                         <el-option
                                             :key="key"
-                                            :label="$t(`models.product.type.${type}`)"
+                                            :label="$t(`models.listing.type.${type}`)"
                                             :value="parseInt(key)"
-                                            v-for="(type, key) in productConstants.type">
+                                            v-for="(type, key) in listingConstants.type">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :lg="12">
-                                <el-form-item :label="$t('models.product.visibility.label')">
+                                <el-form-item :label="$t('models.listing.visibility.label')">
                                     <el-select class="custom-select" v-model="model.visibility">
                                         <el-option
                                             :key="key"
-                                            :label="$t(`models.product.visibility.${visibility}`)"
+                                            :label="$t(`models.listing.visibility.${visibility}`)"
                                             :value="parseInt(key)"
-                                            v-for="(visibility, key) in productConstants.visibility">
+                                            v-for="(visibility, key) in listingConstants.visibility">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :lg="12" v-if="model.type !== 4">
-                                <el-form-item :label="$t('models.product.price')" :rules="validationRules.price"
+                                <el-form-item :label="$t('models.listing.price')" :rules="validationRules.price"
                                               prop="price">
                                     <el-row :gutter="5">
                                         <el-col :span="16">
@@ -65,7 +65,7 @@
                             <el-tab-pane :label="$t('menu.requests')" name="description">    
                                 <el-row>
                                     <el-col>
-                                        <el-form-item :label="$t('models.product.product_title')" :rules="validationRules.title"
+                                        <el-form-item :label="$t('models.listing.listing_title')" :rules="validationRules.title"
                                                     prop="title">
                                             <el-input type="text" v-model="model.title"/>
                                         </el-form-item>
@@ -123,7 +123,7 @@
 
                         <el-col class="contact-info-card-col" :md="8">
                             <span class="custom-label">
-                                <i class="icon-contacts"></i>&nbsp;{{$t('models.product.contact')}}
+                                <i class="icon-contacts"></i>&nbsp;{{$t('models.listing.contact')}}
                             </span>
                             <span>
                                 {{model.contact}}
@@ -132,7 +132,7 @@
 
                         <el-col class="contact-info-card-col" :md="8">
                             <span class="custom-label">
-                                <i class="icon-paper-plane"></i>&nbsp;{{$t('models.product.published_at')}}
+                                <i class="icon-paper-plane"></i>&nbsp;{{$t('models.listing.published_at')}}
                             </span>
                             <span class="custom-value" v-if="model.published_at">
                                     {{model.published_at}}
@@ -141,7 +141,7 @@
                         </el-col>
                         
                         <!-- <el-col :md="12">
-                            <span class="custom-label">{{$t('models.product.contact')}}</span>
+                            <span class="custom-label">{{$t('models.listing.contact')}}</span>
                             <br>
                             <span>
                                 {{model.contact}}
@@ -151,7 +151,7 @@
                      <el-row  :gutter="30" class="contact-info-card-row">
                         <el-col class="contact-info-card-col" :md="8">
                             <span class="custom-label">
-                                <i class="icon-thumbs-up"></i>&nbsp;{{$t('models.product.likes')}}
+                                <i class="icon-thumbs-up"></i>&nbsp;{{$t('models.listing.likes')}}
                             </span>
                             <span class="custom-value">
                                 {{model.likes_count}}
@@ -160,7 +160,7 @@
 
                         <el-col class="contact-info-card-col" :md="8">
                             <span class="custom-label">
-                                <i class="icon-chat"></i>&nbsp;{{$t('models.product.comments')}}
+                                <i class="icon-chat"></i>&nbsp;{{$t('models.listing.comments')}}
                             </span>
                             <span class="custom-value">
                                 {{model.comments_count}}
@@ -169,7 +169,7 @@
                         <el-col class="contact-info-card-col" :md="8"></el-col>
                         <!--
                         <el-col :md="8">
-                            <span class="custom-label">{{$t('models.product.comments')}}</span>
+                            <span class="custom-label">{{$t('models.listing.comments')}}</span>
                             <br>
                             <span class="custom-value">
                                 {{model.comments_count}}
@@ -177,7 +177,7 @@
                         </el-col>
 
                         <el-col :md="8">
-                            <span class="custom-label">{{$t('models.product.published_at')}}</span>
+                            <span class="custom-label">{{$t('models.listing.published_at')}}</span>
                             <br>
                             <span class="custom-value" v-if="model.published_at">
                                     {{model.published_at}}
@@ -186,8 +186,8 @@
                         </el-col>-->
                     </el-row> 
                 </card>
-                <card class="mt15" v-if="model.id" :header="$t('models.product.comments')">
-                    <chat :id="model.id" type="product"/>
+                <card class="mt15" v-if="model.id" :header="$t('models.listing.comments')">
+                    <chat :id="model.id" type="listing"/>
                 </card>
             </el-col>
         </el-row>
@@ -196,12 +196,12 @@
 
 <script>
     import {mapActions} from 'vuex';
-    import ProductsMixin from 'mixins/adminProductsMixin';
+    import ListingsMixin from 'mixins/adminListingsMixin';
     import EditActions from 'components/EditViewActions';
     import {Avatar} from 'vue-avatar';
     import EditorConfig from 'mixins/adminEditorConfig';
 
-    const mixin = ProductsMixin({mode: 'edit'});
+    const mixin = ListingsMixin({mode: 'edit'});
 
     export default {
         mixins: [
@@ -219,7 +219,7 @@
         },
         methods: {            
             ...mapActions([
-                "deleteProduct"
+                "deleteListing"
             ])
         },
         computed: {
@@ -328,7 +328,7 @@
  
 </style>
 <style lang="scss">
-    .product-edit {
+    .listing-edit {
         .el-input-group--prepend .el-input-group__prepend {
             padding: 0 10px;
             font-weight: bold;

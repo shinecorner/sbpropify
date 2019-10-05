@@ -11,7 +11,7 @@ export default (config = {}) => {
                 }
 
                 if ((value === '' && required) || value === '' && validateObject.password_confirmation) {
-                    callback(new Error('This field is required.'))
+                    callback(new Error(this.$t('validation.required', {attribute: this.$t('general.password')})))
                 } else {
                     this.$refs[form].validateField('password_confirmation');
 
@@ -27,11 +27,11 @@ export default (config = {}) => {
                 }
 
                 if (required && value === '') {
-                    callback(new Error('This field is required.'));
+                    callback(new Error(this.$t('validation.required', {attribute: this.$t('general.confirm_password')})));
                 } else if (value && !validateObject.password) {
                     this.$refs[form].validateField('password');
                 } else if (value !== validateObject.password) {
-                    callback(new Error('The passwords do not match.'));
+                    callback(new Error(this.$t('validation.same', {attribute: this.$t('general.password'), other: this.$t('general.confirm_password')})));
                 } else {
                     callback();
                 }

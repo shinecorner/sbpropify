@@ -12,9 +12,9 @@ return [
     'pinboard_by_creation_date' => 'Pinboard per data di creazione',
     'pinboard_by_status' => 'Pinboard per stato',
     'pinboard_by_type' => 'Lavagna per tipo',
-    'latest_products' => 'Ultimi prodotti',
-    'products_by_creation_date' => 'Mercato dei prodotti per data di creazione',
-    'products_by_type' => 'Piazza del mercato prodotti per tipologia',
+    'latest_listings' => 'Ultimi prodotti',
+    'listings_by_creation_date' => 'Mercato dei prodotti per data di creazione',
+    'listings_by_type' => 'Piazza del mercato prodotti per tipologia',
     'tenants_by_creation_date' => 'Gli inquilini per data di creazione',
     'tenants_by_request_status' => 'Situazione degli inquilini in base alle richieste',
     'tenants_by_status' => 'Affittuari per stato',
@@ -55,8 +55,8 @@ return [
         'latest_tenants' => 'Ultimi inquilini',
         'go_to_tenants' => 'andare dagli inquilini'
     ],
-    'marketplace' => [
-        'go_to_marketplace' => 'vai al mercato'
+    'listing' => [
+        'go_to_listing' => 'vai al mercato'
     ],
     'pinboard' => [
         'latest_pinboard' => 'Ultima bacheca',

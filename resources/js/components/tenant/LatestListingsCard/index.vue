@@ -1,18 +1,18 @@
 <template>
-    <ui-card class="p-latest-products-card" shadow="always">
+    <ui-card class="p-latest-listings-card" shadow="always">
         <template #header>
-            <i class="icon-basket"></i> {{$t('tenant.latest_products')}}
-            <el-button type="text" @click="$router.push({name: 'tenantMarketplace'})">{{$t('tenant.actions.view_all')}}</el-button>
+            <i class="icon-basket"></i> {{$t('tenant.latest_listings')}}
+            <el-button type="text" @click="$router.push({name: 'tenantListing'})">{{$t('tenant.actions.view_all')}}</el-button>
         </template>
         <div v-if="loading">{{$t('general.loading')}}</div>
-        <div class="placeholder" v-else-if="!loading && !products">
+        <div class="placeholder" v-else-if="!loading && !listings">
             <img class="image" :src="require('img/5c9d48f15dd1a.png')" />
             <div class="content">
                 <div class="title">No requests available yet.</div>
                 <div class="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
             </div>
         </div>
-        <product-card v-for="product in products" :key="product.id" :data="product" v-else :show-action="false"/>
+        <listing-card v-for="listing in listings" :key="listing.id" :data="listing" v-else :show-action="false"/>
     </ui-card>
 </template>
 
@@ -20,7 +20,7 @@
     import {mapState} from 'vuex'
 
     export default {
-        name: 'p-latest-products-card',
+        name: 'p-latest-listings-card',
         props: {
             limit: {
                 type: Number,
@@ -33,16 +33,16 @@
             }
         },
         computed: {
-            ...mapState('newProducts', {
-                products: ({data}) => data.slice(this.limit)
+            ...mapState('newListings', {
+                listings: ({data}) => data.slice(this.limit)
             })
         },
         async mounted () {
-            //if (!this.products.length) {
+            //if (!this.listings.length) {
                 this.loading = true
 
-                await this.$store.dispatch('newProducts/reset');
-                await this.$store.dispatch('newProducts/get', {
+                await this.$store.dispatch('newListings/reset');
+                await this.$store.dispatch('newListings/get', {
                     sortedBy: 'desc',
                     orderBy: 'created_at',
                     per_page: this.limit
@@ -54,7 +54,7 @@
 </script>
 
 <style lang="sass" scoped>
-    .p-latest-products-card
+    .p-latest-listings-card
         /deep/ .ui-card__header
             .el-button
                 padding: 0

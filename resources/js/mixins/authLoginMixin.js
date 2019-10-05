@@ -1,7 +1,7 @@
 import {mapActions, mapState} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
 
-// TODO make a common mixin for pinboard and products mixins(media upload at least)
+// TODO make a common mixin for pinboard and listings mixins(media upload at least)
 export default  {
     data() {
         return {

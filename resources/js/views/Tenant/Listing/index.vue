@@ -1,54 +1,54 @@
 <template>
-    <div :class="['marketplace', {md: el.is.md}]">
+    <div :class="['listing', {md: el.is.md}]">
         <div class="container">
-            <ui-heading icon="icon-basket" :title="$t('tenant.marketplace')" :description="$t('tenant.heading_info.marketplace')" />
+            <ui-heading icon="icon-basket" :title="$t('tenant.listing')" :description="$t('tenant.heading_info.listing')" />
             <ui-divider />
             <ui-card class="content" shadow="always" v-loading="loading">
                 <template #header>
-                    <el-popover popper-class="marketplace__filter-popover" placement="bottom-start" trigger="click" :width="192">
+                    <el-popover popper-class="listing__filter-popover" placement="bottom-start" trigger="click" :width="192">
                         <el-button slot="reference" icon="el-icon-sort">{{$t('tenant.filters')}}</el-button>
                         <filters ref="filters" layout="row" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
                         <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                     </el-popover>
-                    <el-input prefix-icon="el-icon-search" v-model="search" :placeholder="$t('tenant.placeholder.search_product')" clearable @clear="handleSearch" @keyup.enter.native="handleSearch" />
+                    <el-input prefix-icon="el-icon-search" v-model="search" :placeholder="$t('tenant.placeholder.search_listing')" clearable @clear="handleSearch" @keyup.enter.native="handleSearch" />
                     <el-button type="primary" icon="el-icon-search" :disabled="loading" @click="handleSearch">{{$t('tenant.actions.search')}}</el-button>
-                    <el-button type="primary" icon="icon-plus" @click="addProduct()">{{$t('tenant.add_product')}}</el-button>
+                    <el-button type="primary" icon="icon-plus" @click="addListing()">{{$t('tenant.add_listing')}}</el-button>
                 </template>
                 <template v-if="loading">
                     <loader v-for="idx in 5" :key="idx" />
                 </template>
-                <div class="placeholder" v-else-if="!loading && !products.data.length">
+                <div class="placeholder" v-else-if="!loading && !listings.data.length">
                     <img class="image" :src="require('img/5ca7dde590fa1.png')" />
-                    <div class="title">{{$t('tenant.no_data.product')}}</div>
-                    <div class="description">{{$t('tenant.no_data_info.product')}}</div>
+                    <div class="title">{{$t('tenant.no_data.listing')}}</div>
+                    <div class="description">{{$t('tenant.no_data_info.listing')}}</div>
                 </div>
                 <template v-else>
-                    <product-card v-for="product in products.data" 
-                                :key="product.id" 
-                                :data="product" 
-                                @click="openProductDetailsDialog(product)" 
-                                @delete-product="deleteProduct" 
-                                @edit-product="editProduct"/>
+                    <listing-card v-for="listing in listings.data"
+                                :key="listing.id"
+                                :data="listing"
+                                @click="openListingDetailsDialog(listing)"
+                                @delete-listing="deleteListing"
+                                @edit-listing="editListing"/>
                 </template>
-                <el-pagination slot="footer" :layout="pagination.layout" :current-page="pagination.current" :page-size="pagination.size" :page-sizes="pagination.sizes" :total="products.total" @size-change="onSizeChange" @current-change="onCurrentPageChange" background />
+                <el-pagination slot="footer" :layout="pagination.layout" :current-page="pagination.current" :page-size="pagination.size" :page-sizes="pagination.sizes" :total="listings.total" @size-change="onSizeChange" @current-change="onCurrentPageChange" background />
             </ui-card>
-            <el-dialog :custom-class="`marketplace__opened-product-dialog ${el.is.md ? 'marketplace__opened-product-md-dialog' : ''}`" :visible.sync="visibleDialog" :before-close="onProductDetailsDialogClose" :show-close="false" append-to-body>
-                <product-details :data="openedProduct" v-if="openedProduct" />
+            <el-dialog :custom-class="`listing__opened-listing-dialog ${el.is.md ? 'listing__opened-listing-md-dialog' : ''}`" :visible.sync="visibleDialog" :before-close="onListingDetailsDialogClose" :show-close="false" append-to-body>
+                <listing-details :data="openedListing" v-if="openedListing" />
             </el-dialog>
         </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
-            <ui-divider content-position="left" v-if="editingProduct">{{$t('tenant.edit_product')}}</ui-divider>
-            <ui-divider content-position="left" v-else>{{$t('tenant.add_product')}}</ui-divider>
+            <ui-divider content-position="left" v-if="editingListing">{{$t('tenant.edit_listing')}}</ui-divider>
+            <ui-divider content-position="left" v-else>{{$t('tenant.add_listing')}}</ui-divider>
             <div class="content">
-                <product-edit-form :data="editingProduct" @delete-product="deleteProduct" v-if="editingProduct"/>
-                <product-add-form :visible.sync="visibleDrawer" v-else/>
+                <listing-edit-form :data="editingListing" @delete-listing="deleteListing" v-if="editingListing"/>
+                <listing-add-form :visible.sync="visibleDrawer" v-else/>
             </div>
         </ui-drawer>
     </div>
 </template>
 
 <script>
-    import Loader from 'components/tenant/ProductCard/Loader'
+    import Loader from 'components/tenant/ListingCard/Loader'
     import {ResponsiveMixin} from 'vue-responsive-components'
     import {mapState} from 'vuex'
 
@@ -66,8 +66,8 @@
             return {
                 loading: false,
                 search: undefined,
-                openedProduct: null,
-                editingProduct: null,
+                openedListing: null,
+                editingListing: null,
                 visibleDrawer: false,
                 visibleDialog: false,
                 pagination: {
@@ -98,9 +98,9 @@
                                 label: 'tenant.all',
                                 value: null
                             }
-                        }].concat(Object.entries(this.$constants.products.type).map(([value, label]) => ({
+                        }].concat(Object.entries(this.$constants.listings.type).map(([value, label]) => ({
                             type: 'el-option',
-                            props: {label: `models.product.type.${label}`, value}
+                            props: {label: `models.listing.type.${label}`, value}
                         })))
                     }],
                     data: {
@@ -111,8 +111,8 @@
             }
         },
         computed: {
-            ...mapState('newProducts', {
-                products: state => state
+            ...mapState('newListings', {
+                listings: state => state
             }),
 
             breakpoints () {
@@ -136,7 +136,7 @@
                 page: this.pagination.current,
                 per_page: this.pagination.size
             }) {
-                if (this.loading && this.products.data.length) {
+                if (this.loading && this.listings.data.length) {
                     return
                 }
 
@@ -151,7 +151,7 @@
 
                 this.$router.replace({query: params, name: this.$route.name})
 
-                await this.$store.dispatch('newProducts/get', {
+                await this.$store.dispatch('newListings/get', {
                     per_page: 5,
                     sortedBy: 'desc',
                     orderBy: 'created_at',
@@ -183,29 +183,29 @@
             resetFilters () {
                 this.$refs.filters.reset()
             },
-            openProductDetailsDialog (product) {
-                this.openedProduct = product
+            openListingDetailsDialog (listing) {
+                this.openedListing = listing
                 this.visibleDialog = true
             },
-            onProductDetailsDialogClose (done) {
-                this.openedProduct = null
+            onListingDetailsDialogClose (done) {
+                this.openedListing = null
 
                 done()
             },
-            addProduct() {
-                this.editingProduct = null
+            addListing() {
+                this.editingListing = null
                 this.visibleDrawer = true
             },
-            editProduct(evt, product) {
-                this.editingProduct = product
+            editListing(evt, listing) {
+                this.editingListing = listing
                 this.visibleDrawer = true
             },
-            deleteProduct(evt, product) {
+            deleteListing(evt, listing) {
                 this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
                     type: 'warning'
                 }).then(() => {
-                    this.$store.dispatch('newProducts/delete', {id: product.id})
-                    this.editingProduct = null
+                    this.$store.dispatch('newListings/delete', {id: listing.id})
+                    this.editingListing = null
                     this.visibleDrawer = false
                 }).catch(() => {
                 });
@@ -236,7 +236,7 @@
                 handler (state) {
                     // TODO - auto blur container if visible is true first
                     if (!state) {
-                        this.editingProduct = null
+                        this.editingListing = null
                     }
                 }
             }
@@ -245,13 +245,13 @@
 </script>
 
 <style lang="sass">
-    .marketplace__opened-product-dialog
+    .listing__opened-listing-dialog
         width: 80%
         max-width: 1024px
         overflow: hidden
         border-radius: 12px
 
-        &.marketplace__opened-product-md-dialog .el-dialog__body .product-details
+        &.listing__opened-listing-md-dialog .el-dialog__body .listing-details
             grid-template-columns: 1fr
 
             .ui-images-carousel
@@ -263,7 +263,7 @@
         .el-dialog__body
             padding: 0
 
-    .marketplace__filter-popover
+    .listing__filter-popover
         padding: 16px
         border-radius: 12px
         box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76)
@@ -274,7 +274,7 @@
 </style>
 
 <style lang="sass" scoped>
-    .marketplace
+    .listing
         display: flex
         padding: 0 !important
         flex-direction: column

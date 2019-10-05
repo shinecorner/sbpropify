@@ -90,10 +90,10 @@ export default {
                 url = 'admin/donutChart?table=pinboard&column=type';
                 langPrefix = 'models.pinboard.type.';
             }
-            else if (this.type === 'products_by_type') {
+            else if (this.type === 'listings_by_type') {
                 this.chartType = 'donut';
-                url = 'admin/donutChart?table=products&column=type';
-                langPrefix = 'models.product.type.';
+                url = 'admin/donutChart?table=listings&column=type';
+                langPrefix = 'models.listing.type.';
             }
             else if (this.type === 'tenants_by_request_status') {
                 this.chartType = 'donut';

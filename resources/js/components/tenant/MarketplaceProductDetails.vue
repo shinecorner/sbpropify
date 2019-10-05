@@ -1,5 +1,5 @@
 <template>
-    <div class="product-details">
+    <div class="listing-details">
         <media-gallery-carousel ref="media-gallery-carousel" :media="data.media" :autoplay="false" />
         <el-tabs value="overview">
             <el-tab-pane name="overview" :label="$t('tenant.overview')">
@@ -10,7 +10,7 @@
                             added on {{formatDatetime(data.published_at)}}
                         </small>
                     </div>
-                    <el-tag class="type" size="mini" disable-transitions>{{this.$t(`models.product.type.${typeName}`)}}</el-tag>
+                    <el-tag class="type" size="mini" disable-transitions>{{this.$t(`models.listing.type.${typeName}`)}}</el-tag>
                     <el-divider />
                     <div class="price">
                         <span v-if="isFree">
@@ -27,7 +27,7 @@
                     <el-divider />
                     <read-more class="description" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
                     <el-divider />
-                    <like :id="data.id" type="product" />
+                    <like :id="data.id" type="listing" />
                 </div>
                 <el-divider />
                 <el-alert class="contact" type="info" :description="data.contact" center v-if="showContactInformations" :closable="false" />
@@ -37,7 +37,7 @@
                 </template>
             </el-tab-pane>
             <el-tab-pane name="comments" :label="$t('tenant.comments')" lazy>
-                <chat :id="data.id" type="product" size="100%" max-size="512px" autofocus />
+                <chat :id="data.id" type="listing" size="100%" max-size="512px" autofocus />
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -65,17 +65,17 @@
         },
         computed: {
             typeName () {
-                return this.$constants.products.type[this.data.type]
+                return this.$constants.listings.type[this.data.type]
             },
             isFree () {
-                return !+(this.data.price || '0.00').replace(/\D/g, '') || this.data.type == (Object.entries(this.$constants.products.type).find(([_, name]) => name === 'giveaway') || [])[0]
+                return !+(this.data.price || '0.00').replace(/\D/g, '') || this.data.type == (Object.entries(this.$constants.listings.type).find(([_, name]) => name === 'giveaway') || [])[0]
             }
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .product-details {
+    .listing-details {
         display: grid;
         grid-template-columns: 1fr minmax(auto, 384px);
 

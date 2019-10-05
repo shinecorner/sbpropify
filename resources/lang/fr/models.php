@@ -75,7 +75,7 @@ return [
         "created_date" => "Date de création",
         "contract" => "Contrat",
         "pinboard" => "Panneau d'affichage",
-        "products" => "Produits",
+        "listings" => "Produits",
         "company" => "Nom de l'entreprise",
         "no_building" => "Pas de bâtiment",
         'building' => [
@@ -553,7 +553,7 @@ return [
         'login_variation' => 'Modification de l\'ouverture de session',
         'login_variation_slider' => 'Voulez-vous montrer le slider ?',
         "quarter_enable" => "Trimestre",
-        "marketplace_approval_enable" => "Activer le marché",
+        "listing_approval_enable" => "Activer le marché",
         'gocaution' => 'Gocaution',
         'gocaution_desc' => 'Gocaution',
         "blank_pdf" => "PDF vierge",
@@ -897,13 +897,13 @@ return [
             'deleted' => "Le gestionnaire immobilier a supprimé l'erreur : ",
         ],
     ],
-    'product' => [
+    'listing' => [
         "title" => "Produits",
         "add" => "Ajouter un produit",
         "edit_title" => "Modifier le produit",
         "delete_action" => "Supprimer",
         "content" => "Contenu",
-        "product_title" => "Titre",
+        "listing_title" => "Titre",
         "published_at" => "Publié",
         "publish" => "Publier",
         "unpublish" => "Non publié",

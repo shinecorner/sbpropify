@@ -7,19 +7,18 @@
             <el-col>
                 <el-form-item prop="type" :label="$t('tenant.type')">
                     <el-select v-model="model.type">
-                        <el-option v-for="category in types" :key="category.value" :label="$t(`models.product.type.${category.label}`)" :value="category.value" />
+                        <el-option v-for="category in types" :key="category.value" :label="$t(`models.listing.type.${category.label}`)" :value="category.value" />
                     </el-select>
                 </el-form-item>
             </el-col>
             <el-col>
                 <el-form-item prop="visibility" :label="$t('tenant.visibility')">
                     <el-select v-model="model.visibility">
-                        <el-option v-for="visibility in visibilities" :key="visibility.value" :label="$t(`models.product.visibility.${visibility.label}`)" :value="visibility.value" />
+                        <el-option v-for="visibility in visibilities" :key="visibility.value" :label="$t(`models.listing.visibility.${visibility.label}`)" :value="visibility.value" />
                     </el-select>
                 </el-form-item>
             </el-col>
         </el-row>
-
         <el-form-item prop="price" :label="$t('tenant.price')" v-if="isPriceVisible">
             <div style="display: flex">
                 <el-input v-model="model.price.integer">
@@ -44,9 +43,7 @@
                 </el-form-item>
             </el-col>
         </el-row>
-       
-        <ui-media-gallery :files="data.media.map(({url}) => url)" />
-        
+
         <ui-divider class="upload-divider" content-position="left">
             <i class="el-icon-upload"></i>
             {{$t('tenant.request_upload_title')}}
@@ -61,21 +58,12 @@
             >
             </el-alert>
         </div>
-        <media-uploader ref="media" :id="product_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
-        <div class="submitBtnDiv" v-if="!hideSubmit">
-        <el-row type="flex" :gutter="16" >
-            <el-col>
-                <el-form-item>
-                    <el-button class="submit is-round" icon="ti-save" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
-                </el-form-item>
-            </el-col>
-            <el-col>
-                <el-form-item>
-                    <el-button class="is-round" icon="ti-trash" type="danger" :disabled="loading" @click.stop="$emit('delete-product', $event, data)">{{$t('general.actions.delete')}}</el-button>
-                </el-form-item>
-            </el-col>
-        </el-row>
-        </div>
+        <el-form-item>
+            <media-uploader ref="media" :id="listing_id" :audit_id="audit_id" type="listings" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
+        </el-form-item>
+        <el-form-item v-if="!hideSubmit" class="submitBtnDiv">
+            <el-button class="submit is-round" icon="ti-save" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
+        </el-form-item>
     </el-form>
 </template>
 
@@ -83,19 +71,16 @@
     import {displaySuccess, displayError} from 'helpers/messages'
 
     export default {
-        name: 'p-product-edit-form',
+        name: 'p-listing-add-form',
         props: {
             hideSubmit: {
                 type: Boolean,
                 default: false
             },
-            data: {
-                type: Object
-            },
             visible: {
                 type: Boolean,
                 default: false
-            }
+            },
         },
         data () {
             return {
@@ -109,7 +94,8 @@
                     extensions: 'png,jpg,jpeg',
                     hideSelectFilesButton: false
                 },
-                product_id: null,
+                listing_id: null,
+                audit_id: null,
                 model: {
                     media: [],
                     type: null,
@@ -121,7 +107,7 @@
                     content: null,
                     visibility: null,
                     tenant_name: null,
-                    tenant_phone: null,       
+                    tenant_phone: null,                    
                 },
                 validationRules: {
                     type: {
@@ -165,24 +151,21 @@
 
                         params.price = `${price.integer}.${price.decimals}`
                         params.contact = `${tenant_name} - ${tenant_phone}`
-                        params.id = this.data.id
 
-                        const resp = await this.$store.dispatch('newProducts/update', params);
-                        
+                        const resp = await this.$store.dispatch('newListings/create', params);
                         if (resp && resp.data) {                            
                             if (this.model.media.length) {
                             // TODO - make await for this   
-                                this.product_id = this.data.id;            
+                                this.listing_id = resp.data.id;
+                                this.audit_id = resp.data.audit_id;
                                 this.$refs.media.startUploading();
-                                this.$root.$on('media-upload-finished', () => this.$emit('update:visible', false));
                             }
                         }
                         
+                        this.$emit('update:visible', false)
 
                         this.loading = false
                         this.$refs.form.resetFields()
-                        if(!this.model.media.length)
-                            this.$emit('update:visible', false);
                         // this.$refs.media.clearUploader()
                     }
                 })
@@ -206,25 +189,25 @@
         },
         computed: {
             isPriceVisible () {
-                return this.model.type != (Object.values(this.$constants.products.type).find(name => name === 'giveaway') || [])[0]
+                return this.model.type != (Object.values(this.$constants.listings.type).find(name => name === 'giveaway') || [])[0]
             }
         },
         created () {
-            this.model.title = this.data.title;
-            this.model.type = this.data.type;
-            this.model.visibility = this.data.visibility;
-            this.model.content = this.data.content;
-
             const {first_name, last_name, mobile_phone} = this.$store.getters.loggedInUser.tenant
 
             this.model.tenant_phone = mobile_phone
             this.model.tenant_name = `${first_name} ${last_name}`
 
-            this.model.price.integer = this.data.price.split(".")[0]
-            this.model.price.decimals = this.data.price.split(".")[1]
-            this.types = Object.entries(this.$constants.products.type).map(([value, label]) => ({value: +value, label}))
-            this.visibilities = Object.entries(this.$constants.products.visibility).map(([value, label]) => ({value: +value, label}))
+            this.types = Object.entries(this.$constants.listings.type).map(([value, label]) => ({value: +value, label}))
+            this.visibilities = Object.entries(this.$constants.listings.visibility).map(([value, label]) => ({value: +value, label}))
 
+            if (this.types.length) {
+                this.model.type = this.types[0].value
+            }
+
+            if (this.visibilities) {
+                this.model.visibility = this.visibilities[0].value
+            }
         }
     };
 </script>
@@ -235,7 +218,7 @@
         flex-direction: column
 
         .el-form-item
-            //margin-bottom: 16px
+            // margin-bottom: 16px
             margin-bottom: 0
 
             &:last-child
@@ -243,7 +226,7 @@
 
             /deep/ .el-form-item__label
                 padding: 0
-                //line-height: 32px
+                // line-height: 32px
 
             /deep/ .el-form-item__content
                 .el-input.el-input-group
@@ -255,10 +238,6 @@
 
                 .el-button i
                     padding-right: 5px
-
-        .ui-media-gallery 
-            margin-top: 8px
-
         .upload-divider 
             padding: 0
 
@@ -286,22 +265,19 @@
         .submitBtnDiv 
             // position: absolute
             width: 100%
+            grid-column: span 6 / auto
             display: flex
             flex-direction: column
             flex-grow: 1
             justify-content: flex-end
-            
+            margin-bottom: 30px
 
-            .el-col
-                align-items: flex-end
-                display: flex
-
-                .el-form-item
-                    width: 100%
         
         .el-button.submit 
             margin-top: 1em
             width: 100%
             /deep/ i 
                 padding-right: 5px
+                
+            
 </style>

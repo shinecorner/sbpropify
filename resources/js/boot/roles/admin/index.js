@@ -3,7 +3,7 @@ export default {
         user: 'list-user',
         tenant: 'list-tenant',
         pinboard: 'list-pinboard',
-        product: 'list-product',
+        listing: 'list-listing',
         request: 'list-request',
         audit: 'list-audit',
         building: 'list-building',
@@ -20,7 +20,7 @@ export default {
         userSetting: 'view-user_setting',
         tenant: 'view-tenant',
         pinboard: 'view-pinboard',
-        product: 'view-product',
+        listing: 'view-listing',
         provider: 'view-provider',
         building: 'view-building',
         address: 'view-address',
@@ -37,7 +37,7 @@ export default {
         user: 'add-user',
         tenant: 'add-tenant',
         pinboardToAnyLocation: 'add-located-pinboard',
-        product: 'add-product',
+        listing: 'add-listing',
         provider: 'add-provider',
         tenantRequest: 'add-request_tenant',
         serviceRequest: 'add-request_service',
@@ -57,7 +57,7 @@ export default {
         tenant: 'edit-tenant',
         comment: 'edit-comment',
         pinboard: 'edit-pinboard',
-        product: 'edit-product',
+        listing: 'edit-listing',
         provider: 'edit-provider',
         request: 'edit-request',
         tenantRequest: 'edit-request_tenant',
@@ -75,7 +75,7 @@ export default {
         user: 'delete-user',
         tenant: 'delete-tenant',
         pinboard: 'delete-pinboard',
-        product: 'delete-product',
+        listing: 'delete-listing',
         provider: 'delete-provider',
         request: 'delete-request',
         building: 'delete-building',
@@ -88,7 +88,7 @@ export default {
     },
     publish: {
         pinboard: 'publish-pinboard',
-        product: 'publish-product'
+        listing: 'publish-listing'
     },
     pin: {
         pinboard: 'pin-pinboard'
