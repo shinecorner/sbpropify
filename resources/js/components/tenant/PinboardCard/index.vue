@@ -282,8 +282,8 @@
                 transform: rotate(45deg);
                 width: 100px;
                 display: block;
-                background: #6AC06F;
-                background: linear-gradient(darken(#6AC06F, 10%) 0%, #6AC06F 100%);
+                background: var(--primary-color);
+                //background: linear-gradient(var(--primary-color), var(--primary-color-lighter));
                 box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
                 position: absolute;
                 top: 19px;
