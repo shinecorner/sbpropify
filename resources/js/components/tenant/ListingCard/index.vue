@@ -2,6 +2,9 @@
     <ui-card shadow="hover" v-on="$listeners">
         <div class="media">
             <ui-image :src="(data.media[0] || {}).url" />
+            <el-tooltip :content="$t('tenant.edit_listing')">
+                <div class="edit-btn" @click.stop="$emit('edit-listing', $event, data)"><i class="ti-pencil"></i></div>
+            </el-tooltip>
             <!-- <ui-image src="https://placeimg.com/640/480/any" /> -->
         </div>
         <div :class="['price', {'free': isFree}]">
@@ -16,10 +19,6 @@
                 <div>
                     <i class="icon-picture"></i> {{data.media.length}}
                 </div>
-                <el-button size="mini" @click.stop="$emit('edit-listing', $event, data)" type="primary" v-if="showAction">
-                    <i class="ti-pencil"></i>
-                    <span>{{ $t('general.actions.update') }}</span>
-                </el-button>
                 <!-- <el-button size="mini" @click.stop="$emit('delete-listing', $event, data)" type="danger">
                     <i class="ti-close"></i>
                 </el-button> -->
@@ -88,6 +87,18 @@
                     /deep/ .ui-image__inner
                         filter: brightness(.8)
                         transition: filter .48s
+                .edit-btn
+                    position: absolute
+                    right: 20px
+                    top: 20px
+                    width: 40px
+                    height: 40px
+                    border-radius: 50%
+                    background: var(--primary-color)
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    color: white
 
             .price
                 color: #fff

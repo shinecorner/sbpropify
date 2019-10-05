@@ -250,7 +250,7 @@
                                         default: audit_replacer[type]['new'] = new_value
                                     }
                                 }
-                                audit_replacer[type]['new'] = "<i>" + audit_replacer[type]['new'] + "</i>"
+                                audit_replacer[type]['new'] = audit_replacer[type]['new']
 
                             })
                             //  Build old values array for type
@@ -269,7 +269,7 @@
                                         default: audit_replacer[type]['old'] = old_value
                                     }
                                 }
-                                audit_replacer[type]['old'] = "<i>" + audit_replacer[type]['old'] + "</i>"
+                                audit_replacer[type]['old'] = audit_replacer[type]['old']
                             })
 
                             //  For each type find the content text located in the translation file, 

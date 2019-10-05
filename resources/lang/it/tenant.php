@@ -88,6 +88,11 @@ return [
         "delete_pinboard" => "Elimina bacheca",
         "status_change_requeset" => "Qui è possibile modificare lo stato della richiesta.",
     ],
+    "descriptions" => [
+        "address" => "La tua bacheca sarà visibile agli inquilini solo sul tuo indirizzo.",
+        "quarter" => "La tua bacheca sarà visibile solo agli inquilini del tuo quartiere.",
+        "all" => "La tua bacheca sarà visibile a tutti.",
+    ],
     "heading_info" => [
         "property_manager" => "Persona di contatto per le vostre preoccupazioni",
         "my_neighbour" => "Gli inquilini del quartiere",

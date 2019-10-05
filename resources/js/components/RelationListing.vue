@@ -4,6 +4,15 @@
             :data="list"
             style="width: 100%"
             >
+            <div slot="empty">
+                <el-alert                                     
+                    :title="$t('general.no_data_available')"
+                    type="info"
+                    show-icon
+                    :closable="false"
+                >
+                </el-alert>
+            </div>
             <el-table-column
                 :key="column.prop"
                 :width="column.width"
@@ -299,8 +308,18 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
+<style lang="scss">
+    .el-table__empty-text{
+        width: 100%;
+    }
+    .el-alert{
+        padding: 0 0;
+    }
+    .el-alert--info.is-light{
+        padding-left: 35%;
+    }
+</style>
+<style lang="scss" scoped>    
     .request-title {
         text-overflow: ellipsis;
         white-space: nowrap;
