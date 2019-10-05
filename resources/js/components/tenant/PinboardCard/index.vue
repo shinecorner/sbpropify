@@ -1,7 +1,7 @@
 <template>
     <el-card  :class="{announcement: data.announcement}">
         <div ref="container">
-        <div class="announcement" v-if="data.announcement"><span>announcement</span></div>
+        <div class="announcement" v-if="data.announcement"><span> {{$t(`models.pinboard.sub_type.${$constants.pinboard.sub_type[3][data.sub_type]}`)}}</span></div>
         <div class="user">
             <ui-avatar :name="data.user.name" :size="42" :src="data.user.avatar" />
             <div class="name">
@@ -29,7 +29,7 @@
         
         <hr v-if="data.announcement" />
         <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
-        
+
         <hr v-if="data.announcement"/>
         <div class="execution" v-if="data.announcement">
             {{$t('tenant.execution')}} {{execution}}
@@ -52,7 +52,7 @@
         </like>
             
         
-        <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" :with-scroller="true"/>
+        <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" :with-scroller="true" @update-dynamic-scroller="$emit('update-dynamic-scroller')"/>
         <add-comment ref="addComment" :id="data.id" type="pinboard"/>
         </div>
     </el-card>
@@ -111,7 +111,7 @@
         methods: {
             showChildrenAddComment() {
                 this.$refs.comments.showChildrenAddComment()
-            }
+            },
         },
         computed: {
             ...mapGetters(['loggedInUser']),
@@ -190,12 +190,18 @@
                 font-weight: normal;
                 display: block;
                 color: darken(#fff, 48%);
+                margin-bottom: 5px;
             }
         }
 
         .execution {
             font-size: 12px;
             color: darken(#fff, 48%);
+            margin-bottom: 5px;
+        }
+
+        .providers {
+            margin-bottom: 5px;
         }
 
         .gallery {
@@ -282,8 +288,8 @@
                 transform: rotate(45deg);
                 width: 100px;
                 display: block;
-                background: #6AC06F;
-                background: linear-gradient(darken(#6AC06F, 10%) 0%, #6AC06F 100%);
+                background: var(--primary-color);
+                //background: linear-gradient(var(--primary-color), var(--primary-color-lighter));
                 box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
                 position: absolute;
                 top: 19px;
@@ -295,10 +301,10 @@
                     left: 0px;
                     top: 100%;
                     z-index: -1;
-                    border-left: 3px solid #6AC06F;
+                    border-left: 3px solid var(--primary-color);
                     border-right: 3px solid transparent;
                     border-bottom: 3px solid transparent;
-                    border-top: 3px solid #6AC06F;
+                    border-top: 3px solid var(--primary-color);
                 }
 
                 &:after {
@@ -308,9 +314,9 @@
                     top: 100%;
                     z-index: -1;
                     border-left: 3px solid transparent;
-                    border-right: 3px solid #6AC06F;
+                    border-right: 3px solid var(--primary-color);
                     border-bottom: 3px solid transparent;
-                    border-top: 3px solid #6AC06F;
+                    border-top: 3px solid var(--primary-color);
                 }
             }
         }

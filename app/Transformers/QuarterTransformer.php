@@ -55,6 +55,15 @@ class QuarterTransformer extends BaseTransformer
             'free' => $units->count() - $occupiedUnits->count(),
         ];
         $response['counts'] = $counts;
+
+        $response['buildings_count'] = $counts['buildings'];
+        $response['active_tenants_count'] = $counts['active_tenants'];
+        $response['total_units_count'] = $counts['units']['total'];
+        $response['occupied_units_count'] = $counts['units']['occupied'];
+        $response['free_units_count'] = $counts['units']['free'];
+
+
+
         return $response;
     }
 }

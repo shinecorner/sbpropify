@@ -73,6 +73,11 @@ class TenantTransformer extends BaseTransformer
 
             $allCount = $model->rent_contracts->count();
             $activeCount = $model->rent_contracts->where('status', RentContract::StatusActive)->count();
+
+            $response['active_rent_contracts_count'] = $activeCount;
+            $response['inactive_rent_contracts_count'] = $allCount - $activeCount;
+            $response['total_rent_contracts_count'] = $allCount;
+
             $response['counts']['rent_contracts'] = [
                 'total' => $allCount,
                 RentContract::Status[RentContract::StatusActive] => $activeCount,
