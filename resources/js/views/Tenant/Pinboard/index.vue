@@ -23,7 +23,7 @@
                         <template v-slot="{item, index, active}">
                             <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" page-mode v-if="!loading">
                                 <pinboard-new-tenant-card :data="item" v-if="$constants.pinboard.type[item.type] === 'new_neighbour' && item.user_id != $store.getters.loggedInUser.id"/>
-                                <pinboard-card :data="item" @edit-pinboard="editPinboard" @delete-pinboard="deletePinboard" v-else-if="$constants.pinboard.type[item.type] !== 'new_neighbour'" @hook:mounted="$refs['dynamic-scroller'].forceUpdate"/>
+                                <pinboard-card :data="item" @edit-pinboard="editPinboard" @delete-pinboard="deletePinboard" v-else-if="$constants.pinboard.type[item.type] !== 'new_neighbour'" @update-dynamic-scroller="force_scroller_update()"/>
                             </dynamic-scroller-item>
                         </template>
                         <!-- <template #after v-if="loading && !filteredPinboards.length">
@@ -134,6 +134,12 @@
             }
         },
         methods: {
+            onResize() {
+                force_scroller_update();
+            },
+            force_scroller_update() {
+                 this.$refs['dynamic-scroller'].forceUpdate();
+            },
             async getPinboards (params = {}) {
                 if (this.loading && this.pinboard.data.length) {
                     return
