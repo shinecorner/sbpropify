@@ -1,7 +1,7 @@
 <template>
     <el-card  :class="{announcement: data.announcement}">
         <div ref="container">
-        <div class="announcement" v-if="data.announcement"><span>announcement</span></div>
+        <div class="announcement" v-if="data.announcement"><span> {{$t(`models.pinboard.sub_type.${$constants.pinboard.sub_type[3][data.sub_type]}`)}}</span></div>
         <div class="user">
             <ui-avatar :name="data.user.name" :size="42" :src="data.user.avatar" />
             <div class="name">
@@ -190,12 +190,18 @@
                 font-weight: normal;
                 display: block;
                 color: darken(#fff, 48%);
+                margin-bottom: 5px;
             }
         }
 
         .execution {
             font-size: 12px;
             color: darken(#fff, 48%);
+            margin-bottom: 5px;
+        }
+
+        .providers {
+            margin-bottom: 5px;
         }
 
         .gallery {
@@ -295,10 +301,10 @@
                     left: 0px;
                     top: 100%;
                     z-index: -1;
-                    border-left: 3px solid #6AC06F;
+                    border-left: 3px solid var(--primary-color);
                     border-right: 3px solid transparent;
                     border-bottom: 3px solid transparent;
-                    border-top: 3px solid #6AC06F;
+                    border-top: 3px solid var(--primary-color);
                 }
 
                 &:after {
@@ -308,9 +314,9 @@
                     top: 100%;
                     z-index: -1;
                     border-left: 3px solid transparent;
-                    border-right: 3px solid #6AC06F;
+                    border-right: 3px solid var(--primary-color);
                     border-bottom: 3px solid transparent;
-                    border-top: 3px solid #6AC06F;
+                    border-top: 3px solid var(--primary-color);
                 }
             }
         }
