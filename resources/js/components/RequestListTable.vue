@@ -121,7 +121,7 @@
         <!--            </el-button>-->
         <!--        </div>-->
         <el-popover placement="left-end" trigger="click" :width="192" style="float:right">
-            <span slot="reference" class="el-icon-sort popover-button"><span style="font-family: 'Nunito', sans-serif !important;">&nbsp;{{ $t('models.request.sort')}}</span></span>
+            <el-button slot="reference" icon="el-icon-sort" class="popover-button">{{ $t('models.request.sort') }}</el-button>
             <div class="sorters">
                 <template v-for="(sorter, key) in this.Sorters">
                     <el-radio-group v-if="sorter.type=='el-radio'" v-model="filterModel[sorter.key]" @change="sortChanged(sorter)" :key="key">
@@ -646,10 +646,9 @@
         }
     }
     .popover-button {
-        cursor:pointer;
-        font-size: 14px;
-        font-weight: bold;
-        color: var(--color-text-regular);
+        padding:0;
+        border:none;
+        background-color:transparent;
     }
     .el-table {
         background: none;
