@@ -44,11 +44,8 @@
             </el-col>
         </el-row>
 
-        <ui-divider class="upload-divider" content-position="left">
-            <i class="el-icon-upload"></i>
-            {{$t('tenant.request_upload_title')}}
-        </ui-divider>
-        
+        <ui-divider content-position="left"><i class="el-icon-upload"></i> {{$t('tenant.request_upload_title')}}</ui-divider>
+
         <div class="upload-description">
             <el-alert
                 :title="$t('tenant.request_upload_desc')"
@@ -241,19 +238,10 @@
 
                 .el-button i
                     padding-right: 5px
-        .upload-divider 
-            padding: 0
-
-            /deep/ .ui-divider__content 
-                left: 0
-                z-index: 1
-                padding-left: 0
-                font-size: 20px
-                font-weight: 700
-                color: var(--color-primary)
-                transform: translate(calc(208px - 50%), -50%)
-                padding-left: 16px
             
+        .ui-divider
+            margin-top: 30px
+
         .upload-description
             padding: 0
 

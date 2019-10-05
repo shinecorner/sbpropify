@@ -6,7 +6,7 @@
                 class="request-status-change-modal"
                 @close="closeModal()"
                 :modalAppendToBody="false">
-        <el-form ref="form" :model="model" label-position="top" :rules="validationRules">
+        <el-form ref="form" :model="model" label-position="top">
             <el-row>
                 <el-col :span="24" v-if="statusChangeModalType=='done'">
                     <p class="description">{{ $t(`general.swal.to_done.desc`) }}</p>
@@ -19,7 +19,7 @@
             </el-row>
             <el-row>
                 <el-col :span="24">
-                    <el-form-item prop="message" required>
+                    <el-form-item prop="message">
                         <el-input type="textarea" :autosize="{ minRows: 3}" v-model="model.message" ></el-input>
                     </el-form-item>
                 </el-col>
@@ -27,8 +27,8 @@
         </el-form>
             <span class="dialog-footer" slot="footer">
                 <el-button @click="close" size="mini">{{$t('tenant.cancel')}}</el-button>
-                <el-button v-if="statusChangeModalType=='done'" :disabled="model.message == null || model.message == ''" @click="changeStatus(statusChangeModalType, model.message)" size="mini" type="primary">{{statusChangeModalType=='done' ? $t('tenant.close_request') : $t('tenant.actions.to_reactivated')}}</el-button>
-                <el-button v-else @click="changeStatus(statusChangeModalType, model.message)" size="mini" type="primary">{{statusChangeModalType=='done' ? $t('tenant.close_request') : $t('tenant.actions.to_reactivated')}}</el-button>
+                <el-button v-if="statusChangeModalType=='done'" @click="changeStatus(statusChangeModalType, model.message)" size="mini" type="primary">{{$t('tenant.close_request')}}</el-button>
+                <el-button v-else :disabled="model.message == null || model.message == ''" @click="changeStatus(statusChangeModalType, model.message)" size="mini" type="primary">{{$t('tenant.actions.to_reactivated')}}</el-button>
             </span>
         
     </el-dialog>
@@ -58,13 +58,7 @@
             return {
                 model: {
                     message: null
-                },
-                validationRules: {
-                    message: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.message')})
-                    }               
-                },
+                }
             }
         },
         methods: {

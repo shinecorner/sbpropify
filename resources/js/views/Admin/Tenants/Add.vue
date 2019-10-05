@@ -198,10 +198,7 @@
         </div>
         </div>
         <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
-            <h3 class="chart-card-header">
-                <i class="icon-handshake-o ti-user icon "/>
-                    &nbsp;{{ $t('models.tenant.rent_contract') }}
-            </h3>
+            <ui-divider content-position="left"><i class="icon-handshake-o ti-user icon"></i> &nbsp;&nbsp;{{ $t('models.tenant.rent_contract') }}</ui-divider>
             <div class="content" v-if="visibleDrawer">
                 <rent-contract-form v-if="editingRentContract" mode="edit" :data="editingRentContract" :tenant_id="model.id" :visible.sync="visibleDrawer" :edit_index="editingRentContractIndex" @update-rent-contract="updateRentContract" :used_units="used_units"/>
                 <rent-contract-form v-else mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer" @add-rent-contract="addRentContract" :used_units="used_units"/>
@@ -276,6 +273,21 @@
         
 
         /deep/ .ui-drawer {
+            .ui-divider {
+                margin: 32px 16px 0 16px;
+                i {
+                    padding-right: 0;
+                }
+
+                /deep/ .ui-divider__content {
+                    left: 0;
+                    z-index: 1;
+                    padding-left: 0;
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: var(--color-primary);
+                }
+            }
             .content {
                 height: calc(100% - 70px);
                 display: -webkit-box;
@@ -289,6 +301,7 @@
                 -ms-flex-direction: column;
                 flex-direction: column;
                 position: relative;
+                
             }
 
             .chart-card-header{

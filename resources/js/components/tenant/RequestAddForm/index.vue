@@ -80,10 +80,7 @@
             <el-switch v-model="model.is_public"/>
         </el-form-item>
 
-        <ui-divider class="upload-divider" content-position="left">
-            <i class="el-icon-upload"></i>
-            {{$t('tenant.request_upload_title')}}
-        </ui-divider>
+        <ui-divider content-position="left"><i class="el-icon-upload"></i> {{$t('tenant.request_upload_title')}}</ui-divider>
         
         <div class="upload-description">
             <el-alert
@@ -382,24 +379,10 @@
             }
         }
 
-        .upload-divider {
-            padding: 0;
-            background: transparent;
-
-            /deep/ .ui-divider__content {
-                left: 0;
-                z-index: 1;
-                padding-left: 0;
-                font-size: 20px;
-                font-weight: 700;
-                color: var(--color-primary);
-                transform: translate(calc(208px - 50%), -50%);
-                padding-left: 16px;
-                background: transparent;
-            }
-
+        .ui-divider {
+            margin-top: 30px;
         }
-
+        
         .upload-description {
             padding: 0;
 

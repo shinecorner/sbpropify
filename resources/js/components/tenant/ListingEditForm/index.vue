@@ -45,7 +45,7 @@
             </el-col>
         </el-row>
        
-        <ui-divider content-position="left"><i class="icon-file-image"></i> {{$t('tenant.image')}}</ui-divider>
+        <ui-divider content-position="left"><i class="icon-file-image"></i> {{$t('tenant.images')}}</ui-divider>
         <ui-media-gallery :files="data.media.map(({url}) => url)" />
         
         
@@ -62,18 +62,18 @@
         </div>
         <media-uploader ref="media" :id="listing_id" type="listings" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         <div class="submitBtnDiv" v-if="!hideSubmit">
-        <el-row type="flex" :gutter="16" >
-            <el-col>
-                <el-form-item>
-                    <el-button class="submit is-round" icon="ti-save" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
-                </el-form-item>
-            </el-col>
-            <el-col>
-                <el-form-item>
-                    <el-button class="is-round" icon="ti-trash" type="danger" :disabled="loading" @click.stop="$emit('delete-listing', $event, data)">{{$t('general.actions.delete')}}</el-button>
-                </el-form-item>
-            </el-col>
-        </el-row>
+            <el-row type="flex" :gutter="16" >
+                <el-col>
+                    <el-form-item>
+                        <el-button class="submit is-round" icon="ti-save" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
+                    </el-form-item>
+                </el-col>
+                <el-col>
+                    <el-form-item>
+                        <el-button class="is-round" icon="ti-trash" type="danger" :disabled="loading" @click.stop="$emit('delete-listing', $event, data)">{{$t('general.actions.delete')}}</el-button>
+                    </el-form-item>
+                </el-col>
+            </el-row>
         </div>
     </el-form>
 </template>
@@ -263,19 +263,10 @@
         .ui-media-gallery 
             margin-top: 8px
 
-        .upload-divider 
-            padding: 0
 
-            /deep/ .ui-divider__content 
-                left: 0
-                z-index: 1
-                padding-left: 0
-                font-size: 20px
-                font-weight: 700
-                color: var(--color-primary)
-                transform: translate(calc(208px - 50%), -50%)
-                padding-left: 16px
-            
+        .ui-divider
+            margin-top: 30px
+
         .upload-description
             padding: 0
 
