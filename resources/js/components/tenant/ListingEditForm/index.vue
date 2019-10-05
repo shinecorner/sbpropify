@@ -238,6 +238,9 @@
             //margin-bottom: 16px
             margin-bottom: 0
 
+            &.is-error
+                margin-bottom: 10px;
+
             &:last-child
                 margin-bottom: 0
 
