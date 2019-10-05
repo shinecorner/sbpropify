@@ -76,7 +76,7 @@ export default {
                 .then(({data: r}) => (r && commit('SET_PINBOARD', r.data), resolve(r)))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    getPinboardsTruncated({commit}, payload) {
+    getPinboardTruncated({commit}, payload) {
         return new Promise((resolve, reject) =>
             axios.get(buildFetchUrl('pinboard', payload))
                 .then(({data: r}) => {

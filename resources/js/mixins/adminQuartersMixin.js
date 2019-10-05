@@ -9,7 +9,8 @@ export default (config = {}) => {
                     id: '',
                     name: '',
                     description: '',
-                    buildings: []
+                    buildings: [],
+                    count_of_buildings: null,
                 },
                 quarter_format: '',
                 validationRules: {
@@ -187,6 +188,7 @@ export default (config = {}) => {
                         this.model.id = resp.id;
                         this.model.name = resp.name;
                         this.model.description = resp.description;
+                        this.model.count_of_buildings = resp.count_of_buildings;
                         this.quarter_format = resp.quarter_format;
                     },
                     submit() {
