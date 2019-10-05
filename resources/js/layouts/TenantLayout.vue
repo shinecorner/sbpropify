@@ -326,7 +326,6 @@
         top: 0;
         left: 0;
         background-color: var(--color-main-background-base);
-        font-family: 'Nunito', sans-serif;
         display: flex;
         flex-direction: column;
 

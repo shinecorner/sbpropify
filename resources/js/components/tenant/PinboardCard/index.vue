@@ -1,6 +1,6 @@
 <template>
-    <el-card  :class="{announcement: data.announcement}">
-        <div ref="container">
+    <el-card  :class="{announcement: data.announcement}" >
+        <div ref="container" >
         <div class="announcement" v-if="data.announcement"><span>announcement</span></div>
         <div class="user">
             <ui-avatar :name="data.user.name" :size="42" :src="data.user.avatar" />
@@ -29,7 +29,7 @@
         
         <hr v-if="data.announcement" />
         <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
-        
+
         <hr v-if="data.announcement"/>
         <div class="execution" v-if="data.announcement">
             {{$t('tenant.execution')}} {{execution}}
@@ -52,7 +52,7 @@
         </like>
             
         
-        <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" :with-scroller="true"/>
+        <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" :with-scroller="true" @update-dynamic-scroller="$emit('update-dynamic-scroller')"/>
         <add-comment ref="addComment" :id="data.id" type="pinboard"/>
         </div>
     </el-card>
@@ -111,7 +111,7 @@
         methods: {
             showChildrenAddComment() {
                 this.$refs.comments.showChildrenAddComment()
-            }
+            },
         },
         computed: {
             ...mapGetters(['loggedInUser']),
