@@ -236,7 +236,7 @@
                         + " " + this.address.house_num
                         + " " + this.address.city
                         +"\n"
-                        + " [ " + this.requestData.service_request_format
+                        + " [ " + this.requestData.request_format
                         +" | " + this.requestData.category +" ]";
                 }else {
                     return "";
