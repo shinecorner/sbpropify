@@ -37,7 +37,7 @@
             </el-dialog>
         </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
-            <ui-divider content-position="left" v-if="editingListing">{{$t('tenant.edit_listing')}}</ui-divider>
+            <ui-divider content-position="left" v-if="editingListing"><i class="ti-pencil"></i> {{$t('tenant.edit_listing')}}</ui-divider>
             <ui-divider content-position="left" v-else>{{$t('tenant.add_listing')}}</ui-divider>
             <div class="content">
                 <listing-edit-form :data="editingListing" @delete-listing="deleteListing" v-if="editingListing"/>
@@ -377,6 +377,8 @@
 
             .ui-divider
                 margin: 32px 16px 0 16px
+                i
+                    padding-right: 0
 
                 /deep/ .ui-divider__content
                     left: 0
@@ -402,4 +404,12 @@
 
                     /deep/ .el-loading-mask
                         position: fixed
+
+                    /deep/ .ui-divider__content
+                        left: 0
+                        z-index: 1
+                        padding-left: 0
+                        font-size: 20px
+                        font-weight: 700
+                        color: var(--color-primary)
 </style>

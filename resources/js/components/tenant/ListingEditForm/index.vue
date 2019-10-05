@@ -45,12 +45,11 @@
             </el-col>
         </el-row>
        
+        <ui-divider content-position="left"><i class="icon-file-image"></i> {{$t('tenant.image')}}</ui-divider>
         <ui-media-gallery :files="data.media.map(({url}) => url)" />
         
-        <ui-divider class="upload-divider" content-position="left">
-            <i class="el-icon-upload"></i>
-            {{$t('tenant.request_upload_title')}}
-        </ui-divider>
+        
+        <ui-divider content-position="left"><i class="el-icon-upload"></i> {{$t('tenant.request_upload_title')}}</ui-divider>
         
         <div class="upload-description">
             <el-alert
@@ -215,10 +214,9 @@
             this.model.visibility = this.data.visibility;
             this.model.content = this.data.content;
 
-            const {first_name, last_name, mobile_phone} = this.$store.getters.loggedInUser.tenant
-
-            this.model.tenant_phone = mobile_phone
-            this.model.tenant_name = `${first_name} ${last_name}`
+            let contacts = this.data.contact.split(" - ");
+            this.model.tenant_name = contacts[0]
+            this.model.tenant_phone = contacts[1]
 
             this.model.price.integer = this.data.price.split(".")[0]
             this.model.price.decimals = this.data.price.split(".")[1]
@@ -243,6 +241,9 @@
 
             &:last-child
                 margin-bottom: 0
+
+                &.is-error
+                    margin-bottom: 20px;
 
             /deep/ .el-form-item__label
                 padding: 0
