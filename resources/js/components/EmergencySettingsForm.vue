@@ -31,7 +31,7 @@
             </el-col>
         </el-row>
         
-        <ui-divider></ui-divider>
+
         <div class="drawer-actions">
             <el-button type="primary" @click="submit" icon="ti-save" round>{{$t('general.actions.save')}}</el-button>
         </div>
@@ -93,54 +93,89 @@
 </script>
 
 <style lang="scss" scoped>
-
-    /deep/ .ui-divider {
-        margin: 32px 16px 16px 0;
+    .el-form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
         
-        i {
-            padding-right: 0;
+        /deep/ .ui-divider {
+            margin: 32px 16px 16px 0;
+            
+            i {
+                padding-right: 0;
+            }
+
+            .ui-divider__content {
+                left: 0;
+                z-index: 1;
+                padding-left: 0;
+                font-size: 16px;
+                font-weight: 700;
+                color: var(--color-primary);
+            }
+        }
+        .el-form-item {
+            margin-bottom: 0;
+
+            &.is-error {
+                margin-bottom: 10px;
+            }
         }
 
-        .ui-divider__content {
-            left: 0;
-            z-index: 1;
-            padding-left: 0;
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--color-primary);
+        /deep/ .el-input.el-input-group {
+            .el-input-group__prepend {
+                padding: 2px 8px 0;
+                font-weight: 600;
+            }
+            
         }
-    }
-    .el-form-item {
-        margin-bottom: 0;
-
-        &.is-error {
+        
+        .el-alert {
+            line-height: 19px;
             margin-bottom: 10px;
         }
-    }
 
-    /deep/ .el-input.el-input-group {
-        .el-input-group__prepend {
-            padding: 2px 8px 0;
-            font-weight: 600;
+        .switcher {
+            /deep/ .el-form-item__content {
+                display: flex;
+                align-items: center;
+
+                & > div {
+                    flex: 1;
+                    justify-content: flex-end;
+                    text-align: end;
+                    width: 130px
+                }
+                .el-select {
+                    width: 130px
+                }
+            }
+            &__label {
+                text-align: left;
+                line-height: 1.4em;
+                color: #606266;
+            }
+            &__desc {
+                margin-top: 0.5em;
+                display: block;
+                font-size: 0.9em;
+            }
+
         }
-        
-    }
-    
-    .el-alert {
-        line-height: 19px;
-        margin-bottom: 10px;
-    }
 
-    /deep/ .drawer-actions {
-        width: 100%;
-        button {
+        /deep/ .drawer-actions {
             width: 100%;
-            i {
-                padding-right: 5px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            button {
+                width: 100%;
+                i {
+                    padding-right: 5px;
+                }
             }
         }
     }
-
-
-    
 </style>
