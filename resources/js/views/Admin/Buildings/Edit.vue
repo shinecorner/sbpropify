@@ -324,6 +324,7 @@
                         <span slot="label">
                             <el-badge :value="requestCount" :max="99" class="admin-layout">{{ $t('general.requests') }}</el-badge>
                         </span>
+                        <el-button style="float:right" type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>Settings Drawer</el-button>
                         <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
@@ -336,7 +337,13 @@
                 </el-tabs>
             </el-col>
         </el-row>
-
+        <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
+            <ui-divider content-position="left"><i class="icon-handshake-o ti-user icon"></i> &nbsp;&nbsp;{{ $t('models.tenant.rent_contract') }}</ui-divider>
+            
+            <div class="content" v-if="visibleDrawer">
+                <rent-contract-form :visible.sync="visibleDrawer"/>
+            </div>
+        </ui-drawer>
         <DeleteBuildingModal 
             :deleteBuildingVisible="deleteBuildingVisible"
             :delBuildingStatus="delBuildingStatus"
@@ -478,7 +485,8 @@
                 tenantCount: 0,
                 assigneeCount: 0,
                 unitCount: 0,
-                requestCount: 0
+                requestCount: 0,
+                visibleDrawer: false
             };
         },
         methods: {
@@ -708,7 +716,11 @@
             },
             setBuildingName(event ) {
                 this.model.name = this.model.street + ' ' + this.model.house_num;
-            }
+            },
+            toggleDrawer() {
+                this.visibleDrawer = true;
+                document.getElementsByTagName('footer')[0].style.display = "none";
+            },
         },
         mounted() {
             this.$root.$on('changeLanguage', () => this.getStates());            
@@ -817,6 +829,40 @@
 
             > *:not(:last-of-type) {
                 margin-bottom: 1em;
+            }
+        }
+
+        .ui-drawer {
+            .ui-divider {
+                margin: 32px 16px 0 16px;
+                i {
+                    padding-right: 0;
+                }
+
+                /deep/ .ui-divider__content {
+                    left: 0;
+                    z-index: 1;
+                    padding-left: 0;
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: var(--color-primary);
+                }
+            }
+
+            .content {
+                height: calc(100% - 70px);
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                padding: 16px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                position: relative;
+
             }
         }
     }

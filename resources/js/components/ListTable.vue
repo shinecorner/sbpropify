@@ -189,21 +189,51 @@
                 :width="column.width"
                 v-for="(column, key) in headerWithCollapsables">
                 <template slot-scope="scope">
+                    <template v-if="column.props == 'building_names'">
                     <span v-if="scope.row[column.props].length == 1">
-                        {{scope.row[column.props][0]}}
+                        {{scope.row[column.props][0].row}}
+                        <br/>
+                        {{scope.row[column.props][0].zip}}
                     </span>
                     <el-collapse class="table-collapsable" v-if="scope.row[column.props].length > 1">
-                        <el-collapse-item :title="scope.row[column.props][0]">
+                        <el-collapse-item>
+                            <template slot="title">
+                                <span>
+                                    {{scope.row[column.props][0].row}}
+                                    <br/>
+                                    {{scope.row[column.props][0].zip}}
+                                </span>
+                            </template>
                             <span
-                                :key="value"
+                                :key="value.row + value.zip"
                                 v-for="(value,v_index) in scope.row[column.props]"
                                 v-if="v_index > 0"
                             >
-                                {{value}}
+                                {{value.row}}
+                                <br/>
+                                {{value.zip}}
                             </span>
                         </el-collapse-item>
                     </el-collapse>
+                    </template>
+                    <template v-else>
+                        <span v-if="scope.row[column.props].length == 1">
+                            {{scope.row[column.props][0]}}
+                        </span>
+                        <el-collapse class="table-collapsable" v-if="scope.row[column.props].length > 1">
+                            <el-collapse-item :title="scope.row[column.props][0]">
+                                <span
+                                    :key="value.row + value.zip"
+                                    v-for="(value,v_index) in scope.row[column.props]"
+                                    v-if="v_index > 0"
+                                >
+                                    {{value}}
+                                </span>
+                            </el-collapse-item>
+                        </el-collapse>
+                    </template>
                 </template>
+                
             </el-table-column>
 
             <el-table-column
