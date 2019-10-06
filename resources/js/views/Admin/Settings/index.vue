@@ -749,6 +749,7 @@
                             var v = this;
                             setTimeout(function () {
                                 v.main_drawer = false;
+                                document.getElementsByTagName('footer')[0].style.display = "block";
                             }, 3000);
 
                             // this.main_drawer = false;
@@ -811,6 +812,7 @@
                     this.Gocaution_drawer_val = false;
                     this.Cleanify_drawer_val = false;
                     this.appName = 'Iframe';
+                    document.getElementsByTagName('footer')[0].style.display = "none";
                 }
             },
             Gocaution_drawer(val){
@@ -821,6 +823,7 @@
                     this.Gocaution_drawer_val = true;
                     this.Cleanify_drawer_val = false;
                     this.appName = 'Gocaution';
+                    document.getElementsByTagName('footer')[0].style.display = "none";
                 }
             },
             Cleanify_drawer(val){
@@ -831,6 +834,7 @@
                     this.Gocaution_drawer_val = false;
                     this.Cleanify_drawer_val = true;
                     this.appName = 'Cleanify';
+                    document.getElementsByTagName('footer')[0].style.display = "none";
                 }
             }
         },
@@ -842,6 +846,15 @@
                         tab: newTab
                     }
                 });
+            },
+            'main_drawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        document.getElementsByTagName('footer')[0].style.display = "block";
+                    }
+                }
             }
         }
     }
@@ -849,7 +862,11 @@
 </script>
 
 <style lang="scss">
-    .dashboard-tabpanel{
+    .settings {
+        flex: 1;
+    }
+
+    .dashboard-tabpanel {
         .el-tabs--border-card > .el-tabs__header .el-tabs__item{
             flex-basis: 0;
             -webkit-box-flex: 1;
