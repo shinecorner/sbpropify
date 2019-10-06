@@ -1,5 +1,6 @@
 <template>
     <div class="buildings-edit ">
+        <div class="main-content">
         <heading :title="$t('models.building.edit_title')" icon="icon-commerical-building" shadow="heavy">
             <template slot="description" v-if="model.building_format">
                 <div class="subtitle">{{`${model.building_format} > ${model.name}`}}</div>
@@ -324,7 +325,7 @@
                         <span slot="label">
                             <el-badge :value="requestCount" :max="99" class="admin-layout">{{ $t('general.requests') }}</el-badge>
                         </span>
-                        <el-button style="float:right" type="primary" @click="toggleDrawer" icon="icon-plus" size="mini" round>Settings Drawer</el-button>
+                        <el-button style="float:right" type="primary" @click="toggleDrawer" size="mini" round>Settings Drawer</el-button>
                         <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
@@ -337,19 +338,21 @@
                 </el-tabs>
             </el-col>
         </el-row>
-        <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
-            <ui-divider content-position="left"><i class="icon-handshake-o ti-user icon"></i> &nbsp;&nbsp;{{ $t('models.tenant.rent_contract') }}</ui-divider>
-            
-            <div class="content" v-if="visibleDrawer">
-                <rent-contract-form :visible.sync="visibleDrawer"/>
-            </div>
-        </ui-drawer>
         <DeleteBuildingModal 
             :deleteBuildingVisible="deleteBuildingVisible"
             :delBuildingStatus="delBuildingStatus"
             :closeModal="closeDeleteBuildModal"
             :deleteSelectedBuilding="deleteSelectedBuilding"
         />
+        </div>
+        <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
+            <ui-divider content-position="left"><i class="icon-tools"></i> &nbsp;&nbsp;Emergency</ui-divider>
+            
+            <div class="content" v-if="visibleDrawer">
+                <emergency-settings-form :visible.sync="visibleDrawer"/>
+            </div>
+        </ui-drawer>
+        
     </div>
 </template>
 
@@ -368,6 +371,7 @@
     import globalFunction from "helpers/globalFunction";
     import DeleteBuildingModal from 'components/DeleteBuildingModal';
     import AssignmentByType from 'components/AssignmentByType';
+    import EmergencySettingsForm from 'components/EmergencySettingsForm';
     import { EventBus } from '../../../event-bus.js';
 
     export default {
@@ -384,7 +388,8 @@
             draggable,
             RelationList,
             DeleteBuildingModal,
-            AssignmentByType       
+            AssignmentByType,
+            EmergencySettingsForm
         },
         data() {
             return {
@@ -767,7 +772,18 @@
                     label: this.$t('settings.contact_enable.hide'),
                 }]
             }
-        }
+        },
+        watch: {
+            'visibleDrawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        document.getElementsByTagName('footer')[0].style.display = "block";
+                    }
+                }
+            }
+        },
     }
 </script>
 
@@ -796,6 +812,8 @@
     }
 
     .buildings-edit {
+        flex: 1;
+
         .heading {
             margin-bottom: 20px;
         }
