@@ -241,9 +241,11 @@
         text-align: left;
     }
 </style>
+
 <style lang="scss" scoped>
     .tenants-add {
         overflow: hidden;
+        height: 100%;
 
         .main-content { 
             overflow-x: hidden;
