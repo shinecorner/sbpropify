@@ -1,6 +1,5 @@
 <template>
-    <loader v-if="loading && !comments.data.length" />
-    <div class="placeholder" v-else-if="!loading && !comments.data.length">
+    <div class="placeholder" v-if="!loading && !comments.data.length">
         <template v-if="usePlaceholder">
             <img class="image" :src="require('img/5c98b47a97050.png')" />            
                 <div class="title">{{$t(no_data_info.title)}}</div>
