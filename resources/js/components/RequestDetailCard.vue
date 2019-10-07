@@ -21,7 +21,6 @@
                             :label="item.name"
                             :value="item.id"
                             v-for="item in selectData">
-                            {{item.name}}
                         </el-option>
                     </el-select>
                 </el-col>
@@ -125,7 +124,11 @@
                 </el-col>
                 <el-col :span="3">
                     <span>{{ $t(due.label) }}</span>
-                    <p>{{ due.date }}</p>
+                    <div>
+                        <el-tooltip  :content="due.tooltip" placement="top" effect="light">
+                            <p>{{ due.date }}</p>
+                        </el-tooltip>
+                    </div>
                 </el-col>
             </el-row>    
         </div>
@@ -179,32 +182,53 @@ export default {
     computed: {
         due() {
             var currentDate = new Date();
-            var label = 'models.request.due_on';
+            var label = '';
             var date = '';
-            if(this.item.due_date !==undefined && this.item.due_date) {
-                let due_date_formatted = format(this.item.due_date, 'DD.MM.YYYY');
-                var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
-                var days = differenceInCalendarDays(updated_date, new Date()) ;
-                date = due_date_formatted;
-                if(days < 0) {
-                    label = 'models.request.was_due_on';
+            var tooltip = '';
+            if(this.item.status != 4) {
+                label = 'models.request.due_on';
+                if(this.item.due_date !==undefined && this.item.due_date) {
+                    tooltip = this.item.due_date;
+                    let due_date_formatted = format(this.item.due_date, 'DD.MM.YYYY');
+                    var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
+                    var days = differenceInCalendarDays(updated_date, new Date()) ;
                     date = due_date_formatted;
-                    if(days == -1)
-                        date = this.$t('models.request.yesterday');
-                } else if(days <= 30) {
-                    date = Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`);
-                    if(days == 0) 
-                        date = this.$t('models.request.today');
-                    else if(days == 1) 
-                        date = this.$t('models.request.tomorrow');
+                    if(days < 0) {
+                        label = 'models.request.was_due_on';
+                        date = due_date_formatted;
+                        if(days == -1)
+                            date = this.$t('models.request.yesterday');
+                    } else if(days <= 30) {
+                        date = Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`);
+                        if(days == 0) 
+                            date = this.$t('models.request.today');
+                        else if(days == 1) 
+                            date = this.$t('models.request.tomorrow');
+                    }
+                } else {
+                    label= 'models.request.due_date';
+                    date = this.$t('models.request.not_set');
                 }
             } else {
-                label= 'models.request.due_date';
-                date = this.$t('models.request.not_set');
+                label = 'models.request.solved_on';
+                tooltip = this.item.solved_date;
+                let solved_date_formatted = format(this.item.solved_date, 'DD.MM.YYYY');
+                var solved_date = parse(this.item.solved_date, 'yyyy-MM-dd', new Date());
+                var days = differenceInCalendarDays(solved_date, new Date()) ;
+                date = solved_date_formatted;
+                if(days < 0) {
+                    date = solved_date_formatted;
+                    if(days == -1)
+                        date = this.$t('models.request.yesterday');
+                } else if(days == 0) {
+                        date = this.$t('models.request.today');
+                }
             }
+
             return {
                 label: label,
-                date: date
+                date: date,
+                tooltip: tooltip
             };
             
         },
@@ -367,6 +391,11 @@ export default {
                 &:nth-of-type(5) {
                     p {
                         padding-top: 0px;
+                    }
+                } 
+                &:nth-of-type(9) {
+                    p {
+                        display: inline;
                     }
                 }
             }

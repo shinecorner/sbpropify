@@ -665,6 +665,7 @@ return [
         'due_in' => 'Scadenza',
         'was_due_on' => 'Era prevista per il',
         'due_on' => 'In scadenza il',
+        'solved_on' => 'Risolto il',
         'active_reminder_switcher' => 'Promemoria attivo',
         'days_left' => "Quanti giorni prima dovrebbe essere inviata l'e-mail?",
         'send_person' => 'Quale persona deve essere informata?',
