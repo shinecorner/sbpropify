@@ -245,6 +245,23 @@
             }
         }
     }
+
+    @media only screen and (min-width: 1300px) {
+        .dashboard {
+            .row {
+                display: flex;
+                .column {
+                    flex: 1;
+                    margin-left: 12px;
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                }
+
+            }
+        }
+    }
 </style>
 
 <style lang="sass" scoped>
