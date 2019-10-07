@@ -71,28 +71,17 @@
                 }, {
                     label: 'models.tenant.building.name',
                     withCollapsables: true,
-                    width: 150,
+                    width: 250,
                     props: ['building_names']
                 }, {
                     label: 'models.tenant.unit.name',
                     withCollapsables: true,
-                    width: 100,
+                    width: 150,
                     props: ['unit_names']
-                }, {
-                    label: 'models.tenant.status.label',
-                    prop: 'status',
-                    i18nPath: 'models.tenant.status',
-                    class: 'rounded-select',
-                    ShowCircleIcon: true,
-                    select: {
-                        icon: 'ti-pencil',
-                        data: [],
-                        getter: "tenants",
-                        onChange: this.listingSelectChangedNotify
-                    }
                 }, {
                     label: 'models.tenant.rent_contract',
                     withCounts: true,
+                    width: 150,
                     counts: [
                         {
                             prop: 'total_rent_contracts_count',
@@ -111,6 +100,19 @@
                             label: this.$t('models.tenant.status.not_active')
                         }
                     ]
+                }, {
+                    label: 'models.tenant.status.label',
+                    prop: 'status',
+                    i18nPath: 'models.tenant.status',
+                    class: 'rounded-select',
+                    ShowCircleIcon: true,
+                    width: 150,
+                    select: {
+                        icon: 'ti-pencil',
+                        data: [],
+                        getter: "tenants",
+                        onChange: this.listingSelectChangedNotify
+                    }
                 }/*, {
                     width: 120,
                     actions: [{
@@ -123,7 +125,7 @@
                         ]
                     }]
                 }*/, {
-                    width: 120,
+                    width: 80,
                     actions: [{
                         type: '',
                         icon: 'ti-pencil',
