@@ -195,11 +195,14 @@
                         <tr>
                             <td class="data">
                                 <div class="cell">
-                                    <el-input type="text"
-                                            v-model="model.monthly_rent_net"
-                                    >
-                                        <template slot="prepend">CHF</template>
-                                    </el-input>
+                                    <el-form-item 
+                                        prop="monthly_rent_net">
+                                        <el-input type="text"
+                                                v-model="model.monthly_rent_net"
+                                        >
+                                            <template slot="prepend">CHF</template>
+                                        </el-input>
+                                    </el-form-item>
                                 </div>
                             </td>
                             <td class="symbol">
@@ -209,11 +212,14 @@
                             </td>
                             <td class="data">
                                 <div class="cell">
-                                    <el-input type="text"
-                                        v-model="model.monthly_maintenance"
-                                    >
-                                        <template slot="prepend">CHF</template>
-                                    </el-input>
+                                    <el-form-item 
+                                        prop="monthly_maintenance">
+                                        <el-input type="text"
+                                                v-model="model.monthly_maintenance"
+                                        >
+                                            <template slot="prepend">CHF</template>
+                                        </el-input>
+                                    </el-form-item>
                                 </div>
                             </td>
                             <td class="symbol">
@@ -223,7 +229,11 @@
                             </td>
                             <td class="data">
                                 <div class="cell">
-                                    {{Number(model.monthly_rent_net) + Number(model.monthly_maintenance)}}
+                                    <el-form-item 
+                                        prop="monthly_rent_net">
+                                        {{Number(model.monthly_rent_net) + Number(model.monthly_maintenance)}}
+                                    </el-form-item>
+                                    
                                 </div>
                             </td>
                         </tr>
@@ -233,7 +243,7 @@
         </div>
         <el-row :gutter="20" v-if="model.unit_id && model.type >= 3">
             <el-col :md="8">
-                <el-form-item :label="$t('general.monthly_rent_net')" class="label-block">
+                <el-form-item :label="$t('general.monthly_rent_net')" prop="monthly_rent_net" class="label-block">
                     <el-input type="text"
                             v-model="model.monthly_rent_net"
                     >
@@ -411,6 +421,14 @@
                     status: [{
                         required: true,
                         message: this.$t('models.tenant.validation.status.required')
+                    }],
+                    monthly_rent_net: [{
+                        required: true,
+                        message: this.$t("models.unit.validation.monthly_rent_net.required")
+                    }],
+                    monthly_maintenance: [{
+                        required: true,
+                        message: this.$t("models.unit.validation.monthly_maintenance.required")
                     }],
                 }
             }
@@ -606,6 +624,14 @@
                             width: 100%;
                             text-align: left;
                             
+                            .el-form-item {
+                                margin-bottom: 0;
+
+                                &.is-error {
+                                    // margin-bottom: 27px;
+                                }
+                            }
+
                             /deep/ .el-input.el-input-group {
                                 .el-input-group__prepend {
                                     padding: 2px 8px 0;
