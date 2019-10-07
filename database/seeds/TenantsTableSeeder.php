@@ -74,9 +74,20 @@ class TenantsTableSeeder extends Seeder
 
             $data = array_merge($data, $this->getDateColumns($date));
             $tenant = factory(App\Models\Tenant::class)->create($data);
+            $this->saveRentContracts($tenant->id);
             $tenant->setCredentialsPDF();
         }
     }
+
+    protected function saveRentContracts($tenantId)
+    {
+        $data = factory(App\Models\RentContract::class)->make()->toArray();
+        $data['tenant_id'] = $tenantId;
+        $data['status'] = \App\Models\RentContract::StatusActive;
+
+        factory(App\Models\RentContract::class)->create($data);
+    }
+
 
     private function getSettings()
     {
