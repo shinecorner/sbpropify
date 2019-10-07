@@ -5,7 +5,6 @@ import { EventBus } from '../../../event-bus.js';
 
 export default {
     getRequests({commit}, payload) {
-        console.log('get requests called');
         return new Promise((resolve, reject) =>
             axios.get(buildFetchUrl('requests', payload))
             .then(({data: r}) => {

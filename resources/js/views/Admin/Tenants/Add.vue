@@ -158,7 +158,7 @@
                                         prop="id"
                                     >
                                         <template slot-scope="scope">
-                                            <span class="clickable" @click="editRentContract(scope.$index)">{{scope.row.id}}</span>
+                                            <span class="clickable" @click="editRentContract(scope.$index)">{{scope.row.rent_contract_format}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column

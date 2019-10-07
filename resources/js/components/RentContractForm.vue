@@ -564,7 +564,7 @@
                     });
 
                     
-
+                    let parent_obj = this
                     this.units = [];
                     for( var key in resp1.data) {
                         if( !resp1.data.hasOwnProperty(key)) continue;
@@ -623,7 +623,7 @@
             ...mapActions(['getBuildings', 'getUnits']),
         },
         async created () {
-
+            let parent_obj = this
             this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
             this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))
             this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
