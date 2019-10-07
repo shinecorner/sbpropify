@@ -158,7 +158,9 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
 
     // Pinboard
-    Route::resource('pinboard', 'PinboardAPIController');
+    Route::get('pinboard/rss.xml', 'PinboardAPIController@showNewsRSS');
+    Route::get('pinboard/weather.json', 'PinboardAPIController@showWeatherJSON');
+
     Route::post('/pinboard/deletewithids', 'PinboardAPIController@destroyWithIds')->name('pinboard.destroyWithIds');
     Route::post('pinboard/{id}/publish', 'PinboardAPIController@publish')->name('pinboard.publish');
     Route::post('pinboard/{id}/like', 'PinboardAPIController@like')->name('pinboard.like');
@@ -176,8 +178,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('/pinboard/{id}/views', 'PinboardAPIController@incrementViews');
     Route::get('/pinboard/{id}/views', 'PinboardAPIController@indexViews');
 
-    Route::get('pinboard/rss.xml', 'PinboardAPIController@showNewsRSS');
-    Route::get('pinboard/weather.json', 'PinboardAPIController@showWeatherJSON');
+    Route::resource('pinboard', 'PinboardAPIController');
 
     //Internal Notices
     Route::resource('internalNotices', 'InternalNoticeAPIController');
