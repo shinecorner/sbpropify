@@ -22,7 +22,7 @@
                     </el-select>
                 </el-form-item>
             </el-col>
-            <el-col :md="12" v-if="model.building_id">
+            <!-- <el-col :md="12" v-if="model.building_id">
                 <el-form-item prop="unit_id" :label="$t('models.tenant.unit.name')"
                             class="label-block">
                     <el-select :placeholder="$t('models.tenant.search_unit')" 
@@ -37,7 +37,7 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :md="12" v-if="model.building_id">
                 <el-form-item prop="unit_id" :label="$t('models.tenant.unit.name')"
                             class="label-block">
@@ -46,7 +46,7 @@
                             v-model="model.unit_id"
                             @change="changeRentContractUnit">
                         <el-option-group
-                            v-for="group in options"
+                            v-for="group in units"
                             :key="group.label"
                             :label="group.label">
                             <el-option
@@ -54,6 +54,8 @@
                                 :key="item.id"
                                 :label="item.name"
                                 :value="item.id">
+                                <span style="float: left">{{ item.name }}</span>
+                                <rent-contract-count :countsData="item" style="float: right;"></rent-contract-count>
                             </el-option>
                         </el-option-group>
                         
@@ -354,12 +356,14 @@
 <script>
     import {displayError} from "../helpers/messages";
     import UploadRentContract from 'components/UploadRentContract';
+    import RentContractCount from 'components/RentContractCount';
     import {mapActions, mapGetters} from 'vuex';
 
     export default {
         name: "RentContractForm",
         components: {
             UploadRentContract,
+            RentContractCount
         },
         props: {
             mode: {
@@ -387,7 +391,6 @@
                 remoteLoading: false,
                 buildings: [],
                 units: [],
-                units1: [],
                 options: [],
                 rent_durations: [],
                 deposit_statuses: [],
@@ -542,12 +545,17 @@
                     this.model.unit_id = '';
                 try {
                     
-                    const resp = await this.getUnits({
-                        get_all: true,
-                        building_id: this.model.building_id
-                    });
+                    // const resp = await this.getUnits({
+                    //     get_all: true,
+                    //     building_id: this.model.building_id
+                    // });
 
-                    console.log('resp', resp)
+                    // this.used_units.forEach(id => {
+                    //     if(!this.model.unit || this.model.unit.id != id)
+                    //         resp.data = resp.data.filter( item => item.id != id )
+                    // })
+
+                    // this.units = resp.data
 
                     const resp1 = await this.getUnits({
                         show_rent_contract_counts: true,
@@ -555,38 +563,9 @@
                         building_id: this.model.building_id
                     });
 
-                    console.log('resp1', resp1)
                     
-                    this.options = [
-                        {
-                            label: 'Popular cities',
-                            options: [{
-                                id: 'Shanghai',
-                                name: 'Shanghai'
-                            }, {
-                                id: 'Beijing',
-                                name: 'Beijing'
-                            }]
-                        }, 
-                        {
-                            label: 'City name',
-                            options: [{
-                                id: 'Chengdu',
-                                name: 'Chengdu'
-                            }, {
-                                id: 'Shenzhen',
-                                name: 'Shenzhen'
-                            }, {
-                                id: 'Guangzhou',
-                                name: 'Guangzhou'
-                            }, {
-                                id: 'Dalian',
-                                name: 'Dalian'
-                            }]
-                        }];
 
-                    this.units1 = resp1.data
-                    this.options = [];
+                    this.units = [];
                     for( var key in resp1.data) {
                         if( !resp1.data.hasOwnProperty(key)) continue;
 
@@ -610,23 +589,14 @@
                         
                         var obj = resp1.data[key];
 
-                        this.options.push( {
+
+                        this.units.push( {
                             label : group_label,
                             options: obj
                         })
-                        
-                        console.log(obj);
+
                     }
-                    
 
-
-
-                    this.used_units.forEach(id => {
-                        if(!this.model.unit || this.model.unit.id != id)
-                            resp.data = resp.data.filter( item => item.id != id )
-                    })
-
-                    this.units = resp.data
                     
                 } catch (err) {
                     displayError(err);
@@ -662,10 +632,32 @@
             if(this.mode == "edit") {
                 this.model = this.data
 
-                this.buildings.push(this.model.building)
-                this.units.push(this.model.unit)
+                
+                if( this.model.unit )
+                {
+                    let key = this.model.unit.floor
+                    let group_label = ""
+                    if(key > 0)
+                    {
+                        group_label = key + ". " + this.$t('models.unit.floor_title.upper_ground_floor')
+                    }
+                    else if(key == 0)
+                    {
+                        group_label = this.$t('models.unit.floor_title.ground_floor')
+                    }
+                    else if(key < 0)
+                    {
+                        group_label = key + ". " + this.$t('models.unit.floor_title.under_ground_floor')
+                    }
+                    else if(key == 'attic')
+                    {
+                        group_label = this.$t('models.unit.floor_title.top_floor');
+                    }
+                    this.units.push({ label: group_label, options : [this.model.unit]})
+                }
 
                 if(this.model.building) {
+                    this.buildings.push(this.model.building)
                     await this.remoteRentContractdSearchBuildings(this.model.building.name)
                     await this.searchRentContractUnits(true)
                 }
