@@ -4,13 +4,13 @@ return [
         'audit' => [
             'type' => [
                 'pinboard' => 'Pinnwand',
-                'product' => 'Markplatz',
+                'listing' => 'Markplatz',
                 'request' => 'Anfragen'
             ],
             'filter' => [
                 'type' => [
                     'pinboard' => 'Pinnwand',
-                    'product' => 'Markplatz',
+                    'listing' => 'Markplatz',
                     'request' => 'Anfragen'
                 ],
                 'pinboard' => [
@@ -21,7 +21,7 @@ return [
                     'media_uploaded' => 'Mediendateien hinaufgeladen',
                     'media_deleted' => 'Mediendateien gelöscht'
                 ],
-                'product' => [
+                'listing' => [
 
                 ],
                 'request' => [
@@ -42,7 +42,7 @@ return [
                             'published_at' => 'Beitrag wurde am {new} veröffentlicht.'
                         ]
                     ],
-                    'product' => [
+                    'listing' => [
                         'created' => '{userName} dieses Inserat erstellt: {auditable_type}',
                         'updated' => [
                             'title' => 'Der Titel wurde von "{old}" zu "{new}" geändert.',
@@ -56,7 +56,7 @@ return [
                         ],
                         'provider_assigned' => '{providerName} wurde als Dienstleistern zugewiesen.',
                         'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
-                        'media_uploaded' => 'Mediendateien aktualisiert',
+                        'media_uploaded' => 'Mediendateien hinaufgeladen',
                         'media_deleted' => 'Mediendateien gelöscht',
                     ],
                     'request' => [
@@ -76,7 +76,7 @@ return [
                         'manager_assigned' => '{propertyManagerFirstName} {propertyManagerLastName} wurde als Managerin zugewiesen.',
                         'manager_unassigned' => 'Managerin {propertyManagerFirstName} {propertyManagerLastName} wurde nicht zugewiesen.',
                         'user_assigned' => '{userName} wurde dieser Anfrage hinzugefügt.',
-                        'media_uploaded' => 'Mediendateien aktualisiert',
+                        'media_uploaded' => 'Mediendateien hinaufgeladen',
                         'media_deleted' => 'Mediendateien gelöscht',
                     ]
                 ],
@@ -88,7 +88,7 @@ return [
                             'published_at' => 'Post published im {new} im {auditable_type} #{auditable_id}.'
                         ]
                     ],
-                    'product' => [
+                    'listing' => [
                         'created' => '{userName} hat dieses Inserat erstellt.',
                         'updated' => [
                             'title' => 'Der Titel wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',
@@ -101,8 +101,8 @@ return [
                         ],
                         'provider_assigned' => '{providerName} wurde als Dienstleister zugewiesen.',
                         'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
-                        'media_uploaded' => 'Mediendateien aktualisiert',
-                        'media_deleted' => 'Mediendateien gelöscht',
+                        'media_uploaded' => 'Mediendateien hinaufgeladen',
+                        'media_deleted' => 'Mediendateie gelöscht',
                     ],
                     'request' => [
                         'created' => '{userName} hat diese Anfrage erstellt.',
@@ -121,7 +121,7 @@ return [
                         'manager_assigned' => '{propertyManagerFirstName} {propertyManagerLastName} wurde als zuständige Person zugewiesen.',
                         'manager_unassigned' => '{propertyManagerFirstName} {propertyManagerLastName} als zusätinge Person wurde entfernt.',
                         'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
-                        'media_uploaded' => 'Mediendateien aktualisiert',
+                        'media_uploaded' => 'Mediendateien hinaufgeladen',
                         'media_deleted' => 'Mediendateien gelöscht',
                     ]
                 ]

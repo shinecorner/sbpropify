@@ -4,13 +4,13 @@ return [
         'audit' => [
             'type' => [
                 'pinboard' => 'Panneau d\'affichage',
-                'product' => 'Produit',
+                'listing' => 'Produit',
                 'request' => 'Demande'
             ],
             'filter' => [
                 'type' => [
                     'pinboard' => 'Panneau d\'affichage',
-                    'product' => 'Produit',
+                    'listing' => 'Produit',
                     'request' => 'Demande'
                 ],
                 'pinboard' => [
@@ -21,7 +21,7 @@ return [
                     'media_uploaded' => 'Média téléchargé',
                     'media_deleted' => 'Médias supprimés'
                 ],
-                'product' => [
+                'listing' => [
 
                 ],
                 'request' => [
@@ -42,7 +42,7 @@ return [
                             'published_at' => 'Panneau d\'affichage publié sur {new}.'
                         ]
                     ],
-                    'product' => [
+                    'listing' => [
                         'created' => '{userName} a ouvert ce {auditable_type}.',
                         'updated' => [
                             'title' => 'Le titre est passé de "{old}" au "{new}".',
@@ -88,7 +88,7 @@ return [
                             'published_at' => 'Panneau d\'affichage publié au {new} sur {auditable_type} #{auditable_id}.'
                         ]
                     ],
-                    'product' => [
+                    'listing' => [
                         'created' => '{userName} opened this {auditable_type} sur {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'title' => 'Le titre est passé de "{old}" au "{new}" sur {auditable_type} #{auditable_id}.',

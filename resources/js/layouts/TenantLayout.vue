@@ -104,9 +104,9 @@
                     }
                 }, {
                     icon: 'icon-basket',
-                    title: 'tenant.add_product',
+                    title: 'tenant.add_listing',
                     route: {
-                        name: 'tenantMarketplace'
+                        name: 'tenantListing'
                     }
                 }],
                 routes: [{
@@ -172,9 +172,9 @@
                     }
                 }, {
                     icon: 'icon-basket',
-                    title: 'layouts.tenant.sidebar.products',
+                    title: 'layouts.tenant.sidebar.listings',
                     route: {
-                        name: 'tenantMarketplace'
+                        name: 'tenantListing'
                     }
                 }, {
                     icon: 'icon-water',
@@ -326,7 +326,6 @@
         top: 0;
         left: 0;
         background-color: var(--color-main-background-base);
-        font-family: 'Nunito', sans-serif;
         display: flex;
         flex-direction: column;
 

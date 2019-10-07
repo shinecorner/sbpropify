@@ -7,7 +7,7 @@ import UploadDocument from 'components/UploadDocument';
 import Media from 'components/RequestMedia';
 import RequestMedia from 'components/RequestMedia';
 
-// TODO make a common mixin for pinboard and products mixins(media upload at least)
+// TODO make a common mixin for pinboard and listings mixins(media upload at least)
 export default (config = {}) => {
     let mixin = {
         components: {
@@ -40,7 +40,7 @@ export default (config = {}) => {
                     is_execution_time: false,
                     execution_start: null,
                     execution_end: null,
-                    announcement_category: true
+                    category_image: true
                 },
                 validationRules: {
                     content: [{
@@ -76,7 +76,6 @@ export default (config = {}) => {
                 toAssignProvider: '',
                 toAssignProviderList: [],
                 types: [],
-                showdefaultimage: false,
                 rolename: '',
                 datePickerKey: 0,
                 justBlurred: '',
@@ -289,6 +288,10 @@ export default (config = {}) => {
                 if(this.justBlurred !== '') {
                     this.$nextTick(() => this.$refs[this.justBlurred].focus());
                 }
+            },
+            changeSubType(val) {
+                if(val == 3 && this.model.category == '')
+                this.model.category = 1;
             }
         }
     };
@@ -403,8 +406,6 @@ export default (config = {}) => {
 
                             ...restData
                         };
-
-                        this.showdefaultimage = this.model.category != null ? true : false;
 
                         return this.model;
                     }

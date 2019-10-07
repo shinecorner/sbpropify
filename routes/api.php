@@ -137,26 +137,18 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('/services/{id}', 'ServiceProviderAPIController@update')->name('services.update');
     Route::delete('/services/{id}', 'ServiceProviderAPIController@destroy')->name('services.destroy');
     Route::post('/services/deletewithids', 'ServiceProviderAPIController@destroyWithIds')->name('services.destroyWithIds');
-    Route::post('/services/{id}/districts/{district_id}', 'ServiceProviderAPIController@assignQuarter');
     Route::post('/services/{id}/quarters/{quarter_id}', 'ServiceProviderAPIController@assignQuarter');
-    Route::delete('/services/{id}/districts/{district_id}', 'ServiceProviderAPIController@unassignQuarter');
     Route::delete('/services/{id}/quarters/{quarter_id}', 'ServiceProviderAPIController@unassignQuarter');
     Route::post('/services/{id}/buildings/{building_id}', 'ServiceProviderAPIController@assignBuilding');
     Route::delete('/services/{id}/buildings/{building_id}', 'ServiceProviderAPIController@unassignBuilding');
     Route::get('/services/{id}/locations', 'ServiceProviderAPIController@getLocations');
 
     // Quarters
-    Route::get('/districts', 'QuarterAPIController@index')->name('quarters');
     Route::get('/quarters', 'QuarterAPIController@index')->name('quarters');
-    Route::get('/districts/{id}', 'QuarterAPIController@show')->name('quarters.show');
     Route::get('/quarters/{id}', 'QuarterAPIController@show')->name('quarters.show');
-    Route::post('/districts', 'QuarterAPIController@store')->name('quarters.store');
     Route::post('/quarters', 'QuarterAPIController@store')->name('quarters.store');
-    Route::put('/districts/{id}', 'QuarterAPIController@update')->name('quarters.update');
     Route::put('/quarters/{id}', 'QuarterAPIController@update')->name('quarters.update');
-    Route::delete('/districts/{id}', 'QuarterAPIController@destroy')->name('quarters.destroy');
     Route::delete('/quarters/{id}', 'QuarterAPIController@destroy')->name('quarters.destroy');
-    Route::post('/districts/deletewithids', 'QuarterAPIController@destroyWithIds')->name('quarters.destroyWithIds');
     Route::post('/quarters/deletewithids', 'QuarterAPIController@destroyWithIds')->name('quarters.destroyWithIds');
 
     Route::get('/quarters/{id}/assignees', 'QuarterAPIController@getAssignees');
@@ -178,9 +170,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/pinboard/{id}/buildings/{building_id}', 'PinboardAPIController@assignBuilding');
     Route::delete('/pinboard/{id}/buildings/{building_id}', 'PinboardAPIController@unassignBuilding');
     Route::post('/pinboard/{id}/quarters/{quarter_id}', 'PinboardAPIController@assignQuarter');
-    Route::post('/pinboard/{id}/districts/{district_id}', 'PinboardAPIController@assignQuarter');
     Route::delete('/pinboard/{id}/quarters/{quarter_id}', 'PinboardAPIController@unassignQuarter');
-    Route::delete('/pinboard/{id}/districts/{district_id}', 'PinboardAPIController@unassignQuarter');
     Route::post('/pinboard/{id}/providers/{provider_id}', 'PinboardAPIController@assignProvider');
     Route::delete('/pinboard/{id}/providers/{provider_id}', 'PinboardAPIController@unassignProvider');
     Route::put('/pinboard/{id}/views', 'PinboardAPIController@incrementViews');
@@ -188,32 +178,6 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     Route::get('pinboard/rss.xml', 'PinboardAPIController@showNewsRSS');
     Route::get('pinboard/weather.json', 'PinboardAPIController@showWeatherJSON');
-
-
-    // Pinboard
-    Route::resource('posts', 'PinboardAPIController');
-    Route::post('/posts/deletewithids', 'PinboardAPIController@destroyWithIds')->name('posts.destroyWithIds');
-    Route::post('posts/{id}/publish', 'PinboardAPIController@publish')->name('posts.publish');
-    Route::post('posts/{id}/like', 'PinboardAPIController@like')->name('posts.like');
-    Route::post('posts/{id}/unlike', 'PinboardAPIController@unlike')->name('posts.unlike');
-    Route::post('posts/{id}/media', 'MediaAPIController@pinboardUpload')->name('posts.media.upload');
-    Route::delete('posts/{id}/media/{media_id}', 'MediaAPIController@pinboardDestroy')->name('posts.media.destroy');
-    Route::post('posts/{id}/comments', 'CommentAPIController@storePinboardComment')->name('posts.store.comment');
-    Route::get('/posts/{id}/locations', 'PinboardAPIController@getLocations');
-    Route::post('/posts/{id}/buildings/{building_id}', 'PinboardAPIController@assignBuilding');
-    Route::delete('/posts/{id}/buildings/{building_id}', 'PinboardAPIController@unassignBuilding');
-    Route::post('/posts/{id}/quarters/{quarter_id}', 'PinboardAPIController@assignQuarter');
-    Route::post('/posts/{id}/districts/{district_id}', 'PinboardAPIController@assignQuarter');
-    Route::delete('/posts/{id}/quarters/{quarter_id}', 'PinboardAPIController@unassignQuarter');
-    Route::delete('/posts/{id}/districts/{district_id}', 'PinboardAPIController@unassignQuarter');
-    Route::post('/posts/{id}/providers/{provider_id}', 'PinboardAPIController@assignProvider');
-    Route::delete('/posts/{id}/providers/{provider_id}', 'PinboardAPIController@unassignProvider');
-    Route::put('/posts/{id}/views', 'PinboardAPIController@incrementViews');
-    Route::get('/posts/{id}/views', 'PinboardAPIController@indexViews');
-
-    // News
-    Route::get('news/rss.xml', 'PinboardAPIController@showNewsRSS');
-    Route::get('news/weather.json', 'PinboardAPIController@showWeatherJSON');
 
     //Internal Notices
     Route::resource('internalNotices', 'InternalNoticeAPIController');
@@ -282,17 +246,8 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/requests/{id}/serviceCommunicationTemplates', 'RequestAPIController@getServiceCommunicationTemplates');
     Route::get('/requests/{id}/serviceEmailTemplates', 'RequestAPIController@getServiceEmailTemplates');
 
-    // Listings // @TODO delete
-    Route::resource('products', 'ListingAPIController');
-    Route::post('products/{id}/like', 'ListingAPIController@like')->name('products.like');
-    Route::post('products/{id}/unlike', 'ListingAPIController@unlike')->name('products.unlike');
-    Route::post('products/{id}/media', 'MediaAPIController@listingUpload')->name('products.media.upload');
-    Route::delete('products/{id}/media/{media_id}', 'MediaAPIController@listingDestroy')->name('products.media.destroy');
-    Route::post('/products/deletewithids', 'ListingAPIController@destroyWithIds')->name('products.destroyWithIds');
-    Route::post('products/{id}/comments', 'CommentAPIController@storeProductComment')->name('products.store.comment');
-    Route::post('products/{id}/publish', 'ListingAPIController@publish')->name('products.publish');
 
-    // Products
+    // Listings
     Route::resource('listings', 'ListingAPIController');
     Route::post('listings/{id}/like', 'ListingAPIController@like')->name('listings.like');
     Route::post('listings/{id}/unlike', 'ListingAPIController@unlike')->name('listings.unlike');
@@ -311,9 +266,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('propertyManagers/{id}', 'PropertyManagerAPIController@update')->name('propertyManagers.update');
     Route::delete('/propertyManagers/batchDelete', 'PropertyManagerAPIController@batchDelete');
     Route::delete('propertyManagers/{id}', 'PropertyManagerAPIController@destroy')->name('propertyManagers.destroy');
-    Route::post('/propertyManagers/{id}/districts/{district_id}', 'PropertyManagerAPIController@assignQuarter');
     Route::post('/propertyManagers/{id}/quarters/{quarter_id}', 'PropertyManagerAPIController@assignQuarter');
-    Route::delete('/propertyManagers/{id}/districts/{district_id}', 'PropertyManagerAPIController@unassignQuarter');
     Route::delete('/propertyManagers/{id}/quarters/{quarter_id}', 'PropertyManagerAPIController@unassignQuarter');
     Route::post('/propertyManagers/{id}/buildings/{building_id}', 'PropertyManagerAPIController@assignBuilding');
     Route::delete('/propertyManagers/{id}/buildings/{building_id}', 'PropertyManagerAPIController@unassignBuilding');

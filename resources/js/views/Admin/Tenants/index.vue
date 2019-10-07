@@ -70,12 +70,14 @@
                     props: ['user_email', 'private_phone']
                 }, {
                     label: 'models.tenant.building.name',
-                    withMultipleProps: true,
-                    props: ['building_address_row', 'building_address_zip']
+                    withCollapsables: true,
+                    width: 150,
+                    props: ['building_names']
                 }, {
                     label: 'models.tenant.unit.name',
-                    withMultipleProps: true,
-                    props: ['unit_name']
+                    withCollapsables: true,
+                    width: 100,
+                    props: ['unit_names']
                 }, {
                     label: 'models.tenant.status.label',
                     prop: 'status',
@@ -88,6 +90,22 @@
                         getter: "tenants",
                         onChange: this.listingSelectChangedNotify
                     }
+                }, {
+                    label: 'models.tenant.rent_contract',
+                    withCounts: true,
+                    counts: [
+                        {
+                            prop: 'active_rent_contracts_count',
+                            background: '#5fad64',
+                            color: '#fff',
+                            label: this.$t('models.tenant.status.active')
+                        }, {
+                            prop: 'inactive_rent_contracts_count',
+                            background: '#dd6161',
+                            color: '#fff',
+                            label: this.$t('models.tenant.status.not_active')
+                        }
+                    ]
                 }/*, {
                     width: 120,
                     actions: [{
@@ -254,7 +272,7 @@
                         data: this.prepareFilters('status'),
                     },
                     {
-                        name: this.$t('models.tenant.language'),
+                        name: this.$t('filters.language'),
                         type: 'language',
                         key: 'language'
                     }

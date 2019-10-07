@@ -1,5 +1,6 @@
 <template>
     <div class="buildings-edit ">
+        <div class="main-content">
         <heading :title="$t('models.building.edit_title')" icon="icon-commerical-building" shadow="heavy">
             <template slot="description" v-if="model.building_format">
                 <div class="subtitle">{{`${model.building_format} > ${model.name}`}}</div>
@@ -81,6 +82,7 @@
                                                 :remote-method="remoteSearchQuarters"
                                                 filterable
                                                 remote
+                                                clearable
                                                 reserve-keyword
                                                 style="width: 100%;"
                                                 v-model="model.quarter_id">
@@ -323,6 +325,7 @@
                         <span slot="label">
                             <el-badge :value="requestCount" :max="99" class="admin-layout">{{ $t('general.requests') }}</el-badge>
                         </span>
+                        <el-button style="float:right" type="primary" @click="toggleDrawer" size="mini" round>Settings Drawer</el-button>
                         <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
@@ -335,13 +338,21 @@
                 </el-tabs>
             </el-col>
         </el-row>
-
         <DeleteBuildingModal 
             :deleteBuildingVisible="deleteBuildingVisible"
             :delBuildingStatus="delBuildingStatus"
             :closeModal="closeDeleteBuildModal"
             :deleteSelectedBuilding="deleteSelectedBuilding"
         />
+        </div>
+        <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
+            <ui-divider content-position="left"><i class="icon-tools"></i> &nbsp;&nbsp;Emergency</ui-divider>
+            
+            <div class="content" v-if="visibleDrawer">
+                <emergency-settings-form :visible.sync="visibleDrawer"/>
+            </div>
+        </ui-drawer>
+        
     </div>
 </template>
 
@@ -360,6 +371,7 @@
     import globalFunction from "helpers/globalFunction";
     import DeleteBuildingModal from 'components/DeleteBuildingModal';
     import AssignmentByType from 'components/AssignmentByType';
+    import EmergencySettingsForm from 'components/EmergencySettingsForm';
     import { EventBus } from '../../../event-bus.js';
 
     export default {
@@ -376,7 +388,8 @@
             draggable,
             RelationList,
             DeleteBuildingModal,
-            AssignmentByType       
+            AssignmentByType,
+            EmergencySettingsForm
         },
         data() {
             return {
@@ -477,7 +490,8 @@
                 tenantCount: 0,
                 assigneeCount: 0,
                 unitCount: 0,
-                requestCount: 0
+                requestCount: 0,
+                visibleDrawer: false
             };
         },
         methods: {
@@ -707,7 +721,11 @@
             },
             setBuildingName(event ) {
                 this.model.name = this.model.street + ' ' + this.model.house_num;
-            }
+            },
+            toggleDrawer() {
+                this.visibleDrawer = true;
+                document.getElementsByTagName('footer')[0].style.display = "none";
+            },
         },
         mounted() {
             this.$root.$on('changeLanguage', () => this.getStates());            
@@ -754,7 +772,18 @@
                     label: this.$t('settings.contact_enable.hide'),
                 }]
             }
-        }
+        },
+        watch: {
+            'visibleDrawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        document.getElementsByTagName('footer')[0].style.display = "block";
+                    }
+                }
+            }
+        },
     }
 </script>
 
@@ -783,6 +812,8 @@
     }
 
     .buildings-edit {
+        flex: 1;
+
         .heading {
             margin-bottom: 20px;
         }
@@ -816,6 +847,40 @@
 
             > *:not(:last-of-type) {
                 margin-bottom: 1em;
+            }
+        }
+
+        .ui-drawer {
+            .ui-divider {
+                margin: 32px 16px 0 16px;
+                i {
+                    padding-right: 0;
+                }
+
+                /deep/ .ui-divider__content {
+                    left: 0;
+                    z-index: 1;
+                    padding-left: 0;
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: var(--color-primary);
+                }
+            }
+
+            .content {
+                height: calc(100% - 70px);
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                padding: 16px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                position: relative;
+
             }
         }
     }

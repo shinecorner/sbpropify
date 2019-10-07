@@ -12,9 +12,9 @@ return [
     'pinboard_by_creation_date' => 'Pinboard by creation date',
     'pinboard_by_status' => 'Pinboard by status',
     'pinboard_by_type' => 'Pinboard by type',
-    'latest_products' => 'Latest products',
-    'products_by_creation_date' => 'Market place products by creation date',
-    'products_by_type' => 'Market place products by type',
+    'latest_listings' => 'Latest listings',
+    'listings_by_creation_date' => 'Listings by creation date',
+    'listings_by_type' => 'Listes par type',
     'tenants_by_creation_date' => 'Tenants by creation date',
     'tenants_by_request_status' => 'Tenants by Requests status',
     'tenants_by_status' => 'Tenants by status',
@@ -55,8 +55,8 @@ return [
         'latest_tenants' => 'Latest tenants',
         'go_to_tenants' => 'go to tenants'
     ],
-    'marketplace' => [
-        'go_to_marketplace' => 'go to marketplace'
+    'listing' => [
+        'go_to_listing' => 'go to listing'
     ],
     'pinboard' => [
         'latest_pinboard' => 'Latest pinboard',

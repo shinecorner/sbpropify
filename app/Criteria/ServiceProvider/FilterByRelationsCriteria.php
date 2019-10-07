@@ -42,23 +42,13 @@ class FilterByRelationsCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         $buildingId = $this->request->get('building_id', null);
-        $quarterId = $this->request->get('quarter_id', null);
 
-        if (empty($quarterId) && empty($buildingId)) {
+        if (empty($buildingId)) {
             return $model;
         }
 
-        $type = get_morph_type_of(ServiceProvider::class);
-        $model->join('request_assignees as ra', 'ra.assignee_id', '=', 'service_providers.id')
-            ->join('requests as r', 'r.id', '=', 'ra.request_id')
-            ->join('tenants', 'tenants.id', '=', 'r.tenant_id')
-            ->join('buildings', 'tenants.building_id', '=', 'buildings.id')
-            ->where('ra.assignee_type', $type)
-            ->when($buildingId, function ($q) use ($buildingId) {
-                $q->where('buildings.id', $buildingId);
-            })->when($quarterId, function ($q) use ($quarterId) {
-                $q->where('buildings.quarter_id', $quarterId);
-            });
+        $model->join('building_service_provider as bsp', 'bsp.service_provider_id', '=', 'service_providers.id')
+            ->where('bsp.building_id', $buildingId);
 
         return $model;
     }

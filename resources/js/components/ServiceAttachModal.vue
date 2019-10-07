@@ -32,6 +32,7 @@
                                         <el-select
                                             style="width: 100%"
                                             v-model="model.manager"
+                                            clearable
                                         >
                                             <el-option :key="manager.id" :label="manager.name" :value="manager.id"
                                                        v-for="manager in managers"></el-option>
@@ -235,7 +236,7 @@
                         + " " + this.address.house_num
                         + " " + this.address.city
                         +"\n"
-                        + " [ " + this.requestData.service_request_format
+                        + " [ " + this.requestData.request_format
                         +" | " + this.requestData.category +" ]";
                 }else {
                     return "";

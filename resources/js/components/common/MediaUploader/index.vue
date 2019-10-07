@@ -92,7 +92,7 @@
             },
             type: {
                 type: String,
-                validator: type => ['pinboard', 'requests', 'products'].includes(type),
+                validator: type => ['pinboard', 'requests', 'listings'].includes(type),
                 required: true
             },
             layout: {
@@ -276,8 +276,8 @@
                             id : this.id, media: data.response.data
                         })  
                     }
-                    else if(this.type == "products") {
-                        this.$store.dispatch('newProducts/addMedia', {
+                    else if(this.type == "listings") {
+                        this.$store.dispatch('newListings/addMedia', {
                             id : this.id, media: data.response.data
                         })  
                     }
@@ -529,6 +529,12 @@
                         }
                     }
                 }
+
+                .media-upload-trigger:focus, .media-upload-trigger:hover {
+                    color: var(--primary-color);
+                    border-color: var(--primary-color);
+                    background-color: var(--primary-color-lighter);
+                }
             }
         }
 
@@ -659,6 +665,16 @@
                     &:nth-of-type(2) {
                         margin-left: 0;
                         grid-column: 1 / -1;
+                    }
+
+                    &.media-upload-trigger:focus, &.media-upload-trigger:hover {
+                        color: var(--primary-color);
+                        border-color: var(--primary-color);
+                        background-color: var(--primary-color-lighter);
+
+                        /deep/ span {
+                            color: var(--primary-color);
+                        }
                     }
                 }
             }

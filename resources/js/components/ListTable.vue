@@ -110,6 +110,7 @@
         <!--        </div>-->
 
         <el-table
+            ref="tableData"
             :data="items"
             :element-loading-background="loading.background"
             :element-loading-spinner="loading.icon"
@@ -186,9 +187,63 @@
                 :key="column.label"
                 :label="$t(column.label)"
                 :width="column.width"
+                v-for="(column, key) in headerWithCollapsables">
+                <template slot-scope="scope">
+                    <template v-if="column.props == 'building_names'">
+                    <span v-if="scope.row[column.props].length == 1">
+                        {{scope.row[column.props][0].row}}
+                        <br/>
+                        {{scope.row[column.props][0].zip}}
+                    </span>
+                    <el-collapse class="table-collapsable" v-if="scope.row[column.props].length > 1">
+                        <el-collapse-item>
+                            <template slot="title">
+                                <span>
+                                    {{scope.row[column.props][0].row}}
+                                    <br/>
+                                    {{scope.row[column.props][0].zip}}
+                                </span>
+                            </template>
+                            <span
+                                :key="value.row + value.zip"
+                                v-for="(value,v_index) in scope.row[column.props]"
+                                v-if="v_index > 0"
+                            >
+                                {{value.row}}
+                                <br/>
+                                {{value.zip}}
+                            </span>
+                        </el-collapse-item>
+                    </el-collapse>
+                    </template>
+                    <template v-else>
+                        <span v-if="scope.row[column.props].length == 1">
+                            {{scope.row[column.props][0]}}
+                        </span>
+                        <el-collapse class="table-collapsable" v-if="scope.row[column.props].length > 1">
+                            <el-collapse-item :title="scope.row[column.props][0]">
+                                <span
+                                    :key="value.row + value.zip"
+                                    v-for="(value,v_index) in scope.row[column.props]"
+                                    v-if="v_index > 0"
+                                >
+                                    {{value}}
+                                </span>
+                            </el-collapse-item>
+                        </el-collapse>
+                    </template>
+                </template>
+                
+            </el-table-column>
+
+            <el-table-column
+                :key="column.label"
+                :label="$t(column.label)"
+                :width="column.width"
                 v-for="(column, key) in headerWithCounts">
                 <template slot-scope="scope">
                     <request-count :countsData="items[scope.$index]" ></request-count>
+                    <rent-contract-count :countsData="items[scope.$index]" ></rent-contract-count>
                 </template>
             </el-table-column>
 
@@ -332,7 +387,8 @@
     // TODO - add transition to do things smoothly
     import {Avatar} from 'vue-avatar'
     import uuid from 'uuid/v1'
-    import RequestCount from 'components/RequestCount.vue'
+    import RequestCount from 'components/RequestCount'
+    import RentContractCount from 'components/RentContractCount'
     import tableAvatar from 'components/Avatar';
     import RequestDetailCard from 'components/RequestDetailCard';
     import SelectLanguage from 'components/SelectLanguage';
@@ -343,6 +399,7 @@
         components: {
             Avatar,
             RequestCount,
+            RentContractCount,
             'table-avatar': tableAvatar,
             RequestDetailCard,
             SelectLanguage,
@@ -449,6 +506,7 @@
                 && !row.withAvatars
                 && !row.withCounts
                 && !row.withMultipleProps
+                && !row.withCollapsables
                 && !row.withBadgeProps
                 && acc.push(row), acc), []);
             },
@@ -457,6 +515,9 @@
             },
             headerWithMultipleProps() {
                 return this.header.reduce((acc, row) => (row.withMultipleProps && acc.push(row), acc), []);
+            },
+            headerWithCollapsables() {
+                return this.header.reduce((acc, row) => (row.withCollapsables && acc.push(row), acc), []);
             },
             headerWithCounts() {
                 return this.header.reduce((acc, row) => (row.withCounts && acc.push(row), acc), []);
@@ -499,6 +560,10 @@
             }
         },
         methods: {
+            rowClicked(row) {
+                console.log('clicked');
+                this.$refs.tableData.toggleRowExpansion(row);
+            },
             selectChanged(e, row, column) {
                 row[column.prop] = e;
                 column.select.onChange(row);
@@ -820,6 +885,28 @@
             margin: 2px;
             border-radius: 6px;
         }
+
+        :global(.table-collapsable) {
+            border: none;
+
+            :global(.el-collapse-item__header) {
+                line-height: 23px;
+                background: none;
+            }
+
+            :global(.el-collapse-item__wrap) {
+                background: none;
+                padding-bottom: 0;
+
+                span {
+                    display: block;
+                    line-height: 25px;
+                    border-top: 1px solid var(--color-text-placeholder);
+                }
+            }
+        }
+
+        
     }
 
     .el-pagination {

@@ -84,10 +84,7 @@
                         {{$t('tenant.media')}}
                     </div>
                     <ui-media-gallery :files="openedRequest.media.map(({url}) => url)" />
-                    <ui-divider class="upload-divider" content-position="left">
-                        <i class="el-icon-upload"></i>
-                        {{$t('tenant.request_upload_title')}}
-                    </ui-divider>
+                    <ui-divider content-position="left"><i class="el-icon-upload"></i> {{$t('tenant.request_upload_title')}}</ui-divider>
                     
                     <div class="upload-description">
                         <el-alert
@@ -388,10 +385,18 @@
                     // TODO - auto blur container if visible is true first
                     if (!state) {
                         this.openedRequest = null
+                    }
+                }
+            },
+            'statusChangeModalVisible': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
                         this.changingRequest = null
                     }
                 }
-            }
+            },
         },
     }
 </script>
@@ -510,14 +515,9 @@
                                     padding-top: 16px
                                     padding-right: 16px
 
-                        .upload-divider 
+                        .ui-divider
                             padding: 0
-                            width: calc(100% - 32px);
-
-                            /deep/ .ui-divider__content--aligned-left
-                                transform: translate(calc(208px - 50%), -50%)
-                                padding-left: 16px
-                        
+                            
                         .upload-description
                             margin: 16px;
                             padding: 0
@@ -540,14 +540,16 @@
                         //     padding: 16px
             .ui-divider
                 margin: 32px 16px 0 16px
+                padding: 0
 
                 /deep/ .ui-divider__content
                     left: 0
                     z-index: 1
                     padding-left: 0
-                    font-size: 20px
+                    font-size: 16px
                     font-weight: 700
                     color: var(--color-primary)
+                    
             .content
                 height: calc(100% - 32px)
                 display: flex
@@ -567,6 +569,17 @@
 
                     /deep/ .el-loading-mask
                         position: fixed
+
+                    /deep/ .ui-divider__content
+                        left: 0
+                        z-index: 1
+                        padding-left: 0
+                        font-size: 16px
+                        font-weight: 700
+                        color: var(--color-primary)
+
+                   
+
         /deep/ .el-button+.el-button
             margin-right: 10px;
             

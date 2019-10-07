@@ -1,12 +1,22 @@
 <template>
     <el-upload
+            v-if="type === 'link'"
+            :action="''"
+            :show-file-list="false"
+            :before-upload="beforeAvatarUpload"
+            :http-request="imageUpload"
+    >
+        <el-link>{{$t('general.change')}}</el-link>
+    </el-upload>
+    <el-upload
+            v-else
             class="avatar-uploader"
             :action="''"
             :show-file-list="false"
             :before-upload="beforeAvatarUpload"
             :http-request="imageUpload"
     >
-        <i class="el-icon-plus avatar-uploader-icon"></i>
+        <i class="el-icon-camera-solid"></i>
     </el-upload>
 </template>
 
@@ -17,6 +27,12 @@
     export default {
         name: "UploadAvatar",
         mixins: [UploadMixin],
+        props: {
+            type: {
+                type: String,
+                default: ''
+            },
+        },
         methods: {
             beforeAvatarUpload(file) {
                 const isJPG = file.type === 'image/jpeg';

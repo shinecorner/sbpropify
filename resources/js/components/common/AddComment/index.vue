@@ -32,7 +32,7 @@
             <el-button circle icon="icon-paper-plane" size="small" :disabled="!content" :loading="loading" @click="save" />
         </el-tooltip>
     </div>
-    <div v-if="type === 'internalNotices'" style="margin: 10px 41px 0 35px;">
+    <div v-if="type === 'internalNotices' && content" style="margin: 10px 41px 0 35px;">
         <el-row :gutter="10">
             <el-col :span="12">
                 <el-form-item class="switcher">
@@ -71,7 +71,7 @@
             type: {
                 type: String,
                 required: true,
-                validator: type => ['pinboard', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
+                validator: type => ['pinboard', 'listing', 'request', 'conversation', 'internalNotices'].includes(type)
             },
             autofocus: {
                 type: Boolean,

@@ -125,9 +125,9 @@
                                         <!-- <el-form-item :label="$t('models.settings.quarter_enable')" prop="quarter_enable">
                                             <el-switch v-model="model.quarter_enable"/>
                                         </el-form-item>
-                                        <el-form-item :label="$t('models.settings.marketplace_approval_enable')"
-                                                      prop="marketplace_approval_enable">
-                                            <el-switch v-model="model.marketplace_approval_enable"/>
+                                        <el-form-item :label="$t('models.settings.listing_approval_enable')"
+                                                      prop="listing_approval_enable">
+                                            <el-switch v-model="model.listing_approval_enable"/>
                                         </el-form-item> -->
                                         <el-form-item class="switcher"
                                                       prop="pinboard_approval_enable">
@@ -266,7 +266,7 @@
                                      ref="microAppsSettingsForm">
                                 <el-row :gutter="20">
                                     <el-col :md="8">
-                                        <el-card class="marketplace-card card-boxs">
+                                        <el-card class="listing-card card-boxs">
                                             <span @click="Iframe_drawer" class="icon-cog"></span>
                                             <el-form-item :label="$t('models.settings.iframe_enable')" class="switcher switcher-block" prop="contact_enable">
                                                 <span class="switcher__desc">{{ $t('models.settings.iframe_enable_desc')}}</span>
@@ -277,7 +277,7 @@
                                         </el-card>
                                     </el-col>
                                     <el-col :md="8">
-                                        <el-card class="marketplace-card card-boxs">
+                                        <el-card class="listing-card card-boxs">
                                             <span @click="Gocaution_drawer" class="icon-cog" style="display:none"></span>
                                             <el-form-item :label="$t('models.settings.gocaution')" class="switcher switcher-block">
                                                 <span class="switcher__desc">{{$t('models.settings.gocaution_desc')}}</span>
@@ -288,7 +288,7 @@
                                         </el-card>
                                     </el-col>
                                     <el-col :md="8">
-                                        <el-card class="marketplace-card card-boxs">
+                                        <el-card class="listing-card card-boxs">
                                             <span @click="Cleanify_drawer" class="icon-cog"></span>
                                            <el-form-item :label="$t('models.settings.cleanify_email')"
                                                         :rules="validationRules.cleanify_email" prop="cleanify_email" class="switcher switcher-block">
@@ -544,7 +544,7 @@
                     favicon_icon_upload: '',
                     tenant_logo_upload: '',
                     tenant_logo_upload: '',
-                    marketplace_approval_enable: true,
+                    listing_approval_enable: true,
                     pinboard_approval_enable: false,
                     comment_update_timeout: 60,
                     iframe_url: '',
@@ -749,6 +749,7 @@
                             var v = this;
                             setTimeout(function () {
                                 v.main_drawer = false;
+                                document.getElementsByTagName('footer')[0].style.display = "block";
                             }, 3000);
 
                             // this.main_drawer = false;
@@ -811,6 +812,7 @@
                     this.Gocaution_drawer_val = false;
                     this.Cleanify_drawer_val = false;
                     this.appName = 'Iframe';
+                    document.getElementsByTagName('footer')[0].style.display = "none";
                 }
             },
             Gocaution_drawer(val){
@@ -821,6 +823,7 @@
                     this.Gocaution_drawer_val = true;
                     this.Cleanify_drawer_val = false;
                     this.appName = 'Gocaution';
+                    document.getElementsByTagName('footer')[0].style.display = "none";
                 }
             },
             Cleanify_drawer(val){
@@ -831,6 +834,7 @@
                     this.Gocaution_drawer_val = false;
                     this.Cleanify_drawer_val = true;
                     this.appName = 'Cleanify';
+                    document.getElementsByTagName('footer')[0].style.display = "none";
                 }
             }
         },
@@ -842,6 +846,15 @@
                         tab: newTab
                     }
                 });
+            },
+            'main_drawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        document.getElementsByTagName('footer')[0].style.display = "block";
+                    }
+                }
             }
         }
     }
@@ -849,7 +862,11 @@
 </script>
 
 <style lang="scss">
-    .dashboard-tabpanel{
+    .settings {
+        flex: 1;
+    }
+
+    .dashboard-tabpanel {
         .el-tabs--border-card > .el-tabs__header .el-tabs__item{
             flex-basis: 0;
             -webkit-box-flex: 1;
@@ -1260,7 +1277,7 @@
         margin-right: 20px;
     }
 
-    .marketplace-card .el-form-item {
+    .listing-card .el-form-item {
         .el-form-item__label {
             display: block;
             margin-bottom: 5px;

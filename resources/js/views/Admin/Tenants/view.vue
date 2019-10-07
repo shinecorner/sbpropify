@@ -69,7 +69,7 @@
                                 <h3 class="user-name">{{ model.first_name }} {{ model.last_name }}</h3>
                                 <p class="user-info text-secondary" v-if="model.title === titles.company">{{model.company}}</p>
                                 <i class="icon-dot-circled" :class="[constants.tenants.status[model.status] === 'active' ? 'icon-success' : 'icon-danger']"></i>
-                                {{ $t('models.tenant.status.' + constants.tenants.status[model.status])}}
+                                {{ constants.tenants.status[model.status] ? $t('models.tenant.status.' + constants.tenants.status[model.status]) : ''}}
                             </el-col>
                             <el-col :md="13" class="info">
                                 <el-row :gutter="20">
@@ -239,7 +239,7 @@
                                 {{unit.room_no}}&nbsp;
                             </el-col>
 
-                            <el-col :sm="12" :xs="12">{{$t('models.unit.monthly_rent_net')}}:</el-col>
+                            <el-col :sm="12" :xs="12">{{$t('general.monthly_rent_net')}}:</el-col>
                             <el-col :sm="12" :xs="12" class="text-secondary">
                                 {{unit.monthly_rent_net}}&nbsp;
                             </el-col>
@@ -307,12 +307,12 @@
                             <el-card class="chart-card">
                                 <h3 class="right-card">
                                     <i class="icon-basket icon"/>
-                                    {{ $t('models.tenant.products') }}
+                                    {{ $t('models.tenant.listings') }}
                                 </h3>
                                 <Timeline
                                         :filterValue="user.id"
                                         :noDataMessage="$t('general.no_listings')"
-                                        fetchAction="getProducts"
+                                        fetchAction="getListings"
                                         filter="user_id"
                                         v-if="!_.isEmpty(user)"
                                 />
@@ -354,7 +354,7 @@
             return {
                 requests: [],
                 pinboard: [],
-                products: [],
+                listings: [],
 
             };
         },

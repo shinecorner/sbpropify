@@ -9,8 +9,8 @@
     </div>
     <div class="comments-list" v-else-if="comments">
         <template v-if="withScroller" >
-            <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom" v-if="!loading">
-                <template #before>
+            <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="60" @resize="scrollToBottom" v-if="!loading">
+                <template #before v-resize:debounce="$emit('update-dynamic-scroller')">
                     <el-divider v-if="comments.current_page !== comments.last_page">
                         <el-button icon="el-icon-top" size="mini" :loading="loading" round @click="fetch">
                             <template v-if="loading">{{$t('general.loading')}}</template>
@@ -24,7 +24,8 @@
                                 v-on="commentComponentListeners" 
                                 :show-children="showChildren" 
                                 :data="item" 
-                                :reversed="isCommentReversed(item)" />
+                                :reversed="isCommentReversed(item)"
+                                v-resize:debounce="$emit('update-dynamic-scroller')" />
                     </dynamic-scroller-item>
                 </template>
             </dynamic-scroller>
@@ -42,6 +43,8 @@
     import Loader from 'components/common/Comments/Loader'
     import {displaySuccess, displayError} from 'helpers/messages'
     import { EventBus } from '../../../event-bus.js';
+    import resize from 'vue-resize-directive';
+
     export default {
         props: {
             id: {
@@ -52,7 +55,7 @@
             },
             type: {
                 type: String,
-                validator: type => ['pinboard', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
+                validator: type => ['pinboard', 'listing', 'request', 'conversation', 'internalNotices'].includes(type)
             },
             data: {
                 type: Object
@@ -78,8 +81,11 @@
                 default: true
             },            
         },
+        directives: {
+            resize
+        },
         components: {
-            Loader
+            Loader,
         },
         data () {
             return {
@@ -209,7 +215,7 @@
                     macros.title = 'components.common.tenantconversationsList.emptyPlaceholder.title';
                     macros.description = 'components.common.tenantconversationsList.emptyPlaceholder.description';                    
                 }
-                else if((this.type === 'product') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'tenant') > -1)){ 
+                else if((this.type === 'listing') && (this.$store.getters.loggedInUser.roles.findIndex(({name}) => name === 'tenant') > -1)){
                     macros.title = 'components.common.listingcommentsList.emptyPlaceholder.title';
                     macros.description = 'components.common.listingcommentsList.emptyPlaceholder.description';                    
                 }

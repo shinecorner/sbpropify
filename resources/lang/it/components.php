@@ -4,13 +4,13 @@ return [
         'audit' => [
             'type' => [
                 'pinboard' => 'Bacheca',
-                'product' => 'Prodotto',
+                'listing' => 'Prodotto',
                 'request' => 'Richiesta'
             ],
             'filter' => [
                 'type' => [
                     'pinboard' => 'Bacheca',
-                    'product' => 'Prodotto',
+                    'listing' => 'Prodotto',
                     'request' => 'Richiesta'
                 ],
                 'pinboard' => [
@@ -21,7 +21,7 @@ return [
                     'media_uploaded' => 'Media caricati',
                     'media_deleted' => 'Supporti cancellati'
                 ],
-                'product' => [
+                'listing' => [
 
                 ],
                 'request' => [
@@ -42,7 +42,7 @@ return [
                             'published_at' => 'Bacheca pubblicato su {new}.'
                         ]
                     ],
-                    'product' => [
+                    'listing' => [
                         'created' => '{userName} ha aperto questo {auditable_type}.',
                         'updated' => [
                             'title' => 'Il titolo è cambiato da "{old}" al "{new}".',
@@ -88,7 +88,7 @@ return [
                             'published_at' => 'Bacheca pubblicato su {new} su {auditable_type} #{auditable_id}.'
                         ]
                     ],
-                    'product' => [
+                    'listing' => [
                         'created' => '{userName} ha aperto questo {auditable_type} su {auditable_type} #{auditable_id}.',
                         'updated' => [
                             'title' => 'Il titolo è cambiato da "{old}" al "{new}" su {auditable_type} #{auditable_id}.',

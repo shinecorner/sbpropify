@@ -70,7 +70,7 @@ return [
         "created_date" => "Data di creazione",
         "contract" => "Contratto",
         "pinboard" => "Bacheca",
-        "products" => "Prodotti",
+        "listings" => "Prodotti",
         "company" => "Nome dell'azienda",
         "no_building" => "Niente edificio",
         'building' => [
@@ -548,7 +548,7 @@ return [
         'login_variation' => 'Variazione del login',
         'login_variation_slider' => 'Vuoi mostrare il cursore?',
         "quarter_enable" => "Quartiere",
-        "marketplace_approval_enable" => "Attivare il mercato",
+        "listing_approval_enable" => "Attivare il mercato",
         'gocaution' => 'Gocauzione',
         'gocaution_desc' => 'Gocauzione',
         "blank_pdf" => "PDF in bianco",
@@ -889,13 +889,13 @@ return [
             'deleted' => "Errore cancellato dal Property Manager: ",
         ],
     ],
-    'product' => [
+    'listing' => [
         "title" => "Prodotti",
         "add" => "Aggiungi prodotto",
         "edit_title" => "Modifica prodotto",
         "delete_action" => "Cancellare",
         "content" => "Contenuto",
-        "product_title" => "Titolo",
+        "listing_title" => "Titolo",
         "published_at" => "Pubblicato",
         "publish" => "Pubblicare",
         "unpublish" => "Non pubblicare",

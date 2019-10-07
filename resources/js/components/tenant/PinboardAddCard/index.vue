@@ -15,7 +15,7 @@
                     </el-button>
                 </el-tooltip>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item v-for="(visibility, index) in visibilityTypes" :key="visibility.key" :command="visibility" :icon="visibility.icon" :divided="!! index">
+                    <el-dropdown-item v-for="(visibility, index) in visibilityTypes" :key="visibility.key" :command="visibility" :divided="!! index">
                         {{$t(`components.tenant.pinboardAdd.visibility.${visibility.name}`)}}
                         <small style="display: block;color: #A9A9A9;">{{visibility.description}}</small>
                     </el-dropdown-item>
@@ -141,14 +141,14 @@
             visibilityTypes () {
                 const icons = {
                     address: 'icon-address',
-                    district: 'icon-location',
+                    quarter: 'icon-location',
                     all: 'icon-group'
                 }
 
                 const descriptions = {
-                    address: 'Your pinboard will be visible for tenants on your address only.',
-                    district: 'Your pinboard will be visible for tenants within your district only.',
-                    all: 'Your pinboard will be able to be seen by everyone.'
+                    address: this.$t('tenant.descriptions.address'),
+                    quarter: this.$t('tenant.descriptions.quarter'),
+                    all: this.$t('tenant.descriptions.all')
                 }
 
                 return Object.entries(this.constants.pinboard.visibility).map(([key, name]) => ({
@@ -224,6 +224,12 @@
                     }
                 }
             }
+
+            
         }
+    }
+
+    :global(.el-dropdown-menu--small .el-dropdown-menu__item) {
+        line-height: 20px;
     }
 </style>

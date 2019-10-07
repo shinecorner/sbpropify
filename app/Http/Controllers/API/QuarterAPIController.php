@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Criteria\Quarter\FilterByStateCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Quarter\AssigneeListRequest;
 use App\Http\Requests\API\Quarter\BatchAssignManagers;
@@ -12,15 +13,20 @@ use App\Http\Requests\API\Quarter\UpdateRequest;
 use App\Http\Requests\API\Quarter\ListRequest;
 use App\Http\Requests\API\Quarter\ViewRequest;
 use App\Http\Requests\API\Quarter\DeleteRequest;
+use App\Models\Address;
 use App\Models\PropertyManager;
 use App\Models\Quarter;
 use App\Models\QuarterAssignee;
+use App\Models\RentContract;
 use App\Models\User;
+use App\Repositories\AddressRepository;
 use App\Repositories\QuarterRepository;
 use App\Transformers\QuarterAssigneeTransformer;
 use App\Transformers\QuarterTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use App\Criteria\Common\RequestCriteria;
 
@@ -34,12 +40,19 @@ class QuarterAPIController extends AppBaseController
     private $quarterRepository;
 
     /**
-     * QuarterAPIController constructor.
-     * @param QuarterRepository $quarterRepo
+     * @var AddressRepository
      */
-    public function __construct(QuarterRepository $quarterRepo)
+    private $addressRepository;
+
+    /**
+     * QuarterAPIController constructor.
+     * @param QuarterRepository $quarterRepository
+     * @param AddressRepository $addressRepository
+     */
+    public function __construct(QuarterRepository $quarterRepository, AddressRepository $addressRepository)
     {
-        $this->quarterRepository = $quarterRepo;
+        $this->quarterRepository = $quarterRepository;
+        $this->addressRepository = $addressRepository;
     }
 
     /**
@@ -79,6 +92,7 @@ class QuarterAPIController extends AppBaseController
     {
         $this->quarterRepository->pushCriteria(new RequestCriteria($request));
         $this->quarterRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->quarterRepository->pushCriteria(new FilterByStateCriteria($request));
 
         $getAll = $request->get('get_all', false);
         if ($getAll) {
@@ -88,9 +102,20 @@ class QuarterAPIController extends AppBaseController
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $quarters = $this->quarterRepository->paginate($perPage);
-
-        $response = (new QuarterTransformer)->transformPaginator($quarters);
+        $quarters = $this->quarterRepository->with(['buildings' => function ($q) {
+            $q->select('id', 'quarter_id')
+                ->with([
+                    'units' => function ($q) {
+                        $q ->select('id', 'building_id')
+                            ->with([
+                                'rent_contracts' => function ($q) {
+                                    $q->where('status', RentContract::StatusActive)->select('unit_id', 'tenant_id');
+                                }
+                            ]);
+                    }
+                ]);
+        }])->paginate($perPage);
+        $response = (new QuarterTransformer)->transformPaginator($quarters, 'transformWIthStatistics');
         return $this->sendResponse($response, 'Quarters retrieved successfully');
     }
 
@@ -131,12 +156,35 @@ class QuarterAPIController extends AppBaseController
      *
      * @param CreateRequest $request
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(CreateRequest $request)
     {
         $input = $request->all();
+        $addressInput = $request->get('address');
+        DB::beginTransaction();
+        if (!empty($addressInput) && is_array($addressInput)) {
+            $validator = Validator::make($addressInput, Address::$rules);
+            if ($validator->fails()) {
+                DB::rollBack();
+                return $this->sendError($validator->errors());
+            }
+
+            $address = $this->addressRepository->create($addressInput);
+            $input['address_id'] = $address->id;
+            unset($input['address']);
+        }
+
         $quarter = $this->quarterRepository->create($input);
+
+        if ($quarter) {
+            DB::commit();
+            $quarter->load('address');
+        } else {
+            DB::rollBack();
+        }
+
         $response = (new QuarterTransformer)->transform($quarter);
 
         return $this->sendResponse($response, __('models.quarter.saved'));
@@ -177,14 +225,16 @@ class QuarterAPIController extends AppBaseController
      *      )
      * )
      *
+     *
      * @param $id
      * @param ViewRequest $r
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function show($id, ViewRequest $r)
     {
         /** @var Quarter $quarter */
-        $quarter = $this->quarterRepository->findWithoutFail($id);
+        $quarter = $this->quarterRepository->with('address')->findWithoutFail($id);
         if (empty($quarter)) {
             return $this->sendError(__('models.quarter.errors.not_found'));
         }
@@ -239,20 +289,50 @@ class QuarterAPIController extends AppBaseController
      * @param $id
      * @param UpdateRequest $request
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Repository\Exceptions\RepositoryException
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update($id, UpdateRequest $request)
     {
         $input = $request->all();
 
         /** @var Quarter $quarter */
-        $quarter = $this->quarterRepository->findWithoutFail($id);
+        $quarter = $this->quarterRepository->with('address')->findWithoutFail($id);
 
         if (empty($quarter)) {
             return $this->sendError(__('models.quarter.errors.not_found'));
         }
 
+        DB::beginTransaction();
+        $addressInput = $request->get('address');
+        if ($addressInput) {
+            $validator = Validator::make($addressInput, Address::$rules);
+            if ($validator->fails()) {
+                DB::rollBack();
+                return $this->sendError($validator->errors());
+            }
+
+            if ($quarter->address) {
+                $address = $this->addressRepository->updateExisting($quarter->address, $addressInput);
+
+            } else {
+                $address = $this->addressRepository->create($addressInput);
+                $input['address_id'] = $address->id;
+            }
+
+            $input['address_id'] = $address->id;
+            unset($input['address']);
+        }
+
+
         $quarter = $this->quarterRepository->updateExisting($quarter, $input);
+        if ($quarter) {
+            DB::commit();
+            $quarter->load('address');
+        } else {
+            DB::rollBack();
+        }
 
         $response = (new QuarterTransformer)->transform($quarter);
         return $this->sendResponse($response, __('models.quarter.saved'));
@@ -414,9 +494,11 @@ class QuarterAPIController extends AppBaseController
      *      )
      * )
      *
+     *
      * @param int $id
      * @param BatchAssignManagers $request
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function assignManagers(int $id, BatchAssignManagers $request)
     {
@@ -488,6 +570,7 @@ class QuarterAPIController extends AppBaseController
      * @param int $id
      * @param BatchAssignUsers $request
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function assignUsers(int $id, BatchAssignUsers $request)
     {

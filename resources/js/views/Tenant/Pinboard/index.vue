@@ -23,7 +23,7 @@
                         <template v-slot="{item, index, active}">
                             <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" page-mode v-if="!loading">
                                 <pinboard-new-tenant-card :data="item" v-if="$constants.pinboard.type[item.type] === 'new_neighbour' && item.user_id != $store.getters.loggedInUser.id"/>
-                                <pinboard-card :data="item" @edit-pinboard="editPinboard" @delete-pinboard="deletePinboard" v-else-if="$constants.pinboard.type[item.type] !== 'new_neighbour'" @hook:mounted="$refs['dynamic-scroller'].forceUpdate"/>
+                                <pinboard-card :data="item" @edit-pinboard="editPinboard" @delete-pinboard="deletePinboard" v-else-if="$constants.pinboard.type[item.type] !== 'new_neighbour'" @update-dynamic-scroller="force_scroller_update()"/>
                             </dynamic-scroller-item>
                         </template>
                         <!-- <template #after v-if="loading && !filteredPinboards.length">
@@ -36,7 +36,7 @@
             
         </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
-            <ui-divider content-position="left" v-if="editingPinboard">{{$t('tenant.edit_pinboard')}}</ui-divider>
+            <ui-divider content-position="left" v-if="editingPinboard"><i class="ti-pencil"></i> {{$t('tenant.edit_pinboard')}}</ui-divider>
             <div class="content">
                 <pinboard-edit-form :data="editingPinboard" v-if="editingPinboard" :visible.sync="visibleDrawer"/>
             </div>
@@ -134,6 +134,12 @@
             }
         },
         methods: {
+            onResize() {
+                force_scroller_update();
+            },
+            force_scroller_update() {
+                 this.$refs['dynamic-scroller'].forceUpdate();
+            },
             async getPinboards (params = {}) {
                 if (this.loading && this.pinboard.data.length) {
                     return
@@ -358,7 +364,7 @@
                     left: 0
                     z-index: 1
                     padding-left: 0
-                    font-size: 20px
+                    font-size: 16px
                     font-weight: 700
                     color: var(--color-primary)
 
@@ -378,4 +384,12 @@
 
                     /deep/ .el-loading-mask
                         position: fixed
+                    
+                    .ui-media-gallery
+                        margin-top: 8px
+
+                    .ui-divider
+                        margin-top: 30px
+                        margin-left: 0
+                        margin-bottom: 16px
 </style>

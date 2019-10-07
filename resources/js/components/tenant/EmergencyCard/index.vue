@@ -1,10 +1,11 @@
 <template>
     <ui-card shadow="always">
-        <div class="left-circle icon-attention-alt">
+        <div class="left-circle icon-tools">
         </div>
         <div class="right-text">
             <p>{{$t('tenant.emergency.title')}}</p>
-            <p>{{$t('tenant.emergency.desc')}} : 079 999 99 99</p>
+            <p class="desc">{{$t('tenant.emergency.desc')}}</p>
+            <p class="phone-number">079 999 99 99</p>
         </div>
         
     </ui-card>
@@ -56,4 +57,12 @@
             .right-text
                 flex: 1
                 padding-left: 20px
+
+                .desc
+                    margin-bottom: 5px
+
+                .phone-number
+                    font-weight: bolder
+                    font-size: 15px
+                    margin-top: 5px
 </style>

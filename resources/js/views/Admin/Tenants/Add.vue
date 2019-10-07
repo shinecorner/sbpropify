@@ -68,6 +68,7 @@
                                                   :label="$t('models.tenant.nation')"
                                                   prop="nation">
                                         <el-select filterable
+                                                    clearable
                                                    style="display: block"
                                                    v-model="model.nation">
                                             <el-option :key="country.id"
@@ -197,6 +198,7 @@
         </div>
         </div>
         <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
+            <ui-divider content-position="left"><i class="icon-handshake-o ti-user icon"></i> &nbsp;&nbsp;{{ $t('models.tenant.rent_contract') }}</ui-divider>
             <div class="content" v-if="visibleDrawer">
                 <rent-contract-form v-if="editingRentContract" mode="edit" :data="editingRentContract" :tenant_id="model.id" :visible.sync="visibleDrawer" :edit_index="editingRentContractIndex" @update-rent-contract="updateRentContract" :used_units="used_units"/>
                 <rent-contract-form v-else mode="add" :tenant_id="model.id" :visible.sync="visibleDrawer" @add-rent-contract="addRentContract" :used_units="used_units"/>
@@ -239,9 +241,11 @@
         text-align: left;
     }
 </style>
+
 <style lang="scss" scoped>
     .tenants-add {
         overflow: hidden;
+        height: 100%;
 
         .main-content { 
             overflow-x: hidden;
@@ -271,8 +275,23 @@
         
 
         /deep/ .ui-drawer {
+            .ui-divider {
+                margin: 32px 16px 0 16px;
+                i {
+                    padding-right: 0;
+                }
+
+                /deep/ .ui-divider__content {
+                    left: 0;
+                    z-index: 1;
+                    padding-left: 0;
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: var(--color-primary);
+                }
+            }
             .content {
-                height: calc(100% - 32px);
+                height: calc(100% - 70px);
                 display: -webkit-box;
                 display: -ms-flexbox;
                 display: flex;
@@ -284,13 +303,18 @@
                 -ms-flex-direction: column;
                 flex-direction: column;
                 position: relative;
+
+                .ui-divider {
+                    margin: 32px 16px 16px 0;
+                }
+                
             }
 
             .chart-card-header{
                 font-size: 16px;
                 font-weight: 400;
-                padding: 0 20px 16px;
-                margin: -4px -10px 10px;
+                padding: 10px 20px;
+                margin: 0;
                 border-bottom: 1px solid #EBEEF5;
 
                 h3 {
