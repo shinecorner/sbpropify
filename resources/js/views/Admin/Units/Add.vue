@@ -273,6 +273,14 @@
                         }
                     }
 
+                    td {
+                        padding: 25px 0;
+
+                        .cell {
+                            overflow: visible;
+                        }
+                    }
+
                     td:last-child .cell {
                         padding-left: 10px !important;
                         text-align: left;

@@ -252,8 +252,7 @@
                             </td>
                             <td class="data">
                                 <div class="cell">
-                                    <el-form-item 
-                                        prop="monthly_rent_net">
+                                    <el-form-item >
                                         {{Number(model.monthly_rent_net) + Number(model.monthly_maintenance)}}
                                     </el-form-item>
                                     
@@ -744,6 +743,14 @@
                             text-overflow: initial;
                             font-size: 16px;
                             padding: 0;
+                        }
+                    }
+
+                    td {
+                        padding: 25px 0;
+
+                        .cell {
+                            overflow: visible;
                         }
                     }
 

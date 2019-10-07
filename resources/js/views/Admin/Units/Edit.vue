@@ -346,6 +346,8 @@
                     display: flex;
                     width: 100%;
                     background: transparent;
+
+                    
                     .data {
                         flex: 1;
                         display: flex;
@@ -385,6 +387,14 @@
                             text-overflow: initial;
                             font-size: 16px;
                             padding: 0;
+                        }
+                    }
+
+                    td {
+                        padding: 25px 0;
+
+                        .cell {
+                            overflow: visible;
                         }
                     }
 
