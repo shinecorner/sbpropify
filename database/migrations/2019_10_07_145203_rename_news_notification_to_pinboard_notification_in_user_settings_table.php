@@ -14,7 +14,7 @@ class RenameNewsNotificationToPinboardNotificationInUserSettingsTable extends Mi
     public function up()
     {
         Schema::table('user_settings', function (Blueprint $table) {
-            $table->renameColumn('pinboard_notification', 'pinboard_notification');
+            $table->renameColumn('news_notification', 'pinboard_notification');
         });
     }
 
@@ -26,7 +26,7 @@ class RenameNewsNotificationToPinboardNotificationInUserSettingsTable extends Mi
     public function down()
     {
         Schema::table('pinboard_notification_in_user_settings', function (Blueprint $table) {
-            $table->renameColumn('pinboard_notification', 'pinboard_notification');
+            $table->renameColumn('pinboard_notification', 'news_notification');
         });
     }
 

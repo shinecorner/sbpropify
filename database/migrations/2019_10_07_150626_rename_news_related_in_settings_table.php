@@ -16,7 +16,7 @@ class RenameNewsRelatedInSettingsTable extends Migration
         //settings => ,
         Schema::table('settings', function (Blueprint $table) {
             $table->renameColumn('news_approval_enable', 'pinboard_approval_enable');
-            $table->renameColumn('news_receiver_ids', 'pinboard_approval_enable');
+            $table->renameColumn('news_receiver_ids', 'pinboard_receiver_ids');
         });
     }
 
@@ -29,7 +29,7 @@ class RenameNewsRelatedInSettingsTable extends Migration
     {
         Schema::table('settings', function (Blueprint $table) {
             $table->renameColumn('pinboard_approval_enable', 'news_approval_enable');
-            $table->renameColumn('pinboard_receiver_ids', 'news_approval_enable');
+            $table->renameColumn('pinboard_receiver_ids', 'news_receiver_ids');
         });
     }
 }
