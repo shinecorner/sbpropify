@@ -315,6 +315,12 @@ return [
         'deleted' => 'Unit deleted',
         'saved' => 'Unit saved',
         'floor' => 'Floor',
+        'floor_title' => [
+            'under_ground_floor' => "UG",
+            'ground_floor' => "EG",
+            'upper_ground_floor' => "OG",
+            'top_floor' => "Attic",
+        ],
         'sq_meter' => 'Sq Meter',
         'room_no' => 'Number of rooms',
         'building_search' => 'Please enter a building name and select it',

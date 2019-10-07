@@ -315,6 +315,12 @@ return [
         "deleted" => "Unité supprimée",
         "saved" => "Unité sauvegardée",
         "floor" => "L'étage",
+        'floor_title' => [
+            'under_ground_floor' => "UG",
+            'ground_floor' => "EG",
+            'upper_ground_floor' => "OG",
+            'top_floor' => "Grenier aménageable",
+        ],
         "sq_meter" => "Mètre carré",
         "room_no" => "Nombre de pièces",
         "building_search" => "Veuillez entrer le nom d'un bâtiment et le sélectionner",

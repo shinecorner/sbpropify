@@ -315,6 +315,12 @@ return [
         "deleted" => "Unità cancellata",
         "saved" => "Unità salvata",
         "floor" => "Piano",
+        'floor_title' => [
+            'under_ground_floor' => "UG",
+            'ground_floor' => "EG",
+            'upper_ground_floor' => "OG",
+            'top_floor' => "Mansarda",
+        ],
         "sq_meter" => "Misuratore di mq",
         "room_no" => "Numero di camere",
         "building_search" => "Inserire il nome di un edificio e selezionarlo",

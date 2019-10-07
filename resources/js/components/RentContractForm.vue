@@ -1,6 +1,5 @@
 <template>
     <el-form :model="model" :rules="validationRules" label-position="top"  ref="form" v-loading="loading">
-        
 
         <el-row :gutter="20">
             <el-col :md="12">
@@ -36,6 +35,28 @@
                                 :value="unit.id"
                                 v-for="unit in units">
                         </el-option>
+                    </el-select>
+                </el-form-item>
+            </el-col>
+            <el-col :md="12" v-if="model.building_id">
+                <el-form-item prop="unit_id" :label="$t('models.tenant.unit.name')"
+                            class="label-block">
+                    <el-select :placeholder="$t('models.tenant.search_unit')" 
+                            style="display: block"
+                            v-model="model.unit_id"
+                            @change="changeRentContractUnit">
+                        <el-option-group
+                            v-for="group in options"
+                            :key="group.label"
+                            :label="group.label">
+                            <el-option
+                                v-for="item in group.options"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                            </el-option>
+                        </el-option-group>
+                        
                     </el-select>
                 </el-form-item>
             </el-col>
@@ -366,6 +387,8 @@
                 remoteLoading: false,
                 buildings: [],
                 units: [],
+                units1: [],
+                options: [],
                 rent_durations: [],
                 deposit_statuses: [],
                 rentcontract_statuses: [],
@@ -456,10 +479,12 @@
                         else {
                             
                             params.tenant_id = this.tenant_id
+                            params.unit = this.units.find(item => item.id == this.model.unit_id)
+                            params.building = this.buildings.find(item => item.id == this.model.building_id)
 
                             if (this.mode == "add") {
                                 const resp = await this.$store.dispatch('rentContracts/create', params);
-                                this.$emit('add-rent-contract', params)
+                                this.$emit('add-rent-contract', resp.data)
                             }
                             else {
                                 const resp = await this.$store.dispatch('rentContracts/update', params);
@@ -521,6 +546,86 @@
                         get_all: true,
                         building_id: this.model.building_id
                     });
+
+                    console.log('resp', resp)
+
+                    const resp1 = await this.getUnits({
+                        show_rent_contract_counts: true,
+                        group_by_floor: true,
+                        building_id: this.model.building_id
+                    });
+
+                    console.log('resp1', resp1)
+
+                    this.units1 = resp1.data
+                    for( var key in resp1.data) {
+                        if( !resp1.data.hasOwnProperty(key)) continue;
+                        
+                        var obj = resp1.data[key];
+
+                        console.log(obj);
+                    }          
+                    this.options = [
+                        {
+                            label: 'Popular cities',
+                            options: [{
+                                id: 'Shanghai',
+                                name: 'Shanghai'
+                            }, {
+                                id: 'Beijing',
+                                name: 'Beijing'
+                            }]
+                        }, 
+                        {
+                            label: 'City name',
+                            options: [{
+                                id: 'Chengdu',
+                                name: 'Chengdu'
+                            }, {
+                                id: 'Shenzhen',
+                                name: 'Shenzhen'
+                            }, {
+                                id: 'Guangzhou',
+                                name: 'Guangzhou'
+                            }, {
+                                id: 'Dalian',
+                                name: 'Dalian'
+                            }]
+                        }];
+
+                    this.options = [
+                        {
+                            label: 'Popular cities',
+                            options: [{
+                                id: 'Shanghai',
+                                name: 'Shanghai'
+                            }, {
+                                id: 'Beijing',
+                                name: 'Beijing'
+                            }]
+                        }, 
+                        {
+                            label: 'City name',
+                            options: [{
+                                id: 'Chengdu',
+                                name: 'Chengdu'
+                            }, {
+                                id: 'Shenzhen',
+                                name: 'Shenzhen'
+                            }, {
+                                id: 'Guangzhou',
+                                name: 'Guangzhou'
+                            }, {
+                                id: 'Dalian',
+                                name: 'Dalian'
+                            }]
+                        }];
+                    // const resp2 = await this.getUnits({
+                    //     group_by_floor: true,
+                    //     building_id: this.model.building_id
+                    // });
+
+                    // console.log('resp2', resp2)
 
 
                     this.used_units.forEach(id => {
