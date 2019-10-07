@@ -27,7 +27,7 @@ class RenameNewsNotificationToPinboardNotificationInUserSettingsTable extends Mi
     {
         Schema::table('pinboard_notification_in_user_settings', function (Blueprint $table) {
             $table->renameColumn('pinboard_notification', 'pinboard_notification');
-
         });
     }
+
 }

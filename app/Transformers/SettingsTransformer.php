@@ -45,7 +45,7 @@ class SettingsTransformer extends TransformerAbstract
             'gocaution_enable' => $model->gocaution_enable,
             'cleanify_enable' => $model->cleanify_enable,
             'listing_approval_enable' => $model->listing_approval_enable,
-            'news_approval_enable' => $model->news_approval_enable,
+            'pinboard_approval_enable' => $model->pinboard_approval_enable,
             'comment_update_timeout' => $model->comment_update_timeout,
             'free_apartments_enable' => $model->free_apartments_enable,
             'free_apartments_url' => $model->free_apartments_url,
@@ -53,7 +53,7 @@ class SettingsTransformer extends TransformerAbstract
             'iframe_url' => $model->iframe_url,
             'iframe_enable' => $model->iframe_enable,
             'cleanify_email' => $model->cleanify_email,
-            'news_receiver_ids' => $model->news_receiver_ids,
+            'pinboard_receiver_ids' => $model->pinboard_receiver_ids,
             'email_powered_by' => $model->email_powered_by,
         ];
         if (\Auth::user()->can('edit-settings')) {

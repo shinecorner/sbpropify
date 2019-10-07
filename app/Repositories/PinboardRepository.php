@@ -325,7 +325,7 @@ class PinboardRepository extends BaseRepository
         }
 
         $settings = Settings::firstOrFail();
-        $admins = User::whereIn('id', $settings->news_receiver_ids)->get();
+        $admins = User::whereIn('id', $settings->pinboard_receiver_ids)->get();
         $i = 0;
         foreach ($admins as $admin) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
