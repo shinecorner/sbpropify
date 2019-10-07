@@ -506,7 +506,7 @@
 
 
                     this.used_units.forEach(id => {
-                        if(this.model.unit.id != id)
+                        if(!this.model.unit || this.model.unit.id != id)
                             resp.data = resp.data.filter( item => item.id != id )
                     })
 

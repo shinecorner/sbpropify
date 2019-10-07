@@ -13,16 +13,10 @@ export default {
                 tenant.building_address_zip = `${tenant.building.address.zip} ${tenant.building.address.city}`;
             }
 
-            tenant.building_name = '';
-            tenant.unit_name = '';
-            if (tenant.rent_contracts.length) {
-                if(tenant.rent_contracts[0].building)
-                    tenant.building_name = tenant.rent_contracts[0].building.name;
-                if(tenant.rent_contracts[0].unit)
-                    tenant.unit_name = tenant.rent_contracts[0].unit.name;
-            }
 
-            tenant.building_names = tenant.rent_contracts.map(item => item.building ? item.building.name : '')
+            tenant.building_names = tenant.rent_contracts.map(item => item.building && item.address ? { 
+                            row : item.address.street + " " + item.address.house_num ,  
+                            zip : item.address.zip + " " + item.address.city  } : { row : '', zip : ''} )
             tenant.unit_names = tenant.rent_contracts.map(item => item.unit ? item.unit.name : '')
 
             tenant.rent_contract_active_count = tenant.counts.rent_contracts.active

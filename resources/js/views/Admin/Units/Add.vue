@@ -32,6 +32,7 @@
                             :remote-method="remoteSearchTenants"
                             filterable
                             remote
+                            clearable
                             reserve-keyword
                             style="width: 100%;"
                             v-model="model.tenant_id">

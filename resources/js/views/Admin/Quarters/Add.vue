@@ -17,7 +17,9 @@
                             <el-col :md="12">
                                 <el-form-item class="label-block" :label="$t('models.quarter.count_of_buildings')"
                                               prop="title">
-                                    <el-select style="display: block" v-model="model.count_of_buildings">
+                                    <el-select style="display: block" 
+                                            clearable
+                                            v-model="model.count_of_buildings">
                                         <el-option
                                                 :key="building"
                                                 :value="building"

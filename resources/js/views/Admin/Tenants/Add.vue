@@ -241,9 +241,11 @@
         text-align: left;
     }
 </style>
+
 <style lang="scss" scoped>
     .tenants-add {
         overflow: hidden;
+        height: 100%;
 
         .main-content { 
             overflow-x: hidden;
@@ -301,6 +303,10 @@
                 -ms-flex-direction: column;
                 flex-direction: column;
                 position: relative;
+
+                .ui-divider {
+                    margin: 32px 16px 16px 0;
+                }
                 
             }
 

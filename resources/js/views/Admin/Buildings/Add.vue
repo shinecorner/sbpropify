@@ -56,6 +56,7 @@
                                                 :remote-method="remoteSearchQuarters"
                                                 filterable
                                                 remote
+                                                clearable
                                                 reserve-keyword
                                                 style="width: 100%;"
                                                 v-model="model.quarter_id">

@@ -198,7 +198,7 @@
                             <el-row :gutter="20" class="summary-row">
                                 <el-col :md="8" class="summary-item">
                                     <el-form-item :label="$t('models.request.priority.label')">
-                                        <strong>{{$t(`models.request.priority.${$constants.serviceRequests.priority[model.priority]}`)}}</strong>
+                                        <strong v-if="$constants.serviceRequests.priority[model.priority]">{{$t(`models.request.priority.${$constants.serviceRequests.priority[model.priority]}`)}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <!-- <el-col :md="8" class="summary-item">

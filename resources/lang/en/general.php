@@ -199,6 +199,10 @@ return [
             'title' => 'Delete Listing',
             'text' => 'Do you really want to delete the listing?',
         ],
+        'delete_rentcontract' => [
+            'title' => 'Delete Rent contract',
+            'text' => 'Do you really want to delete the rent contract?',
+        ],
         'add' => [
             'added' => 'Added successfully',
         ],

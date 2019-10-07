@@ -556,10 +556,6 @@
                     color: var(--color-primary);
                 }
             }
-            .chart-card-header {
-                margin: 0;
-                padding: 10px 20px;
-            }
 
             .content {
                 height: calc(100% - 70px);

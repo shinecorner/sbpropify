@@ -199,6 +199,10 @@ return [
             'title' => "Cancellare l'annuncio",
             'text' => "Vuoi davvero cancellare l'annuncio?",
         ],
+        'delete_rentcontract' => [
+            'title' => 'Cancellare contratto di locazione',
+            'text' => "Vuoi davvero cancellare il contratto d'affitto?",
+        ],
         'add' => [
             'added' => 'Aggiunto con successo',
         ],
