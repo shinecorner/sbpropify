@@ -190,6 +190,7 @@ return [
             "label" => "Statut",
             "active" => "Actif",
             "not_active" => "Non actif",
+            'total' => 'Total',
         ],
         'credentials_pdf' => [
             'tenant_credentials' => 'Accréditation des locataires',
@@ -349,6 +350,9 @@ return [
             ],
             'monthly_rent_net' => [
                 "required" => "Un loyer mensuel est exigé",
+            ],
+            'monthly_maintenance' => [
+                'required' => 'Un entretien mensuel est nécessaire',
             ],
             'floor' => [
                 "required" => "Un plancher est requis",

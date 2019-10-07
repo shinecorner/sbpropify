@@ -190,6 +190,7 @@ return [
             "label" => "Situazione",
             "active" => "Attivo",
             "not_active" => "Non attivo",
+            'total' => 'Totale',
         ],
         'credentials_pdf' => [
             'tenant_credentials' => 'Le credenziali dell\'inquilino',
@@ -349,6 +350,9 @@ return [
             ],
             'monthly_rent_net' => [
                 "required" => "L'affitto mensile è richiesto",
+            ],
+            'monthly_maintenance' => [
+                'required' => 'La manutenzione mensile è richiesta',
             ],
             'floor' => [
                 "required" => "Il pavimento è obbligatorio",
