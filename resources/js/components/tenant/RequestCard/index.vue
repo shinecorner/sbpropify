@@ -80,13 +80,19 @@
                 </div>
                 <slot name="tab-media-before" />
                 <ui-media-gallery :files="data.media.slice(0, 3).map(({url}) => url)">
-                    <div slot="after" key="view-all" class="ui-media-gallery__item" @click="$emit('more-media')" v-if="data.media.length">
+                    <!-- <div slot="after" key="view-all" class="ui-media-gallery__item" @click="$emit('more-media')" v-if="data.media.length">
                         <div class="ui-media-gallery__item__content">
                             <i class="icon-picture"></i>
                             {{$t('tenant.actions.view_all')}}
                         </div>
-                    </div>
+                    </div> -->
                 </ui-media-gallery>
+                <div class="ui-media-gallery__more_item" @click="$emit('more-media')" v-if="data.media.length">
+                    <div class="ui-media-gallery__more_item__content">
+                        <i class="icon-picture"></i>
+                        {{$t('tenant.actions.view_all')}}
+                    </div>
+                </div>
                 <!-- <gallery-list :media="data.media" :cols="4" /> -->
                 <slot name="tab-media-after" />
             </el-tab-pane>
@@ -303,26 +309,45 @@
                             margin: -4px
 
                             .ui-media-gallery__item
-                                width: 25%
-                                padding-top: 25%
+                                width: 33.3%
+                                padding-top: 33.3%
                                 margin: 4px
 
-                                &:last-child
-                                    font-size: 16px
-                                    font-weight: 600
-                                    border-width: 2px
-                                    border-style: dashed
-                                    box-shadow: none
-                                    color: var(--color-text-placeholder)
-                                    cursor: pointer
+                                // &:last-child
+                                //     font-size: 16px
+                                //     font-weight: 600
+                                //     border-width: 2px
+                                //     border-style: dashed
+                                //     box-shadow: none
+                                //     color: var(--color-text-placeholder)
+                                //     cursor: pointer
 
-                                    &:hover
-                                        color: var(--color-primary)
-                                        border-color: var(--color-primary)
+                                //     &:hover
+                                //         color: var(--color-primary)
+                                //         border-color: var(--color-primary)
 
-                                    i
-                                        font-size: 28px
-    
+                                //     i
+                                //         font-size: 28px
+                        .ui-media-gallery__more_item
+                            font-size: 16px
+                            font-weight: 600
+                            border-width: 2px
+                            border-style: dashed
+                            box-shadow: none
+                            color: var(--color-text-placeholder)
+                            cursor: pointer
+                            margin-top: 5px
+
+                            &:hover
+                                color: var(--color-primary)
+                                border-color: var(--color-primary)
+
+                            .ui-media-gallery__more_item__content
+                                text-align: center
+
+                            i
+                                font-size: 28px
+
 </style>
 
 <style lang="scss" scoped>
