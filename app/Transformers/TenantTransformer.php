@@ -77,12 +77,6 @@ class TenantTransformer extends BaseTransformer
             $response['active_rent_contracts_count'] = $activeCount;
             $response['inactive_rent_contracts_count'] = $allCount - $activeCount;
             $response['total_rent_contracts_count'] = $allCount;
-
-            $response['counts']['rent_contracts'] = [
-                'total' => $allCount,
-                RentContract::Status[RentContract::StatusActive] => $activeCount,
-                RentContract::Status[RentContract::StatusInactive] => $allCount - $activeCount,
-            ];
         }
 
 
