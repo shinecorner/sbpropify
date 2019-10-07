@@ -4,15 +4,17 @@
             <ui-heading icon="icon-basket" :title="$t('tenant.listing')" :description="$t('tenant.heading_info.listing')" />
             <ui-divider />
             <ui-card class="content" shadow="always" v-loading="loading">
-                <template #header>
-                    <el-popover popper-class="listing__filter-popover" placement="bottom-start" trigger="click" :width="192">
+                <template #header >
+                    <el-popover class="filter-btn" popper-class="listing__filter-popover" placement="bottom-start" trigger="click" :width="192">
                         <el-button slot="reference" icon="el-icon-sort">{{$t('tenant.filters')}}</el-button>
                         <filters ref="filters" layout="row" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
                         <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                     </el-popover>
                     <el-input prefix-icon="el-icon-search" v-model="search" :placeholder="$t('tenant.placeholder.search_listing')" clearable @clear="handleSearch" @keyup.enter.native="handleSearch" />
-                    <el-button type="primary" icon="el-icon-search" :disabled="loading" @click="handleSearch">{{$t('tenant.actions.search')}}</el-button>
-                    <el-button type="primary" icon="icon-plus" @click="addListing()">{{$t('tenant.add_listing')}}</el-button>
+                    <el-button type="primary" class="search-btn" icon="el-icon-search" :disabled="loading" @click="handleSearch">{{$t('tenant.actions.search')}}</el-button>
+                    <el-button type="primary" class="add-listing-btn" icon="icon-plus" @click="addListing()">{{$t('tenant.add_listing')}}</el-button>
+                    <el-button type="primary" class="mobile-search-btn" icon="el-icon-search" :disabled="loading" @click="handleSearch"></el-button>
+                    <el-button type="primary" class="mobile-add-listing-btn" icon="icon-plus" @click="addListing()"></el-button>
                 </template>
                 <template v-if="loading">
                     <loader v-for="idx in 5" :key="idx" />
@@ -412,4 +414,23 @@
                         font-size: 16px
                         font-weight: 700
                         color: var(--color-primary)
+        .mobile-search-btn
+            display: none
+        .mobile-add-listing-btn
+            display: none
+
+    @media only screen and (max-width: 676px)
+        .listing
+            .ui-heading__content__description
+                display: none
+            /deep/ .filter-btn
+                display: none
+            .search-btn
+                display: none
+            .add-listing-btn
+                display: none
+            .mobile-search-btn
+                display: block
+            .mobile-add-listing-btn
+                display: block
 </style>
