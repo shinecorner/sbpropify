@@ -106,6 +106,7 @@ return [
     ],
     "you" => "You",
     "and" => "and",
+    "liked_this" => "liked this",
     "media_info" => "All of them will be listed here in columns and can be seen in fullsize by hovering on any of them.",
     "created_date" => "Created date",
     "due_date" => "Due date",
