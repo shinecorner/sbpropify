@@ -66,7 +66,7 @@ class PropertyManagerTableSeeder extends Seeder
         $settings->language = array_rand($languages);
         $settings->summary = 'daily';
         $settings->admin_notification = 1;
-        $settings->news_notification = 1;
+        $settings->pinboard_notification = 1;
         $settings->listing_notification = 1;
         $settings->service_notification = 1;
 

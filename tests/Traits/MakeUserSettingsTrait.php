@@ -46,7 +46,7 @@ trait MakeUserSettingsTrait
             'language' => $fake->word,
             'summary' => $fake->word,
             'admin_notification' => $fake->randomDigitNotNull,
-            'news_notification' => $fake->randomDigitNotNull,
+            'pinboard_notification' => $fake->randomDigitNotNull,
             'service_notification' => $fake->randomDigitNotNull,
             'created_at' => $fake->word,
             'updated_at' => $fake->word

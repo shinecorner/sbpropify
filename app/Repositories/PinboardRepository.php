@@ -220,7 +220,7 @@ class PinboardRepository extends BaseRepository
             return $notificationsData;
         }
 
-        $usersToNotify->load('settings:user_id,admin_notification,news_notification', 'tenant:id,user_id,first_name,last_name');
+        $usersToNotify->load('settings:user_id,admin_notification,pinboard_notification', 'tenant:id,user_id,first_name,last_name');
         $i = 0;
         foreach ($usersToNotify as $u) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
@@ -231,7 +231,7 @@ class PinboardRepository extends BaseRepository
                     ->delay(now()->addSeconds($delay)));
                 continue;
             }
-            if ($u->settings && $u->settings->news_notification && ! $pinboard->announcement) {
+            if ($u->settings && $u->settings->pinboard_notification && ! $pinboard->announcement) {
                 if ($pinboard->type == Pinboard::TypePost) {
                     $notificationsData[$pinboardPublished]->push($u);
                     $u->notify(new PinboardPublished($pinboard));
