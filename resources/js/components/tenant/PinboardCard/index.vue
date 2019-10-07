@@ -30,6 +30,38 @@
                 <strong>{{data.title}}</strong>
             </div>
         
+            <div class="category-image" v-if="data.announcement && data.category_image == true">
+                <img
+                    src="~img/announcement_category/1.png"
+                    class="user-image"
+                    v-if="data.category == 1"
+                    width="50%" 
+                    height="50%"/>
+                <img
+                    src="~img/announcement_category/2.png"
+                    class="user-image"
+                    v-else-if="data.category == 2"
+                    width="50%" 
+                    height="50%"/>
+                <img
+                    src="~img/announcement_category/3.png"
+                    class="user-image"
+                    v-else-if="data.category == 3"
+                    width="50%" 
+                    height="50%"/>
+                <img
+                    src="~img/announcement_category/4.png"
+                    class="user-image"
+                    v-else-if="data.category == 4"
+                    width="50%" 
+                    height="50%"/>
+                <img
+                    src="~img/announcement_category/5.png"
+                    class="user-image"
+                    v-else-if="data.category == 5"
+                    width="50%" 
+                    height="50%"/> 
+            </div>
             <hr v-if="data.announcement" />
             <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
 
@@ -184,6 +216,13 @@
                 flex-grow: 1;
                 display: flex;
                 justify-content: flex-end;
+
+                button {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    padding: 0;
+                }
             }
         }
 
@@ -199,6 +238,11 @@
                 color: darken(#fff, 48%);
                 margin-bottom: 5px;
             }
+        }
+
+        .category-image {
+            display: flex;
+            justify-content: center;
         }
 
         .execution {

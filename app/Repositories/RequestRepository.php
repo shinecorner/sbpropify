@@ -369,11 +369,10 @@ class RequestRepository extends BaseRepository
     public function notifyDue(Request $request)
     {
         $beforeHours = env('REQUEST_DUE_MAIL', 24);
-        $providers = $request->providers->map(function($p) {
-            return $p->user;
-        });
+        $providerUsers = $request->providers()->with('user')->get()->pluck('user')->all();
+        $managerUsers = $request->managers()->with('user')->get()->pluck('user')->all();
 
-        foreach (array_merge($providers->all(), $request->managers()->get()->all()) as $u) {
+        foreach (array_merge($providerUsers, $managerUsers) as $u) {
             $u->notify((new RequestDue($request))->delay($request->due_date->subHours($beforeHours)));
         }
     }

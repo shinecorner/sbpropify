@@ -95,13 +95,13 @@
                     withCounts: true,
                     counts: [
                         {
-                            prop: 'rent_contract_active_count',
-                            background: '#aaa',
+                            prop: 'active_rent_contracts_count',
+                            background: '#5fad64',
                             color: '#fff',
                             label: this.$t('models.tenant.status.active')
                         }, {
-                            prop: 'rent_contract_inactive_count',
-                            background: '#bbb',
+                            prop: 'inactive_rent_contracts_count',
+                            background: '#dd6161',
                             color: '#fff',
                             label: this.$t('models.tenant.status.not_active')
                         }

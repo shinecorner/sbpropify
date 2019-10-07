@@ -529,6 +529,12 @@
                         }
                     }
                 }
+
+                .media-upload-trigger:focus, .media-upload-trigger:hover {
+                    color: var(--primary-color);
+                    border-color: var(--primary-color);
+                    background-color: var(--primary-color-lighter);
+                }
             }
         }
 
@@ -659,6 +665,16 @@
                     &:nth-of-type(2) {
                         margin-left: 0;
                         grid-column: 1 / -1;
+                    }
+
+                    &.media-upload-trigger:focus, &.media-upload-trigger:hover {
+                        color: var(--primary-color);
+                        border-color: var(--primary-color);
+                        background-color: var(--primary-color-lighter);
+
+                        /deep/ span {
+                            color: var(--primary-color);
+                        }
                     }
                 }
             }

@@ -293,7 +293,7 @@
             background-repeat: no-repeat
             background-attachment: fixed
             background-position: top left
-            background-image: url('~img/5c3a1aefbaf4e.png')
+            // background-image: url('~img/5c3a1aefbaf4e.png')
 
         &.md .container .content /deep/ .ui-card__footer .el-pagination
             justify-content: center
@@ -384,7 +384,7 @@
                     left: 0
                     z-index: 1
                     padding-left: 0
-                    font-size: 20px
+                    font-size: 16px
                     font-weight: 700
                     color: var(--color-primary)
 
@@ -409,7 +409,7 @@
                         left: 0
                         z-index: 1
                         padding-left: 0
-                        font-size: 20px
+                        font-size: 16px
                         font-weight: 700
                         color: var(--color-primary)
 </style>

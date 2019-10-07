@@ -199,6 +199,10 @@ return [
             'title' => 'supprimer la liste',
             'text' => "Voulez-vous vraiment supprimer l'annonce ?",
         ],
+        'delete_rentcontract' => [
+            'title' => 'Supprimer le contrat de location',
+            'text' => 'Voulez-vous vraiment supprimer le contrat de location ?',
+        ],
         'add' => [
             'added' => 'Ajouté avec succès',
         ],

@@ -1,8 +1,8 @@
 <template>
     <div class="services-edit mb20" v-if="constants">
         <heading :title="$t('models.request.edit_title')" icon="icon-chat-empty" shadow="heavy">
-            <template slot="description" v-if="model.service_request_format">
-                <div class="subtitle">{{model.service_request_format}}</div>
+            <template slot="description" v-if="model.request_format">
+                <div class="subtitle">{{model.request_format}}</div>
             </template>
             <el-button
                     @click="downloadPDF"
@@ -198,7 +198,7 @@
                             <el-row :gutter="20" class="summary-row">
                                 <el-col :md="8" class="summary-item">
                                     <el-form-item :label="$t('models.request.priority.label')">
-                                        <strong>{{$t(`models.request.priority.${$constants.serviceRequests.priority[model.priority]}`)}}</strong>
+                                        <strong v-if="$constants.serviceRequests.priority[model.priority]">{{$t(`models.request.priority.${$constants.serviceRequests.priority[model.priority]}`)}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <!-- <el-col :md="8" class="summary-item">
@@ -321,6 +321,23 @@
                                                 </el-select>
                                             </el-form-item>
                                         </el-col>
+                                        
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.request.internal_priority.label')"
+                                                        :rules="validationRules.internal_priority"
+                                                        prop="internal_priority">
+                                                <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
+                                                    <el-option
+                                                        :key="k"
+                                                        :label="$t(`models.request.internal_priority.${priority}`)"
+                                                        :value="parseInt(k)"
+                                                        v-for="(priority, k) in $constants.serviceRequests.internal_priority">
+                                                    </el-option>
+                                                </el-select>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row :gutter="10">
                                         <el-col :md="12">
                                             <el-form-item :label="$t('models.request.due_date')"
                                                         :rules="validationRules.due_date">
@@ -343,20 +360,6 @@
                                                 </el-date-picker>
                                             </el-form-item>
                                             
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.request.internal_priority.label')"
-                                                        :rules="validationRules.internal_priority"
-                                                        prop="internal_priority">
-                                                <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
-                                                    <el-option
-                                                        :key="k"
-                                                        :label="$t(`models.request.internal_priority.${priority}`)"
-                                                        :value="parseInt(k)"
-                                                        v-for="(priority, k) in $constants.serviceRequests.internal_priority">
-                                                    </el-option>
-                                                </el-select>
-                                            </el-form-item>
                                         </el-col>
                                     </el-row>
                                     <el-row :gutter="10"> 
@@ -579,7 +582,7 @@
             selectedRequestData() {
                 return {
                     tenant: this.model.tenant,
-                    service_request_format: this.model.service_request_format,
+                    request_format: this.model.request_format,
                     category: (this.model.category.parent_id == null)? this.model.category.name : this.model.category.parentCategory.name + " > " + this.model.category.name
                 }
             },

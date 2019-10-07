@@ -132,7 +132,10 @@
                 </el-form-item>
             </el-col>
         </el-row>
-        <ui-divider v-if="model.unit_id"></ui-divider>
+        <ui-divider v-if="model.unit_id" content-position="left">
+            {{ $t('models.tenant.deposit_amount') }}
+        </ui-divider>
+
         <el-row :gutter="20" v-if="model.unit_id">
             <el-col :md="12">
                 <el-form-item :label="$t('models.tenant.deposit_amount')"
@@ -157,6 +160,9 @@
                 </el-form-item>
             </el-col>
         </el-row>
+        <ui-divider v-if="model.unit_id" content-position="left">
+            {{ $t('general.monthly_rent_net') }}
+        </ui-divider>
         <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition rent-data" 
                 style="width: 100%;"
                 v-if="model.unit_id && model.type < 3">
@@ -252,11 +258,12 @@
                 </el-form-item>
             </el-col>
         </el-row> -->
-
-        <ui-divider v-if="model.unit_id"></ui-divider>
+        <ui-divider v-if="model.unit_id" content-position="left">
+            {{ $t('models.tenant.rent_contract_pdf') }}
+        </ui-divider>
         <el-row :gutter="20"  v-if="model.unit_id">
             <el-col :md="24">
-                <el-form-item :label="$t('models.tenant.rent_contract_pdf')">
+                <el-form-item>
 
                 <el-table
                     :data="model.media"
@@ -268,6 +275,10 @@
                         :label="$t('models.rent_contract.filename')"
                         prop="name"
                     >
+                        <template slot-scope="scope">
+                            <a v-if="scope.row.url" :href="scope.row.url" target="_blank"><strong>{{scope.row.name}}</strong></a>
+                            <span v-else><strong>{{scope.row.name}}</strong></span>
+                        </template>
                     </el-table-column>
                     <el-table-column
                         align="right"
@@ -495,7 +506,7 @@
 
 
                     this.used_units.forEach(id => {
-                        if(this.model.unit.id != id)
+                        if(!this.model.unit || this.model.unit.id != id)
                             resp.data = resp.data.filter( item => item.id != id )
                     })
 
@@ -549,6 +560,23 @@
 </script>
 
 <style lang="scss" scoped>
+
+    /deep/ .ui-divider {
+        margin: 32px 16px 16px 0;
+        
+        i {
+            padding-right: 0;
+        }
+
+        .ui-divider__content {
+            left: 0;
+            z-index: 1;
+            padding-left: 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+    }
     .el-form-item {
         margin-bottom: 0;
 

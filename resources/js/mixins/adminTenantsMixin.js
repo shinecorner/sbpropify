@@ -112,14 +112,14 @@ export default (config = {}) => {
                 this.editingRentContract = this.model.rent_contracts[index];
                 this.editingRentContractIndex = index;
                 this.visibleDrawer = true;
-                //this.$el.querySelector('.footer').css('display: none');
+                document.getElementsByTagName('footer')[0].style.display = "none";
             },
             updateRentContract(index, params) {
                 this.model.rent_contracts[index] = params;
             },
             deleteRentContract(index) {
 
-                this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
+                this.$confirm(this.$t(`general.swal.delete_rentcontract.text`), this.$t(`general.swal.delete_rentcontract.title`), {
                     type: 'warning'
                 }).then(async () => {
                     if(config.mode == "edit" ) {
@@ -131,6 +131,7 @@ export default (config = {}) => {
             },
             toggleDrawer() {
                 this.visibleDrawer = true;
+                document.getElementsByTagName('footer')[0].style.display = "none";
                 //this.$root.$refs.footer.css('display: none');
                 //this.$el.querySelector('.footer').css('display: none');
             },
@@ -155,6 +156,7 @@ export default (config = {}) => {
                     // TODO - auto blur container if visible is true first
                     if (!state) {
                         this.editingRentContract = null
+                        document.getElementsByTagName('footer')[0].style.display = "block";
                     }
                 }
             }

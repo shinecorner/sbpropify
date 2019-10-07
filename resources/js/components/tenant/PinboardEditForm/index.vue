@@ -1,17 +1,31 @@
 <template>
     <el-form ref="form" :model="model" :rules="validationRules" label-position="top" v-loading="loading">
 
-        <el-form-item prop="content" :label="$t('tenant.content')" style="grid-column: span 6">
-            <el-input type="textarea" resize="none" v-model="model.content" :autosize="{minRows: 4, maxRows: 16}" />
-        </el-form-item>
+        
+        <el-row type="flex" :gutter="16">
+            <el-col>
+                <el-form-item prop="content" :label="$t('tenant.content')" style="grid-column: span 6">
+                    <el-input type="textarea" resize="none" v-model="model.content" :autosize="{minRows: 4, maxRows: 16}" />
+                </el-form-item>
+            </el-col>
+        </el-row>
 
-        <el-form-item style="grid-column: span 6">
-            <ui-media-gallery :files="data.media.map(({url}) => url)" />
-            <media-uploader ref="media" :id="pinboard_id" type="pinboard" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
-        </el-form-item>
-        <el-form-item v-if="!hideSubmit" style="grid-column: span 6; display: flex; flex-direction: column; justify-content: flex-end;">
-            <el-button class="submit is-round" icon="ti-save" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
-        </el-form-item>
+        <ui-divider content-position="left"><i class="icon-file-image"></i> {{$t('tenant.images')}}</ui-divider>
+        <ui-media-gallery :files="data.media.map(({url}) => url)" />
+        
+        <ui-divider content-position="left"><i class="el-icon-upload"></i> {{$t('tenant.request_upload_title')}}</ui-divider>
+        <media-uploader ref="media" :id="pinboard_id" type="pinboard" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
+
+        <div class="submitBtnDiv" v-if="!hideSubmit">
+            <el-row type="flex" :gutter="16" >
+                <el-col>
+                    <el-form-item v-if="!hideSubmit">
+                        <el-button class="submit is-round" icon="ti-save" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+        </div>
+        
     </el-form>
 </template>
 
@@ -98,9 +112,8 @@
 
 <style lang="sass" scoped>
     .el-form
-        display: grid
-        grid-gap: 8px
-        grid-auto-columns: 6fr
+        display: flex
+        flex-direction: column
 
         .el-form-item
             margin-bottom: 16px

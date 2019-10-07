@@ -13,7 +13,7 @@ return [
     'pinbord_by_status' => 'Tableau d\'affichage par statut',
     'pinbord_by_type' => 'Panneau d\'affichage par type',
     'latest_listings' => 'Derniers produits',
-    'listings_by_creation_date' => 'Marché des produits par date de création',
+    'listings_by_creation_date' => 'Listings par date de création',
     'listings_by_type' => 'Produits du marché par type',
     'tenants_by_creation_date' => 'Locataires par date de création',
     'tenants_by_request_status' => 'Locataires selon le statut des demandes',
