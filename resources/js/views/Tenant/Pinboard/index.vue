@@ -392,4 +392,9 @@
                         margin-top: 30px
                         margin-left: 0
                         margin-bottom: 16px
+    @media only screen and (max-width: 676px)
+        .pinboard
+            /deep/ .ui-heading__content__description
+                display: none
 </style>
+

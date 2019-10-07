@@ -70,8 +70,8 @@
                 padding-top: 100%
                 position: relative
                 border-radius: 12px
-                margin: -8px -8px 0 -8px
-                border: 1px var(--border-color-base) solid
+                // margin: -8px -8px 0 -8px
+                // border: 1px var(--border-color-base) solid
                 box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76)
 
                 .ui-image
@@ -80,6 +80,7 @@
                     right: 0
                     bottom: 0
                     position: absolute
+                    border-radius: 12px
 
                     &__error img
                         width: 128px
