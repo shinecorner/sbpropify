@@ -11,7 +11,7 @@ $factory->define(App\Models\Request::class, function (Faker $faker) {
     $status = $faker->randomElement(array_keys(Request::Status));
     $priority = $faker->randomElement(array_keys(Request::Priority));
     $qualification = $faker->randomElement(array_keys(Request::Qualification));
-    $solvedDate = $status == Request::StatusDone ? $faker->dateTimeBetween('now', '30 days') : null;
+    $solvedDate = ($status == Request::StatusDone) ? now() : null;
 
     return [
         'category_id' => $category->id,

@@ -35,7 +35,7 @@ class RequestsTableSeeder extends Seeder
                     $data['solved_date'] = $data['updated_at'];
                 }
 
-                $requests[] = factory(App\Models\Request::class)->create($data);
+                $requests[] = App\Models\Request::create($data);
             }
 
             $user = App\Models\User::where('email', 'tenant@example.com')->first();
