@@ -23,20 +23,20 @@
                             <request-card  :categories="categories" :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @toggle-drawer="toggleDrawer(item)" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
                                 <template #tab-overview-after-for-mobile>
                                     <div class="tab-overview-after-for-mobile">
-                                    <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
-                                    <el-tooltip :content="$t('tenant.tooltips.status_change_requeset')">
-                                        <el-button icon="icon-ok" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
-                                        <el-button icon="icon-right-1" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
-                                    </el-tooltip>
+                                        <el-tooltip :content="$t('tenant.tooltips.status_change_requeset')">
+                                            <el-button icon="icon-ok" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
+                                            <el-button icon="icon-right-1" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
+                                        </el-tooltip>
+                                        <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
                                     </div>
                                 </template>
                                 <template #tab-overview-after>
                                     <div class="tab-overview-after">
-                                    <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
-                                    <el-tooltip :content="$t('tenant.tooltips.status_change_requeset')">
-                                        <el-button icon="icon-ok" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
-                                        <el-button icon="icon-right-1" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
-                                    </el-tooltip>
+                                        <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
+                                        <el-tooltip :content="$t('tenant.tooltips.status_change_requeset')">
+                                            <el-button icon="icon-ok" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
+                                            <el-button icon="icon-right-1" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
+                                        </el-tooltip>
                                     </div>
                                 </template>
                                 <template #tab-media-after>
@@ -581,6 +581,11 @@
                    
 
         /deep/ .el-button+.el-button
-            margin-right: 10px;
-            
+            margin-right: 10px
+
+        
+    @media only screen and (max-width: 676px)
+        .requests
+            /deep/ .el-dialog
+                width: 90% !important
 </style>

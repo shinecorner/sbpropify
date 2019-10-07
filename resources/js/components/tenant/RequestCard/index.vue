@@ -56,7 +56,7 @@
                         <el-link @click="showRestAssignees" type="success">and {{assignees.slice(3).length}} more</el-link>
                     </div>
                 </div>
-                <slot name="tab-overview-after-for-mobile" />
+                
                 <ui-divider />
                 <div class="user">
                     <ui-avatar :name="data.tenant.user.name" :size="32" :src="data.tenant.user.avatar" />
@@ -70,6 +70,7 @@
                         </small>
                     </div>
                 </div>
+                <slot name="tab-overview-after-for-mobile" />
                 <slot name="tab-overview-after" />
             </el-tab-pane>
             <el-tab-pane name="media">
