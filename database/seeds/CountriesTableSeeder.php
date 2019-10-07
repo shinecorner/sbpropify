@@ -14,7 +14,6 @@ class CountriesTableSeeder extends Seeder
      */
     public function run()
     {
-
         Schema::disableForeignKeyConstraints();
         DB::unprepared(file_get_contents(database_path('sql' . DIRECTORY_SEPARATOR . 'loc_countries.sql')));
         Schema::enableForeignKeyConstraints();

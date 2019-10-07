@@ -14,8 +14,7 @@ class RequestCategoriesTableSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-        DB::table('request_categories')->truncate();
-        DB::unprepared(file_get_contents(database_path('sql' . DIRECTORY_SEPARATOR . 'service_request_categories.sql')));
+        DB::unprepared(file_get_contents(database_path('sql' . DIRECTORY_SEPARATOR . 'request_categories.sql')));
         Schema::enableForeignKeyConstraints();
     }
 }
