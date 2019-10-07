@@ -56,7 +56,7 @@
                         <el-link @click="showRestAssignees" type="success">and {{assignees.slice(3).length}} more</el-link>
                     </div>
                 </div>
-                <slot name="tab-overview-after-for-mobile" />
+                
                 <ui-divider />
                 <div class="user">
                     <ui-avatar :name="data.tenant.user.name" :size="32" :src="data.tenant.user.avatar" />
@@ -70,6 +70,7 @@
                         </small>
                     </div>
                 </div>
+                <slot name="tab-overview-after-for-mobile" />
                 <slot name="tab-overview-after" />
             </el-tab-pane>
             <el-tab-pane name="media">
@@ -79,13 +80,19 @@
                 </div>
                 <slot name="tab-media-before" />
                 <ui-media-gallery :files="data.media.slice(0, 3).map(({url}) => url)">
-                    <div slot="after" key="view-all" class="ui-media-gallery__item" @click="$emit('more-media')" v-if="data.media.length">
-                        <div class="ui-media-gallery__item__content">
+                    <div slot="after" key="view-all" class="ui-media-gallery__more_item" @click="$emit('more-media')" v-if="data.media.length">
+                        <div class="ui-media-gallery__more_item__content">
                             <i class="icon-picture"></i>
                             {{$t('tenant.actions.view_all')}}
                         </div>
                     </div>
                 </ui-media-gallery>
+                <div class="mobile-ui-media-gallery__more_item" @click="$emit('more-media')" v-if="data.media.length">
+                    <div class="mobile-ui-media-gallery__more_item__content">
+                        <i class="icon-picture"></i>
+                        {{$t('tenant.actions.view_all')}}
+                    </div>
+                </div>
                 <!-- <gallery-list :media="data.media" :cols="4" /> -->
                 <slot name="tab-media-after" />
             </el-tab-pane>
@@ -306,22 +313,90 @@
                                 padding-top: 25%
                                 margin: 4px
 
-                                &:last-child
-                                    font-size: 16px
-                                    font-weight: 600
-                                    border-width: 2px
-                                    border-style: dashed
-                                    box-shadow: none
-                                    color: var(--color-text-placeholder)
-                                    cursor: pointer
+                            .ui-media-gallery__item
+                                font-size: 16px
+                                font-weight: 600
+                                border-width: 2px
+                                border-style: dashed
+                                box-shadow: none
+                                color: var(--color-text-placeholder)
+                                cursor: pointer
+                                margin-top: 10px
+                                width: 25%
+                                padding-top: 25%
 
-                                    &:hover
-                                        color: var(--color-primary)
-                                        border-color: var(--color-primary)
+                                &:hover
+                                    color: var(--color-primary)
+                                    border-color: var(--color-primary)
 
-                                    i
-                                        font-size: 28px
-    
+                                .ui-media-gallery_item__content
+                                    text-align: center
+
+                                i
+                                    font-size: 28px
+                                
+                            .ui-media-gallery__more_item
+                                font-size: 16px
+                                font-weight: 600
+                                border-width: 2px
+                                border-style: dashed
+                                box-shadow: none
+                                color: var(--color-text-placeholder)
+                                cursor: pointer
+                                margin-top: 10px
+                                width: 25%
+                                display: flex
+                                justify-content: center
+                                align-items: center
+                                
+                                &:hover
+                                    color: var(--color-primary)
+                                    border-color: var(--color-primary)
+
+                                .ui-media-gallery__more_item__content
+                                    display: flex
+                                    justify-content: center
+                                    align-items: center
+
+                                i
+                                    font-size: 28px
+                                
+                        .mobile-ui-media-gallery__more_item
+                            font-size: 16px
+                            font-weight: 600
+                            border-width: 2px
+                            border-style: dashed
+                            box-shadow: none
+                            color: var(--color-text-placeholder)
+                            cursor: pointer
+                            margin-top: 10px
+                            display: none
+
+                            &:hover
+                                color: var(--color-primary)
+                                border-color: var(--color-primary)
+
+                            .mobile-ui-media-gallery__more_item__content
+                                text-align: center
+
+                            i
+                                font-size: 28px
+
+    @media only screen and (max-width: 676px)
+        .ui-card
+            /deep/ &__body
+                .el-tabs
+                    /deep/ .el-tabs__content
+                        #pane-media
+                            .ui-media-gallery
+                                .ui-media-gallery__item
+                                    width: 33.3%
+                                    padding-top: 33.3%
+                                .ui-media-gallery__more_item
+                                    display: none
+                            .mobile-ui-media-gallery__more_item
+                                display: block
+
 </style>
 
 <style lang="scss" scoped>

@@ -65,7 +65,6 @@
             }),
             pinboardCard: () => ({
                 component: import(/* webpackChunkName: "pinboardCard" */ 'components/tenant/PinboardCard'),
-                loading: PinboardCardLoader,
                 error: PinboardCardErrorFallback,
                 delay: 0,
                 timeout: 8000
@@ -392,4 +391,9 @@
                         margin-top: 30px
                         margin-left: 0
                         margin-bottom: 16px
+    @media only screen and (max-width: 676px)
+        .pinboard
+            /deep/ .ui-heading__content__description
+                display: none
 </style>
+
