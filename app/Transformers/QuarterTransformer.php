@@ -47,22 +47,11 @@ class QuarterTransformer extends BaseTransformer
             return $unit->rent_contracts->isNotEmpty();
         });
 
-        $counts['buildings'] = $buildings->count();
-        $counts['active_tenants'] = $units->pluck('rent_contracts.*.tenant_id')->collapse()->unique()->count();
-        $counts['units'] = [
-            'total' => $units->count(),
-            'occupied' => $occupiedUnits->count(),
-            'free' => $units->count() - $occupiedUnits->count(),
-        ];
-        $response['counts'] = $counts;
-
-        $response['buildings_count'] = $counts['buildings'];
-        $response['active_tenants_count'] = $counts['active_tenants'];
-        $response['total_units_count'] = $counts['units']['total'];
-        $response['occupied_units_count'] = $counts['units']['occupied'];
-        $response['free_units_count'] = $counts['units']['free'];
-
-
+        $response['buildings_count'] = $buildings->count();
+        $response['active_tenants_count'] = $units->pluck('rent_contracts.*.tenant_id')->collapse()->unique()->count();
+        $response['total_units_count'] = $units->count();
+        $response['occupied_units_count'] = $occupiedUnits->count();
+        $response['free_units_count'] = $units->count() - $occupiedUnits->count();
 
         return $response;
     }

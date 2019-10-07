@@ -96,7 +96,7 @@
                         </el-alert>
                     </div>
                     <ui-media-uploader v-model="media" 
-                                    :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" 
+                                    :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8', 'Localization': $i18n.locale}" 
                                     :action="`api/v1/requests/${openedRequest.id}/media`" 
                                     :id="openedRequest.id" 
                                     type="request"

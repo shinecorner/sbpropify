@@ -80,6 +80,7 @@
     import Draggable from 'vuedraggable'
     import Uploader from 'vue-upload-component'
     import {displaySuccess, displayError} from 'helpers/messages'
+    import store from 'store'
 
     export default {
         props: {
@@ -317,10 +318,12 @@
         },
         computed: {
             headers () {
+                let selectedLocale = store.state.application.locale || 'de';
                 return {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`, 
+                    'Localization': selectedLocale
                 }
             },
             uploaderProps () {
