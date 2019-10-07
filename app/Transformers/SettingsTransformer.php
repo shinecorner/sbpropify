@@ -72,8 +72,8 @@ class SettingsTransformer extends TransformerAbstract
         }
 
         // @TODO check and use ->relationExists
-        if (isset($model->news_receivers)) {
-            $response['news_receivers'] = (new UserTransformer)->transformCollection($model->news_receivers);
+        if (isset($model->pinboard_receivers)) {
+            $response['pinboard_receivers'] = (new UserTransformer)->transformCollection($model->pinboard_receivers);
         }
 
         return $response;

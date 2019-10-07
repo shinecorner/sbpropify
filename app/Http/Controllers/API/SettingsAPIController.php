@@ -77,7 +77,7 @@ class SettingsAPIController extends AppBaseController
         }
 
         $pinboardReceiverIds = $settings->pinboard_receiver_ids ?? [];
-        $settings->news_receivers = User::whereIn('id', $pinboardReceiverIds)->get();
+        $settings->pinboard_receivers = User::whereIn('id', $pinboardReceiverIds)->get();
 
         $response = (new SettingsTransformer)->transform($settings);
         return $this->sendResponse($response, 'Settings retrieved successfully');
@@ -176,7 +176,7 @@ class SettingsAPIController extends AppBaseController
         } catch (\Exception $e) {
             return $this->sendError(__('models.settings.errors.update'));
         }
-        $settings->news_receivers = User::whereIn('id', $settings->pinboard_receiver_ids)->get();
+        $settings->pinboard_receivers = User::whereIn('id', $settings->pinboard_receiver_ids)->get();
 
         $response = (new SettingsTransformer)->transform($settings);
         return $this->sendResponse($response, __('models.settings.saved'));
