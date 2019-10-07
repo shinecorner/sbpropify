@@ -65,7 +65,6 @@
             }),
             pinboardCard: () => ({
                 component: import(/* webpackChunkName: "pinboardCard" */ 'components/tenant/PinboardCard'),
-                loading: PinboardCardLoader,
                 error: PinboardCardErrorFallback,
                 delay: 0,
                 timeout: 8000
