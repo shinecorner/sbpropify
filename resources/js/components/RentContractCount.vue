@@ -29,7 +29,7 @@
                 counts: [
                 {
                     prop: 'total_rent_contracts_count',
-                    background: '#bbb',
+                    background: '#aaa',
                     color: '#fff',
                     label: this.$t('models.tenant.status.total')
                 }, {

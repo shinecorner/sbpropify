@@ -96,11 +96,11 @@
                     width: 40px
                     height: 40px
                     border-radius: 50%
-                    background: var(--primary-color)
+                    background: var(--primary-color-lighter)
                     display: flex
                     justify-content: center
                     align-items: center
-                    color: white
+                    color: var(--primary-color)
                     display: none
                 &:hover
                     .edit-btn
