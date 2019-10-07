@@ -92,8 +92,8 @@
                                             v-model="model.monthly_rent_net"></el-input>
                                 </el-form-item>
                             </el-col>
-                            <el-col :md="24" v-if="model.type < 3">
-                                <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition rent-data" 
+                            <el-col :md="24" v-else-if="model.type < 3">
+                                <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition monthly-rent-data" 
                                         style="width: 100%;">
                                     <div class="el-table__header-wrapper">
                                         <table cellspacing="0" cellpadding="0" border="0" class="el-table__header">
@@ -215,3 +215,71 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    
+    /deep/ .monthly-rent-data {
+        background: transparent;
+        table {
+            width: 100%;
+            cursor: initial;
+            background: transparent;
+            thead, tbody {
+                width: 100%;
+                background: transparent;
+                tr {
+                    display: flex;
+                    width: 100%;
+                    background: transparent;
+                    .data {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        background: transparent;
+                        .cell {
+                            width: 100%;
+                            text-align: left;
+                            
+                            .el-form-item {
+                                margin-bottom: 0;
+
+                                &.is-error {
+                                    // margin-bottom: 27px;
+                                }
+                            }
+
+                            /deep/ .el-input.el-input-group {
+                                .el-input-group__prepend {
+                                    padding: 2px 8px 0;
+                                    font-weight: 600;
+                                }
+                                .el-input__inner {
+                                    padding: 5px;
+                                }
+                            }
+                        }
+                    }
+                    
+                    .symbol {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 20px;
+                        background: transparent;
+                        .cell {
+                            text-overflow: initial;
+                            font-size: 16px;
+                            padding: 0;
+                        }
+                    }
+
+                    td:last-child .cell {
+                        padding-left: 10px !important;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+    }
+
+</style>
