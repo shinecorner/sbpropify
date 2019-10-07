@@ -1,5 +1,5 @@
 
-INSERT INTO `service_request_categories` (`id`, `parent_id`, `name`, `name_de`, `name_fr`, `name_it`, `room`, `location`, `description`, `has_qualifications`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `request_categories` (`id`, `parent_id`, `name`, `name_de`, `name_fr`, `name_it`, `room`, `location`, `description`, `has_qualifications`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, NULL, 'Defect', 'Defekt / Mangel', 'Imperfection / Brièveté', 'Imperfezione / Brevità', 0, 0, NULL, 1, '2019-08-06 04:31:49', '2019-08-20 18:52:09', NULL),
 (3, NULL, 'Order documents', 'Dokumente bestellen', 'Commander des documents', 'Ordina documenti', 0, 0, NULL, 0, '2019-08-06 04:31:49', '2019-08-19 14:52:25', NULL),
 (4, NULL, 'Questions about additional costs', 'Fragen zu Nebenkosten', 'Questions sur les coûts supplémentaires', 'Domande sui costi aggiuntivi', 0, 0, NULL, 0, '2019-08-06 04:31:49', '2019-08-19 14:55:02', NULL),
