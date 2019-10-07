@@ -1,59 +1,61 @@
 <template>
     <el-card  :class="{announcement: data.announcement}">
         <div ref="container">
-        <div class="announcement" v-if="data.announcement"><span> {{$t(`models.pinboard.sub_type.${$constants.pinboard.sub_type[3][data.sub_type]}`)}}</span></div>
-        <div class="user">
-            <ui-avatar :name="data.user.name" :size="42" :src="data.user.avatar" />
-            <div class="name">
-                {{data.user.name}}
-                <small>
-                    {{formatDatetime(data.created_at)}}
+            <div class="announcement" v-if="data.announcement">
+                <span> {{$t(`models.pinboard.sub_type.${$constants.pinboard.sub_type[3][data.sub_type]}`)}}</span>
+            </div>
+            <loader v-if="loading" />
+            <div v-else class="user">
+                <ui-avatar :name="data.user.name" :size="42" :src="data.user.avatar" />
+                <div class="name">
+                    {{data.user.name}}
+                    <small>
+                        {{formatDatetime(data.created_at)}}
+                    </small>
+                </div>
+                <div class="actions" v-if="showActions && loggedInUser.id == data.user_id">
+                    <el-tooltip :content="$t('tenant.tooltips.edit_pinboard')">
+                        <el-button size="mini" icon="icon-pencil" @click="$emit('edit-pinboard', $event, data)" plain round>{{$t('general.actions.edit')}}</el-button>
+                    </el-tooltip>
+                    <el-tooltip :content="$t('tenant.tooltips.delete_pinboard')">
+                        <el-button size="mini" icon="icon-trash-empty" @click="$emit('delete-pinboard', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
+                    </el-tooltip>
+                    
+                </div>
+            </div>
+            <div class="title" v-if="data.announcement">
+                <small>{{$t('tenant.category')}}:
+                    {{$t(`models.pinboard.category.${$store.getters['application/constants'].pinboard.category[data.category]}`)}}
                 </small>
+                <strong>{{data.title}}</strong>
             </div>
-            <div class="actions" v-if="showActions && loggedInUser.id == data.user_id">
-                <el-tooltip :content="$t('tenant.tooltips.edit_pinboard')">
-                    <el-button size="mini" icon="icon-pencil" @click="$emit('edit-pinboard', $event, data)" plain round>{{$t('general.actions.edit')}}</el-button>
-                </el-tooltip>
-                <el-tooltip :content="$t('tenant.tooltips.delete_pinboard')">
-                    <el-button size="mini" icon="icon-trash-empty" @click="$emit('delete-pinboard', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
-                </el-tooltip>
-                
-            </div>
-        </div>
-        <div class="title" v-if="data.announcement">
-            <small>{{$t('tenant.category')}}:
-                {{$t(`models.pinboard.category.${$store.getters['application/constants'].pinboard.category[data.category]}`)}}
-            </small>
-            <strong>{{data.title}}</strong>
-        </div>
         
-        <hr v-if="data.announcement" />
-        <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
+            <hr v-if="data.announcement" />
+            <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
 
-        <hr v-if="data.announcement"/>
-        <div class="execution" v-if="data.announcement">
-            {{$t('tenant.execution')}} {{execution}}
-        </div>
-        <div class="providers" v-if="data.announcement && data.providers && data.providers.length">
-            {{$t('tenant.providers')}}: {{data.providers.map(provider => provider.name).join(', ')}}
-        </div>
-        <div class="gallery" v-if="data.media.length">
-            <ui-images-carousel :images="data.media.map(({url}) => url)" :use-placeholder="false" :show-indicator="false" v-if="data.media.length > 0"/>
-        </div>
-        <!-- <media-gallery-carousel :media="data.media" :use-placeholder="false" height="320px" :autoplay="false" :gallery-options="{container: '#gallery'}" /> -->
-        <likes type="pinboard" :data="data.likes" layout="row" />
-        <like :id="data.id" type="pinboard">
-            <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text"> &nbsp;{{$t('tenant.comment')}}</el-button>
-            <el-button icon="icon-picture" type="text" v-if="data.announcement === false && data.media.length">
-                <template v-if="data.media.length">
-                    {{data.media.length}} {{data.media.length > 1 ? $t('tenant.images') : $t('tenant.image')}}
-                </template>
-            </el-button>
-        </like>
+            <hr v-if="data.announcement"/>
+            <div class="execution" v-if="data.announcement">
+                {{$t('tenant.execution')}} {{execution}}
+            </div>
+            <div class="providers" v-if="data.announcement && data.providers && data.providers.length">
+                {{$t('tenant.providers')}}: {{data.providers.map(provider => provider.name).join(', ')}}
+            </div>
+            <div class="gallery" v-if="data.media.length">
+                <ui-images-carousel :images="data.media.map(({url}) => url)" :use-placeholder="false" :show-indicator="false" v-if="data.media.length > 0"/>
+            </div>
+            <!-- <media-gallery-carousel :media="data.media" :use-placeholder="false" height="320px" :autoplay="false" :gallery-options="{container: '#gallery'}" /> -->
+            <likes type="pinboard" :data="data.likes" layout="row" />
+            <like :id="data.id" type="pinboard">
+                <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text"> &nbsp;{{$t('tenant.comment')}}</el-button>
+                <el-button icon="icon-picture" type="text" v-if="data.announcement === false && data.media.length">
+                    <template v-if="data.media.length">
+                        {{data.media.length}} {{data.media.length > 1 ? $t('tenant.images') : $t('tenant.image')}}
+                    </template>
+                </el-button>
+            </like>
             
-        
-        <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" :with-scroller="true" @update-dynamic-scroller="$emit('update-dynamic-scroller')"/>
-        <add-comment ref="addComment" :id="data.id" type="pinboard"/>
+            <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" :with-scroller="true" @update-dynamic-scroller="$emit('update-dynamic-scroller')"/>
+            <add-comment ref="addComment" :id="data.id" type="pinboard"/>
         </div>
     </el-card>
 </template>
@@ -71,6 +73,7 @@
     import {IdState} from 'vue-virtual-scroller'
     import GalleryList from 'components/MediaGalleryList'
     import RequestMedia from 'components/RequestMedia';
+    import Loader from 'components/common/AddComment/Loader';
 
     export default {
         name: 'p-pinboard-card',
@@ -84,6 +87,7 @@
         data () {
             return {
                 height: null,
+                loading: true
             }
         },
         props: {
@@ -106,7 +110,8 @@
             // AddComment,
             MediaGalleryCarousel,
             GalleryList,
-            RequestMedia
+            RequestMedia,
+            Loader
         },
         methods: {
             showChildrenAddComment() {
@@ -134,9 +139,11 @@
             }
             
         },
-        mounted () {
-            this.data.height =  this.$refs.container.clientHeight
-
+        updated () {
+            this.data.height =  this.$refs.container.clientHeight;
+            setTimeout(() => {
+                this.loading = false;
+            }, 200)
         }
     }
 </script>
