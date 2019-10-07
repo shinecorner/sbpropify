@@ -197,4 +197,12 @@
             }
         }
     }
+
+    @media only screen and (max-width: 676px) {
+        .contracts {
+            /deep/ .ui-heading__content__description {
+                display: none
+            }
+        }
+    }
 </style>

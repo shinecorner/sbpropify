@@ -529,6 +529,13 @@
             .submenu {
                 bottom: 0;
                 padding-bottom: 16px;
+
+                .item {
+
+                    a {
+                        display: flex;
+                    }
+                }
             }
         }
 

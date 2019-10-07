@@ -6101,6 +6101,9 @@
         position:relative;
         left:100%
     }
+    .el-message-box {
+        width: 90%;
+    }
 }
 @media only screen and (min-width:768px){
     .el-col-sm-0{

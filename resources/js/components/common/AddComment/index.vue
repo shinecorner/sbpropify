@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="width: 100%;">
     <div :class="['add-comment', {'with-templates': showTemplates}]">
         <el-tooltip :content="user.name" effect="dark" placement="top-start">
             <ui-avatar :name="user.name" :size="32" :src="user.avatar" />
