@@ -38,7 +38,7 @@
             },
             suffix: {
                 type: String,
-                default: 'liked this'
+                default: 'tenant.liked_this'
             }
         },
         computed: {
@@ -69,7 +69,7 @@
                         }
 
                         return text
-                    }, '') + ` ${this.suffix.trim()}`
+                    }, '') + ` ${this.$t(this.suffix)}`
                 }
             }
         }

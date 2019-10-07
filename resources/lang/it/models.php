@@ -1,13 +1,8 @@
 <?php
 return [
     'user' => [
-        'administrator' => 'Amministratori',
-        'super_admin' => 'Super amministratori',
         'add_admin' => 'Aggiungi Amministratore',
-        'edit_admin' => 'Modifica Amministratore',
-        'add_super_admin' => 'Aggiungi Super admin',
-        'edit_super_admin' => 'Modifica Super admin',
-        "date" => "Appuntamento",
+        'edit_admin' => 'Modifica Amministratore',                        
         "add" => "Aggiungi utente",
         "saved" => "Utente salvato con successo",
         "deleted" => "Utente cancellato",

@@ -106,6 +106,7 @@ return [
     ],
     "you" => "Voi",
     "and" => "e",
+    "liked_this" => "è piaciuto questo",
     "media_info" => "Tutti loro saranno elencati qui in colonne e possono essere visti a grandezza naturale passandovi sopra.",
     "created_date" => "Data di creazione",
     "due_date" => "Scadenza",
