@@ -37,7 +37,7 @@
         "searchable": true
     },
     {
-        "name": "news_notification",
+        "name": "pinboard_notification",
         "dbType": "integer:unsigned:default,0",
         "htmlType": "text",
         "validations": "required",
