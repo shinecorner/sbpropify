@@ -97,7 +97,7 @@ return [
         "property_manager" => "Ansprechpartner für Ihre Anliegen",
         "my_neighbour" => "Mieter aus der Nachbarschaft",
         "pinboard" => "Aktuelle News und Mitteilungen rund um die Liegenschaft",
-        "request" => "Online Übermittlgung und Abwicklung von Anliegen",
+        "request" => "Online Übermittlung und Abwicklung von Anfragen",
         "listing" => "Aktuelle Angebote in Ihrer Nachbarschaft",
         "my_document" => "Liste mit allen Dokumenten der Liegenschaft und der gemieteten Einheit.",
         "document_listed_by_category" => "Bitte schauen Sie später vorbei.",
