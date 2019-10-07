@@ -55,22 +55,22 @@
                 i18nName: 'quarter',
                 header: [{
                     label: 'general.name',
-                    width: 250,
+                    width: 230,
                     prop: 'name'
                 }, {
-                    label: 'counts of buildings',
+                    label: 'models.quarter.count_of_buildings',
                     prop: 'count_of_buildings'
                 }, {
-                    label: 'counts of buildings',
+                    label: 'models.quarter.buildings_count',
                     prop: 'buildings_count'
                 }, {
-                    label: 'counts of units',
+                    label: 'models.quarter.total_units_count',
                     prop: 'total_units_count'
                 }, {
-                    label: 'counts of occupied units',
+                    label: 'models.quarter.occupied_units_count',
                     prop: 'occupied_units_count'
                 }, {
-                    label: 'counts of active tenants',
+                    label: 'models.quarter.active_tenants_count',
                     prop: 'active_tenants_count'
                 }, {
                     width: 120,
