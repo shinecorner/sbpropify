@@ -43,13 +43,13 @@ class UnitTransformer extends BaseTransformer
         ];
 
         $attributes = $model->attributesToArray();
-        if (in_array('total_rent_contracts_count', $attributes)) {
+        if (key_exists('total_rent_contracts_count', $attributes)) {
             $response['total_rent_contracts_count'] = $attributes['total_rent_contracts_count'];
         }
 
-        if (in_array('active_rent_contracts_count', $attributes)) {
+        if (key_exists('active_rent_contracts_count', $attributes)) {
             $response['active_rent_contracts_count'] = $attributes['active_rent_contracts_count'];
-            if (in_array('total_rent_contracts_count', $attributes)) {
+            if (key_exists('total_rent_contracts_count', $attributes)) {
                 $response['inactive_rent_contracts_count'] = $attributes['total_rent_contracts_count'] - $attributes['active_rent_contracts_count'];
             }
         }

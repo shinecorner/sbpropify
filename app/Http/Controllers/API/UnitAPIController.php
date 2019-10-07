@@ -96,10 +96,14 @@ class UnitAPIController extends AppBaseController
 
         $getAll = $request->get('get_all', false);
         if ($getAll) {
+
             $units = $this->unitRepository->get();
-            $units->each(function ($unit) {
-                $unit->inactive_rent_contracts_count = $unit->total_rent_contracts_count - $unit->active_rent_contracts_count;
-            });
+            if ($request->show_rent_contract_counts) {
+                $units->each(function ($unit) {
+                    $unit->inactive_rent_contracts_count = $unit->total_rent_contracts_count - $unit->active_rent_contracts_count;
+                });
+            }
+
             return $this->sendResponse($units->toArray(), 'Units retrieved successfully');
         }
 
