@@ -588,4 +588,6 @@
         .requests
             /deep/ .el-dialog
                 width: 90% !important
+            /deep/ .ui-heading__content__description
+                display: none
 </style>

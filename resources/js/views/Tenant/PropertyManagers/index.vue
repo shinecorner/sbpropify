@@ -14,13 +14,13 @@
         <el-card v-else>
             <el-timeline>
                 <template v-for="(managers, letter) in groupedManagers">
-                    <el-timeline-item class="letter" size="large">
+                    <el-timeline-item :key="letter" class="letter" size="large">
                         <el-divider content-position="left">
                             {{letter}}
                         </el-divider>
                     </el-timeline-item>
                     <el-timeline-item v-for="{id, slogan, user} in managers" :key="id">
-                        <ui-avatar :size="40" :src="user.avatar":name="user.name" shadow="hover" />
+                        <ui-avatar :size="40" :src="user.avatar" :name="user.name" shadow="hover" />
                         <div class="content">
                             <div class="name">
                                 {{user.name}}
@@ -295,6 +295,14 @@ import Heading from 'components/Heading'
                         }
                     }
                 }
+            }
+        }
+    }
+
+    @media only screen and (max-width: 676px) {
+        .property-managers {
+            /deep/ .ui-heading__content__description {
+                display: none
             }
         }
     }

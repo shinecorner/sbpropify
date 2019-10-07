@@ -421,9 +421,9 @@
 
     @media only screen and (max-width: 676px)
         .listing
-            .ui-heading__content__description
+            /deep/ .ui-heading__content__description
                 display: none
-            /deep/ .filter-btn
+            .filter-btn
                 display: none
             .search-btn
                 display: none

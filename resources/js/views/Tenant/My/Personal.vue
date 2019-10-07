@@ -228,4 +228,12 @@
             }
         }
     }
+
+    @media only screen and (max-width: 676px) {
+        .personal {
+            /deep/ .ui-heading__content__description {
+                display: none
+            }
+        }
+    }
 </style>
