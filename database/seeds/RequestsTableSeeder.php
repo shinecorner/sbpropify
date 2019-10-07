@@ -6,7 +6,7 @@ use App\Models\User;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
-class ServiceRequestsTableSeeder extends Seeder
+class RequestsTableSeeder extends Seeder
 {
     use  \Traits\TimeTrait;
     var $faker;
@@ -27,7 +27,15 @@ class ServiceRequestsTableSeeder extends Seeder
             $requests = [];
             for ($i = 0; $i < 500; $i++) {
                 $date = $this->getRandomTime();
-                $requests[] = factory(App\Models\Request::class)->create($this->getDateColumns($date));
+                $data = factory(App\Models\Request::class)->make()->toArray();
+                $data = array_merge($data, $this->getDateColumns($date));
+
+                if (Request::StatusDone == $data['status']) {
+                    $data['resolution_time'] = $data['updated_at']->diffInSeconds($data['created_at']);
+                    $data['solved_date'] = $data['updated_at'];
+                }
+
+                $requests[] = factory(App\Models\Request::class)->create($data);
             }
 
             $user = App\Models\User::where('email', 'tenant@example.com')->first();

@@ -10,7 +10,7 @@ $factory->define(App\Models\Address::class, function (Faker $faker) {
         'country_id' => $country->id,
         'state_id' => $state->id,
         'city' => $faker->city,
-        'street' => $faker->streetAddress,
+        'street' => $faker->streetName,
         'house_num' => $faker->buildingNumber,
         'zip' => 3172,
     ];
