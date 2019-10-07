@@ -58,7 +58,7 @@ export default {
             }),
             comments: () => ({
                 component: import(/* webpackChunkName: "comments" */ './Comments'),
-                loading: CommentsLoader,
+                // loading: CommentsLoader,
                 error: CommentsError,
                 delay: 0,
                 timeout: 8000
