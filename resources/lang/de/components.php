@@ -56,7 +56,7 @@ return [
                         ],
                         'provider_assigned' => '{providerName} wurde als Dienstleistern zugewiesen.',
                         'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
-                        'media_uploaded' => 'Mediendateien aktualisiert',
+                        'media_uploaded' => 'Mediendateien hinaufgeladen',
                         'media_deleted' => 'Mediendateien gelöscht',
                     ],
                     'request' => [
@@ -76,7 +76,7 @@ return [
                         'manager_assigned' => '{propertyManagerFirstName} {propertyManagerLastName} wurde als Managerin zugewiesen.',
                         'manager_unassigned' => 'Managerin {propertyManagerFirstName} {propertyManagerLastName} wurde nicht zugewiesen.',
                         'user_assigned' => '{userName} wurde dieser Anfrage hinzugefügt.',
-                        'media_uploaded' => 'Mediendateien aktualisiert',
+                        'media_uploaded' => 'Mediendateien hinaufgeladen',
                         'media_deleted' => 'Mediendateien gelöscht',
                     ]
                 ],
@@ -101,8 +101,8 @@ return [
                         ],
                         'provider_assigned' => '{providerName} wurde als Dienstleister zugewiesen.',
                         'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
-                        'media_uploaded' => 'Mediendateien aktualisiert',
-                        'media_deleted' => 'Mediendateien gelöscht',
+                        'media_uploaded' => 'Mediendateien hinaufgeladen',
+                        'media_deleted' => 'Mediendateie gelöscht',
                     ],
                     'request' => [
                         'created' => '{userName} hat diese Anfrage erstellt.',
@@ -121,7 +121,7 @@ return [
                         'manager_assigned' => '{propertyManagerFirstName} {propertyManagerLastName} wurde als zuständige Person zugewiesen.',
                         'manager_unassigned' => '{propertyManagerFirstName} {propertyManagerLastName} als zusätinge Person wurde entfernt.',
                         'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
-                        'media_uploaded' => 'Mediendateien aktualisiert',
+                        'media_uploaded' => 'Mediendateien hinaufgeladen',
                         'media_deleted' => 'Mediendateien gelöscht',
                     ]
                 ]
