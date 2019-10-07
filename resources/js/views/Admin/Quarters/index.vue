@@ -55,7 +55,23 @@
                 i18nName: 'quarter',
                 header: [{
                     label: 'general.name',
+                    width: 250,
                     prop: 'name'
+                }, {
+                    label: 'counts of buildings',
+                    prop: 'count_of_buildings'
+                }, {
+                    label: 'counts of buildings',
+                    prop: 'buildings_count'
+                }, {
+                    label: 'counts of units',
+                    prop: 'total_units_count'
+                }, {
+                    label: 'counts of occupied units',
+                    prop: 'occupied_units_count'
+                }, {
+                    label: 'counts of active tenants',
+                    prop: 'active_tenants_count'
                 }, {
                     width: 120,
                     actions: [{

@@ -662,6 +662,7 @@ return [
         'last_updated' => 'Zuletzt bearbeitet',
         'was_due_on' => 'In Verzug seit',
         'due_on' => 'Zu erledigen bis',
+        'solved_on' => 'Gelöst am',
         'ago' => 'zuvor',
         'not_set' => 'Nicht gesetzt',
         'today' => 'Heute',

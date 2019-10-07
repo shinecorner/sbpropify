@@ -15,10 +15,10 @@
                 </div>
                 <div class="actions" v-if="showActions && loggedInUser.id == data.user_id">
                     <el-tooltip :content="$t('tenant.tooltips.edit_pinboard')">
-                        <el-button size="mini" icon="icon-pencil" @click="$emit('edit-pinboard', $event, data)" plain round>{{$t('general.actions.edit')}}</el-button>
+                        <el-button size="mini" icon="icon-pencil" @click="$emit('edit-pinboard', $event, data)" plain round></el-button>
                     </el-tooltip>
                     <el-tooltip :content="$t('tenant.tooltips.delete_pinboard')">
-                        <el-button size="mini" icon="icon-trash-empty" @click="$emit('delete-pinboard', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
+                        <el-button size="mini" icon="icon-trash-empty" @click="$emit('delete-pinboard', $event, data)" plain round></el-button>
                     </el-tooltip>
                     
                 </div>

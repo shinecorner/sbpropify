@@ -664,6 +664,7 @@ return [
         'due_in' => 'Échues en',
         'was_due_on' => 'Était dû le',
         'due_on' => 'Dû le',
+        'solved_on' => 'Résolu sur',
         'active_reminder_switcher' => 'Rappel actif',
         'days_left' => "Combien de jours avant l'envoi de l'email ?",
         'send_person' => 'Quelle personne doit être notifiée ?',
