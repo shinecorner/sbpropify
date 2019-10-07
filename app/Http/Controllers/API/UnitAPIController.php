@@ -94,6 +94,12 @@ class UnitAPIController extends AppBaseController
             ]);
         }
 
+        if ($request->group_by_floor) {
+            $units = $this->unitRepository->get();
+            $units = $units->sortByDesc('name')->groupBy('floor')->sortKeys();
+            return $this->sendResponse($units->toArray(), 'Units retrieved successfully');
+        }
+
         $getAll = $request->get('get_all', false);
         if ($getAll) {
 

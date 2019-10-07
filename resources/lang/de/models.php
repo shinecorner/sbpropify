@@ -184,6 +184,7 @@ return [
             'label' => 'Status',
             'active' => 'Aktiv',
             'not_active' => 'Inaktiv',
+            'total' => 'Gesamt',
         ],
         'credentials_pdf' => [
             "tenant_credentials" => "Anmeldedaten des Mieters",
@@ -343,6 +344,9 @@ return [
             ],
             'monthly_rent_net' => [
                 'required' => 'Monatsmiete ist obligatorisch',
+            ],
+            'monthly_maintenance' => [
+                'required' => 'Eine monatliche Wartung ist erforderlich.',
             ],
             'floor' => [
                 'required' => 'Etage ist obligatorisch',

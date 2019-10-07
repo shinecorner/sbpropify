@@ -185,6 +185,7 @@ return [
             'label' => 'Status',
             'active' => 'Active',
             'not_active' => 'Not active',
+            'total' => 'Total',
         ],
         'credentials_pdf' => [
             'tenant_credentials' => 'Tenant credentials',
@@ -344,6 +345,9 @@ return [
             ],
             'monthly_rent_net' => [
                 'required' => 'Monthly rent is required',
+            ],
+            'monthly_maintenance' => [
+                'required' => 'Monthly maintenance is required',
             ],
             'floor' => [
                 'required' => 'Floor is required',

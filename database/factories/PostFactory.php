@@ -22,7 +22,7 @@ $factory->define(App\Models\Pinboard::class, function (Faker $faker) {
         'visibility' => Pinboard::VisibilityAll,
         'content' => $faker->paragraph(),
         'notify_email' => true,
-        'pinned' => $faker->boolean,
+        'announcement' => $faker->boolean,
         'created_at' => $now,
         'updated_at' => $now,
     ];

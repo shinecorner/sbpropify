@@ -485,6 +485,7 @@
     
     .tenants-edit {
         overflow: hidden;
+        flex: 1;
 
         .main-content { 
             overflow-x: hidden;

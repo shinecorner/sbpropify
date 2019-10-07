@@ -55,7 +55,9 @@
                                 </el-form-item>
                             </el-col>
 
-                            <el-col :md="6" >
+                            
+
+                            <el-col :md="6" v-if="model.type >= 3">
                                 <el-form-item :label="$t('general.monthly_rent_net')"
                                               :rules="validationRules.monthly_rent_net"
                                               prop="monthly_rent_net">
@@ -70,6 +72,87 @@
                                 <el-form-item :label="$t('models.unit.floor')" :rules="validationRules.floor" prop="floor">
                                     <el-input autocomplete="off" type="number" v-model="model.floor"></el-input>
                                 </el-form-item>
+                            </el-col>
+
+                            <el-col :md="24" v-if="model.type < 3">
+                                <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition rent-data" 
+                                        style="width: 100%;">
+                                    <div class="el-table__header-wrapper">
+                                        <table cellspacing="0" cellpadding="0" border="0" class="el-table__header">
+                                            <thead>
+                                                <tr>
+                                                    <th class="data is-leaf">
+                                                        <div class="cell">{{$t('general.monthly_rent_net')}}</div>
+                                                    </th>
+                                                    <th class="symbol is-leaf">
+                                                        <div class="cell"></div>
+                                                    </th>
+                                                    <th class="data is-leaf">
+                                                        <div class="cell">{{$t('models.tenant.maintenance')}}</div>
+                                                    </th>
+                                                    <th class="symbol is-leaf">
+                                                        <div class="cell"></div>
+                                                    </th>
+                                                    <th class="data is-leaf">
+                                                        <div class="cell">{{$t('models.tenant.gross_rent')}}</div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <div class="el-table__body-wrapper is-scrolling-none">
+                                        <table cellspacing="0" cellpadding="0" border="0" class="el-table__body">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="data">
+                                                        <div class="cell">
+                                                            <el-form-item 
+                                                                :rules="validationRules.monthly_rent_net"
+                                                                prop="monthly_rent_net">
+                                                                <el-input type="text"
+                                                                        v-model="model.monthly_rent_net"
+                                                                >
+                                                                    <template slot="prepend">CHF</template>
+                                                                </el-input>
+                                                            </el-form-item>
+                                                        </div>
+                                                    </td>
+                                                    <td class="symbol">
+                                                        <div class="cell">
+                                                            +
+                                                        </div>
+                                                    </td>
+                                                    <td class="data">
+                                                        <div class="cell">
+                                                            <el-form-item 
+                                                                :rules="validationRules.monthly_maintenance"
+                                                                prop="monthly_maintenance">
+                                                                <el-input type="text"
+                                                                        v-model="model.monthly_maintenance"
+                                                                >
+                                                                    <template slot="prepend">CHF</template>
+                                                                </el-input>
+                                                            </el-form-item>
+                                                        </div>
+                                                    </td>
+                                                    <td class="symbol">
+                                                        <div class="cell">
+                                                            =
+                                                        </div>
+                                                    </td>
+                                                    <td class="data">
+                                                        <div class="cell">
+                                                            <el-form-item 
+                                                                prop="monthly_rent_net">
+                                                                {{Number(model.monthly_rent_net) + Number(model.monthly_maintenance)}}
+                                                            </el-form-item>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </el-col>
 
                         </el-row>
@@ -250,4 +333,68 @@
     .last-form-row {
         margin-bottom: -22px;
     }
+    /deep/ .rent-data {
+        background: transparent;
+        table {
+            width: 100%;
+            cursor: initial;
+            background: transparent;
+            thead, tbody {
+                width: 100%;
+                background: transparent;
+                tr {
+                    display: flex;
+                    width: 100%;
+                    background: transparent;
+                    .data {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        background: transparent;
+                        .cell {
+                            width: 100%;
+                            text-align: left;
+                            
+                            .el-form-item {
+                                margin-bottom: 0;
+
+                                &.is-error {
+                                    // margin-bottom: 27px;
+                                }
+                            }
+
+                            /deep/ .el-input.el-input-group {
+                                .el-input-group__prepend {
+                                    padding: 2px 8px 0;
+                                    font-weight: 600;
+                                }
+                                .el-input__inner {
+                                    padding: 5px;
+                                }
+                            }
+                        }
+                    }
+                    
+                    .symbol {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 20px;
+                        background: transparent;
+                        .cell {
+                            text-overflow: initial;
+                            font-size: 16px;
+                            padding: 0;
+                        }
+                    }
+
+                    td:last-child .cell {
+                        padding-left: 10px !important;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+    }
+
 </style>

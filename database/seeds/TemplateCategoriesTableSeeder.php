@@ -2,6 +2,8 @@
 
 use App\Models\TemplateCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class TemplateCategoriesTableSeeder
@@ -15,6 +17,11 @@ class TemplateCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+        DB::unprepared(file_get_contents(database_path('sql' . DIRECTORY_SEPARATOR . 'template_categories.sql')));
+        Schema::enableForeignKeyConstraints();
+        return;
+
         $this->createParentCategories();
         $this->createUserCategories();
         $this->createTenantCategories();

@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ServiceProvidersTableSeeder::class);
         $this->call(PropertyManagerTableSeeder::class);
-        $this->call(ServiceRequestCategoriesTableSeeder::class);
+        $this->call(RequestCategoriesTableSeeder::class);
         $this->call(ServiceRequestsTableSeeder::class);
 
         $this->call(AuditsTableSeeder::class);
