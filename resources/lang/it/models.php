@@ -527,6 +527,10 @@ return [
         "required" => "Questo campo è obbligatorio",
         "buildings" => "Edifici",
         'count_of_buildings' => 'Conteggio degli edifici',
+        'buildings_count' => 'Conteggio edifici',
+        'total_units_count' => 'Totale unità di misura',
+        'occupied_units_count' => 'Le unità occupate contano',
+        'active_tenants_count' => 'Gli inquilini attivi contano',
         'assignment' => "Assegnazione di manager/amministratore",
         'errors' => [
             'not_found' => "Quartiere non trovato",

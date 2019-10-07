@@ -526,6 +526,10 @@ return [
         'required' => 'Überbauung ist ein Pflichfeld!',
         'buildings' => 'Liegenschaften',
         'count_of_buildings' => 'Anzahl Liegenschaften',
+        'buildings_count' => 'Gebäude zählen',
+        'total_units_count' => 'Gesamtzahl der Einheiten',
+        'occupied_units_count' => 'Anzahl der belegten Einheiten',
+        'active_tenants_count' => 'Aktive Mieter zählen',
         'assignment' => 'Zugewiesene Personen/Administrator',
         'errors' => [
             'not_found' => "Überbauung nicht gefunden.",

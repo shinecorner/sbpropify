@@ -63,7 +63,7 @@
                     height="50%"/> 
             </div>
             <hr v-if="data.announcement" />
-            <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
+            <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')"/>
 
             <hr v-if="data.announcement"/>
             <div class="execution" v-if="data.announcement">
@@ -86,7 +86,7 @@
                 </el-button>
             </like>
             
-            <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" :with-scroller="true" @update-dynamic-scroller="$emit('update-dynamic-scroller')"/>
+            <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" :with-scroller="true" @update-dynamic-scroller="loading=false,$emit('update-dynamic-scroller')"/>
             <add-comment ref="addComment" :id="data.id" type="pinboard"/>
         </div>
     </el-card>
@@ -173,9 +173,6 @@
         },
         updated () {
             this.data.height =  this.$refs.container.clientHeight;
-            setTimeout(() => {
-                this.loading = false;
-            }, 200)
         }
     }
 </script>

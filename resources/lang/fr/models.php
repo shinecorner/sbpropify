@@ -527,6 +527,10 @@ return [
         "required" => "Ce champ est obligatoire",
         "buildings" => "Bâtiments",
         'count_of_buildings' => 'Nombre de bâtiments',
+        'buildings_count' => 'Nombre de bâtiments',
+        'total_units_count' => "Nombre total d'unités",
+        'occupied_units_count' => 'Nombre de logements occupés',
+        'active_tenants_count' => 'Nombre de locataires actifs',
         'assignment' => "Affectation des gestionnaires/administrateurs",
         'errors' => [
             'not_found' => "Trimestre non trouvé",
