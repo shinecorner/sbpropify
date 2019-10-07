@@ -556,76 +556,69 @@
                     });
 
                     console.log('resp1', resp1)
+                    
+                    this.options = [
+                        {
+                            label: 'Popular cities',
+                            options: [{
+                                id: 'Shanghai',
+                                name: 'Shanghai'
+                            }, {
+                                id: 'Beijing',
+                                name: 'Beijing'
+                            }]
+                        }, 
+                        {
+                            label: 'City name',
+                            options: [{
+                                id: 'Chengdu',
+                                name: 'Chengdu'
+                            }, {
+                                id: 'Shenzhen',
+                                name: 'Shenzhen'
+                            }, {
+                                id: 'Guangzhou',
+                                name: 'Guangzhou'
+                            }, {
+                                id: 'Dalian',
+                                name: 'Dalian'
+                            }]
+                        }];
 
                     this.units1 = resp1.data
+                    this.options = [];
                     for( var key in resp1.data) {
                         if( !resp1.data.hasOwnProperty(key)) continue;
+
+                        let group_label = "";
+                        if(key > 0)
+                        {
+                            group_label = key + ". " + this.$t('models.unit.floor_title.upper_ground_floor')
+                        }
+                        else if(key == 0)
+                        {
+                            group_label = this.$t('models.unit.floor_title.ground_floor')
+                        }
+                        else if(key < 0)
+                        {
+                            group_label = key + ". " + this.$t('models.unit.floor_title.under_ground_floor')
+                        }
+                        else if(key == 'attic')
+                        {
+                            group_label = this.$t('models.unit.floor_title.top_floor');
+                        }
                         
                         var obj = resp1.data[key];
 
+                        this.options.push( {
+                            label : group_label,
+                            options: obj
+                        })
+                        
                         console.log(obj);
-                    }          
-                    this.options = [
-                        {
-                            label: 'Popular cities',
-                            options: [{
-                                id: 'Shanghai',
-                                name: 'Shanghai'
-                            }, {
-                                id: 'Beijing',
-                                name: 'Beijing'
-                            }]
-                        }, 
-                        {
-                            label: 'City name',
-                            options: [{
-                                id: 'Chengdu',
-                                name: 'Chengdu'
-                            }, {
-                                id: 'Shenzhen',
-                                name: 'Shenzhen'
-                            }, {
-                                id: 'Guangzhou',
-                                name: 'Guangzhou'
-                            }, {
-                                id: 'Dalian',
-                                name: 'Dalian'
-                            }]
-                        }];
+                    }
+                    
 
-                    this.options = [
-                        {
-                            label: 'Popular cities',
-                            options: [{
-                                id: 'Shanghai',
-                                name: 'Shanghai'
-                            }, {
-                                id: 'Beijing',
-                                name: 'Beijing'
-                            }]
-                        }, 
-                        {
-                            label: 'City name',
-                            options: [{
-                                id: 'Chengdu',
-                                name: 'Chengdu'
-                            }, {
-                                id: 'Shenzhen',
-                                name: 'Shenzhen'
-                            }, {
-                                id: 'Guangzhou',
-                                name: 'Guangzhou'
-                            }, {
-                                id: 'Dalian',
-                                name: 'Dalian'
-                            }]
-                        }];
-                    // const resp2 = await this.getUnits({
-                    //     group_by_floor: true,
-                    //     building_id: this.model.building_id
-                    // });
-
-                    // console.log('resp2', resp2)
 
 
                     this.used_units.forEach(id => {
