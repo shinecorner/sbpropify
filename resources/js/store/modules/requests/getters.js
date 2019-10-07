@@ -4,7 +4,7 @@ export default {
     requests(state, getters, rootState) {
         const {application: {constants: {serviceRequests}}} = rootState;
         const requests = state.requests.data ? state.requests.data : [];
-        
+
         return requests.map((request) => {
             request.priority_label = serviceRequests.priority[request.priority];
             request.internal_priority_label = serviceRequests.internal_priority[request.internal_priority];
