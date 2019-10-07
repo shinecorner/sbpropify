@@ -19,9 +19,6 @@ export default {
                             zip : item.address.zip + " " + item.address.city  } : { row : '', zip : ''} )
             tenant.unit_names = tenant.rent_contracts.map(item => item.unit ? item.unit.name : '')
 
-            tenant.rent_contract_active_count = tenant.counts.rent_contracts.active
-            tenant.rent_contract_inactive_count = tenant.counts.rent_contracts.inactive
-            
 
             return tenant;
         });
