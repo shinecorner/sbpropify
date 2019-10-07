@@ -3,6 +3,8 @@
 use App\Models\Template;
 use App\Models\TemplateCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class TemplateTableSeeder
@@ -16,6 +18,11 @@ class TemplateTableSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+        DB::unprepared(file_get_contents(database_path('sql' . DIRECTORY_SEPARATOR . 'templates.sql')));
+        Schema::enableForeignKeyConstraints();
+        return;
+
         $this->setupEmailTemplates();
         $this->setupCommunicationTenantTemplates();
         $this->setupCommunicationServiceTemplates();
