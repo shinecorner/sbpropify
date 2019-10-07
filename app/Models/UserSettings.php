@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @SWG\Definition(
  *      definition="UserSettings",
- *      required={"language", "summary", "news_notification", "listing_notification", "service_notification"},
+ *      required={"language", "summary", "pinboard_notification", "listing_notification", "service_notification"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -37,8 +37,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="news_notification",
- *          description="news_notification",
+ *          property="pinboard_notification",
+ *          description="pinboard_notification",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -83,7 +83,7 @@ class UserSettings extends Model
         'language',
         'summary',
         'admin_notification',
-        'news_notification',
+        'pinboard_notification',
         'listing_notification',
         'service_notification'
     ];
@@ -98,7 +98,7 @@ class UserSettings extends Model
         'language' => 'string',
         'summary' => 'string',
         'admin_notification' => 'boolean',
-        'news_notification' => 'boolean',
+        'pinboard_notification' => 'boolean',
         'listing_notification' => 'boolean',
         'service_notification' => 'boolean'
     ];
@@ -111,7 +111,7 @@ class UserSettings extends Model
     public static $rules = [
         'language' => 'required',
         'summary' => 'required',
-        'news_notification' => 'required',
+        'pinboard_notification' => 'required',
         'listing_notification' => 'required',
         'service_notification' => 'required'
     ];

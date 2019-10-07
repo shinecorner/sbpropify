@@ -241,6 +241,8 @@
                 this.$store.dispatch('comments/clear', {commentable: this.type})
 
                 await this.fetch()
+
+                this.$emit('update-dynamic-controller')
             }
         }
     }

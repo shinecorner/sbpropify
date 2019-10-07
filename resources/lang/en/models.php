@@ -536,7 +536,11 @@ return [
         'cancel' => 'Cancel',
         'required' => 'This field is required',
         'buildings' => 'Buildings',
-        'count_of_buildings' => 'Count of buildings',
+        'count_of_buildings' => 'Allowed buildings',
+        'buildings_count' => 'Count of buildings',
+        'total_units_count' => 'Count of units',
+        'occupied_units_count' => 'Count of occupied units',
+        'active_tenants_count' => 'Count of active tenants',
         'assignment' => 'Assignment of managers/administrator',
         'errors' => [
             'not_found' => "Quarter not found",

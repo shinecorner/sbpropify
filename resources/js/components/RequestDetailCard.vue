@@ -87,17 +87,21 @@
                 </el-col>
                 <el-col :span="5">
                     <span>{{ $t('models.request.created_by') }}</span>
-                    <p>
-                        <el-tooltip
-                            :content="item.tenant_name"
-                            class="item"
-                            effect="light" placement="top">
-
-                            <table-avatar :src="item.tenant.user.avatar" :name="item.tenant_name" :size="33" />
-                        </el-tooltip>
-                        {{ item.tenant_name }}, 
-                        {{formatDate(item.created_at)}}
-                    </p>
+                    <div class="created-by">
+                        <p>
+                            <el-tooltip
+                                :content="item.tenant_name"
+                                class="item"
+                                effect="light" placement="top">
+                        
+                                <table-avatar :src="item.tenant.user.avatar" :name="item.tenant_name" :size="33" />
+                            </el-tooltip>
+                        </p>
+                        <div>
+                            <p>{{ item.tenant_name }}</p>
+                            <p>{{formatDate(item.created_at)}}</p>
+                        </div>
+                    </div>
                 </el-col> 
                 <el-col :span="4" class="request-category">
                     <span>{{ $t('models.request.category') }}</span>
@@ -391,6 +395,14 @@ export default {
                 &:nth-of-type(5) {
                     p {
                         padding-top: 0px;
+                        line-height: 1.4;
+                        font-size: 13px;
+                    }
+                    .created-by {
+                        display: flex;
+                        div{
+                            margin-left: 10px;
+                        }
                     }
                 } 
                 &:nth-of-type(9) {
