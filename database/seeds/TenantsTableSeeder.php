@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\Building;
 use App\Models\Role;
-use App\Models\ServiceProvider;
 use App\Models\Tenant;
 use App\Models\Unit;
 use App\Models\User;
