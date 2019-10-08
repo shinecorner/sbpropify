@@ -79,7 +79,6 @@ class TenantsTableSeeder extends Seeder
 
     protected function saveRentContracts($tenantId)
     {
-        $data = factory(App\Models\RentContract::class)->make()->toArray();
         $data['tenant_id'] = $tenantId;
         $data['status'] = \App\Models\RentContract::StatusActive;
 

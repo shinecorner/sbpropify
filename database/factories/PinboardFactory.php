@@ -14,15 +14,17 @@ $factory->define(App\Models\Pinboard::class, function (Faker $faker) {
     $now = now();
     $diffSec = $now->diffInSeconds($statDate);
     $now->subSeconds(random_int(1, $diffSec));
+    $announcement = $faker->boolean;
+
 
     $ret = [
         'user_id' => $u->id,
-        'type' => Pinboard::TypeArticle,
+        'type' => $announcement ? Pinboard::TypeAnnouncement : Pinboard::TypePost,
         'status' => Pinboard::StatusNew,
         'visibility' => Pinboard::VisibilityAll,
         'content' => $faker->paragraph(),
-        'notify_email' => true,
-        'announcement' => $faker->boolean,
+        'notify_email' => false,
+        'announcement' => $announcement,
         'created_at' => $now,
         'updated_at' => $now,
     ];

@@ -11,33 +11,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
         $this->call(TemplateCategoriesTableSeeder::class);
         $this->call(TemplateTableSeeder::class);
+        $this->call(CountriesTableSeeder::class);
+        $this->call(StatesTableSeeder::class);
+        $this->call(RequestCategoriesTableSeeder::class);
 
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
 
-
-        $this->call(CountriesTableSeeder::class);
-        $this->call(StatesTableSeeder::class);
         //$this->call(AddressesTableSeeder::class);
-        $this->call(QuartersTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
-
+        $this->call(QuartersTableSeeder::class);
         $this->call(BuildingsTableSeeder::class);
-
-
         $this->call(UnitsTableSeeder::class);
+
+        $this->call(ServiceProvidersTableSeeder::class);
+        $this->call(PropertyManagerTableSeeder::class);
         $this->call(TenantsTableSeeder::class);
+
         $this->call(PinboardTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
         $this->call(ListingsTableSeeder::class);
 
-        $this->call(ServiceProvidersTableSeeder::class);
-        $this->call(PropertyManagerTableSeeder::class);
-        $this->call(RequestCategoriesTableSeeder::class);
         $this->call(RequestsTableSeeder::class);
 
         $this->call(AuditsTableSeeder::class);

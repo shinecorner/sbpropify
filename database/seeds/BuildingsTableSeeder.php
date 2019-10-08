@@ -21,22 +21,23 @@ class BuildingsTableSeeder extends Seeder
             return;
         }
 
-        $faker = Faker::create();
         for($i = 1; $i <= 100; $i++) {
             $date = $this->getRandomTime();
-            $hasQuarter = $faker->boolean;
-
             $data = $this->getDateColumns($date);
-            if ($hasQuarter) {
-                $data['quarter_id'] = Quarter::inRandomOrder()->first()->id;
-            }
 
             $address = factory(Address::class)->create($this->getDateColumns($date));
             $data['address_id'] = $address->id;
             $data['name'] = sprintf('%s %s', $address->street, $address->house_num);
             $geoData = $this->getGeoDataByAddress($address);
             $data = array_merge($data, $geoData);
-            factory(Building::class)->create($data);
+
+            $building = factory(Building::class)->create($data);
+            $users = \App\Models\User::withRole('administrator')->inRandomOrder()->limit(random_int(1,5))->get();
+            $data = [];
+            foreach ($users as $user) {
+                $data[$user->id] = ['created_at' => now(),];
+            }
+            $building->users()->attach($data);
         }
     }
 

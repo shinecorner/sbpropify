@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\Request::class, function (Faker $faker) {
 
-    $category = (new App\Models\RequestCategory)->whereIn('id', [7, 8, 9])->inRandomOrder()->first();
+    $category = (new App\Models\RequestCategory)->where('id', '!=', 1)->inRandomOrder()->first();
     $tenant = (new App\Models\Tenant)->where('unit_id', '>', 0)->inRandomOrder()->first();
 
     $status = $faker->randomElement(array_keys(Request::Status));
