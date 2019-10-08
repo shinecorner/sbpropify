@@ -318,7 +318,6 @@
                                                 <!-- <img :src="SettingsLogo" ref="SettingsLogo"
                                                      v-show="SettingsLogo || model.logo_upload"
                                                      width="300px"> -->
-                                                <!-- <upload-avatar @imageUploaded="setAvatarLogoUpload"/> -->
                                                 <upload-document @fileUploaded="setAvatarLogoUpload" class="drag-custom" drag/>
                                                 <img :src="logo_upload_img"
                                                      v-show="logo_upload_img"
@@ -329,7 +328,6 @@
                                                 
                                             </el-form-item>
                                             <el-form-item :label="$t('models.user.circle_logo')">
-                                                <!-- <upload-avatar @imageUploaded="setCircleLogoUpload"/> -->
                                                 <upload-document @fileUploaded="setCircleLogoUpload" class="drag-custom" drag/>
                                                 <img :src="circle_logo_upload_img"
                                                      v-show="circle_logo_upload_img"
@@ -348,7 +346,6 @@
                                                     >
                                             </el-form-item> -->
                                             <el-form-item :label="$t('models.user.tenant_logo')">
-                                                <!-- <upload-avatar @imageUploaded="setTenantLogoUpload"/> -->
                                                 <upload-document @fileUploaded="setTenantLogoUpload" class="drag-custom" drag/>
                                                 <img :src="tenant_logo_upload_img"
                                                      v-show="tenant_logo_upload_img"
@@ -512,7 +509,6 @@
 <script>
     import Heading from 'components/Heading';
     import Cropper from 'components/Cropper';
-    import UploadAvatar from 'components/UploadAvatar';
     import UploadDocument from 'components/UploadDocument';
     import {mapActions} from 'vuex';
     import {displayError, displaySuccess} from 'helpers/messages';
@@ -526,7 +522,6 @@
         components: {
             Heading,
             Cropper,
-            UploadAvatar,
             UploadDocument,
             CategoriesListing,
             TemplatesListing
@@ -769,20 +764,20 @@
                 this.model.logo_upload = image;
             },
             setAvatarLogoUpload(image) {
-                this.model.logo_upload = image;
-                this.logo_upload_img = "data:image/png;base64," + image;
+                this.model.logo_upload = image.src;
+                this.logo_upload_img = "data:image/png;base64," + image.src;
             },
             setCircleLogoUpload(image) {
-                this.model.circle_logo_upload = image;
-                this.circle_logo_upload_img = "data:image/png;base64," + image;
+                this.model.circle_logo_upload = image.src;
+                this.circle_logo_upload_img = "data:image/png;base64," + image.src;
             },
             setFaviconIconUpload(image) {
-                this.model.favicon_icon_upload = image;
-                this.favicon_icon_upload_img = "data:image/png;base64," + image;
+                this.model.favicon_icon_upload = image.src;
+                this.favicon_icon_upload_img = "data:image/png;base64," + image.src;
             },
             setTenantLogoUpload(image) {
-                this.model.tenant_logo_upload = image;
-                this.tenant_logo_upload_img = "data:image/png;base64," + image;
+                this.model.tenant_logo_upload = image.src;
+                this.tenant_logo_upload_img = "data:image/png;base64," + image.src;
             },
             toggleDrawer () {
                 this.visibleDrawer = !this.visibleDrawer
