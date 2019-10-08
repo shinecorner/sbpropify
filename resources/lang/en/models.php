@@ -617,7 +617,7 @@ return [
             "validation" => "Enter email password"
         ],
         "mail_powered_by" => [
-            "label" => "Email",
+            "label" => "Email Footer",
             "validation" => "Enter email"
         ],
         'errors' => [

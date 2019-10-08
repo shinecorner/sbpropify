@@ -28,6 +28,34 @@
                                     </el-select>
                                 </el-form-item>
                             </el-col>
+                            <el-col :md="12">
+                                <el-row :gutter="10">
+                                    <el-col :md="8">
+                                        <el-form-item :label="$t('general.zip')" :rules="validationRules.zip"
+                                                      prop="address.zip">
+                                            <el-input type="text" v-model="model.address.zip"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md="16">
+                                        <el-form-item :label="$t('general.city')" :rules="validationRules.city"
+                                                      prop="address.city">
+                                            <el-input type="text" v-model="model.address.city"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                            </el-col>
+                            <el-col :md="12">
+                                <el-form-item :label="$t('models.address.state.label')"
+                                              :rules="validationRules.state_id"
+                                              prop="address.state_id"
+                                              class="label-block">
+                                    <el-select :placeholder="$t('models.address.state.label')" style="display: block"
+                                               v-model="model.address.state_id">
+                                        <el-option :key="state.id" :label="state.name" :value="state.id"
+                                                   v-for="state in states"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
                         </el-row>
                     </el-form>
                 </card>
@@ -53,7 +81,10 @@
             Heading,
             Card,
             AddActions
-        }
+        },
+        mounted() {
+            this.$root.$on('changeLanguage', () => this.getStates());
+        },
     };
 </script>
 

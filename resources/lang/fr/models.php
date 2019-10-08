@@ -614,7 +614,7 @@ return [
             "validation" => "Entrer le mot de passe de l'email"
         ],
         "mail_powered_by" => [
-            "label" => "Email",
+            "label" => "Pied de page de l'email",
             "validation" => "Entrez votre courriel"
         ],
         'errors' => [
