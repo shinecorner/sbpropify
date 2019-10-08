@@ -172,6 +172,8 @@ return [
         'saveAndClose' => 'Save & Close',
         'upload' => 'Upload',
         'update' => 'Update',
+        'crop' => 'Crop',
+        'upload_img' => 'Upload image',
     ],
     'swal' => [
         'confirmChange' => [

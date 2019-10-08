@@ -311,13 +311,14 @@
 <style lang="scss">
     .el-table__empty-text{
         width: 100%;
-    }
-    .el-alert{
-        padding: 0 0;
-    }
-    .el-alert--info.is-light{
-        padding-left: 35%;
-    }
+        .el-alert{
+            padding: 0 0;
+        }
+        .el-alert--info.is-light{
+            padding-left: 35%;
+        }
+
+    }    
 </style>
 <style lang="scss" scoped>    
     .request-title {

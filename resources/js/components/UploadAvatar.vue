@@ -6,7 +6,7 @@
             :before-upload="beforeAvatarUpload"
             :http-request="imageUpload"
     >
-        <el-link>{{$t('general.change')}}</el-link>
+        <el-link>{{$t('general.actions.upload_img')}}</el-link>
     </el-upload>
     <el-upload
             v-else

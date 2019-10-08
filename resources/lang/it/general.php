@@ -172,6 +172,8 @@ return [
         "saveAndClose" => "Salva & Chiudi",
         "upload" => "Carica",
         "update" => "Aggiorna",
+        "crop" => "Taglio",
+        "upload_img" => "Carica immagine",
     ],
     'swal' => [
         'confirmChange' => [
