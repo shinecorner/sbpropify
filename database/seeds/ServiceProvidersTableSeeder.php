@@ -41,16 +41,13 @@ class ServiceProvidersTableSeeder extends Seeder
                 ];
                 $attr = array_merge($attr, $this->getDateColumns($date));
 
-                $user = factory(User::class, 1)->create($attr)->first();
-
+                $user = factory(User::class)->create($attr);
                 $user->attachRole($serviceRole);
-
                 $user->settings()->save($settings->replicate());
 
                 //create User
                 $date = $this->getRandomTime($user->created_at);
-                $address = factory(App\Models\Address::class, 1)->create($this->getDateColumns($date))->first();
-
+                $address = factory(App\Models\Address::class)->create($this->getDateColumns($date));
                 $attr = [
                     'category' => $category,
                     'user_id' => $user->id,
@@ -62,7 +59,7 @@ class ServiceProvidersTableSeeder extends Seeder
                 $date = $this->getRandomTime($address->created_at);
                 $attr = array_merge($attr, $this->getDateColumns($date));
 
-                factory(App\Models\ServiceProvider::class, 1)->create($attr);
+                factory(App\Models\ServiceProvider::class)->create($attr);
             }
         }
     }

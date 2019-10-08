@@ -96,6 +96,11 @@ class UnitAPIController extends AppBaseController
 
         if ($request->group_by_floor) {
             $units = $this->unitRepository->get();
+            if ($request->show_rent_contract_counts) {
+                $units->each(function ($unit) {
+                    $unit->inactive_rent_contracts_count = $unit->total_rent_contracts_count - $unit->active_rent_contracts_count;
+                });
+            }
             $units = $units->sortByDesc('name')->groupBy('floor')->sortKeys();
             return $this->sendResponse($units->toArray(), 'Units retrieved successfully');
         }

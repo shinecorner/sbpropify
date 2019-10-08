@@ -48,6 +48,10 @@ class RequestsTableSeeder extends Seeder
                 $request->tenant_id = $user->tenant->id;
                 $request->unit_id = $user->tenant->unit_id;
                 $request->status = array_rand(Request::Status);
+                if ($request->status == Request::StatusDone) {
+                    $request->solved_date = now();
+                }
+
                 $request->save();
                 $providers = ServiceProvider::inRandomOrder()->take(2)->get();
                 foreach ($providers as $p) {

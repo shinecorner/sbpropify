@@ -3,7 +3,7 @@
 use App\Repositories\ListingRepository;
 use Illuminate\Database\Seeder;
 
-class ProductsTableSeeder extends Seeder
+class ListingsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
