@@ -438,6 +438,19 @@
             }
         }
     }
+
+    @media only screen and (max-width: 676px) {
+        .layout {
+            .header {
+                .item {
+                    &:first-child {
+                        padding: 8px;
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+    }
 </style>
 
 
