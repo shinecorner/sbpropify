@@ -131,6 +131,7 @@
                                     <el-form-item :label="$t('models.request.category_options.cost')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
+                                                   clearable
                                                    class="custom-select"
                                                    v-model="model.payer">
                                             <el-option

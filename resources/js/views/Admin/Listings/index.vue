@@ -86,7 +86,7 @@
                     prop: 'formatted_status_label'
                 }, {
                     // width: 170,
-                    width: 85,
+                    width: 120,
                     actions: [
                         // {
                         //     type: 'primary',
