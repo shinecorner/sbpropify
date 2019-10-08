@@ -64,7 +64,17 @@
                     margin-left: 5px
 
         > /deep/ .ui-card__body
-            display: grid
-            grid-gap: 24px
-            grid-template-columns: repeat(auto-fill, minmax(192px, 1fr))
+            display: inline-block
+            width: 100%
+
+            .ui-card
+                width: calc(50% - 30px)
+                display: inline-block
+                margin-bottom: 24px
+
+                &:nth-child(odd)
+                    margin-right: 24px
+
+                &:nth-last-child(2), &:nth-last-child(1)
+                    margin-bottom: 0
 </style>
