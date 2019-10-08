@@ -57,7 +57,7 @@
                     </el-col>
                 </el-row>
             </el-tab-pane>
-            <el-tab-pane :label="$t('settings.notifications')" name="language">
+            <!-- <el-tab-pane :label="$t('settings.notifications')" name="language">
                 <card>
                     <el-form label-position="right" label-width="200px">
                         <el-form-item :label="$t('settings.summary.label')">
@@ -99,7 +99,7 @@
                         </el-form-item>
                     </el-form>
                 </card>
-            </el-tab-pane>
+            </el-tab-pane> -->
         </el-tabs>
     </div>
 </template>

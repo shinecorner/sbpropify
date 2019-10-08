@@ -75,7 +75,7 @@
                             </el-col>
 
                             <el-col :md="24" v-if="model.type < 3">
-                                <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition rent-data" 
+                                <div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition monthly-rent-data" 
                                         style="width: 100%;">
                                     <div class="el-table__header-wrapper">
                                         <table cellspacing="0" cellpadding="0" border="0" class="el-table__header">
@@ -333,7 +333,7 @@
     .last-form-row {
         margin-bottom: -22px;
     }
-    /deep/ .rent-data {
+    /deep/ .monthly-rent-data {
         background: transparent;
         table {
             width: 100%;
@@ -346,6 +346,8 @@
                     display: flex;
                     width: 100%;
                     background: transparent;
+
+                    
                     .data {
                         flex: 1;
                         display: flex;
@@ -385,6 +387,14 @@
                             text-overflow: initial;
                             font-size: 16px;
                             padding: 0;
+                        }
+                    }
+
+                    td {
+                        padding: 25px 0;
+
+                        .cell {
+                            overflow: visible;
                         }
                     }
 

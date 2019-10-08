@@ -298,6 +298,7 @@
             <el-table-column
                 :key="column.prop"
                 :label="$t(column.label)"
+                :width="column.width"
                 v-for="(column, key) in headerWithSelect">
                 <template slot-scope="scope">
                     <el-select class="select-icon" :class="column.class" @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]" :style="{width: column.ShowCircleIcon != undefined? '120px': '150px'}">
@@ -317,7 +318,7 @@
             </el-table-column>
             <el-table-column
                 :key="key"
-                :width="200"
+                :width="column.width ? column.width : 200"
                 v-for="(column, key) in headerWithActions">
                 <template slot-scope="scope">
                     <span

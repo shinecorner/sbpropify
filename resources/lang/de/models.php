@@ -314,6 +314,12 @@ return [
         'deleted' => 'Einheit gelöscht',
         'saved' => 'Einheit gespeichert',
         'floor' => 'Etage',
+        'floor_title' => [
+            'under_ground_floor' => "UG",
+            'ground_floor' => "EG",
+            'upper_ground_floor' => "OG",
+            'top_floor' => "Attika",
+        ],
         'sq_meter' => 'Fläche',
         'room_no' => 'Anzahl Zimmer',
         'building_search' => 'Bitte nach einer Liegenschaft suchen',

@@ -340,13 +340,18 @@
                                     <el-row :gutter="10">
                                         <el-col :md="12">
                                             <el-form-item :label="$t('models.request.due_date')"
+                                                        class="due_date-field"
                                                         :rules="validationRules.due_date">
-                                                <div class="reminder-box">
-                                                    <label class="switcher__label">
-                                                        <span class="switcher__desc">{{$t('models.request.active_reminder_switcher')}}</span>
-                                                    </label>
-                                                    <el-switch v-model="model.active_reminder"/>
-                                                </div>
+                                                <template slot="label" class="el-form-item__label">
+                                                    {{$t('models.request.due_date')}}
+                                                    <div class="reminder-box">
+                                                        <label class="switcher__label">
+                                                            <span class="switcher__desc">{{$t('models.request.active_reminder_switcher')}}</span>
+                                                        </label>
+                                                        <el-switch v-model="model.active_reminder"/>
+                                                    </div>
+                                                </template>
+                                                
                                                 <el-date-picker
                                                     :disabled="$can($permissions.update.serviceRequest)"
                                                     :placeholder="$t('models.request.placeholders.due_date')"
@@ -915,12 +920,17 @@
             
         }
 
+        .due_date-field {
+            .el-form-item__label {
+                width: 100%;
+            }
+        }
+
         .reminder-box {
-            position: absolute;
-            top: -100%;
-            right: 5px;
             min-width: 150px;
             display: flex;
+            float: right;
+            margin-top: 5px;
 
             .switcher__desc {
                 padding-right: 5px;

@@ -1,6 +1,5 @@
 <template>
     <el-form :model="model" :rules="validationRules" label-position="top"  ref="form" v-loading="loading">
-        
 
         <el-row :gutter="20">
             <el-col :md="12">
@@ -23,7 +22,7 @@
                     </el-select>
                 </el-form-item>
             </el-col>
-            <el-col :md="12" v-if="model.building_id">
+            <!-- <el-col :md="12" v-if="model.building_id">
                 <el-form-item prop="unit_id" :label="$t('models.tenant.unit.name')"
                             class="label-block">
                     <el-select :placeholder="$t('models.tenant.search_unit')" 
@@ -36,6 +35,30 @@
                                 :value="unit.id"
                                 v-for="unit in units">
                         </el-option>
+                    </el-select>
+                </el-form-item>
+            </el-col> -->
+            <el-col :md="12" v-if="model.building_id">
+                <el-form-item prop="unit_id" :label="$t('models.tenant.unit.name')"
+                            class="label-block">
+                    <el-select :placeholder="$t('models.tenant.search_unit')" 
+                            style="display: block"
+                            v-model="model.unit_id"
+                            @change="changeRentContractUnit">
+                        <el-option-group
+                            v-for="group in units"
+                            :key="group.label"
+                            :label="group.label">
+                            <el-option
+                                v-for="item in group.options"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                                <span style="float: left">{{ item.name }}</span>
+                                <rent-contract-count :countsData="item" style="float: right;"></rent-contract-count>
+                            </el-option>
+                        </el-option-group>
+                        
                     </el-select>
                 </el-form-item>
             </el-col>
@@ -229,8 +252,7 @@
                             </td>
                             <td class="data">
                                 <div class="cell">
-                                    <el-form-item 
-                                        prop="monthly_rent_net">
+                                    <el-form-item >
                                         {{Number(model.monthly_rent_net) + Number(model.monthly_maintenance)}}
                                     </el-form-item>
                                     
@@ -333,12 +355,14 @@
 <script>
     import {displayError} from "../helpers/messages";
     import UploadRentContract from 'components/UploadRentContract';
+    import RentContractCount from 'components/RentContractCount';
     import {mapActions, mapGetters} from 'vuex';
 
     export default {
         name: "RentContractForm",
         components: {
             UploadRentContract,
+            RentContractCount
         },
         props: {
             mode: {
@@ -366,6 +390,7 @@
                 remoteLoading: false,
                 buildings: [],
                 units: [],
+                options: [],
                 rent_durations: [],
                 deposit_statuses: [],
                 rentcontract_statuses: [],
@@ -456,10 +481,12 @@
                         else {
                             
                             params.tenant_id = this.tenant_id
+                            params.unit = this.units.find(item => item.id == this.model.unit_id)
+                            params.building = this.buildings.find(item => item.id == this.model.building_id)
 
                             if (this.mode == "add") {
                                 const resp = await this.$store.dispatch('rentContracts/create', params);
-                                this.$emit('add-rent-contract', params)
+                                this.$emit('add-rent-contract', resp.data)
                             }
                             else {
                                 const resp = await this.$store.dispatch('rentContracts/update', params);
@@ -517,18 +544,58 @@
                     this.model.unit_id = '';
                 try {
                     
-                    const resp = await this.getUnits({
-                        get_all: true,
+                    // const resp = await this.getUnits({
+                    //     get_all: true,
+                    //     building_id: this.model.building_id
+                    // });
+
+                    // this.used_units.forEach(id => {
+                    //     if(!this.model.unit || this.model.unit.id != id)
+                    //         resp.data = resp.data.filter( item => item.id != id )
+                    // })
+
+                    // this.units = resp.data
+
+                    const resp1 = await this.getUnits({
+                        show_rent_contract_counts: true,
+                        group_by_floor: true,
                         building_id: this.model.building_id
                     });
 
+                    
+                    let parent_obj = this
+                    this.units = [];
+                    for( var key in resp1.data) {
+                        if( !resp1.data.hasOwnProperty(key)) continue;
 
-                    this.used_units.forEach(id => {
-                        if(!this.model.unit || this.model.unit.id != id)
-                            resp.data = resp.data.filter( item => item.id != id )
-                    })
+                        let group_label = "";
+                        if(key > 0)
+                        {
+                            group_label = key + ". " + this.$t('models.unit.floor_title.upper_ground_floor')
+                        }
+                        else if(key == 0)
+                        {
+                            group_label = this.$t('models.unit.floor_title.ground_floor')
+                        }
+                        else if(key < 0)
+                        {
+                            group_label = key + ". " + this.$t('models.unit.floor_title.under_ground_floor')
+                        }
+                        else if(key == 'attic')
+                        {
+                            group_label = this.$t('models.unit.floor_title.top_floor');
+                        }
+                        
+                        var obj = resp1.data[key];
 
-                    this.units = resp.data
+
+                        this.units.push( {
+                            label : group_label,
+                            options: obj
+                        })
+
+                    }
+
                     
                 } catch (err) {
                     displayError(err);
@@ -555,7 +622,7 @@
             ...mapActions(['getBuildings', 'getUnits']),
         },
         async created () {
-
+            let parent_obj = this
             this.deposit_types = Object.entries(this.$constants.rentContracts.deposit_type).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_types.${label}`)}))
             this.rent_durations = Object.entries(this.$constants.rentContracts.duration).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.rent_durations.${label}`)}))
             this.deposit_statuses = Object.entries(this.$constants.rentContracts.deposit_status).map(([value, label]) => ({value: +value, name: this.$t(`models.tenant.deposit_status.${label}`)}));
@@ -564,10 +631,32 @@
             if(this.mode == "edit") {
                 this.model = this.data
 
-                this.buildings.push(this.model.building)
-                this.units.push(this.model.unit)
+                
+                if( this.model.unit )
+                {
+                    let key = this.model.unit.floor
+                    let group_label = ""
+                    if(key > 0)
+                    {
+                        group_label = key + ". " + this.$t('models.unit.floor_title.upper_ground_floor')
+                    }
+                    else if(key == 0)
+                    {
+                        group_label = this.$t('models.unit.floor_title.ground_floor')
+                    }
+                    else if(key < 0)
+                    {
+                        group_label = key + ". " + this.$t('models.unit.floor_title.under_ground_floor')
+                    }
+                    else if(key == 'attic')
+                    {
+                        group_label = this.$t('models.unit.floor_title.top_floor');
+                    }
+                    this.units.push({ label: group_label, options : [this.model.unit]})
+                }
 
                 if(this.model.building) {
+                    this.buildings.push(this.model.building)
                     await this.remoteRentContractdSearchBuildings(this.model.building.name)
                     await this.searchRentContractUnits(true)
                 }
@@ -654,6 +743,14 @@
                             text-overflow: initial;
                             font-size: 16px;
                             padding: 0;
+                        }
+                    }
+
+                    td {
+                        padding: 25px 0;
+
+                        .cell {
+                            overflow: visible;
                         }
                     }
 
