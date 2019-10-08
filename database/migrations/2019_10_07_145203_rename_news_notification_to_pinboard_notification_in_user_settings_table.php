@@ -13,9 +13,11 @@ class RenameNewsNotificationToPinboardNotificationInUserSettingsTable extends Mi
      */
     public function up()
     {
-        Schema::table('user_settings', function (Blueprint $table) {
-            $table->renameColumn('news_notification', 'pinboard_notification');
-        });
+        if (Schema::hasColumn('user_settings', 'news_notification')){
+            Schema::table('user_settings', function (Blueprint $table) {
+                $table->renameColumn('news_notification', 'pinboard_notification');
+            });
+        }
     }
 
     /**
@@ -25,9 +27,11 @@ class RenameNewsNotificationToPinboardNotificationInUserSettingsTable extends Mi
      */
     public function down()
     {
-        Schema::table('pinboard_notification_in_user_settings', function (Blueprint $table) {
-            $table->renameColumn('pinboard_notification', 'news_notification');
-        });
+        if (Schema::hasColumn('user_settings', 'pinboard_notification')){
+            Schema::table('pinboard_notification_in_user_settings', function (Blueprint $table) {
+                $table->renameColumn('pinboard_notification', 'news_notification');
+            });
+        }
     }
 
 }
