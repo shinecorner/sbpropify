@@ -66,7 +66,6 @@
                         {
                             type: 'default',
                             title: 'general.actions.edit',
-                            onClick: this.edit,
                             editUrl: 'adminListingsEdit',
                             permissions: [
                                 this.$permissions.update.listing
@@ -84,14 +83,6 @@
 
         },
         methods: {
-            edit({id}) {
-                this.$router.push({
-                    name: 'adminListingsEdit',
-                    params: {
-                        id
-                    }
-                });
-            },
             fetchData() {
               let that = this;
               let url = '';

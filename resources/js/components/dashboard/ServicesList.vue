@@ -53,7 +53,7 @@
                         {
                             type: 'default',
                             title: 'general.actions.edit',
-                            onClick: this.edit,
+                            editUrl: 'adminServicesEdit',
                             permissions: [
                                 this.$permissions.update.provider
                             ]
@@ -63,14 +63,6 @@
             };
         },
         methods: {
-            edit({id}) {
-                this.$router.push({
-                    name: 'adminServicesEdit',
-                    params: {
-                        id
-                    }
-                });
-            },
             fetchData() {
               let that = this;
               let url = 'services?get_all=true&has_req=1';

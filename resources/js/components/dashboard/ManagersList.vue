@@ -54,7 +54,7 @@
                         {
                             type: 'default',
                             title: 'general.actions.edit',
-                            onClick: this.edit,
+                            editUrl: 'adminPropertyManagersEdit',
                             permissions: [
                                 this.$permissions.update.propertyManager
                             ]
@@ -64,14 +64,6 @@
             };
         },
         methods: {
-            edit({id}) {
-                this.$router.push({
-                    name: 'adminPropertyManagersEdit',
-                    params: {
-                        id
-                    }
-                });
-            },
             fetchData() {
               let that = this;
               let url = 'propertyManagers?get_all=true&has_req=1';

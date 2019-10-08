@@ -163,6 +163,7 @@ import { mapGetters } from 'vuex';
                    });
                 }
                 if (action === 'getPinboardTruncated') {
+                    console.log('action getPinboardTruncated in TenantViewTimeline', data)
                     this.$router.push({
                        name: 'adminPinboardEdit',
                        params: {
