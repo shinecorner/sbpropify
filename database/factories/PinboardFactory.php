@@ -30,7 +30,7 @@ $factory->define(App\Models\Pinboard::class, function (Faker $faker) {
 
     if ($announcement) {
         $subType = array_rand(Pinboard::SubType[$type]);
-        $category = Pinboard::CategoryGeneral;
+        $category = null;
 
         if ($subType == Pinboard::SubTypeMaintenance) {
             $category = array_rand(Pinboard::Category);
