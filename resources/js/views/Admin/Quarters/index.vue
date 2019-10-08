@@ -139,10 +139,18 @@
                     }
                 });
             },
+            async getState() {
+                const states = await this.axios.get('states?filters=true')
+                this.states = states.data.data;
+            },
         },
-        async created() {
-            const states = await this.axios.get('states?filters=true')
-            this.states = states.data.data;
-        }
+        created() {
+            this.getState();
+        },
+        mounted() {
+            this.$root.$on('changeLanguage', () => {
+                this.getState();
+            });
+        },
     }
 </script>
