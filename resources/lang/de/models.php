@@ -581,14 +581,22 @@ return [
         'contact_enable_desc' => 'Mieter können die Kontaktdaten der involvierten Dienstleister im Mieterportal sehen.',
         'iframe_enable' => 'Freie Mietobjekte',
         'iframe_enable_desc' => 'Im Mieterportal wird eine Rubrik mit Ihren freien Mietobjekten angezeigt. Hintelegen Sie hier die URL mit Ihren Objekten, beispielsweise von ImmoScou24 oder Homegate.',
-        'gocaution' => 'goCaution',
-        'gocaution_desc' => 'Mit der Kautionsbürgschaft entfällt die Hinterlegung einer Mietkaution. Sowohl Mieter als auch Vermieter profitieren von der bargeldlosen Mietkaution von goCaution.',
-        'cleanify_email' => 'Cleanify email',
-		'cleanify_email_desc' => 'Cleanify',
-        'cleanify_email_url' => 'Über Cleanify können Reinigungsfirmen kostenlose Offerten und verglichen werden.',
         'mail_encryption' => 'Verschlüsselung',
         'primary_color' => 'Primärfarbe',
         'accent_color' => 'Akzentfarbe',
+        'cleanify_email' => [
+            'label' => 'E-Mail bereinigen',
+            'description' => 'Über Cleanify können Reinigungsfirmen kostenlose Offerten und verglichen werden.',
+            'validation' => 'Cleanify Email sollte gültig sein',
+        ],
+        'cleanify_url' => [
+            'label' => 'E-Mail-URL bereinigen',
+            'validation' => 'E-Mail-URL bereinigen sollte eine gültige URL sein',
+        ],
+        'gocaution' => [
+            'label' => 'goCaution',
+            'description' => 'Mit der Kautionsbürgschaft entfällt die Hinterlegung einer Mietkaution. Sowohl Mieter als auch Vermieter profitieren von der bargeldlosen Mietkaution von goCaution.',
+        ],
         'iframe_url' => [
             'label' => 'URL mit Ihren Objekten',
             'validation' => 'Bitte geben Sie eine korrekte URL ein.',

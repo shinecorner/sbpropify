@@ -279,8 +279,8 @@
                                     <el-col :md="8">
                                         <el-card class="listing-card card-boxs">
                                             <span @click="Gocaution_drawer" class="icon-cog" style="display:none"></span>
-                                            <el-form-item :label="$t('models.settings.gocaution')" class="switcher switcher-block">
-                                                <span class="switcher__desc">{{$t('models.settings.gocaution_desc')}}</span>
+                                            <el-form-item :label="$t('models.settings.gocaution.label')" class="switcher switcher-block">
+                                                <span class="switcher__desc">{{$t('models.settings.gocaution.description')}}</span>
                                                 <el-switch 
                                                 v-model="model.gocaution_enable"
                                                 />
@@ -290,9 +290,9 @@
                                     <el-col :md="8">
                                         <el-card class="listing-card card-boxs">
                                             <span @click="Cleanify_drawer" class="icon-cog"></span>
-                                           <el-form-item :label="$t('models.settings.cleanify_email')"
+                                           <el-form-item :label="$t('models.settings.cleanify_email.label')"
                                                         :rules="validationRules.cleanify_email" prop="cleanify_email" class="switcher switcher-block">
-                                                <span class="switcher__desc">{{$t('models.settings.cleanify_email_desc')}}</span>
+                                                <span class="switcher__desc">{{$t('models.settings.cleanify_email.description')}}</span>
                                                 <el-switch 
                                                 v-model="model.cleanify_enable"
                                                 />
@@ -463,11 +463,11 @@
                     <div slot="label"><i class="icon-cog"></i> <label class="switcher__label">{{$t('models.settings.iframe_enable')}}</label> </div>
                 </el-tab-pane>
                 <el-tab-pane name="gocaution" v-if="Gocaution_drawer_val">
-                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.settings.gocaution')}}</label> </div>
+                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.settings.gocaution.label')}}</label> </div>
                     
                 </el-tab-pane>
                 <el-tab-pane name="cleanify" v-if="Cleanify_drawer_val">
-                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.settings.cleanify_email')}}</label> </div>
+                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.settings.cleanify_email.label')}}</label> </div>
                     <!-- <el-input type="email" v-model="model.cleanify_email"></el-input> -->
                 </el-tab-pane>
                 <div :style="{'display':Iframe_drawer_val?'block':'none'}">
