@@ -47,7 +47,8 @@
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.address.state.label')"
                                               :rules="validationRules.state_id"
-                                              prop="address.state_id">
+                                              prop="address.state_id"
+                                              class="label-block">
                                     <el-select :placeholder="$t('models.address.state.label')" style="display: block"
                                                v-model="model.address.state_id">
                                         <el-option :key="state.id" :label="state.name" :value="state.id"

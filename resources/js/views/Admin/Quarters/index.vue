@@ -52,6 +52,7 @@
         mixins: [mixin],
         data() {
             return {
+                states: [],
                 i18nName: 'quarter',
                 header: [{
                     label: 'general.name',
@@ -107,6 +108,11 @@
                         type: 'text',
                         icon: 'el-icon-search',
                         key: 'search'
+                    }, {
+                        name: this.$t('filters.states'),
+                        type: 'select',
+                        key: 'state_id',
+                        data: this.states,
                     }
                 ]
             }
@@ -133,6 +139,10 @@
                     }
                 });
             },
+        },
+        async created() {
+            const states = await this.axios.get('states?filters=true')
+            this.states = states.data.data;
         }
     }
 </script>
