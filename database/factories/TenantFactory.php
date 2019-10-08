@@ -22,5 +22,6 @@ $factory->define(App\Models\Tenant::class, function (Faker $faker) {
         'private_phone' => $faker->phoneNumber,
         'work_phone' => $faker->phoneNumber,
         'status' => $faker->numberBetween(Tenant::StatusActive, Tenant::StatusNotActive),
+        'nation' => \App\Models\Country::inRandomOrder()->first()->id
     ];
 });
