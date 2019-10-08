@@ -160,10 +160,10 @@ class PropertyManager extends AuditableModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     **/
+     * @return mixed
+     */
     public function quarters()
     {
-        return $this->belongsToMany(Quarter::class, 'quarter_property_manager', 'property_manager_id', 'quarter_id');
+        return $this->morphToMany(Quarter::class, 'assignee', 'quarter_assignees', 'assignee_id', 'quarter_id');
     }
 }

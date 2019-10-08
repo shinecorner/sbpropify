@@ -1,29 +1,16 @@
 <template>
     <el-card  :class="{announcement: data.announcement}">
         <div ref="container">
-            <div class="announcement" v-if="data.announcement">
+            <div class="announcement" v-if="data.announcement && data.type == 3">
                 <span> {{$t(`models.pinboard.sub_type.${$constants.pinboard.sub_type[3][data.sub_type]}`)}}</span>
             </div>
-            <loader v-if="loading" />
-            <div v-else class="user">
-                <ui-avatar :name="data.user.name" :size="42" :src="data.user.avatar" />
-                <div class="name">
-                    {{data.user.name}}
-                    <small>
-                        {{formatDatetime(data.created_at)}}
-                    </small>
-                </div>
-                <div class="actions" v-if="showActions && loggedInUser.id == data.user_id">
-                    <el-tooltip :content="$t('tenant.tooltips.edit_pinboard')">
-                        <el-button size="mini" icon="icon-pencil" @click="$emit('edit-pinboard', $event, data)" plain round></el-button>
-                    </el-tooltip>
-                    <el-tooltip :content="$t('tenant.tooltips.delete_pinboard')">
-                        <el-button size="mini" icon="icon-trash-empty" @click="$emit('delete-pinboard', $event, data)" plain round></el-button>
-                    </el-tooltip>
-                    
-                </div>
-            </div>
-            <div class="title" v-if="data.announcement">
+            <tenant-user
+                :data="data"
+                :showActions="showActions"
+                @edit-pinboard="$emit('edit-pinboard', $event, data)"
+                @delete-pinboard="$emit('delete-pinboard', $event, data)"
+            />
+            <div class="title" v-if="data.announcement && data.type == 3 &&  data.category">
                 <small>{{$t('tenant.category')}}:
                     {{$t(`models.pinboard.category.${$store.getters['application/constants'].pinboard.category[data.category]}`)}}
                 </small>

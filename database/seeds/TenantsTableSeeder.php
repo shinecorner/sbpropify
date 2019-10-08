@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\Building;
 use App\Models\Role;
-use App\Models\ServiceProvider;
 use App\Models\Tenant;
 use App\Models\Unit;
 use App\Models\User;
@@ -81,7 +79,6 @@ class TenantsTableSeeder extends Seeder
 
     protected function saveRentContracts($tenantId)
     {
-        $data = factory(App\Models\RentContract::class)->make()->toArray();
         $data['tenant_id'] = $tenantId;
         $data['status'] = \App\Models\RentContract::StatusActive;
 

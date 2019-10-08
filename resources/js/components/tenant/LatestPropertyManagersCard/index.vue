@@ -71,6 +71,7 @@
                     id: tenant.building_id
                 })
 
+                console.log('managers_last', managers_last)
                 if (managers_last) {
                     this.managers = managers_last
                 }

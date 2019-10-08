@@ -82,6 +82,9 @@ import WeatherCardLoader from './WeatherCard/Loader'
 import EmergencyCardError from './EmergencyCard/Error'
 import EmergencyCardLoader from './EmergencyCard/Loader'
 
+import TenantUserError from './TenantUser/Error'
+import TenantUserLoader from './TenantUser/Loader'
+
 
 export default {
     install (Vue) {
@@ -151,14 +154,14 @@ export default {
             }),
             pinboardCard: () => ({
                 component: import(/* webpackChunkName: "pinboardCard" */ './PinboardCard'),
-                loading: PinboardCardLoader,
+                // loading: PinboardCardLoader,
                 error: PinboardCardError,
                 delay: 0,
                 timeout: 8000
             }),
             pinboardNewTenantCard: () => ({
                 component: import(/* webpackChunkName: "pinboardNewTenantCard" */ './PinboardNewTenantCard'),
-                loading: PinboardNewTenantCardLoader,
+                // loading: PinboardNewTenantCardLoader,
                 error: PinboardNewTenantCardError,
                 delay: 0,
                 timeout: 8000
@@ -279,6 +282,13 @@ export default {
                 component: import(/* webpackChunkName: "weatherCard" */ './EmergencyCard'),
                 loading: EmergencyCardLoader,
                 error: EmergencyCardError,
+                delay: 0,
+                timeout: 8000
+            }),
+            tenantUser: () => ({
+                component: import(/* webpackChunkName: "weatherCard" */ './TenantUser'),
+                loading: TenantUserLoader,
+                error: TenantUserError,
                 delay: 0,
                 timeout: 8000
             })

@@ -4,7 +4,7 @@ use App\Models\Pinboard;
 use App\Repositories\PinboardRepository;
 use Illuminate\Database\Seeder;
 
-class PostsTableSeeder extends Seeder
+class PinboardTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
