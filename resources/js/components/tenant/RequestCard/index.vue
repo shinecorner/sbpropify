@@ -355,6 +355,7 @@
 
                                 .ui-media-gallery__more_item__content
                                     display: flex
+                                    flex-direction: column;
                                     justify-content: center
                                     align-items: center
 

@@ -229,7 +229,8 @@
         .row {
             display: grid;
             grid-gap: 12px;
-            grid-template-columns: repeat(auto-fill, minmax(448px, 1fr));
+            // grid-template-columns: repeat(auto-fill, minmax(448px, 1fr));
+            grid-template-columns: 1fr 1fr 1fr;
 
             .column {
                 display: grid;
@@ -246,19 +247,18 @@
         }
     }
 
-    @media only screen and (min-width: 1300px) {
+    @media only screen and (max-width: 1300px) {
         .dashboard {
             .row {
-                display: flex;
-                .column {
-                    flex: 1;
-                    margin-left: 12px;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    }
 
-                    &:first-child {
-                        margin-left: 0;
-                    }
-                }
-
+    @media only screen and (max-width: 676px) {
+        .dashboard {
+            .row {
+                grid-template-columns: 1fr;
             }
         }
     }

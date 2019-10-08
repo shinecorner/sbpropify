@@ -3,7 +3,7 @@
         <div class="left-circle icon-tools">
         </div>
         <div class="right-text">
-            <p>{{$t('tenant.emergency.title')}}</p>
+            <p class="title">{{$t('tenant.emergency.title')}}</p>
             <p class="desc">{{$t('tenant.emergency.desc')}}</p>
             <p class="phone-number">079 999 99 99</p>
         </div>
@@ -65,4 +65,20 @@
                     font-weight: bolder
                     font-size: 15px
                     margin-top: 5px
+
+    @media only screen and (max-width: 676px)
+        .ui-card
+            /deep/ .ui-card__body
+                display: flex
+                flex-direction: column
+
+                .right-text
+                    display: flex
+                    flex-direction: column
+                    align-items: center
+                    padding-left: 0
+
+                    .title
+                        margin-bottom: 0
+    
 </style>

@@ -144,4 +144,8 @@
         background-color: #fff
         border: 1px var(--border-color-base) solid
         box-shadow: 0 16px 28px 0 transparentize(#000, .78), 0 25px 55px 0 transparentize(#000, .79)
+
+    @media only screen and (max-width: 676px)
+        .ui-drawer
+            box-shadow: none
 </style>
