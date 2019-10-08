@@ -309,6 +309,10 @@
     }
 </script>
 <style lang="scss">
+    .el-table .cell, .el-table th div{
+        overflow: hidden;
+        text-overflow: unset;
+    }
     .el-table__empty-text{
         width: 100%;
         .el-alert{
