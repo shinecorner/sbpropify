@@ -190,7 +190,7 @@
             </el-table-column>
         </el-table>
         <div v-if="meta.current_page < meta.last_page">
-            <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('loadMore')}}</el-button>
+            <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('general.loadMore')}}</el-button>
         </div>
     </div>
 </template>
@@ -309,6 +309,10 @@
     }
 </script>
 <style lang="scss">
+    .el-table .cell, .el-table th div{
+        overflow: hidden;
+        text-overflow: unset;
+    }
     .el-table__empty-text{
         width: 100%;
         .el-alert{
