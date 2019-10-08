@@ -118,6 +118,7 @@
                 text-transform: uppercase
                 background-color: transparentize(#000, .24)
                 box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76)
+                left: 6px;
 
                 &.free
                     background-color: var(--color-primary)
