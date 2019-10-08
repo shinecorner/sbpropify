@@ -303,7 +303,8 @@ export default (config = {}) => {
                     ...mixin.methods,
                     ...mapActions(['createPinboard', 'changePinboardPublish']),
                     async submit(afterValid = false) {
-                        const valid = this.form.validate();
+                        const valid = await this.form.validate();
+                        
                         if (!valid) {
                             return false;
                         }

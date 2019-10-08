@@ -62,6 +62,7 @@ export default (config = {}) => {
                     state: false,
                     text: 'general.please_wait'
                 },
+                queryParams: null,
                 isFormSubmission: false
             };
         },
