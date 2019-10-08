@@ -346,7 +346,7 @@
                                                     >
                                             </el-form-item> -->
                                             <el-form-item :label="$t('models.user.tenant_logo')">
-                                                <upload-avatar @imageUploaded="setTenantLogoUpload"/>
+                                                <upload-document @fileUploaded="setTenantLogoUpload" class="drag-custom" drag/>
                                                 <img :src="tenant_logo_upload_img"
                                                      v-show="tenant_logo_upload_img"
                                                     >

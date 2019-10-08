@@ -325,7 +325,7 @@
                         <span slot="label">
                             <el-badge :value="requestCount" :max="99" class="admin-layout">{{ $t('general.requests') }}</el-badge>
                         </span>
-                        <el-button style="float:right" type="primary" @click="toggleDrawer" size="mini" round>Settings Drawer</el-button>
+                        <!-- <el-button style="float:right" type="primary" @click="toggleDrawer" size="mini" round>Settings Drawer</el-button> -->
                         <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
@@ -814,73 +814,75 @@
     .buildings-edit {
         flex: 1;
 
-        .heading {
-            margin-bottom: 20px;
-        }
+        .main-content {
+            .heading {
+                margin-bottom: 20px;
+            }
 
-        > .el-row > .el-col {
-            /*min-width: 448px;*/
-            /*max-width: 576px;*/
+            > .el-row > .el-col {
+                /*min-width: 448px;*/
+                /*max-width: 576px;*/
 
-            :global(.el-card) {
-                label {
-                    margin-bottom: .5em;
-                    display: block;
+                :global(.el-card) {
+                    label {
+                        margin-bottom: .5em;
+                        display: block;
+                    }
+                }
+
+                > *:not(:last-of-type) {
+                    margin-bottom: 1em;
                 }
             }
 
-            > *:not(:last-of-type) {
-                margin-bottom: 1em;
-            }
-        }
+            > .el-row > .el-col:last-of-type:not(.custom-column) {
+                /*min-width: 448px;*/
+                /*max-width: 576px;*/
 
-        > .el-row > .el-col:last-of-type:not(.custom-column) {
-            /*min-width: 448px;*/
-            /*max-width: 576px;*/
+                :global(.el-card) {
+                    label {
+                        margin-bottom: .5em;
+                        display: block;
+                    }
+                }
 
-            :global(.el-card) {
-                label {
-                    margin-bottom: .5em;
-                    display: block;
+                > *:not(:last-of-type) {
+                    margin-bottom: 1em;
                 }
             }
 
-            > *:not(:last-of-type) {
-                margin-bottom: 1em;
-            }
-        }
+            .ui-drawer {
+                .ui-divider {
+                    margin: 32px 16px 0 16px;
+                    i {
+                        padding-right: 0;
+                    }
 
-        .ui-drawer {
-            .ui-divider {
-                margin: 32px 16px 0 16px;
-                i {
-                    padding-right: 0;
+                    /deep/ .ui-divider__content {
+                        left: 0;
+                        z-index: 1;
+                        padding-left: 0;
+                        font-size: 16px;
+                        font-weight: 700;
+                        color: var(--color-primary);
+                    }
                 }
 
-                /deep/ .ui-divider__content {
-                    left: 0;
-                    z-index: 1;
-                    padding-left: 0;
-                    font-size: 16px;
-                    font-weight: 700;
-                    color: var(--color-primary);
+                .content {
+                    height: calc(100% - 70px);
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    padding: 16px;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    -webkit-box-orient: vertical;
+                    -webkit-box-direction: normal;
+                    -ms-flex-direction: column;
+                    flex-direction: column;
+                    position: relative;
+
                 }
-            }
-
-            .content {
-                height: calc(100% - 70px);
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                padding: 16px;
-                overflow-x: hidden;
-                overflow-y: auto;
-                -webkit-box-orient: vertical;
-                -webkit-box-direction: normal;
-                -ms-flex-direction: column;
-                flex-direction: column;
-                position: relative;
-
             }
         }
     }
