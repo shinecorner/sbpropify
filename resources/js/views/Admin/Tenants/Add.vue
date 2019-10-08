@@ -246,6 +246,7 @@
     .tenants-add {
         overflow: hidden;
         height: 100%;
+        flex: 1;
 
         .main-content { 
             overflow-x: hidden;

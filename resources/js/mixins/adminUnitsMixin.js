@@ -23,6 +23,8 @@ export default (config = {}) => {
                     type: null,
                     room_no: '',
                     monthly_rent_net: '',
+                    monthly_maintenance: '',
+                    monthly_rent_gross: '',
                     floor: '',
                     sq_meter: '',
                     attic: false,
@@ -49,6 +51,10 @@ export default (config = {}) => {
                     monthly_rent_net: [{
                         required: true,
                         message: this.$t("models.unit.validation.monthly_rent_net.required")
+                    }],
+                    monthly_maintenance: [{
+                        required: true,
+                        message: this.$t("models.unit.validation.monthly_maintenance.required")
                     }],
                     floor: [{
                         required: true,
@@ -259,6 +265,8 @@ export default (config = {}) => {
 
                                 this.loading.state = true;
                                 try {
+
+                                    this.model.monthly_rent_gross = Number(this.model.monthly_rent_net) + Number(this.model.monthly_maintenance)
                                     const resp = await this.updateUnit(this.model)
                                     displaySuccess(resp);
                                     resolve(true);

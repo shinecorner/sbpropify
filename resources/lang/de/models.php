@@ -184,6 +184,7 @@ return [
             'label' => 'Status',
             'active' => 'Aktiv',
             'not_active' => 'Inaktiv',
+            'total' => 'Gesamt',
         ],
         'credentials_pdf' => [
             "tenant_credentials" => "Anmeldedaten des Mieters",
@@ -343,6 +344,9 @@ return [
             ],
             'monthly_rent_net' => [
                 'required' => 'Monatsmiete ist obligatorisch',
+            ],
+            'monthly_maintenance' => [
+                'required' => 'Eine monatliche Wartung ist erforderlich.',
             ],
             'floor' => [
                 'required' => 'Etage ist obligatorisch',
@@ -526,6 +530,10 @@ return [
         'required' => 'Überbauung ist ein Pflichfeld!',
         'buildings' => 'Liegenschaften',
         'count_of_buildings' => 'Anzahl Liegenschaften',
+        'buildings_count' => 'Gebäude zählen',
+        'total_units_count' => 'Gesamtzahl der Einheiten',
+        'occupied_units_count' => 'Anzahl der belegten Einheiten',
+        'active_tenants_count' => 'Aktive Mieter zählen',
         'assignment' => 'Zugewiesene Personen/Administrator',
         'errors' => [
             'not_found' => "Überbauung nicht gefunden.",
@@ -658,6 +666,7 @@ return [
         'last_updated' => 'Zuletzt bearbeitet',
         'was_due_on' => 'In Verzug seit',
         'due_on' => 'Zu erledigen bis',
+        'solved_on' => 'Gelöst am',
         'ago' => 'zuvor',
         'not_set' => 'Nicht gesetzt',
         'today' => 'Heute',

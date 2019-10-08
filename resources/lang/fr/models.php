@@ -185,6 +185,7 @@ return [
             "label" => "Statut",
             "active" => "Actif",
             "not_active" => "Non actif",
+            'total' => 'Total',
         ],
         'credentials_pdf' => [
             'tenant_credentials' => 'Accréditation des locataires',
@@ -344,6 +345,9 @@ return [
             ],
             'monthly_rent_net' => [
                 "required" => "Un loyer mensuel est exigé",
+            ],
+            'monthly_maintenance' => [
+                'required' => 'Un entretien mensuel est nécessaire',
             ],
             'floor' => [
                 "required" => "Un plancher est requis",
@@ -527,6 +531,10 @@ return [
         "required" => "Ce champ est obligatoire",
         "buildings" => "Bâtiments",
         'count_of_buildings' => 'Nombre de bâtiments',
+        'buildings_count' => 'Nombre de bâtiments',
+        'total_units_count' => "Nombre total d'unités",
+        'occupied_units_count' => 'Nombre de logements occupés',
+        'active_tenants_count' => 'Nombre de locataires actifs',
         'assignment' => "Affectation des gestionnaires/administrateurs",
         'errors' => [
             'not_found' => "Trimestre non trouvé",
@@ -660,6 +668,7 @@ return [
         'due_in' => 'Échues en',
         'was_due_on' => 'Était dû le',
         'due_on' => 'Dû le',
+        'solved_on' => 'Résolu sur',
         'active_reminder_switcher' => 'Rappel actif',
         'days_left' => "Combien de jours avant l'envoi de l'email ?",
         'send_person' => 'Quelle personne doit être notifiée ?',

@@ -37,30 +37,11 @@ function get_translation_attribute_name($attribute)
     return $attribute;
 }
 
-function update_district_to_quarter($class, $fields)
+function update_db_fields($class, $fields, $replace, $to, $isUcFirst = false)
 {
     $model = new $class();
     $query = $model->newQuery();
-    $query->where('id', 0);
-    foreach ($fields as $field) {
-        $query->orWhere($field, 'like', '%district%');
-    }
-    $items = $query->select($fields)->addSelect('id')->get();
-    foreach ($items as $item) {
-        foreach ($fields as $field) {
-            $value = str_replace('District', 'Quarter', $item->{$field});
-            $value = str_replace('district', 'quarter', $value);
-            $item->{$field} = $value;
-            $item->save();
-        }
-    }
-}
-
-function update_db_fileds($class, $fields, $replace, $to, $isUcFirst = false)
-{
-    $model = new $class();
-    $query = $model->newQuery();
-    $query->where('id', 0);
+    $fields = \Illuminate\Support\Arr::wrap($fields);
     foreach ($fields as $field) {
         $query->orWhere($field, 'like', '%' . $replace . '%');
     }
@@ -91,5 +72,17 @@ function update_db_fileds($class, $fields, $replace, $to, $isUcFirst = false)
                 $item->save();
             }
         }
+    }
+}
+
+function update_notifications_data_value($replace, $to)
+{
+    $notifications = \Illuminate\Notifications\DatabaseNotification::where('data', 'like', '%' . $replace .'%')->get();
+    foreach ($notifications as $notification) {
+        $value = json_encode($notification->data);
+        $newValue = str_replace($replace, $to, $value);
+        echo '[' . $value  . "] replaced to [" . $newValue . ']' . PHP_EOL;
+        $notification->data = json_decode($newValue);
+        $notification->save();
     }
 }

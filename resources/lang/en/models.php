@@ -185,6 +185,7 @@ return [
             'label' => 'Status',
             'active' => 'Active',
             'not_active' => 'Not active',
+            'total' => 'Total',
         ],
         'credentials_pdf' => [
             'tenant_credentials' => 'Tenant credentials',
@@ -344,6 +345,9 @@ return [
             ],
             'monthly_rent_net' => [
                 'required' => 'Monthly rent is required',
+            ],
+            'monthly_maintenance' => [
+                'required' => 'Monthly maintenance is required',
             ],
             'floor' => [
                 'required' => 'Floor is required',
@@ -526,7 +530,11 @@ return [
         'cancel' => 'Cancel',
         'required' => 'This field is required',
         'buildings' => 'Buildings',
-        'count_of_buildings' => 'Count of buildings',
+        'count_of_buildings' => 'Allowed buildings',
+        'buildings_count' => 'Count of buildings',
+        'total_units_count' => 'Count of units',
+        'occupied_units_count' => 'Count of occupied units',
+        'active_tenants_count' => 'Count of active tenants',
         'assignment' => 'Assignment of managers/administrator',
         'errors' => [
             'not_found' => "Quarter not found",
@@ -663,6 +671,7 @@ return [
         'due_in' => 'Due in',
         'was_due_on' => 'Was due on',
         'due_on' => 'Due on',
+        'solved_on' => 'Solved on',
         'active_reminder_switcher' => 'Active Reminder',
         'days_left' => 'How many days before should the email be sent?',
         'send_person' => 'Which person should be notified?',

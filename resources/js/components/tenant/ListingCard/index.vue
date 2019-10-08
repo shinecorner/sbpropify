@@ -88,6 +88,7 @@
                     /deep/ .ui-image__inner
                         filter: brightness(.8)
                         transition: filter .48s
+
                 .edit-btn
                     position: absolute
                     right: 20px
@@ -95,11 +96,16 @@
                     width: 40px
                     height: 40px
                     border-radius: 50%
-                    background: var(--primary-color)
+                    background: var(--primary-color-lighter)
                     display: flex
                     justify-content: center
                     align-items: center
-                    color: white
+                    color: var(--primary-color)
+                    display: none
+                &:hover
+                    .edit-btn
+                        display: flex
+
 
             .price
                 color: #fff

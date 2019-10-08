@@ -100,8 +100,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *     @SWG\Property(
- *          property="news_approval_enable",
- *          description="news_approval_enable",
+ *          property="pinboard_approval_enable",
+ *          description="pinboard_approval_enable",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -158,7 +158,7 @@ class Settings extends AuditableModel
         'quarter_enable',
         'contact_enable',
         'listing_approval_enable',
-        'news_approval_enable',
+        'pinboard_approval_enable',
         'comment_update_timeout',
         'free_apartments_enable',
         'free_apartments_url',
@@ -168,7 +168,7 @@ class Settings extends AuditableModel
         'gocaution_enable',
         'cleanify_enable',
         'cleanify_email',
-        'news_receiver_ids',
+        'pinboard_receiver_ids',
         'mail_host',
         'mail_port',
         'mail_username',
@@ -206,7 +206,7 @@ class Settings extends AuditableModel
         'gocaution_enable' => 'boolean',
         'cleanify_enable' => 'boolean',
         'listing_approval_enable' => 'boolean',
-        'news_approval_enable' => 'boolean',
+        'pinboard_approval_enable' => 'boolean',
         'comment_update_timeout' => 'integer',
         'free_apartments_enable' => 'boolean',
         'free_apartments_url' => 'string',
@@ -214,7 +214,7 @@ class Settings extends AuditableModel
         'iframe_url' => 'string',
         'iframe_enable' => 'boolean',
         'cleanify_email' => 'string',
-        'news_receiver_ids' => 'array',
+        'pinboard_receiver_ids' => 'array',
         'mail_host' => 'string',
         'mail_port' => 'integer',
         'mail_username' => 'string',
@@ -247,7 +247,7 @@ class Settings extends AuditableModel
                     }
                 }
             },
-            'news_receiver_ids' => function($attr, $val, $fail) {
+            'pinboard_receiver_ids' => function($attr, $val, $fail) {
                 $us = User::whereIn('id', $val)->get();
                 foreach ($us as $u) {
                     if (!$u->hasRole('administrator')) {

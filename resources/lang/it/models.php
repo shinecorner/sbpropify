@@ -185,6 +185,7 @@ return [
             "label" => "Situazione",
             "active" => "Attivo",
             "not_active" => "Non attivo",
+            'total' => 'Totale',
         ],
         'credentials_pdf' => [
             'tenant_credentials' => 'Le credenziali dell\'inquilino',
@@ -344,6 +345,9 @@ return [
             ],
             'monthly_rent_net' => [
                 "required" => "L'affitto mensile è richiesto",
+            ],
+            'monthly_maintenance' => [
+                'required' => 'La manutenzione mensile è richiesta',
             ],
             'floor' => [
                 "required" => "Il pavimento è obbligatorio",
@@ -527,6 +531,10 @@ return [
         "required" => "Questo campo è obbligatorio",
         "buildings" => "Edifici",
         'count_of_buildings' => 'Conteggio degli edifici',
+        'buildings_count' => 'Conteggio edifici',
+        'total_units_count' => 'Totale unità di misura',
+        'occupied_units_count' => 'Le unità occupate contano',
+        'active_tenants_count' => 'Gli inquilini attivi contano',
         'assignment' => "Assegnazione di manager/amministratore",
         'errors' => [
             'not_found' => "Quartiere non trovato",
@@ -660,6 +668,7 @@ return [
         'due_in' => 'Scadenza',
         'was_due_on' => 'Era prevista per il',
         'due_on' => 'In scadenza il',
+        'solved_on' => 'Risolto il',
         'active_reminder_switcher' => 'Promemoria attivo',
         'days_left' => "Quanti giorni prima dovrebbe essere inviata l'e-mail?",
         'send_person' => 'Quale persona deve essere informata?',

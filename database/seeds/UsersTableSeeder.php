@@ -57,8 +57,8 @@ class UsersTableSeeder extends Seeder
         $settings->language = 'en';
         $settings->summary = 'daily';
         $settings->admin_notification = 1;
-        $settings->news_notification = 1;
-        $settings->marketplace_notification = 1;
+        $settings->pinboard_notification = 1;
+        $settings->listing_notification = 1;
         $settings->service_notification = 1;
 
         return $settings;

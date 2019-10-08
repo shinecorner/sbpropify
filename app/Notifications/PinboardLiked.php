@@ -48,7 +48,7 @@ class PinboardLiked extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        if ($notifiable->settings && $notifiable->settings->news_notification) {
+        if ($notifiable->settings && $notifiable->settings->pinboard_notification) {
             return ['database', 'mail'];
         }
 
