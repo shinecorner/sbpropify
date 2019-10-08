@@ -279,44 +279,46 @@
                                     :value="contactEnableValue.value"
                                     v-for="contactEnableValue in contactEnableValues"/>
                         </el-select>
-                        <div v-if="model.service_providers && model.service_providers.length" class="mt15" style="padding: 0 5px;">
-                            <el-row :gutter="10" :key="service.id" class="list-complete-item"
-                                    v-for="service in model.service_providers">
-                                <el-col :md="7">
-                                    <strong>{{$t(`models.service.category.${$constants.serviceProviders.category[service.category]}`)}}</strong>
-                                </el-col>
-                                <el-col :md="16">
-                                    {{service.name}}
-                                </el-col>
-                                <el-col :md="1" style="text-align: right">
-                                    <el-button :style="{color: 'red'}" @click="removeService(service)"
-                                               icon="ti-close" size="mini"
-                                               type="text"
-                                    />
-                                </el-col>
-                            </el-row>
-                        </div>
-                        <div v-else class="mt15">
-                            {{$t('models.building.no_services')}}
-                        </div>
-                        <div class="mt15">
-                            <label class="">{{$t('models.building.add_companies')}}</label>
-                            <el-select multiple
-                                       placeholder="Select"
-                                       style="margin: 15px 0 0; width: 100%" v-model="model.service_providers_ids">
-                                <el-option-group
-                                    :key="serviceCategory"
-                                    :label="$t(`models.service.category.${$constants.serviceProviders.category[serviceCategory]}`)"
-                                    v-for="(services, serviceCategory) in allServices">
+                        <el-divider class="mt15" />
+                        <el-row :gutter="10">
+                            <el-col :lg="18" :xl="20">
+                                <el-select
+                                    :loading="remoteLoading"
+                                    :placeholder="$t('models.building.add_companies')"
+                                    :remote-method="remoteSearchProviders"
+                                    class="custom-remote-select"
+                                    filterable
+                                    remote
+                                    reserve-keyword
+                                    style="width: 100%;"
+                                    v-model="toAssignProvider"
+                                >
+                                    <div class="custom-prefix-wrapper" slot="prefix">
+                                        <i class="el-icon-search custom-icon"></i>
+                                    </div>
                                     <el-option
-                                        :key="service.id"
-                                        :label="service.name"
-                                        :value="service.id"
-                                        v-for="service in services">
-                                    </el-option>
-                                </el-option-group>
-                            </el-select>
-                        </div>
+                                        :key="provider.id"
+                                        :label="provider.name"
+                                        :value="provider.id"
+                                        v-for="provider in toAssignProviderList"/>
+                                </el-select>
+                            </el-col>
+                            <el-col :lg="6" :xl="4">
+                                <el-button :disabled="!toAssignProvider" @click="attachProvider" class="full-button"
+                                            icon="ti-save" type="primary">
+                                    {{$t('general.assign')}}
+                                </el-button>
+                            </el-col>
+                        </el-row>
+                       <relation-list
+                            :actions="assignmentsProviderActions"
+                            :columns="assignmentsProviderColumns"
+                            :filterValue="model.id"
+                            fetchAction="getServices"
+                            filter="building_id"
+                            ref="assignmentsProviderList"
+                            v-if="model.id"
+                        />
                     </el-tab-pane>
                 </el-tabs>
                 
@@ -479,14 +481,25 @@
                         title: 'general.actions.edit',
                         onClick: this.requestEditView
                     }]
+                }],
+                assignmentsProviderColumns: [{
+                    prop: 'name',
+                    label: 'general.name'
+                }],
+                assignmentsProviderActions: [{
+                    width: '180px',
+                    buttons: [{
+                        title: 'general.unassign',
+                        type: 'danger',
+                        onClick: this.notifyProviderUnassignment
+                    }]
                 }],                
                 remoteLoading: false,
                 deleteBuildingVisible: false,
                 multiple: true,
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
                 contactUseGlobalAddition: '',
-                fileCount: 0,
-                serviceCount: 0,
+                fileCount: 0,                
                 tenantCount: 0,
                 assigneeCount: 0,
                 unitCount: 0,
@@ -725,6 +738,37 @@
             toggleDrawer() {
                 this.visibleDrawer = true;
                 document.getElementsByTagName('footer')[0].style.display = "none";
+            },
+             notifyProviderUnassignment(row) {
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
+                    type: 'warning'
+                }).then(async () => {
+                    try {
+                        this.loading.status = true;
+
+                        await this.unassignProvider(row);
+
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.loading.status = false;
+                    }
+                }).catch(async () => {
+                    this.loading.status = false;
+                });
+            },
+            async unassignProvider(toUnassign) {
+                const resp = await this.unassignServiceBuilding({
+                    id: toUnassign.id,
+                    toAssignId: this.model.id
+                });
+
+                this.$refs.assignmentsProviderList.fetch(); 
+                this.resetToAssignProviderList();
+                this.serviceCount--;
+                displaySuccess(resp.data)
             },
         },
         mounted() {

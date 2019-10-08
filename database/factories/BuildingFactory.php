@@ -13,7 +13,7 @@ $factory->define(App\Models\Building::class, function (Faker $faker) {
         'floor_nr' => $faker->numberBetween(1, 30),
         'basement' => $faker->numberBetween(0, 1),
         'attic' => $faker->numberBetween(0, 1),
-        'contact_enable' => $faker->boolean,
+        'contact_enable' => array_rand(\App\Models\Building::BuildingContactEnables),
         'internal_building_id' => $faker->boolean ? (\App\Models\Building::inRandomOrder()->first()->id ?? null) : null,
     ];
 });
