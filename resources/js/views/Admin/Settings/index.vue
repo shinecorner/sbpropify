@@ -510,6 +510,7 @@
     import Heading from 'components/Heading';
     import Cropper from 'components/Cropper';
     import UploadAvatar from 'components/UploadAvatar';
+    import UploadDocument from 'components/UploadDocument';
     import {mapActions} from 'vuex';
     import {displayError, displaySuccess} from 'helpers/messages';
     import CategoriesListing from './Categories'
@@ -523,6 +524,7 @@
             Heading,
             Cropper,
             UploadAvatar,
+            UploadDocument,
             CategoriesListing,
             TemplatesListing
         },
