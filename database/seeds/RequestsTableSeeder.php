@@ -50,6 +50,8 @@ class RequestsTableSeeder extends Seeder
                 $request->status = array_rand(Request::Status);
                 if ($request->status == Request::StatusDone) {
                     $request->solved_date = now();
+                    $request->resolution_time = now()->diffInSeconds($request->created_at);
+
                 }
 
                 $request->save();
