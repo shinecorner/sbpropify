@@ -614,7 +614,7 @@ return [
             "validation" => "Inserisci la password e-mail"
         ],
         "mail_powered_by" => [
-            "label" => "Email",
+            "label" => "E-mail Piè di pagina",
             "validation" => "Inserisci e-mail"
         ],
         'errors' => [

@@ -192,10 +192,10 @@ export default {
             if(this.item.status != 4) {
                 label = 'models.request.due_on';
                 if(this.item.due_date !==undefined && this.item.due_date) {
-                    tooltip = this.item.due_date;
                     let due_date_formatted = format(this.item.due_date, 'DD.MM.YYYY');
                     var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
                     var days = differenceInCalendarDays(updated_date, new Date()) ;
+                     tooltip = due_date_formatted;
                     date = due_date_formatted;
                     if(days < 0) {
                         label = 'models.request.was_due_on';
@@ -215,10 +215,10 @@ export default {
                 }
             } else {
                 label = 'models.request.solved_on';
-                tooltip = this.item.solved_date;
                 let solved_date_formatted = format(this.item.solved_date, 'DD.MM.YYYY');
                 var solved_date = parse(this.item.solved_date, 'yyyy-MM-dd', new Date());
                 var days = differenceInCalendarDays(solved_date, new Date()) ;
+                tooltip = solved_date_formatted;
                 date = solved_date_formatted;
                 if(days < 0) {
                     date = solved_date_formatted;
@@ -400,14 +400,14 @@ export default {
                     }
                     .created-by {
                         display: flex;
-                        div{
+                        div:nth-child(2){
                             margin-left: 10px;
                         }
                     }
                 } 
                 &:nth-of-type(9) {
                     p {
-                        display: inline;
+                        display: inline-block;
                     }
                 }
             }

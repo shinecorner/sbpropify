@@ -613,7 +613,7 @@ return [
             "validation" => "E-Mail-Passwort eingeben"
         ],
         "mail_powered_by" => [
-            "label" => "Email",
+            "label" => "E-Mail-Fußzeile",
             "validation" => "Email eingeben"
         ],
         'errors' => [

@@ -1,4 +1,4 @@
-import {mapActions} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
 
 export default (config = {}) => {
@@ -11,13 +11,30 @@ export default (config = {}) => {
                     description: '',
                     buildings: [],
                     count_of_buildings: null,
+                    address: {
+                        state_id: '',
+                        city: '',
+                        zip: ''
+                    },
                 },
                 quarter_format: '',
                 validationRules: {
                     name: [{
                         required: true,
                         message: this.$t('models.quarter.required')
-                    }]
+                    }], 
+                    state_id: [{
+                        required: true,
+                        message: this.$t('validation.required', {attribute: this.$t('models.address.state.label')})
+                    }],
+                    city: [{
+                        required: true,
+                        message: this.$t('validation.required', {attribute: this.$t('general.city')})
+                    }],
+                    zip: [{
+                        required: true,
+                        message: this.$t('validation.required', {attribute: this.$t('general.zip')})
+                    }],
                 },
                 loading: {
                     state: false,
@@ -35,9 +52,10 @@ export default (config = {}) => {
             form() {
                 return this.$refs.form;
             },
+            ...mapGetters(['states'])
         },
         methods: {
-            ...mapActions(['assignManagerToQuarter','assignUsersToQuarter','getQuarter','getUsers','getPropertyManagers','unassignQuarterAssignee']),
+            ...mapActions(['getStates','assignManagerToQuarter','assignUsersToQuarter','getQuarter','getUsers','getPropertyManagers','unassignQuarterAssignee']),
             resetToAssignList() {
                 this.toAssignList = [];
                 this.toAssign = '';
@@ -176,6 +194,12 @@ export default (config = {}) => {
                     },
                 };
 
+                mixin.created = async function () {
+                    this.loading.state = true;
+                    this.getStates();
+                    this.loading.state = false;
+                };
+
                 break;
 
             case 'edit':
@@ -218,6 +242,7 @@ export default (config = {}) => {
 
                 mixin.created = async function () {
                     this.loading.state = true;
+                    this.getStates();
                     await this.fetchCurrentQuarter();
                     this.loading.state = false;
                 };
