@@ -26,7 +26,7 @@
                     <template slot="prepend">CHF</template>
                 </el-input>
                 <div style="padding: 4px">.</div>
-                <el-input v-model="model.price.decimals" style="width: 50%" />
+                <el-input v-model="model.price.decimals" :maxlength=2 style="width: 50%" />
             </div>
         </el-form-item>
         <el-form-item prop="content" :label="$t('tenant.content')">
