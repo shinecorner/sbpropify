@@ -22,7 +22,7 @@ class UserSettingsRepository extends BaseRepository
         'language',
         'summary',
         'admin_notification',
-        'news_notification',
+        'pinboard_notification',
         'listing_notification',
         'service_notification'
     ];

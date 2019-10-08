@@ -24,7 +24,7 @@ class SettingsTableSeeder extends Seeder
 
         $settings->free_apartments_enable = false;
         $settings->opening_hours = json_encode($this->getOpeningHours());
-        $settings->news_receiver_ids = [];
+        $settings->pinboard_receiver_ids = [];
         $settings->mail_host = env('MAIL_HOST', 'smtp.mailgun.org');
         $settings->mail_port = env('MAIL_PORT', 587);
         $settings->mail_username = env('MAIL_USERNAME');

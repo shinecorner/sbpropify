@@ -204,7 +204,7 @@ class PinboardAPIController extends AppBaseController
             $input['notify_email'] = true;
             $settings = $settingsRepository->first();
             if ($settings) {
-                $input['needs_approval'] = $settings->news_approval_enable;
+                $input['needs_approval'] = $settings->pinboard_approval_enable;
             }
         }
 
