@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="statuses" v-if="this.data.category.parent_id == 1 && this.data.qualification ==5">
+                <div class="statuses" v-if="this.data.category.parent_id == 1 && this.data.qualification == 5 && this.data.payer">
                     <div class="item">
                         {{$t('tenant.cost_impact')}}:
                         <div class="label">
