@@ -34,7 +34,7 @@
                 </template>
                 <el-pagination slot="footer" :layout="pagination.layout" :current-page="pagination.current" :page-size="pagination.size" :page-sizes="pagination.sizes" :total="listings.total" @size-change="onSizeChange" @current-change="onCurrentPageChange" background />
             </ui-card>
-            <el-dialog :custom-class="`listing__opened-listing-dialog ${el.is.md ? 'listing__opened-listing-md-dialog' : ''}`" :visible.sync="visibleDialog" :before-close="onListingDetailsDialogClose" :show-close="false" append-to-body>
+            <el-dialog :custom-class="`listing__opened-listing-dialog ${el.is.md ? 'listing__opened-listing-md-dialog' : ''}`" :visible.sync="visibleDialog" :before-close="onListingDetailsDialogClose" :show-close="true" append-to-body>
                 <listing-details :data="openedListing" v-if="openedListing" />
             </el-dialog>
         </div>
@@ -273,6 +273,16 @@
         .el-button
             width: 100%
             margin-top: 8px
+    @media only screen and (max-width: 676px)
+        .listing__opened-listing-dialog
+            width: 100%
+            margin-top: 0 !important
+
+            .el-dialog__header
+                display: block
+                position: absolute
+                z-index: 1
+                right: 0
 </style>
 
 <style lang="sass" scoped>
