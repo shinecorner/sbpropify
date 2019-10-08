@@ -118,6 +118,7 @@
                                 <el-select :disabled="$can($permissions.update.serviceRequest)"
                                             :placeholder="$t(`general.placeholders.select`)"
                                             class="custom-select"
+                                            clearable
                                             v-model="model.payer">
                                     <el-option
                                         :key="cost.value"
