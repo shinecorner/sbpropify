@@ -16,7 +16,7 @@
                         @cropped="cropped"/>
             </el-form-item>
             <el-form-item>
-                <el-button @click="upload" icon="ti-save" type="primary">{{$t('general.actions.upload')}}</el-button>
+                <el-button @click="upload" icon="ti-save" type="primary">{{$t('general.actions.save')}}</el-button>
             </el-form-item>
         </el-form>
     </el-card>

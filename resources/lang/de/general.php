@@ -172,6 +172,8 @@ return [
         'saveAndClose' => 'Speichern & schliessen',
         'upload' => 'Herunterladen',
         'update' => 'Bearbeiten',
+        'crop' => 'Zuschneiden',
+        'upload_img' => 'Bild hochladen',
     ],
     'swal' => [
         'confirmChange' => [

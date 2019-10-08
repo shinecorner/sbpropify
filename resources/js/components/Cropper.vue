@@ -22,7 +22,7 @@
             </vue-croppie>
         </div>
         <div class="avatar-wrapper__bot">
-            <el-button @click="crop()" type="primary">Crop img</el-button>
+            <el-button @click="crop()" type="primary">{{$t('general.actions.crop')}}</el-button>
             <upload-avatar type="link" @file="upload"></upload-avatar>
         </div>
         <div slot="reference" class="avatar-box">
