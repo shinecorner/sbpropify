@@ -71,7 +71,7 @@
             }),
             pinboardNewTenantCard: () => ({
                 component: import(/* webpackChunkName: "pinboardCard" */ 'components/tenant/PinboardNewTenantCard'),
-                loading: PinboardNewTenantCardLoader,
+                // loading: PinboardNewTenantCardLoader,
                 error: PinboardNewTenantCardFallbackError,
                 delay: 0,
                 timeout: 8000
