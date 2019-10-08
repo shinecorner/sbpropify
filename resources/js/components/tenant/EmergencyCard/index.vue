@@ -67,17 +67,18 @@
                     margin-top: 5px
 
     @media only screen and (max-width: 676px)
-        /deep/ .ui-card__body
-            display: flex
-            flex-direction: column
-
-            .right-text
+        .ui-card
+            /deep/ .ui-card__body
                 display: flex
                 flex-direction: column
-                align-items: center
 
-                .title
-                    margin-bottom: 0
+                .right-text
+                    display: flex
+                    flex-direction: column
+                    align-items: center
+                    padding-left: 0
 
+                    .title
+                        margin-bottom: 0
     
 </style>
