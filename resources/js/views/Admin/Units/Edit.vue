@@ -270,12 +270,14 @@
                     buttons: [{
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
-                        onClick: this.requestEditView
+                        onClick: this.requestEditView,
+                        tooltipMode: true
                     }]
                 }],
                 assigneesColumns: [{
                     prop: 'name',
-                    label: 'general.name'
+                    label: 'general.name',
+                    type: 'tenantName'
                 }, {
                     prop: 'statusString',
                     label: 'models.request.userType.label',

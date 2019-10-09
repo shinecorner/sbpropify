@@ -133,6 +133,12 @@
                         <router-link v-if="scope.row.type === 'user'" :to="{name: 'adminUsersEdit', params: {id: scope.row.edit_id}}">
                             {{scope.row.name}}
                         </router-link>
+                        <router-link v-if="scope.row.type === 'quarter'" :to="{name: 'adminQuartersEdit', params: {id: scope.row.id}}">
+                            {{scope.row.name}}
+                        </router-link>
+                        <router-link v-if="scope.row.type === 'building'" :to="{name: 'adminBuildingsEdit', params: {id: scope.row.id}}">
+                            {{scope.row.name}}
+                        </router-link>
                     </div>
                     <div v-else-if="column.type === 'buildingName'" class="normal">                        
                         <router-link :to="{name: 'adminBuildingsEdit', params: {id: scope.row.id}}">

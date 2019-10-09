@@ -221,12 +221,14 @@
                     buttons: [{
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
-                        onClick: this.requestEditView
+                        onClick: this.requestEditView,
+                        tooltipMode: true
                     }]
                 }],
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: 'general.name'
+                    label: 'general.name',
+                    type: 'assigneesName'
                 }, {
                     prop: 'type',
                     label: 'models.service.assignType',

@@ -233,7 +233,8 @@
                     buttons: [{
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
-                        onClick: this.requestEditView
+                        onClick: this.requestEditView,
+                        tooltipMode: true
                     }]
                 }],
                 assignmentsColumns: [{

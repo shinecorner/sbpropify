@@ -159,7 +159,8 @@
                     buttons: [{
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
-                        onClick: this.requestEditView
+                        onClick: this.requestEditView,
+                        tooltipMode: true
                     }]
                 }],
                 assigneesActions: [{
@@ -185,6 +186,7 @@
                     i18n: this.translateType
                 }],
                 quarterColumns: [{
+                    type: 'buildingName',
                     prop: 'name',
                     label: 'general.name'
                 }, {
@@ -204,7 +206,8 @@
                     buttons: [{
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
-                        onClick: this.buildingEditView
+                        onClick: this.buildingEditView,
+                        tooltipMode: true
                     }]
                 }],                
             }

@@ -528,14 +528,17 @@
                 }],
                 assignmentsProviderColumns: [{
                     prop: 'name',
-                    label: 'general.name'
+                    label: 'general.name',
+                    type: 'serviceName'
                 }],
                 assignmentsProviderActions: [{
                     width: '180px',
                     buttons: [{
+                        icon: 'el-icon-close',
                         title: 'general.unassign',
                         type: 'danger',
-                        onClick: this.notifyProviderUnassignment
+                        onClick: this.notifyProviderUnassignment,
+                        tooltipMode: true
                     }]
                 }],
                 activeTab1: "details",
