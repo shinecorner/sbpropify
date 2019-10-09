@@ -9,8 +9,9 @@ export default {
             request.priority_label = serviceRequests.priority[request.priority];
             request.internal_priority_label = serviceRequests.internal_priority[request.internal_priority];
             request.status_label = serviceRequests.status[request.status];
-            request.qualification_label = serviceRequests.qualification[request.qualification];
+            
 
+            request.qualification_label = request.qualification > 0 && request.qualification <= 5 ? serviceRequests.qualification[request.qualification] : "";
             request.tenant_name = request.tenant ? `${request.tenant.first_name} ${request.tenant.last_name}` : '';
             request.category_name = request.category.name;
             request.parent_category_name = request.category.parent_id ? request.category.parentCategory.name : '';

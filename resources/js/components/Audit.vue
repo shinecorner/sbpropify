@@ -102,6 +102,7 @@
                     // Get type options from translation files
                     filter_name = 'event'
                     const filter_event_translations = this.$t(`components.common.audit.filter.${this.type}`);
+                    
                     const filter_event_options = Object.keys(filter_event_translations).map((key, index) => {
                         // Push to schema array
                         schema_children.push({
@@ -338,8 +339,11 @@
             const {data:{data}} = await this.axios.get('requestCategories/tree?get_all=true');
             // Get filter options from translation file and add the to filter object
             
+
             const flattenCategories = categories => categories.reduce((obj, category) => {
-                obj[category.id] = category.name.toLowerCase().replace(/ /g,"_");
+
+                obj[category.id] = category.name_en.toLowerCase().replace(/ /g,"_");
+
 
                 if (category.categories) {
                     obj = {...obj, ...flattenCategories(category.categories)}
@@ -350,6 +354,7 @@
             }, {})
 
             this.categories = flattenCategories(data)
+
             await this.filterReset();
         }
     }
