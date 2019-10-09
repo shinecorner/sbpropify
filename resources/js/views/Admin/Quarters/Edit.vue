@@ -106,7 +106,7 @@
                         :actions="quarterActions"
                         :columns="quarterColumns"
                         :filterValue="model.id"
-                        fetchAction="getQuarters"
+                        fetchAction="getBuildings"
                         filter="quarter_id"
                         v-if="model.id"
                     />
@@ -210,7 +210,7 @@
             }
         },
         methods: {
-            ...mapActions(['deleteQuarter','getQuarterAssignees']),
+            ...mapActions(['deleteQuarter','getQuarterAssignees','getBuildings']),
 
             requestEditView(row) {
                 this.$router.push({
