@@ -286,7 +286,7 @@ export default (config = {}) => {
                                 } else {
                                     this.$router.push({
                                         name: 'adminBuildingsEdit',
-                                        params: {id: resp.data.id}
+                                        params: {id: response.data.id}
                                     })
                                 }
                             } catch (err) {
