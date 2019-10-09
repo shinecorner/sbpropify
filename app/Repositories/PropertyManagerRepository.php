@@ -101,8 +101,9 @@ class PropertyManagerRepository extends BaseRepository
             ->where('building_assignees.assignee_id',  $propertyManager->id);
 
         $quarters = Quarter::select(\DB::raw('quarters.id, quarters.name, "quarter" as type'))
-            ->join('quarter_property_manager', 'quarter_id', '=', 'quarters.id')
-            ->where('quarter_property_manager.property_manager_id', $propertyManager->id);
+            ->join('quarter_assignees', 'quarter_id', '=', 'quarters.id')
+            ->where('assignee_type', get_morph_type_of(PropertyManager::class))
+            ->where('quarter_assignees.assignee_id',  $propertyManager->id);
 
         return $buildings->union($quarters)->orderBy('name');
     }
