@@ -387,6 +387,8 @@ class Request extends AuditableModel implements HasMedia
      * @var array
      */
     public static $rulesPost = [
+        'tenant_id' => 'required|exists:tenants,id',
+        'rent_contract_id' => 'exists:tenant_rent_contracts,id',
         'title' => 'required|string',
         'description' => 'required|string',
         'priority' => 'required|integer',
@@ -394,7 +396,6 @@ class Request extends AuditableModel implements HasMedia
         'qualification' => 'required|integer',
         'due_date' => 'required|date',
         'category_id' => 'required|integer',
-        'tenant_id' => 'required|integer',
         'visibility' => 'required|integer',
     ];
 
@@ -404,6 +405,8 @@ class Request extends AuditableModel implements HasMedia
      * @var array
      */
     public static $rulesPostTenant = [
+        'tenant_id' => 'exists:tenants,id',
+        'rent_contract_id' => 'exists:tenant_rent_contracts,id',
         'title' => 'required|string',
         'description' => 'required|string',
         'category_id' => 'required|integer',
@@ -418,6 +421,8 @@ class Request extends AuditableModel implements HasMedia
      * @var array
      */
     public static $rulesPut = [
+        'tenant_id' => 'exists:tenants,id',
+        'rent_contract_id' => 'exists:tenant_rent_contracts,id',
         'title' => 'string',
         'description' => 'string',
         'priority' => 'integer',
@@ -436,6 +441,8 @@ class Request extends AuditableModel implements HasMedia
      * @var array
      */
     public static $rulesPutTenant = [
+        'tenant_id' => 'exists:tenants,id',
+        'rent_contract_id' => 'exists:tenant_rent_contracts,id',
         'title' => 'string',
         'description' => 'string',
         'status' => 'integer',

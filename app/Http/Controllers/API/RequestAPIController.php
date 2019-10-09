@@ -144,6 +144,7 @@ class RequestAPIController extends AppBaseController
                 'tenant.rent_contracts' => function ($q) {
                     $q->with('building.address', 'unit');
                 },
+                'rent_contract',
                 'category',
                 'comments.user',
                 'providers.address:id,country_id,state_id,city,street,zip',
@@ -228,6 +229,7 @@ class RequestAPIController extends AppBaseController
             'media',
             'tenant.user',
             'tenant.building.address',
+            'rent_contract',
             'category',
             'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip',
@@ -293,7 +295,7 @@ class RequestAPIController extends AppBaseController
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers',
             'tenant.rent_contracts' => function ($q) {
                 $q->with('building.address', 'unit');
-            },
+            }, 'rent_contract',
         ]);
         $response = (new RequestTransformer)->transform($request);
         return $this->sendResponse($response, 'Service Request retrieved successfully');
@@ -370,7 +372,7 @@ class RequestAPIController extends AppBaseController
         $updatedRequest = $this->requestRepository->updateExisting($request, $input);
 
         $updatedRequest->load([
-            'media', 'tenant.user', 'category', 'managers.user', 'users', 'remainder_user',
+            'media', 'tenant.user', 'rent_contract', 'category', 'managers.user', 'users', 'remainder_user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
         ]);
         $response = (new RequestTransformer)->transform($updatedRequest);
