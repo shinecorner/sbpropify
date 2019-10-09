@@ -21,6 +21,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *      @SWG\Property(
+ *          property="default_rent_contract_id",
+ *          description="default_rent_contract_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="language",
  *          description="language",
  *          type="string"
@@ -72,14 +78,17 @@ class UserSettings extends Model
 {
     use SoftDeletes;
 
+    /**
+     * @var string
+     */
     public $table = 'user_settings';
 
-
-    protected $dates = ['deleted_at'];
-
-
+    /**
+     * @var array
+     */
     public $fillable = [
         'user_id',
+        'default_rent_contract_id',
         'language',
         'summary',
         'admin_notification',
@@ -89,12 +98,18 @@ class UserSettings extends Model
     ];
 
     /**
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
      * The attributes that should be casted to native types.
      *
      * @var array
      */
     protected $casts = [
         'user_id' => 'integer',
+        'default_rent_contract_id' => 'integer',
         'language' => 'string',
         'summary' => 'string',
         'admin_notification' => 'boolean',
@@ -130,5 +145,13 @@ class UserSettings extends Model
     public function tenant()
     {
         return $this->belongsTo(Tenant::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function rent_contract()
+    {
+        return $this->belongsTo(RentContract::class);
     }
 }
