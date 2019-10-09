@@ -190,4 +190,9 @@ class ServiceProvider extends AuditableModel
     {
         $this->attributes['category'] = array_flip(ServiceProvider::ServiceProviderCategory)[$value] ?? $value;
     }
+
+    public function getCategoryNameAttribute()
+    {
+        return ServiceProvider::ServiceProviderCategory[$this->attributes['category']] ?? '';
+    }
 }
