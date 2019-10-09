@@ -4,11 +4,12 @@
             <div class="announcement" v-if="data.announcement && data.type == 3">
                 <span> {{$t(`models.pinboard.sub_type.${$constants.pinboard.sub_type[3][data.sub_type]}`)}}</span>
             </div>
-            <tenant-user
+            <pinboard-tenant
                 :data="data"
                 :showActions="showActions"
                 @edit-pinboard="$emit('edit-pinboard', $event, data)"
                 @delete-pinboard="$emit('delete-pinboard', $event, data)"
+                @hook:mounted="$emit('update-dynamic-scroller')"
             />
             <div class="title" v-if="data.announcement && data.type == 3 &&  data.category">
                 <small>{{$t('tenant.category')}}:
@@ -73,7 +74,7 @@
                 </el-button>
             </like>
             
-            <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" :with-scroller="true" @update-dynamic-scroller="loading=false,$emit('update-dynamic-scroller')"/>
+            <comments ref="comments" :id="data.id" type="pinboard" :use-placeholder="false" :with-scroller="true" @update-dynamic-scroller="$emit('update-dynamic-scroller')"/>
             <add-comment ref="addComment" :id="data.id" type="pinboard"/>
         </div>
     </el-card>

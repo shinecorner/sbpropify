@@ -82,8 +82,8 @@ import WeatherCardLoader from './WeatherCard/Loader'
 import EmergencyCardError from './EmergencyCard/Error'
 import EmergencyCardLoader from './EmergencyCard/Loader'
 
-import TenantUserError from './TenantUser/Error'
-import TenantUserLoader from './TenantUser/Loader'
+import PinboardTenantError from './PinboardTenant/Error'
+import PinboardTenantLoader from './PinboardTenant/Loader'
 
 
 export default {
@@ -285,10 +285,10 @@ export default {
                 delay: 0,
                 timeout: 8000
             }),
-            tenantUser: () => ({
-                component: import(/* webpackChunkName: "weatherCard" */ './TenantUser'),
-                loading: TenantUserLoader,
-                error: TenantUserError,
+            pinboardTenant: () => ({
+                component: import(/* webpackChunkName: "weatherCard" */ './PinboardTenant'),
+                loading: PinboardTenantLoader,
+                error: PinboardTenantError,
                 delay: 0,
                 timeout: 8000
             })
