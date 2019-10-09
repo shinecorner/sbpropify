@@ -323,7 +323,7 @@
             // Get filter options from translation file and add the to filter object
 
             const flattenCategories = categories => categories.reduce((obj, category) => {
-                obj[category.id] = category.name.toLowerCase().replace(/ /g,"_");
+                obj[category.id] = category.name_en.toLowerCase().replace(/ /g,"_");
 
                 if (category.categories) {
                     obj = {...obj, ...flattenCategories(category.categories)}
