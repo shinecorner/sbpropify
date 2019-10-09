@@ -11,11 +11,11 @@ export default (config = {}) => {
                     description: '',
                     buildings: [],
                     count_of_buildings: null,
-                    address: {
-                        state_id: '',
-                        city: '',
-                        zip: ''
-                    },
+                    state_id: '',
+                    city: '',
+                    zip: '',    
+                    street: '',
+                    house_num: '',
                 },
                 quarter_format: '',
                 validationRules: {
