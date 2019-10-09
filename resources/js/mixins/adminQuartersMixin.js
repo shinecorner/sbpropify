@@ -182,9 +182,10 @@ export default (config = {}) => {
                                 } else {
                                     this.$router.push({
                                         name: 'adminQuartersEdit',
-                                        params: {id: response.data.id}
+                                        params: {id: resp.data.id}
                                     })
                                 }
+                                
                             } catch (err) {
                                 displayError(err);
                             } finally {
