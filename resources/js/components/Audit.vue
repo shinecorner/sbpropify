@@ -102,6 +102,7 @@
                     // Get type options from translation files
                     filter_name = 'event'
                     const filter_event_translations = this.$t(`components.common.audit.filter.${this.type}`);
+                    
                     const filter_event_options = Object.keys(filter_event_translations).map((key, index) => {
                         // Push to schema array
                         schema_children.push({
@@ -354,7 +355,6 @@
 
             this.categories = flattenCategories(data)
 
-            console.log(this.categories)
             await this.filterReset();
         }
     }

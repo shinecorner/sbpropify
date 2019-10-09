@@ -1,9 +1,9 @@
 <template>
     <div class="filters" :class="{[layout]: true}">
         <template v-for="field in fields">
-            <label v-if="field.title">{{$t(field.title)}}</label>
+            <label v-if="field.title">{{(field.title)}}</label>
             <component :is="field.type" v-bind="field.props" v-on="field.listeners" v-model.sync="data[field.name]">                
-                <component v-if="((field.children) && (field.type === 'el-select'))" v-for="child in field.children" :key="child.name" :is="child.type" :label="$t(child.props.label)" :value="child.props.value" />
+                <component v-if="((field.children) && (field.type === 'el-select'))" v-for="child in field.children" :key="child.name" :is="child.type" :label="(child.props.label)" :value="child.props.value" />
                 <component v-else-if="field.children" v-for="child in field.children" :key="child.name" :is="child.type" v-bind="child.props"/>
             </component>
         </template>
