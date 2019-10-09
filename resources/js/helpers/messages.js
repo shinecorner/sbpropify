@@ -106,7 +106,7 @@ export const displaySuccess = (resp) => {
             $swal.fire(
                 {
                     title: '',
-                    text: $i18n.t(resp.message),
+                    text: $i18n.t('models.quarter.saved'),
                     type: 'success',
                     timer: 1500,
                     showConfirmButton: false
