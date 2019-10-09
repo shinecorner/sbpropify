@@ -26,7 +26,7 @@
                     <div v-if="column.type === 'requestTitleWithDesc'">
                         <div class="request-title normal">
                             <router-link :to="{name: 'adminRequestsEdit', params: {id: scope.row.id}}">
-                                {{$t(scope.row.title)}}
+                                {{scope.row.title}}
                             </router-link>                               
                         </div>
                         <div class="category">
