@@ -404,7 +404,8 @@
                     width: 70                    
                 }, {
                     prop: 'name',
-                    label: 'general.name'
+                    label: 'general.name',
+                    type: 'tenantName'
                 }, {
                     prop: 'status',
                     i18n: this.tenantStatusLabel,
@@ -415,7 +416,8 @@
                     buttons: [{
                         title: 'models.tenant.view',
                         onClick: this.tenantEditView,
-                        icon: 'el-icon-user'
+                        icon: 'el-icon-user',
+                        tooltipMode: true
                     }]
                 }],
                 assigneesColumns: [{
@@ -479,19 +481,23 @@
                     buttons: [{
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
-                        onClick: this.requestEditView
+                        onClick: this.requestEditView,
+                        tooltipMode: true
                     }]
                 }],
                 assignmentsProviderColumns: [{
                     prop: 'name',
-                    label: 'general.name'
+                    label: 'general.name',
+                    type: 'serviceName'
                 }],
                 assignmentsProviderActions: [{
                     width: '180px',
                     buttons: [{
+                        icon: 'el-icon-close',
                         title: 'general.unassign',
                         type: 'danger',
-                        onClick: this.notifyProviderUnassignment
+                        onClick: this.notifyProviderUnassignment,
+                        tooltipMode: true
                     }]
                 }],                
                 remoteLoading: false,
