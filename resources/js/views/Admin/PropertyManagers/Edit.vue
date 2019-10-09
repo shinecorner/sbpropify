@@ -250,7 +250,9 @@
                     buttons: [{
                         title: 'general.unassign',
                         type: 'danger',
-                        onClick: this.notifyUnassignment
+                        onClick: this.notifyUnassignment,
+                        tooltipMode: true,
+                        icon: 'el-icon-close',                        
                     }]
                 }]
             }

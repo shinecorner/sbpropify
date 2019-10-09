@@ -13,6 +13,7 @@ use App\Http\Requests\API\Unit\DeleteRequest;
 use App\Http\Requests\API\Unit\ListRequest;
 use App\Http\Requests\API\Unit\UpdateRequest;
 use App\Http\Requests\API\Unit\ViewRequest;
+use App\Models\Building;
 use App\Models\RentContract;
 use App\Models\Unit;
 use App\Repositories\PinboardRepository;
@@ -101,8 +102,17 @@ class UnitAPIController extends AppBaseController
                     $unit->inactive_rent_contracts_count = $unit->total_rent_contracts_count - $unit->active_rent_contracts_count;
                 });
             }
-            $units = $units->sortByDesc('name')->groupBy('floor')->sortKeys();
-            return $this->sendResponse($units->toArray(), 'Units retrieved successfully');
+            $units = $units->sortByDesc('name')->groupBy('floor')->sortKeys()->toArray();
+            if ($request->building_id) {
+                $buildingHasAttic = Building::whereKey($request->building_id)->value('attic');
+                if ($buildingHasAttic) {
+                    $atticUnits = array_pop($units);
+                    $units['attic'] = $atticUnits;
+                }
+                // @TODO maybe change attic logic by unit attic filed
+            }
+
+            return $this->sendResponse($units, 'Units retrieved successfully');
         }
 
         $getAll = $request->get('get_all', false);
