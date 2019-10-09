@@ -24,7 +24,11 @@
             >
                 <template slot-scope="scope">
                     <div v-if="column.type === 'requestTitleWithDesc'">
-                        <div class="request-title">{{$t(scope.row.title)}}</div>
+                        <div class="request-title normal">
+                            <router-link :to="{name: 'adminRequestsEdit', params: {id: scope.row.id}}">
+                                {{$t(scope.row.title)}}
+                            </router-link>                               
+                        </div>
                         <div class="category">
                         <span v-if="scope.row.category.parentCategory">
                             {{scope.row.category.parentCategory.name}} >&nbsp;
@@ -130,7 +134,21 @@
                             {{scope.row.name}}
                         </router-link>
                     </div>
-
+                    <div v-else-if="column.type === 'buildingName'" class="normal">                        
+                        <router-link :to="{name: 'adminBuildingsEdit', params: {id: scope.row.id}}">
+                            {{scope.row.name}}
+                        </router-link>                        
+                    </div>
+                    <div v-else-if="column.type === 'tenantName'" class="normal">                        
+                        <router-link :to="{name: 'adminTenantsView', params: {id: scope.row.id}}">
+                            {{scope.row.name}}
+                        </router-link>                        
+                    </div>
+                    <div v-else-if="column.type === 'serviceName'" class="normal">                        
+                        <router-link :to="{name: 'adminServicesEdit', params: {id: scope.row.id}}">
+                            {{scope.row.name}}
+                        </router-link>                        
+                    </div>
                     <div v-else>
                         {{scope.row[column.prop]}}
                     </div>
@@ -168,7 +186,7 @@
                         size="mini"
                         v-for="button in action.buttons"
                         v-if="!button.tooltipMode">
-                        &nbsp;{{$t(button.title)}}
+                        <!-- &nbsp;{{$t(button.title)}}-->
                     </el-button>
                     <el-tooltip
                         :content="$t(button.title)"
