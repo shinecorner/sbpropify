@@ -124,7 +124,12 @@ class TenantAPIController extends AppBaseController
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         // @TODO TENANT_RENT_CONTRACT is need? building, address, unit . I think not need because many
-        $tenants = $this->tenantRepository->with(['user', 'building.address', 'unit', 'rent_contracts' => function ($q) {
+        $tenants = $this->tenantRepository->with([
+            'user',
+            'building.address',
+            'unit',
+            'default_rent_contract',
+            'rent_contracts' => function ($q) {
                 $q->with('building.address', 'unit');
             }])->paginate($perPage);
         $this->fixCreatedBy($tenants);
@@ -199,7 +204,10 @@ class TenantAPIController extends AppBaseController
         $this->tenantRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->tenantRepository->pushCriteria(new RequestCriteria($request));
         // @TODO TENANT_RENT_CONTRACT is need? address. I think not need because many
-        $tenants = $this->tenantRepository->with(['address:id,street,house_num', 'rent_contracts' => function ($q) {
+        $tenants = $this->tenantRepository->with([
+            'address:id,street,house_num',
+            'default_rent_contract',
+            'rent_contracts' => function ($q) {
                 $q->with('building.address', 'unit', 'media');
             }])
             ->get(['id', 'address_id', 'first_name', 'last_name', 'status', 'created_at']);
@@ -288,9 +296,17 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
-        $tenant->load(['user', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
-            $q->with('building.address', 'unit', 'media');
-        }]);
+        $tenant->load([
+            'user',
+            'building',
+            'unit',
+            'address',
+            'media',
+            'default_rent_contract',
+            'rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit', 'media');
+            }
+        ]);
 
         DB::commit();
         $response = (new TenantTransformer)->transform($tenant);
@@ -345,9 +361,18 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $tenant->load(['settings', 'user', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
-            $q->with('building.address', 'unit', 'media');
-        }]);
+        $tenant->load([
+            'settings',
+            'user',
+            'building',
+            'unit',
+            'address',
+            'media',
+            'default_rent_contract',
+            'rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit', 'media');
+            }
+        ]);
         $response = (new TenantTransformer)->transform($tenant);
 
         return $this->sendResponse($response, 'Tenant retrieved successfully');
@@ -393,9 +418,18 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $user->tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
-            $q->with('building.address', 'unit', 'media');
-        }]);
+        $user->tenant->load([
+            'user',
+            'settings',
+            'building',
+            'unit',
+            'address',
+            'media',
+            'default_rent_contract',
+            'rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit', 'media');
+            }
+        ]);
         $response = (new TenantTransformer)->transform($user->tenant);
 
         return $this->sendResponse($response, 'Tenant retrieved successfully');
@@ -494,9 +528,17 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
-        $tenant->load(['settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
-            $q->with('building.address', 'unit', 'media');
-        }]);
+        $tenant->load([
+            'settings',
+            'building',
+            'unit',
+            'address',
+            'media',
+            'default_rent_contract',
+            'rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit', 'media');
+            }
+        ]);
         if ($shouldPinboard) {
             $pr->newTenantPinboard($tenant);
         }
@@ -579,9 +621,18 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
 
-        $tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
-            $q->with('building.address', 'unit', 'media');
-        }]);
+        $tenant->load([
+            'user',
+            'settings',
+            'building',
+            'unit',
+            'address',
+            'media',
+            'default_rent_contract',
+            'rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit', 'media');
+            }
+        ]);
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, __('models.tenant.saved'));
     }
@@ -659,9 +710,18 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
 
-        $tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
-            $q->with('building.address', 'unit', 'media');
-        }]);
+        $tenant->load([
+            'user',
+            'settings',
+            'building',
+            'unit',
+            'address',
+            'media',
+            'default_rent_contract',
+            'rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit', 'media');
+            }
+        ]);
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, __('models.tenant.status_changed'));
     }

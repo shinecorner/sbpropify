@@ -132,6 +132,12 @@ class ServiceProviderAPIController extends AppBaseController
         $this->serviceProviderRepository->withCount('requests')->scope('allRequestStatusCount');
         $serviceProviders = $this->serviceProviderRepository->paginate($perPage);
 
+        if ($request->show_category_name) {
+            foreach ($serviceProviders as $provider) {
+                $provider->setAppends(['category_name_en', 'category_name_de', 'category_name_fr', 'category_name_it']);
+            }
+        }
+
         return $this->sendResponse($serviceProviders->toArray(), 'Service Providers retrieved successfully');
     }
 

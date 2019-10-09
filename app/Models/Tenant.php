@@ -29,6 +29,12 @@ use Illuminate\Support\Facades\Storage;
  *          type="integer",
  *          format="int32"
  *      ),
+ *     @SWG\Property(
+ *          property="default_rent_contract_id",
+ *          description="default_rent_contract_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
  *      @SWG\Property(
  *          property="address_id",
  *          description="address_id",
@@ -152,6 +158,7 @@ class Tenant extends AuditableModel implements HasMedia
      * @var array
      */
     public static $rules = [
+        'default_rent_contract_id' => 'exists:tenant_rent_contracts,id',// @TODO check own or not
         'title' => 'required|string',
         'first_name' => 'required|string',
         'last_name' => 'required|string',
@@ -161,10 +168,17 @@ class Tenant extends AuditableModel implements HasMedia
         'status' => 'digits_between:1,2|numeric'
     ];
 
+    /**
+     * @var string
+     */
     public $table = 'tenants';
 
+    /**
+     * @var array
+     */
     public $fillable = [
         'user_id',
+        'default_rent_contract_id',
         'address_id',
         'building_id',
         'unit_id',
@@ -308,6 +322,14 @@ class Tenant extends AuditableModel implements HasMedia
     public function rent_contracts()
     {
         return $this->hasMany(RentContract::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function default_rent_contract()
+    {
+        return $this->belongsTo(RentContract::class);
     }
 
     public function homeless()
