@@ -228,6 +228,7 @@ class ServiceProvider extends AuditableModel
         if (!empty(ServiceProvider::ServiceProviderCategory[$this->attributes['category']])) {
             return __('models.service.category.' . ServiceProvider::ServiceProviderCategory[$this->attributes['category']], [], $lang);
         }
-        return __('');
+        
+        return '';
     }
 }
