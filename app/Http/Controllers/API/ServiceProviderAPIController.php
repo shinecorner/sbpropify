@@ -134,7 +134,7 @@ class ServiceProviderAPIController extends AppBaseController
 
         if ($request->show_category_name) {
             foreach ($serviceProviders as $provider) {
-                $provider->setAppends(['category_name']);
+                $provider->setAppends(['category_name_en', 'category_name_de', 'category_name_fr', 'category_name_it']);
             }
         }
 
