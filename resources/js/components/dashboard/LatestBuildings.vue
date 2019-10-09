@@ -51,12 +51,12 @@
                 }, {
                     type: 'actions',
                     label: 'dashboard.actions',
-                    width: '130px',
+                    width: 130,
                     actions: [ 
                         {
                             type: 'default',
                             title: 'general.actions.edit',
-                            onClick: this.edit,
+                            // onClick: this.edit,
                             editUrl: 'adminBuildingsEdit',
                             permissions: [
                                 this.$permissions.update.building
@@ -67,14 +67,14 @@
             };
         },
         methods: {
-            edit({id}) {
-                this.$router.push({
-                    name: 'adminBuildingsEdit',
-                    params: {
-                        id
-                    }
-                });
-            },
+            // edit({id}) {
+            //     this.$router.push({
+            //         name: 'adminBuildingsEdit',
+            //         params: {
+            //             id
+            //         }
+            //     });
+            // },
             fetchData() {
                 let that = this;
                 const url = 'buildings/?&page=1&per_page=5';

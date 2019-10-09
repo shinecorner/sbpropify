@@ -129,9 +129,10 @@
                 <el-col :span="3">
                     <span>{{ $t(due.label) }}</span>
                     <div>
-                        <el-tooltip  :content="due.tooltip" placement="top" effect="light">
+                        <el-tooltip v-if="due.tooltip != ''"  :content="due.tooltip" placement="top" effect="light">
                             <p>{{ due.date }}</p>
                         </el-tooltip>
+                        <p v-else>{{ due.date }}</p>
                     </div>
                 </el-col>
             </el-row>    
@@ -195,15 +196,18 @@ export default {
                     let due_date_formatted = format(this.item.due_date, 'DD.MM.YYYY');
                     var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
                     var days = differenceInCalendarDays(updated_date, new Date()) ;
-                     tooltip = due_date_formatted;
                     date = due_date_formatted;
                     if(days < 0) {
                         label = 'models.request.was_due_on';
                         date = due_date_formatted;
-                        if(days == -1)
+                        if(days == -1) {
                             date = this.$t('models.request.yesterday');
+                            tooltip = due_date_formatted;
+                        }
+                        
                     } else if(days <= 30) {
                         date = Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`);
+                        tooltip = due_date_formatted;
                         if(days == 0) 
                             date = this.$t('models.request.today');
                         else if(days == 1) 
@@ -224,6 +228,8 @@ export default {
                     date = solved_date_formatted;
                     if(days == -1)
                         date = this.$t('models.request.yesterday');
+                    else
+                        tooltip = '';
                 } else if(days == 0) {
                         date = this.$t('models.request.today');
                 }
@@ -239,7 +245,7 @@ export default {
         updated_at() {
             var updated_date = parse(this.item.updated_at, 'yyyy-MM-dd hh:mm:ss', new Date());
             var currentDate = new Date();
-            var minutes = differenceInMinutes(currentDate, updated_date) + currentDate.getTimezoneOffset() ;
+            var minutes = differenceInMinutes(currentDate, updated_date) + currentDate.getTimezoneOffset() + 120 ;
             return {
                 date: format(updated_date, 'DD.MM.YYYY'),
                 h: Math.floor(minutes / 60),

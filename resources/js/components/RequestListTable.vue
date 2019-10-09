@@ -143,7 +143,7 @@
             :data="items"
             :element-loading-background="loading.background"
             :element-loading-spinner="loading.icon"
-            :element-loading-text="loading.text"
+            :element-loading-text="$t(loading.text)"
             :empty-text="emptyText"
             @selection-change="handleSelectionChange"
             v-loading="loading.state"

@@ -81,14 +81,13 @@
             },
             async SaveAndEdit() {
                 try {
-                    this.saveAction(resp => {
-                        if (resp && resp.data) {
-                            this.$router.push({
-                                name: this.editRoute,
-                                params: {id: resp.data.id}
-                            })
-                        }
-                    });
+                    const resp = await this.saveAction();
+                    if (resp && resp.data) {
+                        this.$router.push({
+                            name: this.editRoute,
+                            params: {id: resp.data.id}
+                        })
+                    }
                 } catch (e) {
                     console.log(e)
                 }

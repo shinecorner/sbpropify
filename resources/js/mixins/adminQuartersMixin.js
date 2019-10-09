@@ -38,7 +38,7 @@ export default (config = {}) => {
                 },
                 loading: {
                     state: false,
-                    text: this.$t('general.please_wait')
+                    text: 'general.please_wait'
                 },
                 buildingsCount: 20,
                 remoteLoading: false,

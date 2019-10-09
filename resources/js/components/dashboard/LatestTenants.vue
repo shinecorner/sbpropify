@@ -58,7 +58,7 @@
                             type: 'default',
                             icon: 'el-icon-user',
                             title: 'models.tenant.view',
-                            onClick: this.tenantEditView,
+                            editUrl: 'adminTenantsView',
                             permissions: [
                                 this.$permissions.update.tenant
                             ]
@@ -73,22 +73,6 @@
             },
         },
         methods: {
-            edit({id}) {
-                this.$router.push({
-                    name: 'adminTenantsEdit',
-                    params: {
-                        id
-                    }
-                });
-            },     
-            tenantEditView(row) {
-                this.$router.push({
-                    name: 'adminTenantsView',
-                    params: {
-                        id: row.id
-                    }
-                });
-            },
             fetchData() {
               let that = this;
               let url = 'tenants/latest';

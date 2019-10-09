@@ -71,7 +71,7 @@
                 }, {
                     label: 'models.tenant.building.name',
                     withCollapsables: true,
-                    width: 250,
+                    width: 200,
                     props: ['building_names']
                 }, {
                     label: 'models.tenant.unit.name',
