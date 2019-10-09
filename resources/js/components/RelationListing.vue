@@ -24,7 +24,7 @@
             >
                 <template slot-scope="scope">
                     <div v-if="column.type === 'requestTitleWithDesc'">
-                        <div class="request-title">{{$t(scope.row.title)}}</div>
+                        <div class="request-title">{{scope.row.title}}</div>
                         <div class="category">
                         <span v-if="scope.row.category.parentCategory">
                             {{scope.row.category.parentCategory.name}} >&nbsp;
@@ -190,7 +190,7 @@
             </el-table-column>
         </el-table>
         <div v-if="meta.current_page < meta.last_page">
-            <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('loadMore')}}</el-button>
+            <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('general.loadMore')}}</el-button>
         </div>
     </div>
 </template>
@@ -309,6 +309,10 @@
     }
 </script>
 <style lang="scss">
+    .el-table .cell, .el-table th div{
+        overflow: hidden;
+        text-overflow: unset;
+    }
     .el-table__empty-text{
         width: 100%;
         .el-alert{

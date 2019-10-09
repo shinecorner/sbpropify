@@ -150,39 +150,24 @@
                         <template
                             v-if="(!action.permissions || ( action.permissions && $can(action.permissions))) && (!action.hidden || (action.hidden && !action.hidden(scope.row)))"
                         >
-                            <template v-if="action.title.indexOf('edit') !== -1">
-                                <router-link :to="{name: action.editUrl,  params: { id:scope.row['id']}}" class="el-menu-item-link">
+                            <template v-if="action.editUrl">
+                                <router-link :to="{
+                                                name: action.editUrl,  
+                                                params: { 
+                                                    type:$constants.pinboard.type[scope.row['type']], 
+                                                    id:scope.row['id'] }
+                                                }" 
+                                            class="el-menu-item-link">
                                     <el-button
                                         :style="action.style"
                                         :type="action.type"
-                                        @click="action.onClick(scope.row)"
                                         size="mini"
                                     >
-                                        <i class="ti-pencil"></i>
-                                        <span>{{ $t('general.actions.edit') }}</span>
+                                        <i :class="action.icon ? action.icon : 'ti-pencil'"></i>
+                                        <span>{{ $t(action.title) }}</span>
                                     </el-button>
                                 </router-link>      
                             </template>
-                            <el-button
-                                v-else
-                                :style="action.style"
-                                :type="action.type"
-                                @click="action.onClick(scope.row)"
-                                size="mini"
-                                class="default"
-                            >
-                                <template v-if="action.title.indexOf('edit') !== -1">
-                                    <i class="ti-pencil"></i>
-                                    <span>{{ $t(action.title) }}</span>    
-                                </template>
-                                <template v-else-if="action.title.indexOf('view') !== -1">
-                                    <i :class="action.icon"></i>
-                                    <span>{{ $t(action.title) }}</span>    
-                                </template>
-                                <template v-else>
-                                    {{ $t(action.title) }}
-                                </template>
-                            </el-button>
                         </template>
                     </span>
                     </div>

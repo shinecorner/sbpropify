@@ -3940,6 +3940,11 @@
 .el-form-item.is-error .el-input__validateIcon{
     color:var(--color-danger)
 }
+
+.el-form-item.is-error .wangEditor-container, .el-form-item.is-error .wangEditor-container:focus{
+    border-color:var(--color-danger)
+}
+
 .el-form-item--feedback .el-input__validateIcon{
     display:inline-block
 }

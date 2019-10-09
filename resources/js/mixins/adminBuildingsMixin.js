@@ -19,6 +19,9 @@ export default (config = {}) => {
                 assignmentType: 'managers',
                 toAssignList: [],
                 toAssign: '',
+                toAssignProvider: '',
+                toAssignProviderList: [],
+                serviceCount: 0,
                 statistics: {
                     raw: [{
                         icon: 'ti-user',
@@ -102,7 +105,7 @@ export default (config = {}) => {
             };
         },
         methods: {
-            ...mapActions(['getStates', 'getPropertyManagers','getServicesGroupedByCategory', 'getQuarters','getUsers']),
+            ...mapActions(['getStates', 'getPropertyManagers','getQuarters','getUsers','assignBuildingProvider','getServices','assignServiceBuilding','unassignServiceBuilding']),
             async remoteSearchAssignees(search) {
 
                 if (!this.$can(this.$permissions.assign.request)) {
@@ -196,6 +199,57 @@ export default (config = {}) => {
                     }
                 }
             },
+            resetToAssignProviderList() {
+                this.toAssignProviderList = [];
+                this.toAssignProvider = '';
+            },
+            async remoteSearchProviders(search) {
+                if (search === '') {
+                    this.resetToAssignProviderList();
+                } else {
+                    this.remoteLoading = true;
+
+                    try {
+
+                        const resp = await this.getServices({get_all: true, search});
+
+                        this.toAssignProviderList = resp.data;
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.remoteLoading = false;
+                    }
+                }
+            },
+            attachProvider() {
+                return new Promise(async (resolve, reject) => {
+                    if (!this.toAssignProvider || (!this.model.id && config.mode === 'edit')) {
+                        reject(false);
+                        return false;
+                    }
+
+                    try {
+
+                        const resp = await this.assignServiceBuilding({
+                            id: this.toAssignProvider,
+                            toAssignId: this.model.id
+                        });
+
+                        if (resp && resp.data && config.mode === 'edit') {                            
+                            this.$refs.assignmentsProviderList.fetch(); 
+                            this.resetToAssignProviderList();
+                            this.serviceCount++;
+                            displaySuccess(resp.data)                            
+                        }
+
+                        resolve(true);
+
+                    } catch (e) {                        
+                        displayError(e);
+                        reject(false);
+                    }
+                })
+            },
         },
         computed: {
             form() {
@@ -250,8 +304,8 @@ export default (config = {}) => {
 
                 mixin.created = async function () {
                     await this.getStates();
-                    const {data} = await this.getServicesGroupedByCategory();
-                    this.allServices = data;
+                    // const {data} = await this.getServicesGroupedByCategory();
+                    // this.allServices = data;
                 };
 
                 break;
@@ -305,8 +359,8 @@ export default (config = {}) => {
 
                         await this.getStates();
 
-                        const {data} = await this.getServicesGroupedByCategory();
-                        this.allServices = data;
+                        // const {data} = await this.getServicesGroupedByCategory();
+                        // this.allServices = data;
 
                         const {
                             address: {

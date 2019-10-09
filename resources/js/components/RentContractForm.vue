@@ -136,7 +136,7 @@
                 <el-form-item :label="$t('models.tenant.rentcontract_id')"
                                 class="label-block">
                     <el-input
-                        v-model="model.id"
+                        v-model="model.rent_contract_format"
                         :disabled="true">
                     </el-input>
                 </el-form-item>
@@ -677,7 +677,7 @@
 
         .ui-divider__content {
             left: 0;
-            z-index: 1;
+            z-index: 0;
             padding-left: 0;
             font-size: 16px;
             font-weight: 700;

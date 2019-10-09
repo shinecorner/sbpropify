@@ -275,7 +275,7 @@
 
         
 
-        /deep/ .ui-drawer {
+        .ui-drawer {
             .ui-divider {
                 margin: 32px 16px 0 16px;
                 i {

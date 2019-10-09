@@ -6,7 +6,7 @@
                 <div class="description">{{$t(no_data_info.description)}}</div>       
         </template>
     </div>
-    <div class="comments-list" v-else-if="comments">
+    <div class="comments-list" v-else-if="comments.data.length">
         <template v-if="withScroller" >
             <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="60" @resize="scrollToBottom" v-if="!loading">
                 <template #before v-resize:debounce="$emit('update-dynamic-scroller')">
@@ -241,9 +241,12 @@
                 this.$store.dispatch('comments/clear', {commentable: this.type})
 
                 await this.fetch()
-
-                this.$emit('update-dynamic-controller')
             }
+            
+            this.$emit('update-dynamic-scroller')
+        },
+        created() {
+            
         }
     }
 </script>

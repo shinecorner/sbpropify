@@ -279,8 +279,8 @@
                                     <el-col :md="8">
                                         <el-card class="listing-card card-boxs">
                                             <span @click="Gocaution_drawer" class="icon-cog" style="display:none"></span>
-                                            <el-form-item :label="$t('models.settings.gocaution')" class="switcher switcher-block">
-                                                <span class="switcher__desc">{{$t('models.settings.gocaution_desc')}}</span>
+                                            <el-form-item :label="$t('models.settings.gocaution.label')" class="switcher switcher-block">
+                                                <span class="switcher__desc">{{$t('models.settings.gocaution.description')}}</span>
                                                 <el-switch 
                                                 v-model="model.gocaution_enable"
                                                 />
@@ -290,9 +290,9 @@
                                     <el-col :md="8">
                                         <el-card class="listing-card card-boxs">
                                             <span @click="Cleanify_drawer" class="icon-cog"></span>
-                                           <el-form-item :label="$t('models.settings.cleanify_email')"
+                                           <el-form-item :label="$t('models.settings.cleanify_email.label')"
                                                         :rules="validationRules.cleanify_email" prop="cleanify_email" class="switcher switcher-block">
-                                                <span class="switcher__desc">{{$t('models.settings.cleanify_email_desc')}}</span>
+                                                <span class="switcher__desc">{{$t('models.settings.cleanify_email.description')}}</span>
                                                 <el-switch 
                                                 v-model="model.cleanify_enable"
                                                 />
@@ -318,7 +318,7 @@
                                                 <!-- <img :src="SettingsLogo" ref="SettingsLogo"
                                                      v-show="SettingsLogo || model.logo_upload"
                                                      width="300px"> -->
-                                                <upload-avatar @imageUploaded="setAvatarLogoUpload"/>
+                                                <upload-document @fileUploaded="setAvatarLogoUpload" class="drag-custom" drag/>
                                                 <img :src="logo_upload_img"
                                                      v-show="logo_upload_img"
                                                      >
@@ -328,7 +328,7 @@
                                                 
                                             </el-form-item>
                                             <el-form-item :label="$t('models.user.circle_logo')">
-                                                <upload-avatar @imageUploaded="setCircleLogoUpload"/>
+                                                <upload-document @fileUploaded="setCircleLogoUpload" class="drag-custom" drag/>
                                                 <img :src="circle_logo_upload_img"
                                                      v-show="circle_logo_upload_img"
                                                     >
@@ -337,7 +337,7 @@
                                                     >
                                             </el-form-item>
                                             <!-- <el-form-item :label="$t('models.user.favicon_icon')">
-                                                <upload-avatar @imageUploaded="setFaviconIconUpload"/>
+                                                <upload-document @fileUploaded="setFaviconIconUpload" class="drag-custom" drag/>
                                                 <img :src="favicon_icon_upload_img"
                                                      v-show="favicon_icon_upload_img"
                                                     >
@@ -346,7 +346,7 @@
                                                     >
                                             </el-form-item> -->
                                             <el-form-item :label="$t('models.user.tenant_logo')">
-                                                <upload-avatar @imageUploaded="setTenantLogoUpload"/>
+                                                <upload-document @fileUploaded="setTenantLogoUpload" class="drag-custom" drag/>
                                                 <img :src="tenant_logo_upload_img"
                                                      v-show="tenant_logo_upload_img"
                                                     >
@@ -463,11 +463,11 @@
                     <div slot="label"><i class="icon-cog"></i> <label class="switcher__label">{{$t('models.settings.iframe_enable')}}</label> </div>
                 </el-tab-pane>
                 <el-tab-pane name="gocaution" v-if="Gocaution_drawer_val">
-                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.settings.gocaution')}}</label> </div>
+                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.settings.gocaution.label')}}</label> </div>
                     
                 </el-tab-pane>
                 <el-tab-pane name="cleanify" v-if="Cleanify_drawer_val">
-                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.settings.cleanify_email')}}</label> </div>
+                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.settings.cleanify_email.label')}}</label> </div>
                     <!-- <el-input type="email" v-model="model.cleanify_email"></el-input> -->
                 </el-tab-pane>
                 <div :style="{'display':Iframe_drawer_val?'block':'none'}">
@@ -509,7 +509,7 @@
 <script>
     import Heading from 'components/Heading';
     import Cropper from 'components/Cropper';
-    import UploadAvatar from 'components/UploadAvatar';
+    import UploadDocument from 'components/UploadDocument';
     import {mapActions} from 'vuex';
     import {displayError, displaySuccess} from 'helpers/messages';
     import CategoriesListing from './Categories'
@@ -522,7 +522,7 @@
         components: {
             Heading,
             Cropper,
-            UploadAvatar,
+            UploadDocument,
             CategoriesListing,
             TemplatesListing
         },
@@ -764,20 +764,20 @@
                 this.model.logo_upload = image;
             },
             setAvatarLogoUpload(image) {
-                this.model.logo_upload = image;
-                this.logo_upload_img = "data:image/png;base64," + image;
+                this.model.logo_upload = image.src;
+                this.logo_upload_img = "data:image/png;base64," + image.src;
             },
             setCircleLogoUpload(image) {
-                this.model.circle_logo_upload = image;
-                this.circle_logo_upload_img = "data:image/png;base64," + image;
+                this.model.circle_logo_upload = image.src;
+                this.circle_logo_upload_img = "data:image/png;base64," + image.src;
             },
             setFaviconIconUpload(image) {
-                this.model.favicon_icon_upload = image;
-                this.favicon_icon_upload_img = "data:image/png;base64," + image;
+                this.model.favicon_icon_upload = image.src;
+                this.favicon_icon_upload_img = "data:image/png;base64," + image.src;
             },
             setTenantLogoUpload(image) {
-                this.model.tenant_logo_upload = image;
-                this.tenant_logo_upload_img = "data:image/png;base64," + image;
+                this.model.tenant_logo_upload = image.src;
+                this.tenant_logo_upload_img = "data:image/png;base64," + image.src;
             },
             toggleDrawer () {
                 this.visibleDrawer = !this.visibleDrawer
