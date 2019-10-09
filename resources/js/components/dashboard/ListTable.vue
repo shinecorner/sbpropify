@@ -158,14 +158,18 @@
                                                     id:scope.row['id'] }
                                                 }" 
                                             class="el-menu-item-link">
-                                    <el-button
-                                        :style="action.style"
-                                        :type="action.type"
-                                        size="mini"
-                                    >
-                                        <i :class="action.icon ? action.icon : 'ti-pencil'"></i>
-                                        <span>{{ $t(action.title) }}</span>
-                                    </el-button>
+                                    <el-tooltip
+                                        :content="$t(action.title)"
+                                        class="item" effect="light" placement="top-end">                                        
+                                        <el-button
+                                            :style="action.style"
+                                            :type="action.type"
+                                            size="mini"
+                                        >
+                                            <i :class="action.icon ? action.icon : 'ti-pencil'"></i>
+                                            <!-- <span>{{ $t(action.title) }}</span> -->
+                                        </el-button>
+                                    </el-tooltip>    
                                 </router-link>      
                             </template>
                         </template>
@@ -467,7 +471,12 @@
     .el-select-dropdown__item.selected {
         color: #606266 !important;
     }
-
+    .el-menu-item-link i{
+        margin: 0 0;
+    }
+    .el-table td:last-child, .el-table th:last-child{
+        text-align: center;
+    }
     .list-latest-table {
         .el-table .el-table__body-wrapper {
             box-shadow: none;
