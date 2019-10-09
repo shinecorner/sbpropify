@@ -7,7 +7,7 @@
             <el-col :md="12">
                 <card :loading="loading" :header="$t('general.actions.view')">                    
                     <el-form :model="model" ref="form">
-                        <el-row class="last-form-row" :gutter="20">
+                        <el-row :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('tenant.name')" :rules="validationRules.name"
                                               prop="name">
@@ -89,9 +89,16 @@
 </script>
 
 <style lang="scss" scoped>
+
     .quarters-edit {
         .crud-view {
             margin-top: 1%;
+
+            /deep/ .label-block .el-form-item__label {
+                display: block;
+                float: none;
+                text-align: left;
+            }
         }
     }
 </style>

@@ -41,6 +41,7 @@
                     minWidth: '300px'
                 }, {
                     type: 'tag',
+                    width: 120,
                     label: 'models.pinboard.status.label',
                     prop: 'status_label',
                     classSuffix: 'status'
@@ -62,15 +63,14 @@
                 }, {
                     type: 'actions',
                     label: 'dashboard.actions',
-                    width: '130px',
+                    width: 130,
                     actions: [ 
                         {
                             type: 'default',
                             title: 'general.actions.edit',
-                            onClick: this.edit,
                             editUrl: 'adminPinboardEdit',
                             permissions: [
-                                this.$permissions.update.listing
+                                this.$permissions.update.pinboard
                             ]
                         }
                     ]
@@ -85,14 +85,6 @@
 
         },
         methods: {
-            edit({id}) {
-                this.$router.push({
-                    name: 'adminPinboardEdit',
-                    params: {
-                        id
-                    }
-                });
-            },
             fetchData() {
               let that = this;
               const url = 'pinboard?per_page=5';

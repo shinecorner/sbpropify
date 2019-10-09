@@ -355,7 +355,6 @@
                         card_data: response.data.data.tenants_per_status
                     };
                     that.startDates = response.data.data.all_start_dates;
-                    console.log(that.startDates);
                 }).catch(function (error) {
                     console.log(error);
                 })

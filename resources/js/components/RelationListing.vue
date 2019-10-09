@@ -24,7 +24,7 @@
             >
                 <template slot-scope="scope">
                     <div v-if="column.type === 'requestTitleWithDesc'">
-                        <div class="request-title">{{$t(scope.row.title)}}</div>
+                        <div class="request-title">{{scope.row.title}}</div>
                         <div class="category">
                         <span v-if="scope.row.category.parentCategory">
                             {{scope.row.category.parentCategory.name}} >&nbsp;
