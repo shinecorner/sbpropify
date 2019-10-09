@@ -33,6 +33,12 @@ use Storage;
  *          type="integer",
  *          format="int32"
  *      ),
+ *      @SWG\Property(
+ *          property="rent_contract_id",
+ *          description="rent_contract_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
  *     @SWG\Property(
  *          property="reminder_user_id",
  *          description="reminder_user_id",
@@ -291,13 +297,13 @@ class Request extends AuditableModel implements HasMedia
         self::PayerTenantLandlord => 'tenant/landlord',
     ];
 
-    protected $dates = ['deleted_at'];
 
     const Fillable = [
         'reminder_user_id',
         'category_id',
         'subject_id',
         'tenant_id',
+        'rent_contract_id',
         'unit_id',
         'title',
         'description',
@@ -325,6 +331,11 @@ class Request extends AuditableModel implements HasMedia
     public $fillable = self::Fillable;
 
     /**
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
      * The attributes that should be casted to native types.
      *
      * @var array
@@ -333,6 +344,7 @@ class Request extends AuditableModel implements HasMedia
         'category_id' => 'integer',
         'reminder_user_id' => 'integer',
         'tenant_id' => 'integer',
+        'rent_contract_id' => 'integer',
         'title' => 'string',
         'description' => 'string',
         'status' => 'integer',
@@ -375,6 +387,8 @@ class Request extends AuditableModel implements HasMedia
      * @var array
      */
     public static $rulesPost = [
+        'tenant_id' => 'required|exists:tenants,id',
+        'rent_contract_id' => 'exists:tenant_rent_contracts,id',
         'title' => 'required|string',
         'description' => 'required|string',
         'priority' => 'required|integer',
@@ -382,7 +396,6 @@ class Request extends AuditableModel implements HasMedia
         'qualification' => 'required|integer',
         'due_date' => 'required|date',
         'category_id' => 'required|integer',
-        'tenant_id' => 'required|integer',
         'visibility' => 'required|integer',
     ];
 
@@ -392,6 +405,8 @@ class Request extends AuditableModel implements HasMedia
      * @var array
      */
     public static $rulesPostTenant = [
+        'tenant_id' => 'exists:tenants,id',
+        'rent_contract_id' => 'exists:tenant_rent_contracts,id',
         'title' => 'required|string',
         'description' => 'required|string',
         'category_id' => 'required|integer',
@@ -406,6 +421,8 @@ class Request extends AuditableModel implements HasMedia
      * @var array
      */
     public static $rulesPut = [
+        'tenant_id' => 'exists:tenants,id',
+        'rent_contract_id' => 'exists:tenant_rent_contracts,id',
         'title' => 'string',
         'description' => 'string',
         'priority' => 'integer',
@@ -424,6 +441,8 @@ class Request extends AuditableModel implements HasMedia
      * @var array
      */
     public static $rulesPutTenant = [
+        'tenant_id' => 'exists:tenants,id',
+        'rent_contract_id' => 'exists:tenant_rent_contracts,id',
         'title' => 'string',
         'description' => 'string',
         'status' => 'integer',
@@ -656,5 +675,13 @@ class Request extends AuditableModel implements HasMedia
     public function remainder_user()
     {
         return $this->belongsTo(User::class, 'reminder_user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function rent_contract()
+    {
+        return $this->belongsTo(RentContract::class);
     }
 }

@@ -7,6 +7,7 @@ use App\Mails\NotifyServiceProvider;
 use App\Models\Comment;
 use App\Models\Model;
 use App\Models\PropertyManager;
+use App\Models\RentContract;
 use App\Models\ServiceProvider;
 use App\Models\Request;
 use App\Models\RequestCategory;
@@ -73,17 +74,19 @@ class RequestRepository extends BaseRepository
      */
     public function create(array $attributes)
     {
-        $attr = self::getPostAttributes($attributes);
+        $attributes = self::getPostAttributes($attributes);
 
-        if (isset($attr['category_id'])) {
+        if (isset($attributes['category_id'])) {
             $requestCategories = RequestCategory::where('has_qualifications', 1)->pluck('id');
-            if (! $requestCategories->contains($attr['category_id'])) {
-                unset($attr['qualification']);
+            if (! $requestCategories->contains($attributes['category_id'])) {
+                unset($attributes['qualification']);
             }
         }
-        $model = parent::create($attr);
+
+        $attributes = $this->fixRentContractRelated($attributes);
+        $model = parent::create($attributes);
         if ($model)  {
-            $model = $this->saveMediaUploads($model, $attr);
+            $model = $this->saveMediaUploads($model, $attributes);
         }
         return $model;
     }
@@ -188,6 +191,7 @@ class RequestRepository extends BaseRepository
     {
         $attributes = $this->getPutAttributes($attributes, $model);
         $attributes = $this->getStatusRelatedAttributes($attributes, $model);
+        $attributes = $this->fixRentContractRelated($attributes);
         $oldModel = clone $model;
         $updatedModel =  parent::updateExisting($model, $attributes);
 
@@ -202,9 +206,24 @@ class RequestRepository extends BaseRepository
         return $updatedModel;
     }
 
+    /**
+     * @param $attributes
+     * @return mixed
+     */
+    protected function fixRentContractRelated($attributes)
+    {
+        if (!empty($attributes['rent_contract_id'])) {
+            // already validated and it must be exists
+            $rentContract = RentContract::find($attributes['rent_contract_id'], ['id', 'tenant_id']);
+            $attributes['tenant_id'] = $rentContract->id;
+        }
+
+        return $attributes;
+    }
+
     public static function getStatusRelatedAttributes($attributes, $request)
     {
-        if ($attributes['status'] != $request->status) {
+        if (isset($attributes['status']) && $attributes['status'] != $request->status) {
             if (Request::StatusDone == $attributes['status']) {
                 $now = now();
                 $attributes['solved_date'] = $now;

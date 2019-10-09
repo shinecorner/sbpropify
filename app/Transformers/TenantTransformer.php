@@ -41,6 +41,10 @@ class TenantTransformer extends BaseTransformer
             $response['settings'] = $model->settings;
         }
 
+        if ($model->relationExists('default_rent_contract')) {
+            $response['default_rent_contract'] = (new RentContractTransformer())->transform($model->default_rent_contract);
+        }
+
         if ($model->relationExists('user')) {
             $response['user'] = (new UserTransformer)->transform($model->user);
         }

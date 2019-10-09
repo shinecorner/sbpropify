@@ -9,7 +9,7 @@
     <div class="comments-list" v-else-if="comments.data.length">
         <template v-if="withScroller" >
             <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="60" @resize="scrollToBottom" v-if="!loading">
-                <template #before v-resize:debounce="$emit('update-dynamic-scroller')">
+                <template #before v-resize:debounce="onResize">
                     <el-divider v-if="comments.current_page !== comments.last_page">
                         <el-button icon="el-icon-top" size="mini" :loading="loading" round @click="fetch">
                             <template v-if="loading">{{$t('general.loading')}}</template>
@@ -24,7 +24,7 @@
                                 :show-children="showChildren" 
                                 :data="item" 
                                 :reversed="isCommentReversed(item)"
-                                v-resize:debounce="$emit('update-dynamic-scroller')" />
+                                v-resize:debounce="onResize" />
                     </dynamic-scroller-item>
                 </template>
             </dynamic-scroller>
@@ -167,6 +167,9 @@
             },
             isCommentReversed (comment) {
                 return this.reversed && comment.user_id !== this.$store.getters.loggedInUser.id
+            },
+            onResize() {
+                this.$emit('update-dynamic-scroller');
             }
         },
         computed: {

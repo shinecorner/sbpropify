@@ -190,4 +190,45 @@ class ServiceProvider extends AuditableModel
     {
         $this->attributes['category'] = array_flip(ServiceProvider::ServiceProviderCategory)[$value] ?? $value;
     }
+
+    /**
+     * @return array|string|null
+     */
+    public function getCategoryNameEnAttribute()
+    {
+        return $this->categoryTranslation('en');
+    }
+
+    /**
+     * @return array|string|null
+     */
+    public function getCategoryNameDeAttribute()
+    {
+        return $this->categoryTranslation('de');
+    }
+
+    /**
+     * @return array|string|null
+     */
+    public function getCategoryNameFrAttribute()
+    {
+        return $this->categoryTranslation('fr');
+    }
+
+    /**
+     * @return array|string|null
+     */
+    public function getCategoryNameItAttribute()
+    {
+        return $this->categoryTranslation('it');
+    }
+
+    protected function categoryTranslation($lang)
+    {
+        if (!empty(ServiceProvider::ServiceProviderCategory[$this->attributes['category']])) {
+            return __('models.service.category.' . ServiceProvider::ServiceProviderCategory[$this->attributes['category']], [], $lang);
+        }
+        
+        return '';
+    }
 }
