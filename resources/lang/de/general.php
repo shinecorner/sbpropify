@@ -58,7 +58,7 @@ return [
     ],
     'attached' => [
         'building' => 'Liegenschaft wurde zugewiesen.',
-        'quarter' => 'Überbauung wurde zugewiesen.',
+        'quarter' => 'Projekt wurde zugewiesen.',
         'provider' => 'Dienstleister wurde zugewiesen.',
         'tenant' => "Mieter wurde zugewiesen.",
         'service' => 'Dienstleister wurde zugewiesen.',
@@ -68,7 +68,7 @@ return [
     ],
     'detached' => [
         'building' => 'Liegenschaft wurde entfernt',
-        'quarter' => 'Überbauung wurde entfernt',
+        'quarter' => 'Projekt wurde entfernt',
         'provider' => 'Dienstleister wurde wurde entfernt',
         'tenant' => "Mieter wurde entfernt.",
         'service' => 'Dienstleister wurde entfernt.',
@@ -147,7 +147,7 @@ return [
     ],
     'assignmentTypes' => [
         'building' => 'Liegenschaft',
-        'quarter' => 'Überbauung',
+        'quarter' => 'Projekt',
         'services' => 'Dienstleister',
         'managers' => 'Bewirtschafter',
         'administrator' => 'Verwalterin'
